@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-highest": "#d8e3f4", "tertiary-fixed": "#dbe3f0", "surface-bright": "#f8f9ff", "inverse-on-surface": "#e9f1ff", "inverse-primary": "#7ed6ca", "on-background": "#111c28", "on-tertiary": "#ffffff", "on-secondary": "#ffffff", "on-surface": "#111c28", "on-tertiary-fixed": "#141c25", "error": "#ba1a1a", "tertiary": "#4d5660", "outline": "#6e7977", "secondary-fixed-dim": "#c7bfff", "outline-variant": "#bdc9c6", "primary-fixed": "#9af2e6", "primary-container": "#137a70", "tertiary-container": "#666e79", "on-tertiary-fixed-variant": "#3f4752", "on-secondary-fixed-variant": "#422bb5", "on-secondary-container": "#fffbff", "on-tertiary-container": "#e9f1fe", "inverse-surface": "#26313e", "on-surface-variant": "#3e4947", "on-secondary-fixed": "#170065", "surface": "#f8f9ff", "secondary-container": "#7160e6", "surface-container-high": "#dee9fa", "error-container": "#ffdad6", "primary-fixed-dim": "#7ed6ca", "on-primary-container": "#aefff3", "surface-tint": "#006a61", "tertiary-fixed-dim": "#bfc7d3", "on-primary": "#ffffff", "secondary": "#5845cb", "background": "#f8f9ff", "surface-variant": "#d8e3f4", "on-primary-fixed-variant": "#005049", "surface-container-low": "#eef4ff", "surface-container-lowest": "#ffffff", "on-error-container": "#93000a", "on-error": "#ffffff", "primary": "#006057", "surface-container": "#e4efff", "secondary-fixed": "#e4dfff", "surface-dim": "#d0dbeb", "on-primary-fixed": "#00201d" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2rem", "space-md": "1rem", "margin": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "gutter": "1rem", "margin-desktop": "2rem", "gutter-desktop": "1.5rem", "space-sm": "0.5rem" }, "fontFamily": { "display": ["Inter"], "body-md": ["Inter"], "title": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"], "code-sm": ["JetBrains Mono"], "headline-sm": ["Inter"], "headline-lg": ["Inter"], "label-sm": ["Inter"], "label-md": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-md": ["Inter"] }, "fontSize": { "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "600" }], "body-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }], "title": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "body-lg": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "code-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.025em", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600" }] } } } }</script></head><body class="bg-background font-body-md text-on-surface min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-inverse-surface text-inverse-on-surface z-50 flex flex-col shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-space-md flex items-center justify-between bg-inverse-surface"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container font-headline-sm text-headline-sm"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span></div><div><div class="font-title text-title tracking-tight text-surface-bright">CivicFix AI</div><div class="font-label-sm text-label-sm text-tertiary-fixed-dim uppercase tracking-wider">Field Ops Suite</div></div></div><span class="material-symbols-outlined text-outline-variant text-[18px]">verified</span></div><div class="px-space-md py-space-sm"><div class="bg-surface-variant/10 rounded-lg p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary-fixed"></span><span class="font-label-sm text-label-sm text-inverse-on-surface">Rapid Response Unit</span></div><span class="font-code-sm text-code-sm text-tertiary-fixed-dim">#FW-882</span></div></div><nav class="flex-1 px-space-sm py-space-xs space-y-1 overflow-y-auto" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm"><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-colors bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm" data-path="my-dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>My Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-tertiary-fixed font-title text-title hover:bg-surface-container-high/10 hover:text-surface-bright transition-colors" data-path="assigned-tasks" href="#"><span class="material-symbols-outlined text-[20px]">assignment</span><span>Assigned Tasks</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-tertiary-fixed font-title text-title hover:bg-surface-container-high/10 hover:text-surface-bright transition-colors" data-path="in-progress" href="#"><span class="material-symbols-outlined text-[20px]">pending_actions</span><span>In Progress</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-tertiary-fixed font-title text-title hover:bg-surface-container-high/10 hover:text-surface-bright transition-colors" data-path="submitted-for-review" href="#"><span class="material-symbols-outlined text-[20px]">fact_check</span><span>Submitted for Review</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-tertiary-fixed font-title text-title hover:bg-surface-container-high/10 hover:text-surface-bright transition-colors" data-path="completed-tasks" href="#"><span class="material-symbols-outlined text-[20px]">task_alt</span><span>Completed Tasks</span></a><div class="pt-space-sm pb-space-xs"><div class="h-px bg-surface-variant/20 mx-space-sm"></div></div><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-tertiary-fixed font-title text-title hover:bg-surface-container-high/10 hover:text-surface-bright transition-colors" data-path="notifications" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">notifications</span><span>Notifications</span></div><span class="px-space-xs py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm">2</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-tertiary-fixed font-title text-title hover:bg-surface-container-high/10 hover:text-surface-bright transition-colors" data-path="my-profile" href="#"><span class="material-symbols-outlined text-[20px]">badge</span><span>My Profile</span></a></nav><div class="p-space-md bg-inverse-surface/80 flex flex-col gap-space-sm"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-title text-title font-bold shrink-0">MC</div><div class="flex-1 min-w-0"><div class="font-title text-title text-surface-bright truncate">Marcus Chen</div><div class="font-label-sm text-label-sm text-tertiary-fixed-dim truncate">Lead Tech · SDOT Unit</div></div></div><a class="flex items-center justify-center gap-space-xs w-full py-space-xs px-space-sm rounded-lg bg-surface-container-high/10 hover:bg-error/20 text-tertiary-fixed hover:text-error transition-colors font-label-md text-label-md" data-path="login" href="#"><span class="material-symbols-outlined text-[16px]">logout</span><span>Sign Out</span></a></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-lg"><div class="flex flex-col"><div class="font-headline-sm text-headline-sm text-on-surface">Field Operations</div><div class="font-label-sm text-label-sm text-tertiary">Thursday, 12 Oct 2026</div></div><div class="hidden md:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-low text-primary-container"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-sm text-label-sm font-semibold">Online · GPS Synced</span></div></div><div class="flex items-center gap-space-md"><div class="relative hidden sm:block w-72"><span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-tertiary text-[18px]">search</span><input class="w-full h-9 pl-9 pr-space-md bg-surface-container-lowest rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container" placeholder="Search task ID, street, priority..." type="text"/></div><button class="relative p-space-xs rounded-lg text-tertiary hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-16 bg-background min-h-screen px-space-lg"><div class="flex flex-col w-full pb-space-xl space-y-space-md">
+<!-- Operational Header & State Simulator Bar -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-secondary text-on-secondary">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</span>
+<span class="font-title text-title text-on-surface">Interactive Simulation State Engine</span>
+<span class="font-code-sm text-code-sm bg-surface-container text-tertiary px-space-xs py-0.5 rounded">ENV: FIELD_STAGING</span>
+</div>
+<!-- State Simulator Buttons -->
+<div class="flex flex-wrap items-center gap-space-xs" id="sim-controls">
+<button class="sim-btn px-space-sm py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold transition-all shadow-sm" id="btn-state-active" onclick="setSimState('active')" type="button">
+          1. Active Task Detail (In Progress)
+        </button>
+<button class="sim-btn px-space-sm py-1.5 rounded-lg bg-surface-container text-tertiary hover:bg-surface-container-high transition-all font-label-md text-label-md" id="btn-state-modal" onclick="setSimState('modal')" type="button">
+          2. Evidence Submission Modal
+        </button>
+<button class="sim-btn px-space-sm py-1.5 rounded-lg bg-surface-container text-tertiary hover:bg-surface-container-high transition-all font-label-md text-label-md" id="btn-state-blocker" onclick="setSimState('blocker')" type="button">
+          3. Report Blocker State
+        </button>
+<button class="sim-btn px-space-sm py-1.5 rounded-lg bg-surface-container text-tertiary hover:bg-surface-container-high transition-all font-label-md text-label-md" id="btn-state-confirm" onclick="setSimState('confirm')" type="button">
+          4. Start Work Confirmation
+        </button>
+<button class="sim-btn px-space-sm py-1.5 rounded-lg bg-surface-container text-tertiary hover:bg-surface-container-high transition-all font-label-md text-label-md" id="btn-state-empty" onclick="setSimState('empty')" type="button">
+          5. Empty / Offline Sync Mode
+        </button>
+</div>
+</div>
+<!-- Active Field Crew Informational Banner -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded-lg text-on-surface">
+<div class="flex flex-wrap items-center gap-space-md text-body-sm font-body-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-title text-title text-primary-container font-semibold">Demo Operational Session</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-[16px]">badge</span>
+<span class="text-tertiary">Crew Lead:</span>
+<span class="font-title text-title text-on-surface font-medium">Marcus Chen</span>
+<span class="font-code-sm text-code-sm bg-surface-container-highest px-1.5 rounded text-on-surface">#FW-882</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-[16px]">groups</span>
+<span class="text-tertiary">Unit:</span>
+<span class="font-title text-title text-on-surface">SDOT Rapid Asphalt Unit 4</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-[16px]">local_shipping</span>
+<span class="text-tertiary">Assigned Rig:</span>
+<span class="font-code-sm text-code-sm font-semibold text-primary-container">Van #14 (Roller T-12 hitched)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs text-body-sm font-body-sm">
+<span class="material-symbols-outlined text-primary text-[16px]">sensors</span>
+<span class="font-code-sm text-code-sm text-primary">GPS RTK FIX (±1.4m precision)</span>
+</div>
+</div>
+</div>
+<!-- KPI Metrics Grid (Top 4 Task Summary Cards) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Assigned to Me</span>
+<div class="font-display text-display text-on-surface mt-1">4</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">assignment</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs border-t border-surface-variant/40">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-body-sm text-body-sm text-tertiary">2 scheduled for today</span>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container text-tertiary px-space-xs py-0.5 rounded">High Load</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">In Progress</span>
+<div class="font-display text-display text-on-surface mt-1">2</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-700">
+<span class="material-symbols-outlined text-[24px]">construction</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs border-t border-surface-variant/40">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping"></span>
+<span class="font-body-sm text-body-sm text-on-surface">Active on-site repair</span>
+</div>
+<span class="font-label-sm text-label-sm bg-amber-100 text-amber-800 px-space-xs py-0.5 rounded font-semibold">1 Critical</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Awaiting Review</span>
+<div class="font-display text-display text-secondary mt-1">3</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[24px]">fact_check</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs border-t border-surface-variant/40">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified_user</span>
+<span class="font-body-sm text-body-sm text-tertiary">Submitted for officer sign-off</span>
+</div>
+<span class="font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed px-space-xs py-0.5 rounded">Pending</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Completed This Week</span>
+<div class="font-display text-display text-primary mt-1">14</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700">
+<span class="material-symbols-outlined text-[24px]">task_alt</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs border-t border-surface-variant/40">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px] text-emerald-600">done_all</span>
+<span class="font-body-sm text-body-sm text-emerald-800 font-medium">100% verified SLA resolution</span>
+</div>
+<span class="font-code-sm text-code-sm text-tertiary">+18% vs avg</span>
+</div>
+</div>
+</div>
+<div class="flex justify-end pr-space-xs">
+<span class="font-label-sm text-label-sm text-outline">Real-time civic telemetry sync • Demo mode active</span>
+</div>
+<!-- Two-Column Workspace Layout (60% Task Queue / 40% Detail & Field Action Panel) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- LEFT COLUMN: Task Queue & Filter Engine (7 cols out of 12 = ~58-60%) -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Filter & Search Toolbar -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex flex-col sm:flex-row gap-space-sm items-center justify-between">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full h-9 pl-9 pr-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest transition-all" placeholder="Search task ID, title, ward, or street..." type="text"/>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto shrink-0">
+<select class="h-9 px-space-sm bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg focus:outline-none">
+<option>All Priorities</option>
+<option>Urgent / P1</option>
+<option>High Priority</option>
+<option>Medium</option>
+<option>Low</option>
+</select>
+<select class="h-9 px-space-sm bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg focus:outline-none">
+<option>Sort: Due Earliest</option>
+<option>Sort: Highest Priority</option>
+<option>Sort: Nearest Distance</option>
+</select>
+</div>
+</div>
+<!-- Filter Pills Bar -->
+<div class="flex flex-wrap items-center gap-space-xs pt-space-xs">
+<button class="px-space-sm py-1 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold">
+            All (9)
+          </button>
+<button class="px-space-sm py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md">
+            Assigned (4)
+          </button>
+<button class="px-space-sm py-1 rounded-full bg-amber-100 text-amber-900 font-label-md text-label-md flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span> In Progress (2)
+          </button>
+<button class="px-space-sm py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md">
+            Awaiting Review (3)
+          </button>
+<button class="px-space-sm py-1 rounded-full bg-error-container text-on-error-container font-label-md text-label-md">
+            Blocked (1)
+          </button>
+</div>
+</div>
+<!-- Task List Container -->
+<div class="flex flex-col gap-space-sm" id="task-list-container">
+<!-- Task Card 1: ACTIVE / SELECTED (Urgent P1) -->
+<div class="task-card cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all relative overflow-hidden bg-gradient-to-r from-primary-container/10 via-transparent to-transparent" onclick="selectTask('TK-2026-0881')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-code-sm text-code-sm font-semibold text-primary-container">#TK-2026-0881</span>
+<span class="text-outline text-body-sm">•</span>
+<span class="font-code-sm text-code-sm text-tertiary">Complaint #CF-2026-00124</span>
+<span class="px-space-xs py-0.5 rounded-full bg-error text-on-error font-label-sm text-label-sm font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">warning</span> Urgent / P1
+              </span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-amber-100 text-amber-900 font-label-sm text-label-sm font-semibold flex items-center gap-1 shrink-0">
+<span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span> In Progress
+            </span>
+</div>
+<div class="mt-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold hover:text-primary-container transition-colors">
+              Large pothole repair &amp; asphalt compaction
+            </h3>
+<p class="font-body-sm text-body-sm text-tertiary flex items-center gap-space-xs mt-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary shrink-0">location_on</span>
+<span class="truncate">2nd Ave, Opp. Bus Shelter 14-B, Anna Nagar (Ward 8)</span>
+</p>
+</div>
+<!-- Metadata Grid Strip -->
+<div class="mt-space-sm pt-space-xs border-t border-surface-variant/40 flex flex-wrap items-center justify-between text-body-sm font-body-sm text-tertiary gap-space-xs">
+<div class="flex items-center gap-space-md">
+<span class="inline-flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary-container">construction</span>
+                Roads &amp; Potholes
+              </span>
+<span class="inline-flex items-center gap-1 text-error font-medium">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                Today, 4:30 PM (2h remaining)
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary text-[10px] flex items-center justify-center font-bold">EV</span>
+<span class="font-label-sm text-label-sm text-tertiary">Elena Vance</span>
+</div>
+</div>
+</div>
+<!-- Task Card 2: ASSIGNED (High P2) -->
+<div class="task-card cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all" onclick="selectTask('TK-2026-0879')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-code-sm text-code-sm font-semibold text-on-surface">#TK-2026-0879</span>
+<span class="text-outline text-body-sm">•</span>
+<span class="font-code-sm text-code-sm text-tertiary">Complaint #CF-2026-00119</span>
+<span class="px-space-xs py-0.5 rounded-full bg-amber-100 text-amber-900 font-label-sm text-label-sm font-medium">
+                High Priority
+              </span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-medium">
+              Assigned
+            </span>
+</div>
+<div class="mt-space-xs">
+<h3 class="font-title text-title text-on-surface font-semibold">
+              Damaged sodium luminaire &amp; exposed wiring
+            </h3>
+<p class="font-body-sm text-body-sm text-tertiary flex items-center gap-space-xs mt-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary shrink-0">location_on</span>
+<span class="truncate">4th Main Rd, Near Children's Park, Velachery</span>
+</p>
+</div>
+<div class="mt-space-sm pt-space-xs border-t border-surface-variant/40 flex flex-wrap items-center justify-between text-body-sm font-body-sm text-tertiary gap-space-xs">
+<div class="flex items-center gap-space-md">
+<span class="inline-flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-amber-600">lightbulb</span>
+                Streetlights
+              </span>
+<span class="inline-flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]">event</span>
+                Tomorrow, 12:00 PM
+              </span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Dist: 3.4 km</span>
+</div>
+</div>
+<!-- Task Card 3: SUBMITTED FOR REVIEW -->
+<div class="task-card cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all" onclick="selectTask('TK-2026-0872')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-code-sm text-code-sm font-semibold text-on-surface">#TK-2026-0872</span>
+<span class="text-outline text-body-sm">•</span>
+<span class="font-code-sm text-code-sm text-tertiary">Complaint #CF-2026-00103</span>
+<span class="px-space-xs py-0.5 rounded-full bg-surface-container text-tertiary font-label-sm text-label-sm">
+                Medium
+              </span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span> In Verification
+            </span>
+</div>
+<div class="mt-space-xs">
+<h3 class="font-title text-title text-on-surface font-semibold">
+              Stormwater catch-basin debris clearance
+            </h3>
+<p class="font-body-sm text-body-sm text-tertiary flex items-center gap-space-xs mt-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary shrink-0">location_on</span>
+<span class="truncate">Market Rd &amp; Canal Cross, Adyar</span>
+</p>
+</div>
+<div class="mt-space-sm pt-space-xs border-t border-surface-variant/40 flex flex-wrap items-center justify-between text-body-sm font-body-sm text-tertiary gap-space-xs">
+<div class="flex items-center gap-space-md">
+<span class="inline-flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">water_drop</span>
+                Drainage &amp; Flood
+              </span>
+<span class="text-secondary font-medium">Officer review pending</span>
+</div>
+<span class="font-code-sm text-code-sm text-tertiary">Submitted 11:20 AM</span>
+</div>
+</div>
+<!-- Task Card 4: BLOCKED -->
+<div class="task-card cursor-pointer bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-all" onclick="selectTask('TK-2026-0865')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-code-sm text-code-sm font-semibold text-on-surface">#TK-2026-0865</span>
+<span class="px-space-xs py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">block</span> Work Halted
+              </span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-error text-on-error font-label-sm text-label-sm font-semibold">
+              Blocked
+            </span>
+</div>
+<div class="mt-space-xs">
+<h3 class="font-title text-title text-on-surface font-semibold">
+              Sidewalk slab dislocation &amp; tree root heave
+            </h3>
+<p class="font-body-sm text-body-sm text-tertiary flex items-center gap-space-xs mt-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary shrink-0">location_on</span>
+<span class="truncate">Central Avenue, Sector 3</span>
+</p>
+</div>
+<div class="mt-space-xs bg-error-container/30 text-on-error-container p-space-xs rounded-lg text-body-sm font-body-sm flex items-start gap-1.5">
+<span class="material-symbols-outlined text-error text-[16px] mt-0.5 shrink-0">report_problem</span>
+<span><strong>Blocker Reason:</strong> Underground municipal water main pipe breach leaking pressurized water. Crew evacuated site awaiting Chennai MetroWater team.</span>
+</div>
+</div>
+</div>
+<!-- Pagination / Loading summary -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-lowest rounded-xl shadow-sm text-body-sm font-body-sm text-tertiary">
+<span>Showing <strong>4</strong> of <strong>9</strong> active work units</span>
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md font-semibold flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">expand_more</span> Load More Tasks
+        </button>
+</div>
+</div>
+<!-- RIGHT COLUMN: Active Task Detail, Work Order & Evidence Hub (5 cols out of 12) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md" id="right-work-hub">
+<!-- Detail Card 1: Header, Breadcrumbs & Interactive Status Timeline -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-tertiary">
+<div class="flex items-center gap-1">
+<span>Tasks</span>
+<span>/</span>
+<span>Anna Nagar</span>
+<span>/</span>
+<span class="font-code-sm text-code-sm text-primary-container font-semibold">#TK-2026-0881</span>
+</div>
+<span class="px-space-xs py-0.5 rounded-full bg-amber-100 text-amber-800 font-label-sm text-label-sm font-semibold">Live Job</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            Large pothole near bus stop — Asphalt Compaction
+          </h2>
+<div class="flex items-center gap-space-xs mt-1">
+<span class="px-space-xs py-0.5 bg-surface-container text-on-surface rounded font-label-sm text-label-sm">Class: Structural Pavement</span>
+<span class="px-space-xs py-0.5 bg-error text-on-error rounded font-label-sm text-label-sm">High Hazard Risk</span>
+</div>
+</div>
+<!-- Status Lifecycle Stepper -->
+<div class="mt-space-sm pt-space-sm border-t border-surface-variant/40">
+<div class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider mb-space-xs">Municipal Lifecycle Pipeline</div>
+<div class="grid grid-cols-5 gap-1 text-center font-label-sm text-label-sm">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[14px]">done</span>
+</div>
+<span class="text-on-surface font-medium">Assigned</span>
+<span class="font-code-sm text-[10px] text-tertiary">11:05 AM</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-6 h-6 rounded-full bg-amber-500 text-on-secondary flex items-center justify-center font-bold ring-2 ring-amber-200">
+<span class="material-symbols-outlined text-[14px]">play_arrow</span>
+</div>
+<span class="text-amber-800 font-bold">In Progress</span>
+<span class="font-code-sm text-[10px] text-amber-700">01:15 PM</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[14px]">camera_alt</span>
+</div>
+<span class="text-secondary font-medium">Evidence</span>
+<span class="font-code-sm text-[10px] text-secondary">Drafting</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-1 opacity-50">
+<div class="w-6 h-6 rounded-full bg-surface-container text-tertiary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+</div>
+<span class="text-tertiary">Review</span>
+<span class="font-code-sm text-[10px] text-tertiary">Officer</span>
+</div>
+<!-- Step 5 -->
+<div class="flex flex-col items-center gap-1 opacity-50">
+<div class="w-6 h-6 rounded-full bg-surface-container text-tertiary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[14px]">flag</span>
+</div>
+<span class="text-tertiary">Resolved</span>
+<span class="font-code-sm text-[10px] text-tertiary">Closed</span>
+</div>
+</div>
+</div>
+<!-- Municipal Notes Callout -->
+<div class="mt-space-xs bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary-container font-bold">SPECIAL WORK ORDER INSTRUCTIONS</span>
+<span class="font-code-sm text-code-sm text-tertiary">Officer Elena Vance</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+            "Deploy high-visibility safety pylons on cycling corridor. Cold-mix asphalt patch with minimum 2 vibratory roller passes. Mandatory before/after geo-tagged photographic proof required prior to demobilization."
+          </p>
+</div>
+</div>
+<!-- Detail Card 2: Interactive Field Action Control Bar -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Field Operative Commands</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-xs">
+<!-- Button 1: Add Note -->
+<button class="h-10 px-space-md rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-title text-title flex items-center justify-center gap-space-xs transition-colors" onclick="toggleNoteDrawer()" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span>Add Field Note</span>
+</button>
+<!-- Button 2: Report Blocker -->
+<button class="h-10 px-space-md rounded-lg bg-error-container hover:bg-red-200 text-on-error-container font-title text-title flex items-center justify-center gap-space-xs transition-colors" onclick="openBlockerModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">report_problem</span>
+<span>Report Blocker</span>
+</button>
+</div>
+<!-- Quick Note Input Drawer (collapsible) -->
+<div class="hidden flex-col gap-space-xs pt-space-xs" id="quick-note-box">
+<textarea class="w-full p-space-sm bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none" id="note-input" placeholder="Enter time-stamped crew log note..." rows="2"></textarea>
+<div class="flex justify-end gap-space-xs">
+<button class="px-space-sm py-1 rounded bg-surface-container text-on-surface font-label-md text-label-md" onclick="toggleNoteDrawer()" type="button">Cancel</button>
+<button class="px-space-md py-1 rounded bg-primary-container text-on-primary-container font-label-md text-label-md font-bold" onclick="saveNote()" type="button">Log Entry</button>
+</div>
+</div>
+<!-- PRIMARY CTA: Submit Resolution Evidence -->
+<button class="h-11 w-full rounded-lg bg-primary-container hover:bg-primary text-on-primary font-headline-sm text-headline-sm flex items-center justify-center gap-space-sm shadow-md transition-all active:scale-[0.99]" onclick="openEvidenceModal()" type="button">
+<span class="material-symbols-outlined text-[22px]">add_a_photo</span>
+<span>Submit Resolution Evidence</span>
+</button>
+</div>
+<!-- Detail Card 3: Location & Embedded GIS Navigation -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">pin_drop</span>
+<span class="font-title text-title text-on-surface font-semibold">Geospatial Coordinates &amp; Route</span>
+</div>
+<span class="font-label-sm text-label-sm bg-primary-fixed text-on-primary-fixed-variant px-space-xs py-0.5 rounded font-semibold">Geo-fence Matched</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+<strong>2nd Avenue, Opp. Bus Shelter 14-B</strong>, Ward 8, Anna Nagar West, Chennai 600040
+        </p>
+<!-- Mini GIS Map Viewport (Trigger via data-location) -->
+<div class="w-full h-44 bg-cover bg-center rounded-lg relative overflow-hidden shadow-inner" data-location="2nd Avenue Anna Nagar Chennai" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAnypLMU2eo4nlnyCwgGanon76VrBdJj688_UPTCpS3E_nhqCfENEnCzipMOcVM5b6Xr6vfNpZYgklDh-c4JKSVipWU11VpBZQj-d1S4BJ5-KDWWoPD71TE2MvT6EzGQfsbdqpctbsmnMymDMTRQyB54gVAIszYC1XIENBRZlu1V7P4SDQoF7vZGJdYAHfEF16w4RRTgzmo9q9t5iZojMboiVfpKEDbOBXqPTFwu_n1JpQ1GI9SSrKy')">
+<!-- Floating GIS HUD Overlay -->
+<div class="absolute top-2 left-2 bg-surface-container-lowest/90 backdrop-blur-md rounded-lg p-2 text-body-sm font-body-sm shadow-md flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-ping"></span>
+<div>
+<div class="font-code-sm text-[11px] font-bold text-on-surface">13.0850° N, 80.2101° E</div>
+<div class="font-label-sm text-[10px] text-tertiary">Dispersion radius ±1.8m</div>
+</div>
+</div>
+<div class="absolute bottom-2 right-2 bg-inverse-surface/85 backdrop-blur-md text-inverse-on-surface px-space-sm py-1 rounded text-body-sm font-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">local_shipping</span>
+<span>Rig #14 On-Site (Stationary 34m)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<button class="w-full h-9 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-title text-title flex items-center justify-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">turn_sharp_right</span>
+<span>Open in Turn-by-Turn Navigation Map</span>
+</button>
+</div>
+</div>
+<!-- Detail Card 4: Photographic Evidence & Work Order Inspection -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- CITIZEN ORIGINAL REPORT EVIDENCE -->
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Original Citizen Submission</span>
+<span class="font-code-sm text-code-sm text-outline">EXIF: 10 Oct, 09:14 AM</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs">
+<div class="relative group rounded-lg overflow-hidden bg-surface-container-high h-28">
+<img class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Close up photographic proof of a hazardous asphalt roadway pothole roughly forty-five centimeters deep with sharp fractured edges on wet pavement near a concrete bus shelter curb, overcast daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX6v07rwKtnO7mUKuclhWlJOIfOYUeJWhhtFVUMDYforXbwqvmBED3aTDkS-K_1OcTTKqAUFJ5ItuXbXO1eFbHOb_xVuO_SzxBw5KQ8x_-lDlvM1gSQFhnZKf7a2ZWv2XrmlCW22Sd3Dez_w_So42qLg0bUiQHA7NQPYE2lNzZUjItJCl7NHTg-Lnk2QV3LF5usY1emnsakDKz-hXjt64hE83klLlBsmZ2iZxfVkcImqwptGm_aUJE"/>
+<div class="absolute bottom-1 left-1 bg-inverse-surface/80 text-inverse-on-surface px-1.5 py-0.5 rounded font-label-sm text-[10px]">
+                Hazard Angle 1
+              </div>
+</div>
+<div class="relative group rounded-lg overflow-hidden bg-surface-container-high h-28">
+<img class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Street view perspective of deep road fissure showing a municipal yellow measuring rod inside the asphalt pothole crater, showing road traffic in blurred background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUeQz-BZYZILN_7NIYDyrPcRRXfY2d7akBI3hKFjPKwROsoKMeyIaE2Rj4p63KPqkzVSOR8Lf1n9Ll_Shjxr-TOZhu8NuWwCGkMhNgP-HQQD68ceFPRbp9-uHILxzbtMuabC3pF-PojPQa3Nxlk9zVX3uERj5JcIWwN63xkNntvUVwXO20Xwg7rpeZSXHBGyb9DKh5cxhcDtYuymeVGxfs14Rpbj1U9yerJjsutMrCWrY1sBAipuqb"/>
+<div class="absolute bottom-1 left-1 bg-inverse-surface/80 text-inverse-on-surface px-1.5 py-0.5 rounded font-label-sm text-[10px]">
+                Depth Gauge (45cm)
+              </div>
+</div>
+</div>
+</div>
+<!-- WORKER REPAIR EVIDENCE DRAFT (Pre-submission preview) -->
+<div class="pt-space-sm border-t border-surface-variant/40">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm text-primary-container font-semibold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified</span> Required After-Work Photographs (2/2 Ready)
+            </span>
+<span class="font-label-sm text-label-sm text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-semibold">GPS Verified</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs">
+<div class="relative group rounded-lg overflow-hidden bg-surface-container h-28">
+<img class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Photographic evidence of fresh black compacted cold-mix asphalt patch flush with surrounding road surface, bright orange safety cones flanking the newly repaired street section." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOMKVdWMjy0rLw2pfqEnHdR6agiHDWJOoveqrqe4DuuxtUHXT4TOjx-xXgaC0JY1IF_iyyDpyK1nrrFfb-zIdBWt_IHUXlNpp-u8ZEYikYQ36tq2QwblCgC1TudUAgUuC9EIN_19gzPzakQ4r7koPlx3eQ8KXaHv0FJ_LPhLRdEKFpoa7v01QMDxSTwS4fcLM5MvSq_A1_EBx49RE8T-GRTd6qg2HmWWmwSUlFIyQdDI_dADWjYRBC"/>
+<div class="absolute bottom-1 left-1 bg-primary-container text-on-primary-container px-1.5 py-0.5 rounded font-label-sm text-[10px] flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">done</span> Post-Patch #1
+              </div>
+</div>
+<div class="relative group rounded-lg overflow-hidden bg-surface-container h-28">
+<img class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Finished high quality road compaction work showing smooth tarred surface texture and heavy steel roller tire tracks with municipal geotag timestamp imprint in corner." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaVNsxldQVvKcp2Wws-WtWHYWIfA6oCenZSz84-npqqvq2lHwS0W9Ghk6lwYeYGYvQDWrmpStlMsozzX7JHIGRGbosu-ZlD2OoC-WA7BbsD86zVtntX7_Yepq6OJPzpAjJSd2jNl32jxWc29hOKoSiOFNLIekAxR31H_iiShanfH5wgVMLSsYI5CGcocfEKJP8d6MNQZxY6WmU5jiQB622JCItLgREmsYQpkf6CFqZMwQ2-JFK1Llu"/>
+<div class="absolute bottom-1 left-1 bg-primary-container text-on-primary-container px-1.5 py-0.5 rounded font-label-sm text-[10px] flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">done</span> Roller Finish #2
+              </div>
+</div>
+</div>
+<!-- Material Consumable Log -->
+<div class="mt-space-sm bg-surface-container-low p-space-xs rounded-lg flex flex-col gap-1 text-body-sm font-body-sm">
+<span class="font-label-sm text-label-sm text-tertiary">MATERIAL CONSUMPTION LOGGED:</span>
+<div class="flex flex-wrap gap-space-xs text-on-surface">
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-code-sm text-code-sm">Cold-Mix Type 3B (220 kg)</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-code-sm text-code-sm">Tack coat emulsion (12 L)</span>
+</div>
+</div>
+<!-- Attestation check -->
+<div class="mt-space-sm flex items-start gap-space-xs">
+<input checked="" class="mt-1 w-4 h-4 rounded text-primary-container focus:ring-0 cursor-pointer" id="cert-check" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface cursor-pointer select-none" for="cert-check">
+              I certify that the patch is flush with existing road gradient and all traffic barrier pylons have been safely retrieved.
+            </label>
+</div>
+<!-- Audit Notice -->
+<div class="mt-space-xs p-space-xs bg-surface-container-high/40 rounded text-tertiary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
+<span>Submitting updates lifecycle to RESOLUTION_SUBMITTED for Municipal Engineer sign-off.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Quick Notification & Live Municipal Dispatch Feed -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">notifications_active</span>
+<span class="font-title text-title text-on-surface font-semibold">Live Operational Dispatch &amp; Team Activity</span>
+</div>
+<button class="font-label-md text-label-md text-primary-container hover:underline">Mark all read</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">approval_delegation</span>
+</div>
+<div>
+<div class="font-title text-title text-on-surface font-medium">Requisition Requisition #REQ-4401 Approved</div>
+<p class="font-body-sm text-body-sm text-tertiary">Officer Elena Vance signed off 350kg Cold-Mix batch supply for Ward 8 depot pickup.</p>
+<span class="font-code-sm text-[11px] text-tertiary">35m ago • Central Dispatch</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">crisis_alert</span>
+</div>
+<div>
+<div class="font-title text-title text-on-surface font-medium">New P1 Emergency Added to Ward Queue</div>
+<p class="font-body-sm text-body-sm text-tertiary">Sinkhole cavity reported on 100 Feet Bypass Rd. Automated dispatch suggests Unit 4 re-route post current task.</p>
+<span class="font-code-sm text-[11px] text-error font-semibold">1h ago • AI Incident Triage</span>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL 1: Evidence Submission Interactive Sheet (Triggered by state 2 or CTA) -->
+<div class="hidden fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm flex items-center justify-center p-space-md" id="modal-evidence">
+<div class="bg-surface-container-lowest rounded-2xl max-w-xl w-full p-space-lg shadow-2xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-variant/40">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[24px]">verified</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Submit Field Resolution Evidence</h3>
+<span class="font-code-sm text-code-sm text-tertiary">Task #TK-2026-0881 · Asphalt Compaction</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-tertiary hover:text-on-surface" onclick="closeAllModals()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="p-space-sm bg-primary-container/10 rounded-lg text-body-sm font-body-sm text-on-surface flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container">satellite_alt</span>
+<span>Geotag &amp; EXIF validation active. Your location matches the incident zone (Offset: 0.8m).</span>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-tertiary uppercase">Resolution Notes &amp; Technical Measurements</label>
+<textarea class="w-full p-space-sm bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="Detail depth pre-fill, compaction equipment used, and surface seal temperature..." rows="3">Excavated loose debris to 45cm sound base. Applied cationic slow-setting emulsion tack coat. Filled with 220kg Type 3B dense bituminous cold-mix. Finished with dual-pass 1.5-ton vibratory roller flush to grade.</textarea>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-tertiary uppercase">Attached Geo-Stamped Media (2 Files)</label>
+<div class="flex items-center gap-space-sm">
+<div class="px-space-sm py-1.5 bg-surface-container rounded-lg text-body-sm font-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">image</span>
+<span class="font-code-sm text-code-sm">IMG_PROOF_01.HEIC</span>
+<span class="text-tertiary text-xs">(2.4 MB)</span>
+</div>
+<div class="px-space-sm py-1.5 bg-surface-container rounded-lg text-body-sm font-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">image</span>
+<span class="font-code-sm text-code-sm">IMG_PROOF_02.HEIC</span>
+<span class="text-tertiary text-xs">(3.1 MB)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-sm border-t border-surface-variant/40">
+<button class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-title text-title" onclick="closeAllModals()" type="button">
+          Cancel
+        </button>
+<button class="px-space-lg py-2 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-title text-title font-bold flex items-center gap-1 shadow-md" onclick="executeSubmitEvidence()" type="button">
+<span class="material-symbols-outlined text-[18px]">send</span>
+          Transmit for Officer Review
+        </button>
+</div>
+</div>
+</div>
+<!-- MODAL 2: Report Blocker Dialog -->
+<div class="hidden fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm flex items-center justify-center p-space-md" id="modal-blocker">
+<div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full p-space-lg shadow-2xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-variant/40">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">report_problem</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Halt Work &amp; Flag Blocker</h3>
+<span class="font-code-sm text-code-sm text-tertiary">#TK-2026-0881</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-tertiary hover:text-on-surface" onclick="closeAllModals()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-tertiary uppercase">Primary Blocker Category</label>
+<select class="h-10 px-space-sm bg-surface-container-low rounded-lg text-body-sm font-body-sm text-on-surface focus:outline-none">
+<option>External Utility Conflict (Water/Gas/Telecom Leak)</option>
+<option>Severe Weather / Rain Preventing Asphalt Laying</option>
+<option>Traffic Police Restraint / Uncooperative Parking</option>
+<option>Machinery Mechanical Breakdown (Roller/Truck)</option>
+<option>Depot Material Shortage</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-tertiary uppercase">On-Site Situation Description</label>
+<textarea class="w-full p-space-sm bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="Provide actionable detail for supervisor intervention..." rows="3"></textarea>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-sm border-t border-surface-variant/40">
+<button class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-title text-title" onclick="closeAllModals()" type="button">
+          Dismiss
+        </button>
+<button class="px-space-lg py-2 rounded-lg bg-error hover:bg-red-800 text-on-error font-title text-title font-bold flex items-center gap-1 shadow-md" onclick="executeReportBlocker()" type="button">
+<span class="material-symbols-outlined text-[18px]">front_hand</span>
+          Confirm Task Halt
+        </button>
+</div>
+</div>
+</div>
+<!-- MODAL 3: Start Work Confirmation Dialog -->
+<div class="hidden fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm flex items-center justify-center p-space-md" id="modal-confirm">
+<div class="bg-surface-container-lowest rounded-2xl max-w-md w-full p-space-lg shadow-2xl flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">play_circle</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Commence Site Operations</h3>
+<span class="font-code-sm text-code-sm text-tertiary">#TK-2026-0879 · Velachery</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-tertiary">
+        Starting this job starts the SLA active execution clock and automatically pings Central Dispatch with your telemetry coordinates.
+      </p>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-1 text-body-sm font-body-sm text-on-surface">
+<div class="flex items-center justify-between">
+<span class="text-tertiary">Safety Gear Verified:</span>
+<span class="text-emerald-700 font-bold">Yes (High-Vis + Hardhat)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-tertiary">Vehicle Stationed:</span>
+<span class="font-semibold">Van #14 within 5m</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-title text-title" onclick="closeAllModals()" type="button">
+          Cancel
+        </button>
+<button class="px-space-lg py-2 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-title text-title font-bold flex items-center gap-1 shadow-md" onclick="executeStartWork()" type="button">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+          Start Active Work
+        </button>
+</div>
+</div>
+</div>
+<!-- Offline / Empty State Screen (Controlled by state 5) -->
+<div class="hidden w-full bg-surface-container-lowest rounded-xl p-space-xl text-center shadow-sm flex flex-col items-center justify-center gap-space-sm" id="offline-empty-state">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-tertiary mb-space-xs">
+<span class="material-symbols-outlined text-[36px]">cloud_sync</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">All Assigned Ward Tasks Completed</h3>
+<p class="font-body-md text-body-md text-tertiary max-w-md">
+      Outstanding tasks for Crew #FW-882 are either signed off or queued in officer verification. Cached offline copies are synced with Central Headquarters.
+    </p>
+<div class="flex items-center gap-space-sm mt-space-sm">
+<button class="px-space-md py-2 bg-primary-container text-on-primary-container rounded-lg font-title text-title font-semibold" onclick="setSimState('active')">
+        Return to Active Roster
+      </button>
+<button class="px-space-md py-2 bg-surface-container text-on-surface rounded-lg font-title text-title">
+        Request New Dispatch Batch
+      </button>
+</div>
+</div>
+</div>
+<!-- Client-side Interactive Simulator & UI State Script -->
+<script>
+  function setSimState(state) {
+    // Reset all buttons
+    document.querySelectorAll('.sim-btn').forEach(btn => {
+      btn.className = "sim-btn px-space-sm py-1.5 rounded-lg bg-surface-container text-tertiary hover:bg-surface-container-high transition-all font-label-md text-label-md";
+    });
+
+    closeAllModals();
+    const taskContainer = document.getElementById('task-list-container');
+    const rightHub = document.getElementById('right-work-hub');
+    const offlineState = document.getElementById('offline-empty-state');
+
+    taskContainer.parentElement.classList.remove('hidden');
+    rightHub.classList.remove('hidden');
+    offlineState.classList.add('hidden');
+
+    const activeBtn = document.getElementById('btn-state-' + state);
+    if(activeBtn) {
+      activeBtn.className = "sim-btn px-space-sm py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold transition-all shadow-sm";
+    }
+
+    if (state === 'active') {
+      // Default view
+    } else if (state === 'modal') {
+      openEvidenceModal();
+    } else if (state === 'blocker') {
+      openBlockerModal();
+    } else if (state === 'confirm') {
+      openConfirmModal();
+    } else if (state === 'empty') {
+      taskContainer.parentElement.classList.add('hidden');
+      rightHub.classList.add('hidden');
+      offlineState.classList.remove('hidden');
+    }
+  }
+
+  function closeAllModals() {
+    document.getElementById('modal-evidence').classList.add('hidden');
+    document.getElementById('modal-blocker').classList.add('hidden');
+    document.getElementById('modal-confirm').classList.add('hidden');
+  }
+
+  function openEvidenceModal() {
+    closeAllModals();
+    document.getElementById('modal-evidence').classList.remove('hidden');
+  }
+
+  function openBlockerModal() {
+    closeAllModals();
+    document.getElementById('modal-blocker').classList.remove('hidden');
+  }
+
+  function openConfirmModal() {
+    closeAllModals();
+    document.getElementById('modal-confirm').classList.remove('hidden');
+  }
+
+  function executeSubmitEvidence() {
+    alert("Resolution packet transmitted! Task #TK-2026-0881 updated to SUBMITTED_FOR_REVIEW.");
+    closeAllModals();
+  }
+
+  function executeReportBlocker() {
+    alert("Task halted. Central Dispatch and Officer Elena Vance notified of active site blocker.");
+    closeAllModals();
+  }
+
+  function executeStartWork() {
+    alert("Work started! Live telemetry timer engaged for Task #TK-2026-0879.");
+    closeAllModals();
+  }
+
+  function toggleNoteDrawer() {
+    const box = document.getElementById('quick-note-box');
+    box.classList.toggle('hidden');
+    box.classList.toggle('flex');
+  }
+
+  function saveNote() {
+    const text = document.getElementById('note-input').value;
+    if(text.trim()) {
+      alert("Note logged: " + text);
+      document.getElementById('note-input').value = "";
+      toggleNoteDrawer();
+    }
+  }
+
+  function selectTask(taskId) {
+    console.log("Selected task: " + taskId);
+  }
+</script></main></div></body></html>

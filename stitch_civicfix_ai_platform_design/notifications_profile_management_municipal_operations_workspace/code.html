@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-surface":"#111c28","on-error":"#ffffff","outline":"#6e7977","error":"#ba1a1a","on-secondary-fixed":"#170065","on-background":"#111c28","on-primary-fixed-variant":"#005049","on-secondary-container":"#fffbff","surface-container-lowest":"#ffffff","outline-variant":"#bdc9c6","secondary-container":"#7160e6","primary-container":"#137a70","on-error-container":"#93000a","secondary-fixed":"#e4dfff","surface-container-highest":"#d8e3f4","on-tertiary-container":"#e9f1fe","on-tertiary-fixed-variant":"#3f4752","on-primary-container":"#aefff3","on-secondary":"#ffffff","error-container":"#ffdad6","tertiary-fixed-dim":"#bfc7d3","secondary":"#5845cb","on-primary-fixed":"#00201d","on-tertiary-fixed":"#141c25","surface-variant":"#d8e3f4","on-tertiary":"#ffffff","primary-fixed":"#9af2e6","inverse-surface":"#26313e","on-primary":"#ffffff","surface-dim":"#d0dbeb","primary-fixed-dim":"#7ed6ca","tertiary-container":"#666e79","surface-bright":"#f8f9ff","inverse-on-surface":"#e9f1ff","inverse-primary":"#7ed6ca","surface":"#f8f9ff","secondary-fixed-dim":"#c7bfff","surface-container-low":"#eef4ff","surface-container":"#e4efff","tertiary":"#4d5660","background":"#f8f9ff","on-secondary-fixed-variant":"#422bb5","surface-tint":"#006a61","tertiary-fixed":"#dbe3f0","primary":"#006057","on-surface-variant":"#3e4947","surface-container-high":"#dee9fa"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xs":"0.25rem","margin-desktop":"2rem","margin":"1rem","gutter":"1rem","space-md":"1rem","space-lg":"1.5rem","space-xl":"2rem","space-sm":"0.5rem","gutter-desktop":"1.5rem"},"fontFamily":{"headline-lg":["Inter"],"label-sm":["Inter"],"headline-md":["Inter"],"display":["Inter"],"body-sm":["Inter"],"headline-lg-mobile":["Inter"],"label-md":["Inter"],"body-lg":["Inter"],"code-sm":["JetBrains Mono"],"headline-sm":["Inter"],"title":["Inter"],"body-md":["Inter"]},"fontSize":{"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.025em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}],"display":["36px",{"lineHeight":"44px","letterSpacing":"-0.03em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"500"}],"body-lg":["15px",{"lineHeight":"22px","letterSpacing":"-0.005em","fontWeight":"400"}],"code-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"-0.015em","fontWeight":"600"}],"title":["15px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-inverse-surface z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.08)]"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-inverse-surface"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-on-primary-container text-[20px]">account_balance</span></div><div class="flex flex-col"><span class="font-title text-title text-inverse-on-surface tracking-tight">CivicFix AI</span><span class="font-label-sm text-label-sm text-inverse-primary uppercase tracking-wider">Ops & Governance</span></div></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs text-outline-variant font-label-sm text-label-sm uppercase tracking-wider">Core Operations</div></div><nav class="flex-1 px-space-md space-y-1 overflow-y-auto" data-active-classes="bg-primary-container text-on-primary-container font-label-md text-label-md rounded-lg"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-inverse-on-surface hover:bg-tertiary-container hover:text-on-tertiary transition-colors font-label-md text-label-md" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-inverse-on-surface hover:bg-tertiary-container hover:text-on-tertiary transition-colors font-label-md text-label-md" data-path="complaints" href="#"><span class="material-symbols-outlined text-[20px]">report_problem</span><span>Complaints</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-inverse-on-surface hover:bg-tertiary-container hover:text-on-tertiary transition-colors font-label-md text-label-md" data-path="review-and-assignment" href="#"><span class="material-symbols-outlined text-[20px]">assignment_ind</span><span>Review & Assignment</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-inverse-on-surface hover:bg-tertiary-container hover:text-on-tertiary transition-colors font-label-md text-label-md" data-path="resolution-verification" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span>Resolution Verification</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-inverse-on-surface hover:bg-tertiary-container hover:text-on-tertiary transition-colors font-label-md text-label-md" data-path="issue-map" href="#"><span class="material-symbols-outlined text-[20px]">map</span><span>Issue Map</span></a><div class="pt-space-md pb-space-xs"><div class="px-space-sm text-outline-variant font-label-sm text-label-sm uppercase tracking-wider">Governance & Intel</div></div><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-inverse-on-surface hover:bg-tertiary-container hover:text-on-tertiary transition-colors font-label-md text-label-md" data-path="platform-analytics" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span>Platform Analytics</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-inverse-on-surface hover:bg-tertiary-container hover:text-on-tertiary transition-colors font-label-md text-label-md" data-path="audit-logs" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Audit Logs</span></a><a aria-current="page" class="flex items-center justify-between px-space-md py-space-sm transition-colors bg-primary-container text-on-primary-container font-label-md text-label-md rounded-lg" data-path="notifications" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">notifications</span><span>Notifications</span></div><span class="px-1.5 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm">4</span></a></nav></div><div class="p-space-md bg-inverse-surface"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-inverse-on-surface hover:bg-tertiary-container hover:text-on-tertiary transition-colors font-label-md text-label-md" data-path="my-profile" href="#"><span class="material-symbols-outlined text-[20px]">badge</span><span>My Profile</span></a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-gutter-desktop"><div class="flex items-center gap-space-md flex-1 max-w-lg"><div class="w-full flex items-center gap-space-sm px-space-md py-space-xs rounded-lg bg-surface-container-low text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">search</span><input class="w-full bg-transparent text-on-surface placeholder:text-outline focus:outline-none font-body-sm text-body-sm" placeholder="Search issues, citizen reports, or geo coordinates (/) ..." type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container text-primary font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span>Municipal Grid Active</span></div><div class="relative flex items-center justify-center w-9 h-9 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface cursor-pointer"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-gutter-desktop py-space-lg"><div class="flex flex-col w-full">
+<!-- Top Workspace Context & Breadcrumbs -->
+<div class="flex flex-col gap-space-sm pb-space-lg">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<span>Platform Operations</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Account & Activity</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Notifications & Profile</span>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="space-y-1">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Notifications & Account Settings</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+          Manage your operational activity alerts, profile credentials, RBAC security sessions, and notification delivery preferences.
+        </p>
+</div>
+<!-- Role Preview Badge / Operational Context -->
+<div class="flex items-center gap-space-sm px-space-md py-space-xs bg-surface-container-low rounded-xl shadow-sm">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container"></div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Viewing as</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Municipal Officer (Elena Vance · Ward 08)</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px] ml-1">verified_user</span>
+</div>
+</div>
+</div>
+<!-- Interactive Top View Navigation Bar (Pill Tabs) -->
+<div class="bg-surface-container-low p-1.5 rounded-xl flex flex-wrap items-center gap-1 shadow-sm mb-space-xl">
+<button class="tab-trigger flex items-center gap-space-xs px-space-md py-2 rounded-lg font-label-md text-label-md transition-all bg-surface-container-lowest text-primary font-semibold shadow-sm" id="tab-btn-notifications" onclick="switchTab('notifications')">
+<span class="material-symbols-outlined text-[18px]">notifications_active</span>
+<span>Notifications Center</span>
+<span class="ml-1 px-1.5 py-0.2 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm" id="tab-unread-counter">4</span>
+</button>
+<button class="tab-trigger flex items-center gap-space-xs px-space-md py-2 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" id="tab-btn-profile" onclick="switchTab('profile')">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span>My Profile & Directory</span>
+</button>
+<button class="tab-trigger flex items-center gap-space-xs px-space-md py-2 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" id="tab-btn-security" onclick="switchTab('security')">
+<span class="material-symbols-outlined text-[18px]">shield_person</span>
+<span>Security & Active Sessions</span>
+</button>
+<button class="tab-trigger flex items-center gap-space-xs px-space-md py-2 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" id="tab-btn-preferences" onclick="switchTab('preferences')">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Notification Preferences</span>
+</button>
+<button class="tab-trigger flex items-center gap-space-xs px-space-md py-2 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" id="tab-btn-simulator" onclick="switchTab('simulator')">
+<span class="material-symbols-outlined text-[18px]">science</span>
+<span>State Simulator (Zero / Error State)</span>
+</button>
+</div>
+<!-- TAB 1: NOTIFICATIONS CENTER VIEW -->
+<div class="tab-content flex flex-col gap-space-xl" id="view-notifications">
+<!-- Section 1 Metric Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Total Notifications -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Total Notifications</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]">mark_email_unread</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-display text-display text-on-surface font-semibold">28</span>
+<span class="font-body-sm text-body-sm text-primary font-medium flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +6 today
+          </span>
+</div>
+<div class="mt-space-sm w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<!-- Unread (Action Required) -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-error font-semibold">Unread (Action Required)</span>
+<div class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined text-[20px]">notification_important</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-display text-display text-error font-semibold" id="stat-unread-count">4</span>
+<span class="font-body-sm text-body-sm text-on-error-container font-medium">Pending sign-off</span>
+</div>
+<div class="mt-space-sm w-full bg-error-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<!-- Priority / High Hazard -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Priority / High Hazard</span>
+<div class="w-8 h-8 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-display text-display text-on-surface font-semibold">3</span>
+<span class="font-body-sm text-body-sm text-secondary font-medium">SLA critical</span>
+</div>
+<div class="mt-space-sm w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 32%"></div>
+</div>
+</div>
+<!-- System & Audit -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">System & Audit Logs</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">database</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-display text-display text-on-surface font-semibold">12</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Auto-synced</span>
+</div>
+<div class="mt-space-sm w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 60%"></div>
+</div>
+</div>
+</div>
+<!-- Filter & Search Control Toolbar -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-space-md">
+<!-- Quick Status Pills -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="filter-pill px-space-md py-1.5 rounded-full font-label-md text-label-md bg-primary text-on-primary font-medium transition-colors" id="filter-pill-all" onclick="setFilterStatus('all')">
+            All (28)
+          </button>
+<button class="filter-pill px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors" id="filter-pill-unread" onclick="setFilterStatus('unread')">
+            Unread (4)
+          </button>
+<button class="filter-pill px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors" id="filter-pill-important" onclick="setFilterStatus('important')">
+            Important (3)
+          </button>
+<button class="filter-pill px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors" id="filter-pill-read" onclick="setFilterStatus('read')">
+            Read (24)
+          </button>
+</div>
+<!-- Search Bar and Action Triggers -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm flex-1 max-w-xl">
+<div class="flex-1 flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-low text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-outline">filter_alt</span>
+<input class="w-full bg-transparent text-on-surface placeholder:text-outline focus:outline-none font-body-sm text-body-sm" id="notif-search-input" onkeyup="handleFilterSearch()" placeholder="Search alerts, ticket #CF-..., or worker ID..." type="text"/>
+</div>
+<div class="flex items-center gap-space-xs">
+<!-- Category Filter Dropdown -->
+<select class="bg-surface-container-low text-on-surface font-label-md text-label-md px-space-md py-2 rounded-lg focus:outline-none cursor-pointer" id="notif-category-select" onchange="handleFilterCategory(this.value)">
+<option value="all">All Categories</option>
+<option value="resolution">Resolution Updates</option>
+<option value="ai">AI Triage & Spatial</option>
+<option value="assignment">Task Assignments / SLA</option>
+<option value="security">Account & Security</option>
+<option value="platform">Platform Announcements</option>
+</select>
+<button class="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors whitespace-nowrap" onclick="markAllAsRead()" title="Mark all alerts as read">
+<span class="material-symbols-outlined text-[16px]">done_all</span>
+<span class="hidden sm:inline">Mark All as Read</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-outline hover:text-on-surface transition-colors" onclick="resetFilters()" title="Reset Filters">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Chronological Grouped Notifications List -->
+<div class="flex flex-col gap-space-lg" id="notifications-grouped-container">
+<!-- Group: TODAY -->
+<div class="notification-group flex flex-col gap-space-sm" data-group="today">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface">Today</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high font-label-sm text-label-sm text-on-surface-variant font-semibold">4 New Updates</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">March 29, 2026 · Indian Standard Time</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Item 1: Resolution Evidence Submitted (Unread / Important) -->
+<div class="notification-card unread important p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md transition-all hover:shadow-md" data-category="resolution" data-important="true" data-read="false">
+<div class="flex items-start gap-space-md flex-1">
+<div class="w-10 h-10 rounded-xl bg-secondary text-on-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+</div>
+<div class="space-y-1">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Resolution Evidence Submitted</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">P1 High Hazard</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Sign-off Required</span>
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Field Lead <strong class="text-on-surface font-semibold">Marcus Chen (#FW-882)</strong> uploaded after-repair compaction evidence for <span class="font-code-sm text-code-sm font-semibold text-primary">#CF-2026-00124</span> (Large pothole near bus stop, Ward 8). Awaiting municipal sign-off.
+                </p>
+<div class="flex items-center gap-space-md text-outline font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 18m ago</span>
+<span>•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span> Ward 08, Block C</span>
+<span>•</span>
+<span class="font-code-sm text-code-sm text-outline">Geo: 13.0827° N, 80.2117° E</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end shrink-0 pt-2 md:pt-0">
+<a class="px-space-md py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md flex items-center gap-1 transition-colors" href="#">
+<span>Verify Resolution</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-outline hover:text-on-surface transition-colors" onclick="toggleCardRead(this)" title="Toggle Read Status">
+<span class="material-symbols-outlined text-[18px]">mark_email_read</span>
+</button>
+</div>
+</div>
+<!-- Item 2: AI Triage Anomaly Flagged (Unread) -->
+<div class="notification-card unread p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md transition-all hover:shadow-md" data-category="ai" data-important="false" data-read="false">
+<div class="flex items-start gap-space-md flex-1">
+<div class="w-10 h-10 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">auto_awesome</span>
+</div>
+<div class="space-y-1">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">AI Triage Anomaly Flagged</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">Advisory</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">DBSCAN Spatial Match</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Spatial correlation detected potential duplicate cluster (89% similarity) for complaint <span class="font-code-sm text-code-sm font-semibold text-primary">#CF-2026-00129</span> near Anna Nagar Roundtana. Merge candidate suggested.
+                </p>
+<div class="flex items-center gap-space-md text-outline font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 42m ago</span>
+<span>•</span>
+<span>Cluster Size: 4 Citizen Reports</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end shrink-0 pt-2 md:pt-0">
+<a class="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">bubble_chart</span>
+<span>Inspect Cluster</span>
+</a>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-outline hover:text-on-surface transition-colors" onclick="toggleCardRead(this)" title="Toggle Read Status">
+<span class="material-symbols-outlined text-[18px]">mark_email_read</span>
+</button>
+</div>
+</div>
+<!-- Item 3: Task Approaching SLA Deadline (Unread) -->
+<div class="notification-card unread p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md transition-all hover:shadow-md" data-category="assignment" data-important="false" data-read="false">
+<div class="flex items-start gap-space-md flex-1">
+<div class="w-10 h-10 rounded-xl bg-error-container text-on-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">timer</span>
+</div>
+<div class="space-y-1">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Task Approaching SLA Deadline</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">SLA Warning</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-outline font-label-sm text-label-sm">Electrical Dept</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Work Order <span class="font-code-sm text-code-sm font-semibold text-primary">#TK-2026-0879</span> (Damaged streetlight fixture on 4th Main Rd) due in 2 hours. Assigned to electrical technician <strong class="text-on-surface font-semibold">Rajesh Kumar</strong>.
+                </p>
+<div class="flex items-center gap-space-md text-outline font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 1h ago</span>
+<span>•</span>
+<span class="text-error font-medium">Breach Risk: 78%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end shrink-0 pt-2 md:pt-0">
+<a class="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors" href="#">
+<span>View Dispatch</span>
+</a>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-outline hover:text-on-surface transition-colors" onclick="toggleCardRead(this)" title="Toggle Read Status">
+<span class="material-symbols-outlined text-[18px]">mark_email_read</span>
+</button>
+</div>
+</div>
+<!-- Item 4: Staff Account Vetting Approved (Unread) -->
+<div class="notification-card unread p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md transition-all hover:shadow-md" data-category="security" data-important="false" data-read="false">
+<div class="flex items-start gap-space-md flex-1">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">admin_panel_settings</span>
+</div>
+<div class="space-y-1">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Staff Account Vetting Approved</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Security</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">RBAC Level 2</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Central Administrator <strong class="text-on-surface font-semibold">Priya Sharma</strong> approved Ward 8 GIS Field Officer credentials for <strong class="text-on-surface font-semibold">Arun Prakash (#OFF-2026-104)</strong>. Digital key issued.
+                </p>
+<div class="flex items-center gap-space-md text-outline font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 2h ago</span>
+<span>•</span>
+<span>Authority: GCC IT-Sec Core</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end shrink-0 pt-2 md:pt-0">
+<a class="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors" href="#">
+<span>Directory Entry</span>
+</a>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-outline hover:text-on-surface transition-colors" onclick="toggleCardRead(this)" title="Toggle Read Status">
+<span class="material-symbols-outlined text-[18px]">mark_email_read</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Group: YESTERDAY -->
+<div class="notification-group flex flex-col gap-space-sm pt-space-md" data-group="yesterday">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface">Yesterday</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">3 Events</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">March 28, 2026</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Item 5: Citizen Complaint Dispatched (Read) -->
+<div class="notification-card read p-space-md rounded-xl bg-surface-container-lowest/70 opacity-90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md transition-all hover:opacity-100 hover:shadow-md" data-category="assignment" data-important="false" data-read="true">
+<div class="flex items-start gap-space-md flex-1">
+<div class="w-10 h-10 rounded-xl bg-surface-container text-outline flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">outbox</span>
+</div>
+<div class="space-y-1">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Citizen Complaint Dispatched</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-outline font-label-sm text-label-sm">Routine Dispatch</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Work Order <span class="font-code-sm text-code-sm font-semibold text-primary">#TK-2026-0881</span> assigned to SDOT Rapid Unit 4. Citizen Alex M. notified via public SMS status gateway.
+                </p>
+<div class="flex items-center gap-space-md text-outline font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 1d ago</span>
+<span>•</span>
+<span>Zone: Central Corridors</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end shrink-0 pt-2 md:pt-0">
+<a class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" href="#">
+<span>View Details</span>
+</a>
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-outline hover:text-on-surface transition-colors" onclick="toggleCardRead(this)" title="Mark as Unread">
+<span class="material-symbols-outlined text-[18px]">mark_email_unread</span>
+</button>
+</div>
+</div>
+<!-- Item 6: Safety Pylon Deconfliction (Read / Important) -->
+<div class="notification-card read important p-space-md rounded-xl bg-surface-container-lowest/70 opacity-90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md transition-all hover:opacity-100 hover:shadow-md" data-category="resolution" data-important="true" data-read="true">
+<div class="flex items-start gap-space-md flex-1">
+<div class="w-10 h-10 rounded-xl bg-surface-container text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">traffic</span>
+</div>
+<div class="space-y-1">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Safety Pylon Deconfliction</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Priority</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-outline font-label-sm text-label-sm">Field Completed</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Field worker <strong class="text-on-surface font-semibold">Marcus Chen</strong> confirmed bicycle corridor clearance and hazard barricading on 2nd Avenue. Inspection passed.
+                </p>
+<div class="flex items-center gap-space-md text-outline font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 1d ago</span>
+<span>•</span>
+<span>Photo GPS verified</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end shrink-0 pt-2 md:pt-0">
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-outline hover:text-on-surface transition-colors" onclick="toggleCardRead(this)" title="Mark as Unread">
+<span class="material-symbols-outlined text-[18px]">mark_email_unread</span>
+</button>
+</div>
+</div>
+<!-- Item 7: Password Updated (Read / Security) -->
+<div class="notification-card read p-space-md rounded-xl bg-surface-container-lowest/70 opacity-90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md transition-all hover:opacity-100 hover:shadow-md" data-category="security" data-important="false" data-read="true">
+<div class="flex items-start gap-space-md flex-1">
+<div class="w-10 h-10 rounded-xl bg-surface-container text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">key</span>
+</div>
+<div class="space-y-1">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Password Updated</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-outline font-label-sm text-label-sm">Audit</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  Successfully changed account security password from internal IP <span class="font-code-sm text-code-sm text-on-surface font-semibold">194.26.29.10</span> (Muni-Gateway-02).
+                </p>
+<div class="flex items-center gap-space-md text-outline font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 1d ago</span>
+<span>•</span>
+<span>Auth: Keycloak SSO</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end shrink-0 pt-2 md:pt-0">
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-outline hover:text-on-surface transition-colors" onclick="toggleCardRead(this)" title="Mark as Unread">
+<span class="material-symbols-outlined text-[18px]">mark_email_unread</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Group: EARLIER THIS WEEK -->
+<div class="notification-group flex flex-col gap-space-sm pt-space-md" data-group="earlier">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface">Earlier This Week</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">1 Event</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">March 26, 2026</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Item 8: Scheduled Maintenance Complete -->
+<div class="notification-card read p-space-md rounded-xl bg-surface-container-lowest/70 opacity-90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md transition-all hover:opacity-100 hover:shadow-md" data-category="platform" data-important="false" data-read="true">
+<div class="flex items-start gap-space-md flex-1">
+<div class="w-10 h-10 rounded-xl bg-surface-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">settings_suggest</span>
+</div>
+<div class="space-y-1">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Scheduled Maintenance Complete</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">System Notice</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                  MySQL GIS spatial index synchronization completed with 0 errors. Performance uplift across Ward 08 geospatial query engine: ~28ms latency drop.
+                </p>
+<div class="flex items-center gap-space-md text-outline font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 3d ago</span>
+<span>•</span>
+<span>Cluster: Node-AP-South-1</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto justify-end shrink-0 pt-2 md:pt-0">
+<button class="p-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-outline hover:text-on-surface transition-colors" onclick="toggleCardRead(this)" title="Mark as Unread">
+<span class="material-symbols-outlined text-[18px]">mark_email_unread</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 2: MY PROFILE & DIRECTORY -->
+<div class="tab-content hidden flex flex-col gap-space-xl" id="view-profile">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left Column: Officer Profile Summary Card -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<div class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm flex flex-col items-center text-center relative overflow-hidden">
+<div class="w-full h-24 bg-gradient-to-r from-primary-container via-primary to-secondary rounded-lg mb-12 -mt-space-xl -mx-space-xl relative">
+<div class="absolute -bottom-10 left-1/2 -translate-x-1/2">
+<div class="relative w-24 h-24 rounded-full overflow-hidden shadow-md bg-surface-container-low p-1">
+<img class="w-full h-full object-cover rounded-full" data-alt="Professional editorial municipal civil engineer headshot of Elena Vance, mid-30s woman with calm authoritative presence, wearing a dark navy municipal operational collar blazer with an institutional ID badge, soft indoor lighting, crisp cinematic focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtcGnpBlmgDE8EhfaB5ydyTH8LDoQl9D0p2WAoEgbHOt1SA7k7uGTcw-AjbtxJqHCtKaGyfIXwpN9kcwVFNbs5msw8Sc6JwHrqgplZhsADhetyJGDI1RX4e8gRpMKT8ww3XMdIqIymOejOHP9zTVPrkMSuN678Wlg_Dduqs2X2I0UP2UIIq3-vygzm5b5-H5glhnW486BljbkxJHThanxejPXTXVWQtFNEm8T83Kd1q03wXHcyaP1Q"/>
+<span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-primary ring-2 ring-surface-container-lowest"></span>
+</div>
+</div>
+</div>
+<div class="space-y-1 mt-2">
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Elena Vance</h2>
+<p class="font-body-md text-body-md text-on-surface-variant font-medium">Central Operations Officer · Ward 08</p>
+</div>
+<div class="mt-space-md flex flex-wrap justify-center gap-space-xs">
+<span class="px-space-md py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">
+              Municipal Officer (Tier-2 Adjudication)
+            </span>
+<span class="px-space-md py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Greater Chennai Corp
+            </span>
+</div>
+<div class="w-full my-space-lg h-px bg-surface-container"></div>
+<!-- Metadata Grid -->
+<div class="w-full grid grid-cols-2 gap-space-md text-left font-body-sm text-body-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-low space-y-0.5">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Staff ID</span>
+<p class="font-code-sm text-code-sm text-on-surface font-semibold">#OFF-2024-991</p>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low space-y-0.5">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Account Status</span>
+<p class="text-primary font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Active · Passkey
+              </p>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low space-y-0.5">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Member Since</span>
+<p class="text-on-surface font-medium">October 2024</p>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low space-y-0.5">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Assigned Grid</span>
+<p class="text-on-surface font-medium">Zone 5 / Sector 8A</p>
+</div>
+</div>
+<!-- Contact Snippet -->
+<div class="w-full mt-space-md flex flex-col gap-space-xs text-left">
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-outline text-[18px]">mail</span>
+<span class="font-body-sm text-body-sm truncate">elena.vance@chennaicorp.gov</span>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg hover:bg-surface-container-low transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-outline text-[18px]">phone</span>
+<span class="font-body-sm text-body-sm">+91 98401 22340 (Masked)</span>
+</div>
+</div>
+</div>
+<!-- Municipal Authority Badges -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="font-title text-title text-on-surface">Authorizations & Adjudication Rights</span>
+<span class="material-symbols-outlined text-outline text-[18px]">verified</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">task_alt</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Road & Pothole Sign-Off</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">Authorized (Max ₹2.5L)</span>
+</div>
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">crisis_alert</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Emergency P1 Priority Override</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">Active</span>
+</div>
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-outline text-[20px]">groups</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Dispatch Unit Reallocation</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline font-medium">Requires Approval</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Editable Personal Information Form -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-md mb-space-lg border-b border-surface-container">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Official Profile Credentials</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Update your administrative identification and verified dispatch contacts.</p>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Tier-2 Staff</span>
+</div>
+<form class="space-y-space-md" id="profile-edit-form" onsubmit="event.preventDefault(); saveProfileChanges();">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Full Name</label>
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40" id="prof-name" type="text" value="Elena Vance"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Designation</label>
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40" id="prof-desig" type="text" value="Central Operations Officer"/>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Official Email</label>
+<span class="font-label-sm text-label-sm text-outline flex items-center gap-0.5"><span class="material-symbols-outlined text-[13px]">lock</span> Municipal Domain Enforced</span>
+</div>
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface-variant font-code-sm text-code-sm cursor-not-allowed" disabled="" type="email" value="elena.vance@chennaicorp.gov"/>
+<p class="font-label-sm text-label-sm text-outline">To update official domain email, file a ticket with GCC Municipal IT Directory Services.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Operational Phone</label>
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40" id="prof-phone" type="tel" value="+91 98401 22340"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Assigned Ward / Sector</label>
+<select class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40" id="prof-ward">
+<option selected="" value="ward8">Ward 8 - Anna Nagar Central</option>
+<option value="ward7">Ward 7 - Kilpauk North</option>
+<option value="ward9">Ward 9 - Shenoy Nagar</option>
+<option value="ward10">Ward 10 - Aminjikarai</option>
+</select>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Field Office Headquarters</label>
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40" id="prof-office" type="text" value="Anna Nagar West Municipal Annex, 2nd Cross, Chennai"/>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<div class="hidden text-primary font-label-md text-label-md flex items-center gap-1" id="profile-saved-toast">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Changes synchronized to municipal ledger.</span>
+</div>
+<div class="flex items-center gap-space-sm ml-auto">
+<button class="px-space-md py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors" onclick="document.getElementById('profile-edit-form').reset()" type="button">
+                    Cancel
+                  </button>
+<button class="px-space-lg py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors shadow-sm" type="submit">
+                    Save Profile Changes
+                  </button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<!-- Municipal Directory Lookup Card -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[26px]">contact_page</span>
+</div>
+<div>
+<h4 class="font-title text-title text-on-surface">Municipal Ward Directory</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">View all 14 active field supervisors, engineers, and GIS leads assigned to Ward 08.</p>
+</div>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1 shrink-0 transition-colors">
+<span>Browse Directory</span>
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 3: SECURITY & ACTIVE SESSIONS -->
+<div class="tab-content hidden flex flex-col gap-space-xl" id="view-security">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left Column: Change Password Card -->
+<div class="lg:col-span-6 flex flex-col gap-space-lg">
+<div class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm flex flex-col justify-between">
+<div class="space-y-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Update Password & Keys</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Spring Security bcrypt-hashed credentials with RBAC session revalidation.</p>
+</div>
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">lock_reset</span>
+</div>
+</div>
+<form class="space-y-space-md" id="password-form" onsubmit="event.preventDefault(); handlePasswordUpdate();">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Current Password</label>
+<div class="relative flex items-center">
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-code-sm text-code-sm focus:outline-none focus:ring-2 focus:ring-primary/40 pr-10" id="pwd-curr" placeholder="••••••••••••" required="" type="password"/>
+<button class="absolute right-3 text-outline hover:text-on-surface" onclick="togglePasswordVisibility('pwd-curr', this)" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">New Password</label>
+<div class="relative flex items-center">
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-code-sm text-code-sm focus:outline-none focus:ring-2 focus:ring-primary/40 pr-10" id="pwd-new" onkeyup="checkPasswordComplexity(this.value)" placeholder="Enter strong password" required="" type="password"/>
+<button class="absolute right-3 text-outline hover:text-on-surface" onclick="togglePasswordVisibility('pwd-new', this)" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+<!-- Password Complexity Indicator -->
+<div class="pt-2 space-y-1.5">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-outline">Strength: <strong class="text-on-surface" id="pwd-strength-text">Moderate</strong></span>
+<span class="text-outline">Min 12 chars, mixed case, symbol</span>
+</div>
+<div class="grid grid-cols-4 gap-1 h-1.5">
+<div class="bg-primary rounded-full transition-all" id="pwd-bar-1"></div>
+<div class="bg-primary rounded-full transition-all" id="pwd-bar-2"></div>
+<div class="bg-primary rounded-full transition-all" id="pwd-bar-3"></div>
+<div class="bg-surface-container rounded-full transition-all" id="pwd-bar-4"></div>
+</div>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Confirm New Password</label>
+<div class="relative flex items-center">
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface-container-low text-on-surface font-code-sm text-code-sm focus:outline-none focus:ring-2 focus:ring-primary/40 pr-10" id="pwd-confirm" placeholder="Repeat new password" required="" type="password"/>
+<button class="absolute right-3 text-outline hover:text-on-surface" onclick="togglePasswordVisibility('pwd-confirm', this)" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low text-on-surface-variant font-body-sm text-body-sm flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">security</span>
+<p>
+                  CivicFix utilizes Spring Security 6.2 with Argon2id hashing algorithms. Changing your password will invalidate non-remembered API tokens.
+                </p>
+</div>
+<div class="pt-2 flex items-center justify-between">
+<span class="hidden font-label-md text-label-md text-primary flex items-center gap-1" id="pwd-update-toast">
+<span class="material-symbols-outlined text-[18px]">check</span> Password refreshed!
+                </span>
+<button class="ml-auto px-space-lg py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors shadow-sm" type="submit">
+                  Update Password
+                </button>
+</div>
+</form>
+</div>
+</div>
+<!-- 2FA Multi-Factor Status -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">phonelink_lock</span>
+</div>
+<div>
+<h4 class="font-title text-title text-on-surface">Hardware Passkey & FIDO2</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">YubiKey 5C registered on Dec 14, 2025.</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Active</span>
+</div>
+</div>
+<!-- Right Column: Active Sessions & Device Ledger -->
+<div class="lg:col-span-6 flex flex-col gap-space-lg">
+<div class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm flex flex-col justify-between">
+<div class="space-y-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Active Sessions & Devices</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Current authenticated tokens across desktop stations and field mobiles.</p>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">2 Live</span>
+</div>
+<!-- Sessions List -->
+<div class="flex flex-col gap-space-md">
+<!-- Session 1: Current -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[22px]">desktop_windows</span>
+</div>
+<div class="space-y-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Chrome on macOS</span>
+<span class="px-2 py-0.2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm">This Device</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                      IP: <span class="font-code-sm text-code-sm text-on-surface font-semibold">10.42.0.14</span> (Internal Ward 8 HQ LAN)
+                    </p>
+<div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm pt-1">
+<span class="flex items-center gap-1 text-primary font-medium"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> Active Now</span>
+<span>•</span>
+<span>Chennai, Tamil Nadu</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Session 2: Mobile -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-start justify-between gap-space-md" id="mobile-session-card">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[22px]">smartphone</span>
+</div>
+<div class="space-y-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">CivicFix Android App (Pixel 8)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                      IP: <span class="font-code-sm text-code-sm text-on-surface font-semibold">192.168.1.45</span> (GCC Mobile VPN)
+                    </p>
+<div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm pt-1">
+<span>Last active 15m ago</span>
+<span>•</span>
+<span>GPS Sync: Active</span>
+</div>
+</div>
+</div>
+<button class="px-space-sm py-1 rounded bg-error-container hover:bg-error text-on-error-container hover:text-on-error font-label-sm text-label-sm transition-colors shrink-0" onclick="terminateSession('mobile-session-card')">
+                  Revoke
+                </button>
+</div>
+</div>
+<!-- Actions Footer -->
+<div class="pt-space-md border-t border-surface-container flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<span class="font-body-sm text-body-sm text-outline">All sessions auto-terminate after 12 hours of inactivity.</span>
+<button class="px-space-md py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-error font-label-md text-label-md flex items-center gap-1 transition-colors whitespace-nowrap" onclick="terminateOtherSessions()">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span>Sign Out of Other Sessions</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Audit Access History -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-title text-title text-on-surface">Security Audit Log</span>
+<a class="font-label-sm text-label-sm text-primary font-semibold hover:underline" href="#">Full Log →</a>
+</div>
+<div class="font-code-sm text-code-sm space-y-1.5 text-on-surface-variant">
+<div class="flex justify-between py-1 border-b border-surface-container">
+<span>AUTH_SUCCESS · OAuth2/Passkey</span>
+<span class="text-outline">Today 08:30 IST</span>
+</div>
+<div class="flex justify-between py-1 border-b border-surface-container">
+<span>TOKEN_REFRESH · Mobile Gateway</span>
+<span class="text-outline">Today 08:15 IST</span>
+</div>
+<div class="flex justify-between py-1">
+<span>PWD_CHANGE_CONFIRMED · Web Portal</span>
+<span class="text-outline">Yesterday 16:42 IST</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 4: NOTIFICATION DELIVERY PREFERENCES MATRIX -->
+<div class="tab-content hidden flex flex-col gap-space-xl" id="view-preferences">
+<div class="bg-surface-container-lowest p-space-xl rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pb-space-md border-b border-surface-container">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Notification Delivery Preferences</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Configure multi-channel routing for municipal dispatches, triage anomalies, and compliance notices.</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors" onclick="resetPreferencesToDefault()">
+            Reset to Standard
+          </button>
+<button class="px-space-lg py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors shadow-sm" onclick="saveNotificationPreferences()">
+            Save Preferences
+          </button>
+</div>
+</div>
+<!-- Toast Container -->
+<div class="hidden p-space-md rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-between font-label-md text-label-md" id="preferences-saved-toast">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Delivery matrix saved and committed to Ward 08 operational queue.</span>
+</div>
+<button class="material-symbols-outlined text-[16px]" onclick="this.parentElement.classList.add('hidden')">close</button>
+</div>
+<!-- Preferences Matrix Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+<th class="py-space-md px-space-lg rounded-l-lg">Event Category & Alert Scope</th>
+<th class="py-space-md px-space-md text-center">In-App Notification</th>
+<th class="py-space-md px-space-md text-center">Official Email</th>
+<th class="py-space-md px-space-md text-center rounded-r-lg">Urgent SMS (Field)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-body-md text-body-md">
+<!-- Row 1: Complaint Status Changes -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface">Complaint Status Changes</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Citizen reports moved from Registered to In-Progress, Escalated, or Resolved.</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+</tr>
+<!-- Row 2: Urgent Hazard P1 Dispatches (Mandatory) -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Urgent Hazard P1 Dispatches</span>
+<span class="px-2 py-0.2 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">Mandatory Enforced</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sinkholes, live electrical waterlogged wires, high-casualty risk road defects.</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary cursor-not-allowed opacity-80" disabled="" title="Mandatory for Tier-2 Officers" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary cursor-not-allowed opacity-80" disabled="" title="Mandatory for Tier-2 Officers" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary cursor-not-allowed opacity-80" disabled="" title="Mandatory for Tier-2 Officers" type="checkbox"/>
+</td>
+</tr>
+<!-- Row 3: Field Evidence Ready for Verification -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface">Field Evidence Ready for Verification</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Compaction test results, photo logs, and contractor sign-off packages submitted.</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+</tr>
+<!-- Row 4: Account & Security Alerts (Enforced) -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Account & Security Alerts</span>
+<span class="px-2 py-0.2 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">Security Enforced</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Password updates, new device log-ins, session terminations, credential revocation.</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary cursor-not-allowed opacity-80" disabled="" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary cursor-not-allowed opacity-80" disabled="" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+</tr>
+<!-- Row 5: Daily Digest Summary -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface">Daily Ward 08 Digest Summary</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Consolidated 18:00 IST snapshot of all resolved complaints, work orders, and citizen ratings.</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-space-md px-space-md text-center">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Quiet Hours & Batching Policy -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[22px]">bedtime</span>
+</div>
+<div>
+<h4 class="font-title text-title text-on-surface">Do Not Disturb / Field Quiet Hours</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Suppress routine and non-critical push notifications between 21:00 and 06:00 IST. P1 Hazards will always bypass this filter.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<span class="font-label-md text-label-md text-primary font-semibold">Enabled (21:00 - 06:00)</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 5: STATE SIMULATOR (ZERO STATE & ERROR RESILIENCE PREVIEWS) -->
+<div class="tab-content hidden flex flex-col gap-space-xl" id="view-simulator">
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">State Simulator: Resilient System Fallbacks</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Inspect empty states, query zero-results, and live network interruption recovery interfaces.</p>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Diagnostic Mode</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg pt-space-sm">
+<!-- Simulator Scenario A: All Caught Up / Empty Queue -->
+<div class="p-space-xl rounded-xl bg-surface-container-low flex flex-col items-center text-center justify-center min-h-[340px]">
+<div class="w-16 h-16 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center mb-space-md">
+<span class="material-symbols-outlined text-[32px]">task_alt</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">All caught up!</h4>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm mt-1 mb-space-lg">
+            No unread notifications or pending sign-offs for Ward 08. All high-priority municipal work orders are on schedule.
+          </p>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors shadow-sm" onclick="switchTab('notifications')">
+              View Archived Alerts
+            </button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors">
+              Run Diagnostic Sync
+            </button>
+</div>
+</div>
+<!-- Simulator Scenario B: Network Interruption / Sync Error -->
+<div class="p-space-xl rounded-xl bg-surface-container-low flex flex-col items-center text-center justify-center min-h-[340px]">
+<div class="w-16 h-16 rounded-full bg-error-container text-on-error-container flex items-center justify-center mb-space-md">
+<span class="material-symbols-outlined text-[32px]">cloud_off</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Live Municipal Socket Interrupted</h4>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm mt-1 mb-space-lg">
+            Unable to stream real-time telemetry from Ward 08 dispatch bus. Cached state is maintained locally.
+          </p>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-error hover:bg-error-container text-on-error hover:text-on-error-container font-label-md text-label-md flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Attempt Reconnection</span>
+</button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors">
+              Diagnose API Gateway
+            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Tab Switching Logic
+  function switchTab(target) {
+    const tabs = ['notifications', 'profile', 'security', 'preferences', 'simulator'];
+    tabs.forEach(t => {
+      const content = document.getElementById('view-' + t);
+      const btn = document.getElementById('tab-btn-' + t);
+      if (t === target) {
+        content.classList.remove('hidden');
+        btn.classList.add('bg-surface-container-lowest', 'text-primary', 'font-semibold', 'shadow-sm');
+        btn.classList.remove('text-on-surface-variant');
+      } else {
+        content.classList.add('hidden');
+        btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-semibold', 'shadow-sm');
+        btn.classList.add('text-on-surface-variant');
+      }
+    });
+  }
+
+  // Filter Status Pill Toggle
+  let currentStatus = 'all';
+  function setFilterStatus(status) {
+    currentStatus = status;
+    const pills = ['all', 'unread', 'important', 'read'];
+    pills.forEach(p => {
+      const pill = document.getElementById('filter-pill-' + p);
+      if (p === status) {
+        pill.classList.add('bg-primary', 'text-on-primary', 'font-medium');
+        pill.classList.remove('bg-surface-container', 'text-on-surface-variant');
+      } else {
+        pill.classList.remove('bg-primary', 'text-on-primary', 'font-medium');
+        pill.classList.add('bg-surface-container', 'text-on-surface-variant');
+      }
+    });
+    applyFilters();
+  }
+
+  // Search input filter
+  function handleFilterSearch() {
+    applyFilters();
+  }
+
+  // Category filter
+  function handleFilterCategory(cat) {
+    applyFilters();
+  }
+
+  // Core filter application
+  function applyFilters() {
+    const query = (document.getElementById('notif-search-input').value || '').toLowerCase();
+    const category = document.getElementById('notif-category-select').value;
+    const cards = document.querySelectorAll('.notification-card');
+
+    cards.forEach(card => {
+      const isRead = card.getAttribute('data-read') === 'true';
+      const isImportant = card.getAttribute('data-important') === 'true';
+      const cardCat = card.getAttribute('data-category');
+      const text = card.innerText.toLowerCase();
+
+      let matchesStatus = true;
+      if (currentStatus === 'unread') matchesStatus = !isRead;
+      else if (currentStatus === 'read') matchesStatus = isRead;
+      else if (currentStatus === 'important') matchesStatus = isImportant;
+
+      let matchesCat = (category === 'all') || (cardCat === category);
+      let matchesQuery = query === '' || text.includes(query);
+
+      if (matchesStatus && matchesCat && matchesQuery) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Check if whole groups are empty
+    document.querySelectorAll('.notification-group').forEach(group => {
+      const visibleCards = group.querySelectorAll('.notification-card:not([style*="display: none"])');
+      if (visibleCards.length === 0) {
+        group.style.display = 'none';
+      } else {
+        group.style.display = 'flex';
+      }
+    });
+  }
+
+  function resetFilters() {
+    document.getElementById('notif-search-input').value = '';
+    document.getElementById('notif-category-select').value = 'all';
+    setFilterStatus('all');
+  }
+
+  // Toggle single card read state
+  function toggleCardRead(btn) {
+    const card = btn.closest('.notification-card');
+    const isCurrentlyRead = card.getAttribute('data-read') === 'true';
+    const newRead = !isCurrentlyRead;
+    
+    card.setAttribute('data-read', newRead.toString());
+    if (newRead) {
+      card.classList.remove('unread');
+      card.classList.add('read', 'opacity-90');
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">mark_email_unread</span>';
+      btn.title = 'Mark as Unread';
+    } else {
+      card.classList.add('unread');
+      card.classList.remove('read', 'opacity-90');
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">mark_email_read</span>';
+      btn.title = 'Mark as Read';
+    }
+    updateUnreadCounter();
+  }
+
+  // Mark all as read
+  function markAllAsRead() {
+    const cards = document.querySelectorAll('.notification-card');
+    cards.forEach(card => {
+      card.setAttribute('data-read', 'true');
+      card.classList.remove('unread');
+      card.classList.add('read', 'opacity-90');
+      const actionBtn = card.querySelector('button[title*="Read"]');
+      if (actionBtn) {
+        actionBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">mark_email_unread</span>';
+        actionBtn.title = 'Mark as Unread';
+      }
+    });
+    updateUnreadCounter();
+    applyFilters();
+  }
+
+  function updateUnreadCounter() {
+    const unreadCount = document.querySelectorAll('.notification-card[data-read="false"]').length;
+    const counterBadge = document.getElementById('tab-unread-counter');
+    const statCounter = document.getElementById('stat-unread-count');
+    if (counterBadge) counterBadge.innerText = unreadCount;
+    if (statCounter) statCounter.innerText = unreadCount;
+    const filterPillUnread = document.getElementById('filter-pill-unread');
+    if (filterPillUnread) filterPillUnread.innerText = `Unread (${unreadCount})`;
+  }
+
+  // Password visibility toggle
+  function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const icon = btn.querySelector('.material-symbols-outlined');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.innerText = 'visibility_off';
+    } else {
+      input.type = 'password';
+      icon.innerText = 'visibility';
+    }
+  }
+
+  // Password complexity meter
+  function checkPasswordComplexity(val) {
+    const strengthText = document.getElementById('pwd-strength-text');
+    const bar1 = document.getElementById('pwd-bar-1');
+    const bar2 = document.getElementById('pwd-bar-2');
+    const bar3 = document.getElementById('pwd-bar-3');
+    const bar4 = document.getElementById('pwd-bar-4');
+
+    let score = 0;
+    if (val.length >= 8) score++;
+    if (val.length >= 12) score++;
+    if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+    if (/[0-9]/.test(val) && /[^A-Za-z0-9]/.test(val)) score++;
+
+    bar1.className = 'rounded-full transition-all ' + (score >= 1 ? 'bg-primary' : 'bg-surface-container');
+    bar2.className = 'rounded-full transition-all ' + (score >= 2 ? 'bg-primary' : 'bg-surface-container');
+    bar3.className = 'rounded-full transition-all ' + (score >= 3 ? 'bg-primary' : 'bg-surface-container');
+    bar4.className = 'rounded-full transition-all ' + (score >= 4 ? 'bg-primary' : 'bg-surface-container');
+
+    if (score <= 1) strengthText.innerText = 'Weak';
+    else if (score <= 3) strengthText.innerText = 'Moderate';
+    else strengthText.innerText = 'Strong & Compliant';
+  }
+
+  function handlePasswordUpdate() {
+    const toast = document.getElementById('pwd-update-toast');
+    toast.classList.remove('hidden');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+      document.getElementById('password-form').reset();
+    }, 3000);
+  }
+
+  function terminateSession(cardId) {
+    const el = document.getElementById(cardId);
+    if (el) {
+      el.style.opacity = '0.3';
+      el.style.pointerEvents = 'none';
+      setTimeout(() => el.remove(), 400);
+    }
+  }
+
+  function terminateOtherSessions() {
+    const mobile = document.getElementById('mobile-session-card');
+    if (mobile) terminateSession('mobile-session-card');
+  }
+
+  function saveProfileChanges() {
+    const toast = document.getElementById('profile-saved-toast');
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 4000);
+  }
+
+  function saveNotificationPreferences() {
+    const toast = document.getElementById('preferences-saved-toast');
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 4000);
+  }
+
+  function resetPreferencesToDefault() {
+    saveNotificationPreferences();
+  }
+</script></main></div></body></html>

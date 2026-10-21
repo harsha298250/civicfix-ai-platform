@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"tertiary-fixed":"#dbe3f0","secondary-fixed":"#e4dfff","surface-container-highest":"#d8e3f4","surface-container-high":"#dee9fa","tertiary-container":"#666e79","surface-container":"#e4efff","surface-variant":"#d8e3f4","on-primary-fixed":"#00201d","tertiary":"#4d5660","on-secondary":"#ffffff","surface-bright":"#f8f9ff","secondary":"#5845cb","inverse-surface":"#26313e","on-tertiary-container":"#e9f1fe","on-surface":"#111c28","on-tertiary-fixed-variant":"#3f4752","on-background":"#111c28","tertiary-fixed-dim":"#bfc7d3","error":"#ba1a1a","on-error":"#ffffff","primary":"#006057","outline-variant":"#bdc9c6","on-primary-fixed-variant":"#005049","on-secondary-fixed":"#170065","on-primary":"#ffffff","secondary-container":"#7160e6","inverse-primary":"#7ed6ca","outline":"#6e7977","inverse-on-surface":"#e9f1ff","on-secondary-container":"#fffbff","on-tertiary":"#ffffff","primary-container":"#137a70","surface-tint":"#006a61","on-error-container":"#93000a","error-container":"#ffdad6","on-secondary-fixed-variant":"#422bb5","secondary-fixed-dim":"#c7bfff","on-tertiary-fixed":"#141c25","surface-container-low":"#eef4ff","background":"#f8f9ff","surface-container-lowest":"#ffffff","on-primary-container":"#aefff3","surface":"#f8f9ff","surface-dim":"#d0dbeb","primary-fixed-dim":"#7ed6ca","on-surface-variant":"#3e4947","primary-fixed":"#9af2e6"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin-desktop":"2rem","gutter":"1rem","space-xs":"0.25rem","space-lg":"1.5rem","margin":"1rem","gutter-desktop":"1.5rem","space-md":"1rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"body-sm":["Inter"],"body-md":["Inter"],"display":["Inter"],"title":["Inter"],"headline-lg":["Inter"],"code-sm":["JetBrains Mono"],"label-sm":["Inter"],"headline-sm":["Inter"],"headline-lg-mobile":["Inter"],"label-md":["Inter"],"body-lg":["Inter"],"headline-md":["Inter"]},"fontSize":{"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}],"display":["36px",{"lineHeight":"44px","letterSpacing":"-0.03em","fontWeight":"600"}],"title":["15px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.025em","fontWeight":"600"}],"code-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"500"}],"body-lg":["15px",{"lineHeight":"22px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-[#151D26] z-50 flex flex-col justify-between py-space-md"><div class="flex flex-col gap-space-lg"><div class="flex items-center gap-space-sm px-space-lg"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm"><span class="material-symbols-outlined text-[20px]">account_balance</span></div><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-title text-title text-[#FFFFFF] tracking-tight">CivicFix</span><span class="px-1.5 py-0.5 rounded bg-secondary text-[#FFFFFF] font-label-sm text-label-sm uppercase tracking-wider">AI</span></div><span class="font-label-sm text-label-sm text-[#8B95A5]">Municipal Operations</span></div></div><div class="px-space-md"><div class="px-space-sm pb-space-xs font-label-sm text-label-sm uppercase tracking-wider text-[#66768a]">Operational Core</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-[#CBD5E1] hover:bg-[#222E3C] hover:text-[#FFFFFF] transition-colors" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-body-md text-body-md">Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-[#CBD5E1] hover:bg-[#222E3C] hover:text-[#FFFFFF] transition-colors" data-path="complaints" href="#"><span class="material-symbols-outlined text-[20px]">inbox</span><span class="font-body-md text-body-md">Complaints</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-[#CBD5E1] hover:bg-[#222E3C] hover:text-[#FFFFFF] transition-colors" data-path="review-and-assignment" href="#"><span class="material-symbols-outlined text-[20px]">assignment_ind</span><span class="font-body-md text-body-md">Review &amp; Assignment</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg transition-colors bg-primary-container text-on-primary font-semibold shadow-sm" data-path="resolution-verification" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body-md text-body-md">Resolution Verification</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-[#CBD5E1] hover:bg-[#222E3C] hover:text-[#FFFFFF] transition-colors" data-path="issue-map" href="#"><span class="material-symbols-outlined text-[20px]">map</span><span class="font-body-md text-body-md">Issue Map</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-[#CBD5E1] hover:bg-[#222E3C] hover:text-[#FFFFFF] transition-colors" data-path="analytics" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span class="font-body-md text-body-md">Analytics</span></a></nav></div></div><div class="px-space-md flex flex-col gap-space-sm"><div class="px-space-sm font-label-sm text-label-sm uppercase tracking-wider text-[#66768a]">System &amp; User</div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-[#CBD5E1] hover:bg-[#222E3C] hover:text-[#FFFFFF] transition-colors" data-path="notifications" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="font-body-md text-body-md">Notifications</span></div><span class="w-2 h-2 rounded-full bg-secondary"></span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-[#CBD5E1] hover:bg-[#222E3C] hover:text-[#FFFFFF] transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-[20px]">manage_accounts</span><span class="font-body-md text-body-md">Profile</span></a></nav><div class="mt-space-xs p-space-sm rounded-lg bg-[#0F161E] flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span></span><span class="font-label-sm text-label-sm text-[#8B95A5]">GIS Engine Online</span></div><span class="font-code-sm text-code-sm text-[#4E5C6E]">v2.4</span></div></div></aside><div class="pl-64 flex flex-col min-h-screen"><header class="fixed top-0 left-64 right-0 h-16 z-40 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-lg flex-1 max-w-xl"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span><input class="w-full h-9 pl-9 pr-space-md rounded-lg bg-surface-container-lowest border border-outline-variant font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Search by complaint ID (e.g. #CV-9402) or task ID..." type="text"/></div></div><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-container-high"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="font-label-sm text-label-sm text-on-surface font-semibold">Field Queue: Active</span></div><div class="hidden md:flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-container"><span class="material-symbols-outlined text-secondary text-[14px]">auto_awesome</span><span class="font-label-sm text-label-sm text-on-surface font-semibold">AI Triage Model 98.4%</span></div><div class="h-5 w-[1px] bg-outline-variant"></div><button aria-label="Notifications" class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="flex flex-col text-right"><span class="font-title text-title text-on-surface leading-tight">Elena Vance</span><div class="flex items-center justify-end gap-1"><span class="font-label-sm text-label-sm text-on-surface-variant">Central Operations</span><span class="px-1.5 py-0.5 rounded bg-primary-container/10 text-primary-container font-label-sm text-label-sm font-semibold">Officer</span></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface px-space-lg py-space-lg flex-1"><div class="flex flex-col w-full">
+<!-- Interactive UX State Simulator Navigation -->
+<div class="w-full bg-surface-container-low rounded-xl p-space-sm mb-space-md shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">tune</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">UX Flow Simulator:</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5" id="sim-tabs">
+<button class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all bg-primary-container text-on-primary shadow-sm flex items-center gap-1.5" id="tab-state-default" onclick="switchState('state-default')" type="button">
+<span class="material-symbols-outlined text-[15px]">splitscreen</span>
+<span>1. Verification Queue &amp; Active Case</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all bg-surface-container-highest text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" id="tab-state-request" onclick="switchState('state-request')" type="button">
+<span class="material-symbols-outlined text-[15px]">quiz</span>
+<span>2. Request Evidence Dialog</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all bg-surface-container-highest text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" id="tab-state-reject" onclick="switchState('state-reject')" type="button">
+<span class="material-symbols-outlined text-[15px]">highlight_off</span>
+<span>3. Reject Resolution Dialog</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all bg-surface-container-highest text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" id="tab-state-approved" onclick="switchState('state-approved')" type="button">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+<span>4. Approval Confirmed</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all bg-surface-container-highest text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" id="tab-state-empty" onclick="switchState('state-empty')" type="button">
+<span class="material-symbols-outlined text-[15px]">inbox</span>
+<span>5. Empty Queue</span>
+</button>
+</div>
+<span class="font-code-sm text-code-sm text-tertiary">Demo simulation harness</span>
+</div>
+</div>
+<!-- Header & Breadcrumbs -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm mb-space-lg">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+<span>Operations</span>
+<span class="material-symbols-outlined text-[13px]">chevron_right</span>
+<span>Review &amp; Verification</span>
+<span class="material-symbols-outlined text-[13px]">chevron_right</span>
+<span class="font-code-sm text-code-sm text-primary font-semibold">Case #CF-2026-00124</span>
+</div>
+<div class="flex items-center gap-3">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Resolution Verification</h1>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">psychology</span>
+<span>Dual Review Mode</span>
+</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="px-3 py-1.5 rounded-lg bg-surface-container flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface">Officer On Duty: <span class="font-semibold">Elena Vance (Zone 4)</span></span>
+</div>
+</div>
+</div>
+<!-- Top KPI Metric Summary Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">
+<!-- Card 1 -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Awaiting Verification</span>
+<div class="w-7 h-7 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">pending_actions</span>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface">7</span>
+<span class="font-label-sm text-label-sm text-error bg-error-container/30 px-1.5 py-0.5 rounded font-semibold">3 Urgent P1</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Pending sign-off within 2h window</p>
+</div>
+<!-- Card 2 -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Approved Today</span>
+<div class="w-7 h-7 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface">14</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold flex items-center">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+          100% Ward SLA
+        </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Zero overdue adjudication cases</p>
+</div>
+<!-- Card 3 -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Returned for Rework</span>
+<div class="w-7 h-7 rounded-lg bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface">2</span>
+<span class="font-label-sm text-label-sm text-tertiary">1 compaction • 1 angle</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Reassigned back to Field Unit 4</p>
+</div>
+<!-- Card 4 -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Avg. Verification Time</span>
+<div class="w-7 h-7 rounded-lg bg-primary-fixed-dim/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface">28 <span class="text-headline-sm font-normal text-on-surface-variant">mins</span></span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">−17m vs Target</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Target ceiling &lt;45 mins</p>
+</div>
+</div>
+<!-- MAIN WORKSPACE CONTAINER (States switch here) -->
+<div class="w-full" id="state-default-container">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT QUEUE COLUMN (lg:col-span-4) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- Queue Filter & Controls Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">format_list_bulleted</span>
+<h2 class="font-title text-title text-on-surface">Verification Queue</h2>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high font-code-sm text-code-sm text-on-surface font-semibold">3 items</span>
+</div>
+<!-- Search Input -->
+<div class="relative w-full mb-space-sm">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[16px]">filter_alt</span>
+<input class="w-full h-8 pl-8 pr-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:bg-surface-container" placeholder="Filter by ID (CF-2026-00124)..." type="text"/>
+</div>
+<!-- Filter Pills -->
+<div class="grid grid-cols-2 gap-2 mb-space-sm">
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Priority</label>
+<select class="w-full h-8 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm px-2 focus:outline-none">
+<option>All Priorities</option>
+<option selected="">Urgent P1 First</option>
+<option>High Priority</option>
+<option>Normal</option>
+</select>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Category</label>
+<select class="w-full h-8 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm px-2 focus:outline-none">
+<option selected="">Roads &amp; Potholes</option>
+<option>Streetlights</option>
+<option>Drainage</option>
+<option>Footpaths</option>
+</select>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Worker: All Crew Leads</span>
+<button class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-0.5" type="button">
+<span>Sort: Oldest</span>
+<span class="material-symbols-outlined text-[13px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Queue Item List -->
+<div class="flex flex-col gap-2">
+<!-- Item 1: Active Selected -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-md transition-all cursor-pointer relative overflow-hidden ring-2 ring-primary-container">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+<div class="flex items-start justify-between gap-2 pl-1 mb-1.5">
+<div class="flex items-center gap-1.5">
+<span class="font-code-sm text-code-sm font-semibold text-primary">#CF-2026-00124</span>
+<span class="font-code-sm text-code-sm text-tertiary">(TK-0881)</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>
+                Urgent P1
+              </span>
+</div>
+<h3 class="font-title text-title text-on-surface pl-1 line-clamp-1">Large pothole near bus stop</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-1 line-clamp-2 mt-0.5">Ward 8 Anna Nagar • 45cm tarmac fissure backfilled with Cold-Mix Type 3B.</p>
+<div class="mt-3 pt-2.5 bg-surface-container-low rounded-lg p-2 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center font-label-sm text-label-sm text-on-primary-fixed font-semibold">MC</div>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Marcus Chen</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span>01:25 PM (18m ago)</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-all cursor-pointer">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-1.5">
+<span class="font-code-sm text-code-sm font-medium text-on-surface">#CF-2026-00119</span>
+<span class="font-code-sm text-code-sm text-tertiary">(TK-0879)</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">
+                High Priority
+              </span>
+</div>
+<h3 class="font-title text-title text-on-surface line-clamp-1">Broken sodium streetlight</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Ward 14 Velachery • Mastarm 4 replaced with LED ballast.</p>
+<div class="mt-2.5 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">engineering</span>
+<span>Rajesh Kumar (#FW-904)</span>
+</div>
+<span>11:40 AM</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="rounded-xl p-space-md bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-all cursor-pointer">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-1.5">
+<span class="font-code-sm text-code-sm font-medium text-on-surface">#CF-2026-00108</span>
+<span class="font-code-sm text-code-sm text-tertiary">(TK-0874)</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-tertiary font-label-sm text-label-sm">
+                Normal
+              </span>
+</div>
+<h3 class="font-title text-title text-on-surface line-clamp-1">Blocked stormwater catch-basin</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Ward 4 Adyar • Hydro-jet cleared silt build-up.</p>
+<div class="mt-2.5 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">engineering</span>
+<span>Priya Sundaram (#FW-712)</span>
+</div>
+<span>10:15 AM</span>
+</div>
+</div>
+</div>
+<!-- GIS Spatial Verification Mini-Map -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">pin_drop</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface font-semibold">GIS Geofence Match</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-code-sm text-code-sm font-semibold">±1.1m Delta</span>
+</div>
+<div class="w-full h-36 rounded-lg bg-cover bg-center relative overflow-hidden shadow-inner flex items-end p-2" data-location="Anna Nagar, Chennai, Tamil Nadu, India" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdLh4Df7MjDNt5RbLvjbkb8_2f2QIzPZGlFPBdXzeamvQwfhtCnqJaW2NCuTSCZkj3GBm9bFs_XF9wb70bD-QcD3jBuy4lqbroZysawZdgIA7qVzPfjdCxD-7y3sO4UHESyxvplaB1IKT38QwkBwjKwNzy3q9x_SeJ2hsyiKEY8CjTcoxQLLj0Cx6XHgwa60xLHc5GkSzfENL5G3Ee3WIpzdPhVNpNvLd2D_MrgsZpmyTGYdSwXO17')">
+<div class="bg-surface/90 backdrop-blur-md rounded-lg p-1.5 w-full flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-1.5 font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">my_location</span>
+<span>13.08502° N, 80.21014° E</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Matched RTK</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT EVIDENCE & ADJUDICATION WORKSPACE (lg:col-span-8) -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- Active Case Header Bar -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest font-code-sm text-code-sm text-on-surface font-bold">CASE #CF-2026-00124</span>
+<span class="px-2 py-0.5 rounded bg-primary-container/10 text-primary-container font-label-sm text-label-sm font-semibold">SDOT Task #TK-2026-0881</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">P1 High Hazard Hazard</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mt-1">Anna Nagar 2nd Avenue Pothole Reconstruction</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ward 8 Zone IV • Assigned crew: SDOT Rapid Asphalt Unit 4</p>
+</div>
+<div class="flex items-center gap-2 self-start md:self-auto">
+<div class="px-3 py-1 rounded-lg bg-surface-container-low text-right">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant block">Verification Status</span>
+<span class="font-label-md text-label-md text-secondary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">hourglass_top</span>
+                Ready for Adjudication
+              </span>
+</div>
+</div>
+</div>
+<!-- VISUAL EVIDENCE COMPARISON (SIDE-BY-SIDE DIFF) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-space-md pb-space-sm bg-surface-container-low -mx-space-md -mt-space-md p-space-md rounded-t-xl">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">compare</span>
+<h3 class="font-title text-title text-on-surface">Photographic Evidence Comparison</h3>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-highest p-0.5 rounded-lg">
+<button class="px-2.5 py-1 rounded font-label-sm text-label-sm bg-surface-container-lowest text-on-surface shadow-xs font-semibold" type="button">Side-by-Side Diff</button>
+<button class="px-2.5 py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface" type="button">Overlay Slider</button>
+<button class="px-2.5 py-1 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface" type="button">Toggle View</button>
+</div>
+</div>
+<!-- Dual Column Photo Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- BEFORE / CITIZEN REPORT -->
+<div class="flex flex-col rounded-xl bg-surface-container-low overflow-hidden">
+<div class="p-3 bg-surface-container flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary font-bold">1. ORIGINAL REPORT EVIDENCE (BEFORE)</span>
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">Citizen Upload</span>
+</div>
+<div class="relative w-full h-56 bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up photographic view of a deep rugged asphalt pothole measuring 45cm across in an urban asphalt lane in Chennai with rough jagged edges, loose debris, exposed aggregate, bright midday sun casting harsh shadows inside the hollow fissure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMcUsjsVjaSHiU9tj-rgue0Wld6JqByY3UhGttOZWaEaanf1PV6KlBfkOlSitmGLeAfdl-Am54HITfRIo_72mekkq-QpBTpJKFWYOgfa0Uxc4h1Cs2BwaveM7i6GkEQtqZAsWeprJLtBJnmNmFfezEAWpDaIFU74oWrMjDd8-k5T6IpQxDKiYcck9gbFY8u2FVTGsz6GCOxtl9arYNHhWBZjq34sIzbYRCOQnxd5kV4_DK2AY4cAz-"/>
+<div class="absolute bottom-2 left-2 bg-surface/90 backdrop-blur-md px-2 py-1 rounded text-on-surface font-code-sm text-code-sm flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-error text-[14px]">warning</span>
+<span>Depth: ~10cm • Fissure: 45cm</span>
+</div>
+<div class="absolute top-2 right-2 bg-inverse-surface/80 text-inverse-on-surface px-2 py-0.5 rounded font-code-sm text-code-sm">
+                  10 Oct 09:14 AM
+                </div>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
+<span>GPS: 13.08502° N, 80.21014° E</span>
+<span class="text-primary font-semibold">EXIF Valid</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm italic">
+                  “Pothole measures roughly 45cm across and 10cm deep in active cycling lane. Multiple two-wheelers swerved into oncoming traffic.”
+                </div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-tertiary">person</span>
+<span>Reported by: Alex M. (Verified Resident #VR-9104)</span>
+</div>
+</div>
+</div>
+<!-- AFTER / CREW RESOLUTION -->
+<div class="flex flex-col rounded-xl bg-surface-container-low overflow-hidden">
+<div class="p-3 bg-surface-container flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">2. RESOLUTION PROOF (AFTER REPAIR)</span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Field Crew Lead</span>
+</div>
+<div class="relative w-full h-56 bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Freshly paved smooth black cold-mix asphalt patch perfectly leveled and flush with the surrounding urban roadway pavement, vibratory compaction roller tire marks visible on clean edges, high-visibility orange safety traffic pylon standing beside the cured repair." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC--5Xw4UsVRZIPwMsI5v8suM62rHYtxKktljDwfquccKIt5X3ESv52AtHZarwAhYJLmM9nvvflb2ZRJJeHofOm4x7LeuaiNKQsiI_ZYLJvztEziVulUj8z6k8SWz9lmlFAPYWVAGeq8Cqohv2B86NyG9F49bgcflXUzkzJzuwu8_K8Xl8cVBAUqergXVShUlpaAtXxhpd-W32NmdhzBlbwgOhs43VwulHS8hc6JCWumTw23jqEUIpX"/>
+<div class="absolute bottom-2 left-2 bg-surface/90 backdrop-blur-md px-2 py-1 rounded text-on-surface font-code-sm text-code-sm flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[14px]">check_circle</span>
+<span>Flush Finish • Zero Gradient Gap</span>
+</div>
+<div class="absolute top-2 right-2 bg-inverse-surface/80 text-inverse-on-surface px-2 py-0.5 rounded font-code-sm text-code-sm">
+                  10 Oct 01:25 PM
+                </div>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
+<span>GPS: 13.08503° N, 80.21013° E</span>
+<span class="text-primary font-semibold">Δ 1.1m (Within Fence)</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm">
+<p class="font-semibold text-primary-container mb-0.5">Work Execution Summary:</p>
+                  “Excavated loose debris, applied 12L tack coat emulsion, backfilled 220kg Cold-Mix Type 3B, executed 3 vibratory compaction passes with Roller T-12.”
+                </div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">verified_user</span>
+<span>Marcus Chen (#FW-882, SDOT Unit 4)</span>
+</div>
+<span class="font-code-sm text-code-sm font-medium text-tertiary">Roller T-12</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Evidence Thumbnails & Materials Consumed -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mt-space-md pt-space-md bg-surface-container-low p-space-md rounded-xl">
+<!-- Secondary Proof Cards -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface font-semibold">Auxiliary Evidence Attachments (2)</span>
+<div class="grid grid-cols-2 gap-2">
+<div class="rounded-lg bg-surface-container-lowest p-2 shadow-xs flex items-center gap-2">
+<div class="w-12 h-12 rounded bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Heavy mechanical roller machine parked on roadway performing final rolling compaction over fresh asphalt patch under daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTSGLAjM7Y2lY30Y_5Ves6acbHRBov9g3CiexU9VAyohu2tg7GkT0-po1D5-9_WbHMJDNEH8yvB3T0JoeVzo3p4novXVNsEHbP8yAFhqT2St-xH_ptqyAyazPECgSuIANKG3DN1ybckXCfkWjkIn-VefrqhqbJ6RDNt-DYlqG34Y-ncacUhBiSnEnc1Bm_vlHJ8WtthtQ0L7kNsKu-tjN88eIggL0_-tz61HBbWRjtwV8kGr5MeOBl"/>
+</div>
+<div class="flex flex-col overflow-hidden">
+<span class="font-label-sm text-label-sm text-on-surface truncate font-semibold">Proof 02: Compaction</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">01:22 PM</span>
+</div>
+</div>
+<div class="rounded-lg bg-surface-container-lowest p-2 shadow-xs flex items-center gap-2">
+<div class="w-12 h-12 rounded bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Safety orange barricade cones and pylons placed strategically around new roadway patch with municipal service truck parked safely in distance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBenTQeWuFr7L5SDyNOhUulfOPZ2HGAOjPsxXO-72y4wglHtcazaFf5fnRbTehf-O2PnzcdSFQsWwUA3tyLJSSSnAcVNZ12uCRYasij0HAd7W8-YEA10RxD6sUOy8I6HyLI-Rr9DdZPG9R0rtG8LLub0DXXK5aZrm0Z9f8TFuPmysM35-hRBW9qUD0MvLA_TOIhtgjrnmPMOqNLRO2DE-RnmMsRseYonjebvNv6Z8hyopnwBWGhxxMj"/>
+</div>
+<div class="flex flex-col overflow-hidden">
+<span class="font-label-sm text-label-sm text-on-surface truncate font-semibold">Proof 03: Pylons Deployed</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">01:24 PM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Materials Logged -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface font-semibold">Materials &amp; Equipment Logged</span>
+<div class="grid grid-cols-2 gap-2">
+<div class="p-2 rounded-lg bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Cold-Mix Type 3B</span>
+<span class="font-title text-title text-on-surface">220 kg <span class="font-body-sm text-body-sm text-primary font-normal">(Standard)</span></span>
+</div>
+<div class="p-2 rounded-lg bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Tack Coat Emulsion</span>
+<span class="font-title text-title text-on-surface">12 Liters <span class="font-body-sm text-body-sm text-primary font-normal">(Complete)</span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI-ASSISTED EVIDENCE REVIEW PANEL (Distinct Violet Accent) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden ring-1 ring-secondary/30">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex flex-wrap items-center justify-between gap-2 mb-space-sm pb-space-xs">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+</div>
+<div>
+<h4 class="font-title text-title text-on-surface flex items-center gap-2">
+                  CivicFix AI Computer Vision Verification
+                  <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Advisory</span>
+</h4>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Visual Completeness Match:</span>
+<span class="px-2.5 py-1 rounded-full bg-secondary text-on-secondary font-code-sm text-code-sm font-bold shadow-sm">
+                98.2% Confidence
+              </span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm mb-space-sm">
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[16px]">gradient</span>
+<span class="font-label-md text-label-md font-semibold">Surface Texture Continuity</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+                Pavement fissure completely sealed. Elevation gradient flush with existing tarmac (+0.2cm variance).
+              </p>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[16px]">location_searching</span>
+<span class="font-label-md text-label-md font-semibold">Geofence Centroid Match</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+                Sub-meter RTK match (1.1m from reported centroid). EXIF timestamp matches work log timeline.
+              </p>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[16px]">hourglass_bottom</span>
+<span class="font-label-md text-label-md font-semibold">Cure Advisory Warning</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+                Pylons must remain for 45 mins until cold-mix polymer reaches ambient 32°C core temp.
+              </p>
+</div>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-secondary">info</span>
+<span>CivicFix AI guidance is non-binding advisory telemetry. The authorized Municipal Verification Officer retains absolute adjudication authority.</span>
+</div>
+</div>
+<!-- STRUCTURED VERIFICATION CHECKLIST & AUDIT NOTES -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">fact_check</span>
+<h3 class="font-title text-title text-on-surface">Structured Verification Checklist (Officer Adjudication)</h3>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">5 of 5 Criteria Satisfied</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-space-md">
+<label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="mt-0.5 rounded text-primary-container focus:ring-primary h-4 w-4" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Required repair photographs present</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">2 of 2 geo-tagged photos uploaded with clear angle.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="mt-0.5 rounded text-primary-container focus:ring-primary h-4 w-4" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Material consumption logged</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Asphalt 220kg and tack coat 12L match task scope.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="mt-0.5 rounded text-primary-container focus:ring-primary h-4 w-4" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">GPS Geofence Match Validated</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Within 12m perimeter of citizen reported incident pin.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="mt-0.5 rounded text-primary-container focus:ring-primary h-4 w-4" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Scope of Work Addressed</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Compaction and flush finish meet Ward 8 standard.</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors md:col-span-2">
+<input checked="" class="mt-0.5 rounded text-primary-container focus:ring-primary h-4 w-4" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Safety Barricades &amp; Pylons Deployed</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Demobilization protocol set for 45 minutes cure window post-roller compaction.</span>
+</div>
+</label>
+</div>
+<!-- Officer Observations & Field Notes Input Box -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Officer Adjudication Notes</label>
+<span class="font-code-sm text-code-sm text-tertiary">Cryptographically logged in case ledger</span>
+</div>
+<textarea class="w-full p-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-surface-container transition-all" rows="3">Inspected compaction proof and post-patch leveling. Edge seal is tight. Cold-mix patch satisfies Ward 8 roadway standard. Ready for final resolution closeout.</textarea>
+</div>
+</div>
+<!-- VERIFIABLE AUDIT ACTIVITY TIMELINE -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">history_edu</span>
+<h3 class="font-title text-title text-on-surface">Verifiable Audit Activity Timeline</h3>
+</div>
+<span class="font-code-sm text-code-sm text-tertiary">ID #AUD-2026-X89</span>
+</div>
+<div class="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-surface-container-highest">
+<!-- Step 1 -->
+<div class="relative flex flex-col">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Citizen Complaint Submitted</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">09:14 AM</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Alex M. reported 45cm tarmac fissure via Mobile Citizen App.</span>
+</div>
+<!-- Step 2 -->
+<div class="relative flex flex-col">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-semibold">CivicFix AI Automated Triage &amp; Risk Scoring</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">09:15 AM</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Classified as Urgent P1 Roadway Hazard. Auto-dispatched to SDOT Unit 4.</span>
+</div>
+<!-- Step 3 -->
+<div class="relative flex flex-col">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Work Order Dispatched</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">10:22 AM</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Officer Elena Vance assigned Crew Lead Marcus Chen (#FW-882).</span>
+</div>
+<!-- Step 4 -->
+<div class="relative flex flex-col">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Repair Execution &amp; Evidence Submission</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">01:25 PM</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Crew completed roller pass, logged 220kg asphalt, submitted 2 geo-tagged photos.</span>
+</div>
+<!-- Step 5: Current -->
+<div class="relative flex flex-col">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-secondary-container animate-pulse ring-4 ring-surface-container-lowest"></div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-secondary font-bold">Officer Adjudication In Progress</span>
+<span class="font-code-sm text-code-sm text-secondary font-semibold">Active Now</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">Officer Vance reviewing compliance checklist and photo comparison.</span>
+</div>
+</div>
+</div>
+<!-- OFFICER DECISION COMMAND BAR -->
+<div class="sticky bottom-4 z-30 bg-surface/90 backdrop-blur-xl rounded-xl p-space-md shadow-xl flex flex-wrap items-center justify-between gap-space-md ring-1 ring-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">gavel</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title text-title text-on-surface">Officer Verification Action</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Case #CF-2026-00124 • Final binding disposition</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<!-- Reject Button -->
+<button class="h-9 px-3.5 rounded-lg bg-surface-container-lowest text-error hover:bg-error-container/30 transition-all font-label-md text-label-md flex items-center gap-1.5 shadow-xs" onclick="switchState('state-reject')" type="button">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+<span>Reject Submission</span>
+</button>
+<!-- Request Rework Button -->
+<button class="h-9 px-3.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all font-label-md text-label-md flex items-center gap-1.5" onclick="switchState('state-request')" type="button">
+<span class="material-symbols-outlined text-[16px]">help_outline</span>
+<span>Request Evidence / Rework</span>
+</button>
+<!-- Approve Button -->
+<button class="h-9 px-4 rounded-lg bg-primary-container hover:bg-primary text-on-primary transition-all font-label-md text-label-md font-semibold flex items-center gap-2 shadow-sm" onclick="switchState('state-approved')" type="button">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Approve &amp; Close Case</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- STATE 2: REQUEST ADDITIONAL EVIDENCE MODAL (Overlaid preview) -->
+<div class="hidden w-full" id="state-request-container">
+<div class="max-w-2xl mx-auto bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden ring-1 ring-outline-variant">
+<div class="p-space-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">quiz</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Request Additional Evidence / Rework</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Dispatches formal revision notice to Marcus Chen (#FW-882)</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="switchState('state-default')" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<div>
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold block mb-2">Deficiency Category</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+<label class="p-3 rounded-lg bg-surface-container-low flex items-center gap-2.5 cursor-pointer">
+<input checked="" class="text-secondary" name="rework-type" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Missing Elevation / Flush Angle</span>
+</label>
+<label class="p-3 rounded-lg bg-surface-container-low flex items-center gap-2.5 cursor-pointer">
+<input class="text-secondary" name="rework-type" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Insufficient Roller Compaction</span>
+</label>
+<label class="p-3 rounded-lg bg-surface-container-low flex items-center gap-2.5 cursor-pointer">
+<input class="text-secondary" name="rework-type" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Pylon / Signage Misalignment</span>
+</label>
+<label class="p-3 rounded-lg bg-surface-container-low flex items-center gap-2.5 cursor-pointer">
+<input class="text-secondary" name="rework-type" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Incomplete Material Audit Log</span>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Specific Field Instructions to Crew</label>
+<textarea class="w-full p-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary/20" rows="4">Please capture an eye-level edge profile photograph showing the transition between new patch and curb gutter. Current photo angle is top-down and obscures the +0.2cm gradient threshold.</textarea>
+</div>
+<div class="p-3 rounded-lg bg-surface-container flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">notifications_active</span>
+<span>Worker will receive priority push alert on SDOT Field Terminal. Ticket will pause SLA timer until resubmission.</span>
+</div>
+</div>
+<div class="p-space-lg bg-surface-container-low flex items-center justify-end gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container-highest font-label-md text-label-md text-on-surface" onclick="switchState('state-default')" type="button">Cancel</button>
+<button class="px-4 py-2 rounded-lg bg-secondary hover:bg-secondary-container text-on-secondary font-label-md text-label-md font-semibold flex items-center gap-1.5 shadow-sm" onclick="switchState('state-default')" type="button">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Transmit Rework Notice</span>
+</button>
+</div>
+</div>
+</div>
+<!-- STATE 3: REJECT RESOLUTION MODAL -->
+<div class="hidden w-full" id="state-reject-container">
+<div class="max-w-2xl mx-auto bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden ring-1 ring-error/30">
+<div class="p-space-lg bg-error-container/30 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-error text-on-error flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">gavel</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-error">Reject Resolution Submission</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Rejects field crew resolution proof. Does NOT close or cancel citizen complaint.</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="switchState('state-default')" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<div class="p-3 rounded-lg bg-error-container/20 text-on-error-container font-body-sm text-body-sm flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-error shrink-0 mt-0.5">warning</span>
+<span>Rejecting a submission documents a regulatory non-compliance event against SDOT Rapid Asphalt Unit 4. This will trigger a superintendent review.</span>
+</div>
+<div>
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold block mb-2">Grounds for Non-Compliance Rejection</label>
+<div class="space-y-2">
+<label class="p-3 rounded-lg bg-surface-container-low flex items-center gap-2.5 cursor-pointer">
+<input checked="" class="rounded text-error focus:ring-error" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Substandard compaction density • Pavement failure hazard</span>
+</label>
+<label class="p-3 rounded-lg bg-surface-container-low flex items-center gap-2.5 cursor-pointer">
+<input class="rounded text-error focus:ring-error" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Geofence mismatch exceeds allowable perimeter (&gt;15m)</span>
+</label>
+<label class="p-3 rounded-lg bg-surface-container-low flex items-center gap-2.5 cursor-pointer">
+<input class="rounded text-error focus:ring-error" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Material substitution without supervisor sign-off</span>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Mandatory Officer Rejection Rationale</label>
+<textarea class="w-full p-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-error/20" placeholder="Provide clear municipal engineering justification for case rejection..." rows="3">The patch demonstrates inadequate edge sealing against water ingress during monsoon conditions. Re-excavation and full binder course required per SDOT Standard Spec 402.</textarea>
+</div>
+</div>
+<div class="p-space-lg bg-surface-container-low flex items-center justify-end gap-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container-highest font-label-md text-label-md text-on-surface" onclick="switchState('state-default')" type="button">Cancel</button>
+<button class="px-4 py-2 rounded-lg bg-error text-on-error hover:bg-error/90 font-label-md text-label-md font-semibold flex items-center gap-1.5 shadow-sm" onclick="switchState('state-default')" type="button">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+<span>Execute Official Rejection</span>
+</button>
+</div>
+</div>
+</div>
+<!-- STATE 4: APPROVAL CONFIRMED (RESOLVED) -->
+<div class="hidden w-full" id="state-approved-container">
+<div class="max-w-2xl mx-auto bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden ring-1 ring-primary-container/30">
+<div class="p-space-xl text-center flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary mb-space-md shadow-md animate-bounce">
+<span class="material-symbols-outlined text-[36px]">verified</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-primary-container/10 text-primary-container font-label-sm text-label-sm font-bold uppercase tracking-wider mb-2">Resolution Certified &amp; Closed</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Case #CF-2026-00124 Approved</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+          The repair evidence submitted by Marcus Chen (#FW-882) has been officially ratified by Officer Elena Vance.
+        </p>
+<!-- Cryptographic Certificate Pill -->
+<div class="mt-space-lg w-full p-space-md bg-surface-container-low rounded-xl flex flex-col gap-2 text-left">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Cryptographic Certificate</span>
+<span class="font-code-sm text-code-sm text-primary font-semibold">SHA-256 Validated</span>
+</div>
+<div class="font-code-sm text-code-sm text-tertiary bg-surface-container-lowest p-2 rounded truncate">
+            0x98f4c2e...b38e4a91902dd67c4892fb011e4f (Block #194,882)
+          </div>
+<div class="grid grid-cols-2 gap-2 text-on-surface font-body-sm text-body-sm pt-1">
+<div>• Citizen Alex M. notified via SMS &amp; App</div>
+<div>• Ward 8 SLA: Closed in 4h 11m (Target 8h)</div>
+<div>• Materials archived to SDOT ERP</div>
+<div>• GIS Layer updated: Roadway Operable</div>
+</div>
+</div>
+<div class="mt-space-lg flex items-center gap-3">
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md" onclick="switchState('state-default')" type="button">
+            Return to Case
+          </button>
+<button class="px-5 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold flex items-center gap-2 shadow-sm" onclick="switchState('state-empty')" type="button">
+<span>Next Queue Case (#CF-2026-00119)</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- STATE 5: EMPTY QUEUE STATE -->
+<div class="hidden w-full" id="state-empty-container">
+<div class="max-w-xl mx-auto bg-surface-container-lowest rounded-2xl p-space-xl shadow-sm text-center flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container mb-space-md">
+<span class="material-symbols-outlined text-[32px]">task</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Verification Queue Is Clear!</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-space-lg">
+        All pending municipal repair proofs have been adjudicated. Field crews are currently executing tasks in Ward 8 and Ward 14.
+      </p>
+<div class="p-space-md bg-surface-container-low rounded-xl w-full flex items-center justify-between mb-space-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">radar</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Auto-poll active for incoming field uploads</span>
+</div>
+<span class="font-code-sm text-code-sm text-tertiary">Polling every 15s</span>
+</div>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1.5" onclick="switchState('state-default')" type="button">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+<span>Reset Simulator to Active Case</span>
+</button>
+</div>
+</div>
+<!-- Interactive State Switching Logic -->
+<script>
+    function switchState(stateId) {
+      const states = ['state-default', 'state-request', 'state-reject', 'state-approved', 'state-empty'];
+      
+      states.forEach(id => {
+        const container = document.getElementById(id + '-container');
+        const tab = document.getElementById('tab-' + id);
+        if (container) {
+          if (id === stateId) {
+            container.classList.remove('hidden');
+          } else {
+            container.classList.add('hidden');
+          }
+        }
+        if (tab) {
+          if (id === stateId) {
+            tab.className = 'px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all bg-primary-container text-on-primary shadow-sm flex items-center gap-1.5';
+          } else {
+            tab.className = 'px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all bg-surface-container-highest text-on-surface-variant hover:text-on-surface flex items-center gap-1.5';
+          }
+        }
+      });
+    }
+  </script>
+</div></main></div></body></html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "inverse-primary": "#7ed6ca", "surface-container": "#e4efff", "on-secondary-fixed-variant": "#422bb5", "tertiary-fixed-dim": "#bfc7d3", "on-surface": "#111c28", "secondary-container": "#7160e6", "primary": "#006057", "error": "#ba1a1a", "surface-container-low": "#eef4ff", "tertiary-fixed": "#dbe3f0", "inverse-on-surface": "#e9f1ff", "on-primary-container": "#aefff3", "on-surface-variant": "#3e4947", "on-secondary": "#ffffff", "surface-container-high": "#dee9fa", "surface-bright": "#f8f9ff", "on-error-container": "#93000a", "on-secondary-container": "#fffbff", "inverse-surface": "#26313e", "surface-container-highest": "#d8e3f4", "surface-container-lowest": "#ffffff", "secondary": "#5845cb", "on-primary": "#ffffff", "surface-tint": "#006a61", "primary-fixed": "#9af2e6", "tertiary": "#4d5660", "surface-variant": "#d8e3f4", "background": "#f8f9ff", "outline-variant": "#bdc9c6", "primary-fixed-dim": "#7ed6ca", "on-background": "#111c28", "on-tertiary-fixed": "#141c25", "surface": "#f8f9ff", "secondary-fixed-dim": "#c7bfff", "on-primary-fixed-variant": "#005049", "on-error": "#ffffff", "on-tertiary-container": "#e9f1fe", "tertiary-container": "#666e79", "secondary-fixed": "#e4dfff", "surface-dim": "#d0dbeb", "error-container": "#ffdad6", "on-tertiary": "#ffffff", "outline": "#6e7977", "on-secondary-fixed": "#170065", "on-tertiary-fixed-variant": "#3f4752", "primary-container": "#137a70", "on-primary-container": "#aefff3", "on-primary-fixed": "#00201d" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-desktop": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "space-sm": "0.5rem", "gutter-desktop": "1.5rem", "space-xs": "0.25rem", "space-xl": "2rem", "space-md": "1rem", "margin": "1rem" }, fontFamily: { "body-lg": ["Inter"], "title": ["Inter"], "headline-sm": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "body-sm": ["Inter"], "body-md": ["Inter"], "label-sm": ["Inter"], "code-sm": ["JetBrains Mono"], "headline-md": ["Inter"], "label-md": ["Inter"], "display": ["Inter"] }, fontSize: { "body-lg": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "title": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.025em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "body-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }], "code-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }], "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary-container selection:text-on-primary"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-sm"><span class="material-symbols-outlined text-[22px]">location_city</span></div><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-title text-title text-on-surface tracking-tight leading-none">CivicFix</span><span class="px-1.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm leading-none">AI</span></div><span class="font-label-sm text-label-sm text-on-surface-variant truncate max-w-[130px]">Report Issue</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-gutter pb-space-xl space-y-space-lg select-none">
+<!-- Progress & Intro -->
+<div class="flex flex-col space-y-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-space-xs">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm shadow-sm">1</span>
+<span class="font-title text-title text-on-surface">Step 1 of 4: Issue Details</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium tracking-wide uppercase bg-surface-container-low px-2 py-0.5 rounded-full">Outdoor Mode</span>
+</div>
+<!-- Stepper Track -->
+<div class="grid grid-cols-4 gap-1.5 w-full">
+<div class="h-1.5 rounded-full bg-primary-container shadow-xs"></div>
+<div class="h-1.5 rounded-full bg-surface-container-high transition-colors"></div>
+<div class="h-1.5 rounded-full bg-surface-container-high transition-colors"></div>
+<div class="h-1.5 rounded-full bg-surface-container-high transition-colors"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+      Help improve your neighborhood by reporting a problem with fast AI triage.
+    </p>
+</div>
+<!-- SECTION A: ISSUE DETAILS -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">edit_note</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Tell us about the issue</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium bg-surface-container-low px-2 py-0.5 rounded-full">Required</span>
+</div>
+<!-- Title Input -->
+<div class="flex flex-col space-y-1">
+<div class="flex justify-between items-center text-on-surface">
+<label class="font-title text-title flex items-center gap-0.5" for="issue-title">
+          Issue Title <span class="text-error font-bold">*</span>
+</label>
+<span class="font-code-sm text-code-sm text-on-surface-variant" id="title-counter">38/80</span>
+</div>
+<input class="w-full h-11 px-3 bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest shadow-sm placeholder:text-outline" id="issue-title" maxlength="80" placeholder="Briefly state the municipal defect..." type="text" value="Deep pothole near Pine St &amp; 4th Ave"/>
+</div>
+<!-- Category Selector (Touch optimized grid) -->
+<div class="flex flex-col space-y-2">
+<div class="flex justify-between items-center">
+<label class="font-title text-title text-on-surface flex items-center gap-0.5">
+          Select Category <span class="text-error font-bold">*</span>
+</label>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span> AI Verified
+        </span>
+</div>
+<div class="grid grid-cols-2 gap-2 text-left" id="category-grid">
+<!-- Option: Roads (Selected) -->
+<button class="category-btn flex items-center justify-between p-3 rounded-xl bg-surface-container-low text-primary-container shadow-xs text-left" data-selected="true" type="button">
+<div class="flex items-center space-x-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-primary-container">minor_crash</span>
+<span class="font-title text-title text-on-surface truncate">Roads &amp; Potholes</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-primary-container" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<!-- Option: Streetlights -->
+<button class="category-btn flex items-center justify-between p-3 rounded-xl bg-surface-container text-on-surface shadow-xs text-left" data-selected="false" type="button">
+<div class="flex items-center space-x-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">lightbulb</span>
+<span class="font-body-md text-body-md truncate">Streetlights</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline opacity-40">circle</span>
+</button>
+<!-- Option: Waste -->
+<button class="category-btn flex items-center justify-between p-3 rounded-xl bg-surface-container text-on-surface shadow-xs text-left" data-selected="false" type="button">
+<div class="flex items-center space-x-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">delete_sweep</span>
+<span class="font-body-md text-body-md truncate">Waste Mgmt</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline opacity-40">circle</span>
+</button>
+<!-- Option: Drainage -->
+<button class="category-btn flex items-center justify-between p-3 rounded-xl bg-surface-container text-on-surface shadow-xs text-left" data-selected="false" type="button">
+<div class="flex items-center space-x-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">water_damage</span>
+<span class="font-body-md text-body-md truncate">Drainage Floods</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline opacity-40">circle</span>
+</button>
+<!-- Option: Water Supply -->
+<button class="category-btn flex items-center justify-between p-3 rounded-xl bg-surface-container text-on-surface shadow-xs text-left" data-selected="false" type="button">
+<div class="flex items-center space-x-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">water_drop</span>
+<span class="font-body-md text-body-md truncate">Water Supply</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline opacity-40">circle</span>
+</button>
+<!-- Option: Infrastructure -->
+<button class="category-btn flex items-center justify-between p-3 rounded-xl bg-surface-container text-on-surface shadow-xs text-left" data-selected="false" type="button">
+<div class="flex items-center space-x-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">domain</span>
+<span class="font-body-md text-body-md truncate">Public Parks/Infra</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline opacity-40">circle</span>
+</button>
+</div>
+</div>
+<!-- Description -->
+<div class="flex flex-col space-y-1">
+<label class="font-title text-title text-on-surface" for="issue-description">
+        Describe the Problem
+      </label>
+<textarea class="w-full p-3 bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest shadow-sm placeholder:text-outline" id="issue-description" placeholder="Mention landmarks, exact lane, hazard severity or traffic impact..." rows="3">Roughly 45cm diameter pothole on right lane edge. Water collected inside masking depth. Vehicles swerving sharply.</textarea>
+<p class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px] text-primary">info</span>
+        Visible cross streets help response crews respond 35% faster.
+      </p>
+</div>
+<!-- Immediate Safety Hazard Selector -->
+<div class="flex flex-col space-y-2 pt-1">
+<span class="font-title text-title text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-error">warning</span>
+        Immediate public safety concern?
+      </span>
+<div class="grid grid-cols-3 gap-2" id="safety-chips">
+<button class="safety-chip flex items-center justify-center h-10 px-3 rounded-lg font-title text-title bg-error-container text-on-error-container font-semibold shadow-xs" data-value="yes" type="button">
+          Yes
+        </button>
+<button class="safety-chip flex items-center justify-center h-10 px-3 rounded-lg font-body-md text-body-md bg-surface-container text-on-surface shadow-xs" data-value="no" type="button">
+          No
+        </button>
+<button class="safety-chip flex items-center justify-center h-10 px-3 rounded-lg font-body-md text-body-md bg-surface-container text-on-surface shadow-xs" data-value="notsure" type="button">
+          Not sure
+        </button>
+</div>
+<!-- Amber Warning Notice for Safety -->
+<div class="flex items-start gap-2 bg-surface-container-high p-3 rounded-lg text-on-surface shadow-xs" id="safety-alert">
+<span class="material-symbols-outlined text-[20px] text-error shrink-0">emergency</span>
+<div class="flex flex-col text-left">
+<span class="font-title text-title text-on-surface">Urgent Dispatch Flagged</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            If there is an active structural collapse or high-speed collision risk, please also contact 911 immediately.
+          </span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION B: PHOTOGRAPHS & EVIDENCE -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">add_a_photo</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Photographs &amp; Evidence</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium bg-surface-container-low px-2 py-0.5 rounded-full">1 of 3</span>
+</div>
+<!-- Action Upload Zone -->
+<div class="bg-surface-container-low rounded-xl p-4 flex flex-col items-center justify-center text-center space-y-3">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[28px]">photo_camera</span>
+</div>
+<div class="flex flex-col space-y-0.5">
+<p class="font-title text-title text-on-surface">Capture outdoor defect</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Photos automatically extract GPS &amp; lighting metrics</p>
+</div>
+<div class="flex items-center gap-2 w-full pt-1">
+<button class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-title text-title flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">camera_alt</span>
+          Take Photo
+        </button>
+<button class="flex-1 h-11 bg-surface-container-high text-on-surface rounded-lg font-title text-title flex items-center justify-center gap-1.5 shadow-xs active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">photo_library</span>
+          Gallery
+        </button>
+</div>
+</div>
+<!-- Active Photo Previews List -->
+<div class="space-y-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Attached Proof (1/3 max)</span>
+<!-- Photo Item Card -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col space-y-2 shadow-xs">
+<div class="flex items-center gap-3">
+<div class="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Close up street level daylight photograph of a jagged deep asphalt pothole on an urban road with lane marking and water puddle inside, high contrast municipal road damage inspection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwhmzcm67BlRU5S8HN___EfP_yE7s44xmtkpv_xo9H9DLQIzQGUWJOnWgh77ucAaJuGBlY5oxFdGCQvl2BRqxwWmxvncSwzTWm0oVcdMqITnjfN-AtTcf5Tgv_BdaKp7tyCLS1et0PcCHypA0wS07-mJAAwp2WKVwk9XhH6g1gA7oDfUOsYo9hSnjbHDjazDZOaT7ylMTsViC2QCQgBUJPlKVcW-atPWB32mBYXvWkPsOEnvdYWJWG"/>
+<span class="absolute bottom-1 right-1 bg-inverse-surface/85 text-inverse-on-surface px-1 py-0.5 rounded text-[10px] font-code-sm">RAW</span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between h-20 py-0.5">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-title text-title text-on-surface block truncate">IMG_20241018_142.jpg</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2.4 MB • Geotagged Active</span>
+</div>
+<button aria-label="Remove image" class="text-error hover:opacity-80 p-1" type="button">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-high font-label-sm text-label-sm text-primary">
+<span class="material-symbols-outlined text-[12px]">check</span> AI Verified
+              </span>
+<button class="text-secondary font-label-sm text-label-sm hover:underline" type="button">Retake</button>
+</div>
+</div>
+</div>
+<!-- Inline caption -->
+<div class="w-full">
+<input class="w-full h-8 px-2.5 rounded bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none placeholder:text-outline" placeholder="Add quick caption (e.g. depth roughly 15cm)..." type="text" value="Pothole roughly 45cm diameter in right lane"/>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION C: ISSUE LOCATION -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">my_location</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Incident Location</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium bg-surface-container-low px-2 py-0.5 rounded-full">GPS Ready</span>
+</div>
+<!-- GPS Primary Touch Trigger -->
+<button class="w-full h-12 bg-primary-container text-on-primary rounded-xl font-title text-title flex items-center justify-between px-4 shadow-sm active:opacity-95" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[22px]">near_me</span>
+<span>Re-Sync Current Location</span>
+</div>
+<span class="w-2.5 h-2.5 rounded-full bg-on-primary-container animate-ping"></span>
+</button>
+<!-- GPS Readout HUD -->
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">radar</span>
+<span class="font-label-md text-label-md text-on-surface">Accuracy: <strong class="text-primary font-semibold">±4 meters</strong></span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">47.6062° N, 122.3321° W</span>
+</div>
+<!-- Map Preview Component -->
+<div class="relative w-full h-44 rounded-xl overflow-hidden shadow-xs">
+<div class="w-full h-full bg-cover bg-center" data-location="Pine St and 4th Ave, Seattle, WA" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDY28BIXFmWGxLUyx7fw0hI6Ah0qZuXBEWwVegffNEP0GXlA91oAifbtqFp0Y3wJeVOtb_Txy1gqRMAKeHD3MWFlkBWYcLM4MmJfdmTFLwDaT0zYB8SkHOxed65V_4fvdPrDpVIDAxwt0yjn9xOl5uiXY4KAAwzmqGDCArBG_4aaVy77um1rXqe6tCMLMImxf4owG_s52ZgVuLM1YmFJx8LxIldNF2aNKkFfwVHvxR_nwMceHHoWi3S')"></div>
+<!-- Floating Center Pin -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="flex flex-col items-center -translate-y-4">
+<div class="bg-primary text-on-primary p-1.5 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-[22px] block">fmd_bad</span>
+</div>
+<div class="w-2.5 h-1 bg-on-surface/40 rounded-full blur-[1px] mt-0.5"></div>
+</div>
+</div>
+<!-- Map Floating Utility Controls -->
+<div class="absolute top-2 right-2 flex flex-col gap-1">
+<button aria-label="Zoom in" class="w-8 h-8 rounded-lg bg-surface-bright/90 backdrop-blur-md shadow-sm flex items-center justify-center text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+<button aria-label="Zoom out" class="w-8 h-8 rounded-lg bg-surface-bright/90 backdrop-blur-md shadow-sm flex items-center justify-center text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+</div>
+<!-- Bottom Pin Info Deck -->
+<div class="absolute bottom-2 inset-x-2 bg-surface-bright/95 backdrop-blur-md rounded-lg p-2.5 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-primary shrink-0">signpost</span>
+<div class="flex flex-col min-w-0">
+<span class="font-title text-title text-on-surface truncate">Pine St &amp; 4th Ave (Crosswalk)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">District 4 • Downtown West</span>
+</div>
+</div>
+<button class="text-secondary font-label-md text-label-md shrink-0 px-2 py-1 rounded bg-surface-container" type="button">
+          Adjust
+        </button>
+</div>
+</div>
+<!-- Fallback Manual Address Input -->
+<div class="flex flex-col space-y-1">
+<label class="font-title text-title text-on-surface" for="manual-address">
+        Manual Address / Landmark Reference
+      </label>
+<div class="relative">
+<input class="w-full h-11 pl-9 pr-3 bg-surface-container-low rounded-lg text-on-surface font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest shadow-sm placeholder:text-outline" id="manual-address" placeholder="Street, cross avenue or landmark..." type="text" value="402 Pine Street, outside transit bay 4"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-[20px] text-on-surface-variant">search</span>
+</div>
+</div>
+<!-- Location Privacy Assurance Note -->
+<div class="flex items-start gap-2 text-on-surface-variant bg-surface-container p-2.5 rounded-lg">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant shrink-0 mt-0.5">verified_user</span>
+<p class="font-body-sm text-body-sm leading-snug">
+        Your GPS coordinates are securely hashed and only attached to this public work-order ticket. No continuous tracking is stored.
+      </p>
+</div>
+</section>
+<!-- SECTION D: REVIEW & SUBMISSION CTA -->
+<section class="flex flex-col space-y-space-sm pt-space-xs">
+<!-- Collapsible Summary Accordion Card -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<button class="w-full px-4 py-3.5 flex items-center justify-between text-left bg-surface-container-low" id="summary-toggle" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">fact_check</span>
+<span class="font-title text-title text-on-surface">Submission Summary</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">3 of 3 steps ready</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform" id="summary-chevron">expand_more</span>
+</button>
+<div class="p-4 space-y-3 hidden" id="summary-content">
+<div class="grid grid-cols-2 gap-2 text-left">
+<div class="bg-surface-container p-2 rounded-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Category</span>
+<span class="font-title text-title text-on-surface">Roads &amp; Potholes</span>
+</div>
+<div class="bg-surface-container p-2 rounded-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Hazard Level</span>
+<span class="font-title text-title text-error font-semibold">Immediate safety</span>
+</div>
+</div>
+<div class="bg-surface-container p-2.5 rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">place</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium truncate max-w-[200px]">Pine St &amp; 4th Ave</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1 Image attached</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">confirmation_number</span>
+<span class="font-label-sm text-label-sm">Will register under Ticket ID: <strong>#CF-8921-SEA</strong></span>
+</div>
+</div>
+</div>
+<!-- Primary Final Action Button -->
+<div class="flex flex-col space-y-2 pt-2">
+<button class="w-full h-12 bg-primary text-on-primary rounded-xl font-title text-title font-semibold shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="submit-report-btn" type="button">
+<span class="material-symbols-outlined text-[22px]">send</span>
+<span>Review &amp; Submit Report</span>
+</button>
+<!-- Dismiss Button -->
+<button class="w-full h-10 text-on-surface-variant font-label-md text-label-md hover:text-on-surface transition-colors flex items-center justify-center" type="button">
+        Discard Draft
+      </button>
+</div>
+</section>
+<!-- Interactive behavior script -->
+<script>
+    // Title Character Counter
+    const titleInput = document.getElementById('issue-title');
+    const titleCounter = document.getElementById('title-counter');
+    if (titleInput && titleCounter) {
+      titleInput.addEventListener('input', (e) => {
+        titleCounter.textContent = `${e.target.value.length}/80`;
+      });
+    }
+
+    // Category Selector Toggles
+    const catButtons = document.querySelectorAll('.category-btn');
+    catButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catButtons.forEach(b => {
+          b.dataset.selected = 'false';
+          b.classList.remove('bg-surface-container-low', 'text-primary-container');
+          b.classList.add('bg-surface-container', 'text-on-surface');
+          const icon = b.querySelector('.material-symbols-outlined:last-child');
+          if (icon) {
+            icon.textContent = 'circle';
+            icon.classList.add('opacity-40');
+            icon.style.fontVariationSettings = "'FILL' 0";
+          }
+        });
+        btn.dataset.selected = 'true';
+        btn.classList.remove('bg-surface-container', 'text-on-surface');
+        btn.classList.add('bg-surface-container-low', 'text-primary-container');
+        const icon = btn.querySelector('.material-symbols-outlined:last-child');
+        if (icon) {
+          icon.textContent = 'check_circle';
+          icon.classList.remove('opacity-40');
+          icon.style.fontVariationSettings = "'FILL' 1";
+        }
+      });
+    });
+
+    // Safety Chips Toggle
+    const safetyChips = document.querySelectorAll('.safety-chip');
+    const safetyAlert = document.getElementById('safety-alert');
+    safetyChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        safetyChips.forEach(c => {
+          c.classList.remove('bg-error-container', 'text-on-error-container', 'bg-primary-container', 'text-on-primary', 'font-semibold');
+          c.classList.add('bg-surface-container', 'text-on-surface');
+        });
+        const val = chip.dataset.value;
+        if (val === 'yes') {
+          chip.classList.add('bg-error-container', 'text-on-error-container', 'font-semibold');
+          if (safetyAlert) safetyAlert.classList.remove('hidden');
+        } else {
+          chip.classList.add('bg-primary-container', 'text-on-primary', 'font-semibold');
+          if (safetyAlert) safetyAlert.classList.add('hidden');
+        }
+      });
+    });
+
+    // Summary Accordion Toggle
+    const summaryBtn = document.getElementById('summary-toggle');
+    const summaryContent = document.getElementById('summary-content');
+    const summaryChevron = document.getElementById('summary-chevron');
+    if (summaryBtn && summaryContent && summaryChevron) {
+      summaryBtn.addEventListener('click', () => {
+        const isHidden = summaryContent.classList.toggle('hidden');
+        summaryChevron.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+      });
+    }
+
+    // Submit Feedback Simulation
+    const submitBtn = document.getElementById('submit-report-btn');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[22px]">progress_activity</span><span>Encrypting & Dispatching...</span>';
+        submitBtn.classList.add('opacity-90');
+        setTimeout(() => {
+          submitBtn.innerHTML = '<span class="material-symbols-outlined text-[22px]">check_circle</span><span>Report #CF-8921 Filed!</span>';
+          submitBtn.classList.replace('bg-primary', 'bg-secondary-container');
+        }, 1200);
+      });
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="text-primary-container font-semibold"><div class="h-16 px-space-xs flex items-center justify-around"><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-on-surface transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">space_dashboard</span><span class="font-label-sm text-label-sm">Home</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] h-11 transition-colors text-primary-container font-semibold" data-path="report-issue" href="#"><span class="material-symbols-outlined text-[22px]">add_circle</span><span class="font-label-sm text-label-sm">Report</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-on-surface transition-colors" data-path="my-issues" href="#"><span class="material-symbols-outlined text-[22px]">assignment</span><span class="font-label-sm text-label-sm">My Issues</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-on-surface transition-colors" data-path="city-map" href="#"><span class="material-symbols-outlined text-[22px]">map</span><span class="font-label-sm text-label-sm">Map</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-on-surface transition-colors" data-path="citizen-profile" href="#"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm">Profile</span></a></div></nav></body></html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface-variant":"#d8e3f4","on-background":"#111c28","inverse-on-surface":"#e9f1ff","on-secondary-fixed-variant":"#422bb5","on-error":"#ffffff","surface-container-low":"#eef4ff","error":"#ba1a1a","on-tertiary-container":"#e9f1fe","on-secondary-container":"#fffbff","tertiary-container":"#666e79","on-tertiary-fixed-variant":"#3f4752","outline-variant":"#bdc9c6","tertiary":"#4d5660","error-container":"#ffdad6","on-surface":"#111c28","inverse-primary":"#7ed6ca","on-primary-container":"#aefff3","surface-container-lowest":"#ffffff","surface-dim":"#d0dbeb","inverse-surface":"#26313e","on-primary":"#ffffff","surface-container-highest":"#d8e3f4","secondary-fixed":"#e4dfff","on-error-container":"#93000a","on-secondary":"#ffffff","primary-fixed":"#9af2e6","on-surface-variant":"#3e4947","on-tertiary":"#ffffff","secondary":"#5845cb","on-secondary-fixed":"#170065","tertiary-fixed":"#dbe3f0","outline":"#6e7977","tertiary-fixed-dim":"#bfc7d3","on-tertiary-fixed":"#141c25","surface-container":"#e4efff","surface-tint":"#006a61","surface":"#f8f9ff","primary":"#006057","on-primary-fixed-variant":"#005049","primary-fixed-dim":"#7ed6ca","background":"#f8f9ff","secondary-fixed-dim":"#c7bfff","primary-container":"#137a70","on-primary-fixed":"#00201d","surface-bright":"#f8f9ff","surface-container-high":"#dee9fa","secondary-container":"#7160e6"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-md":"1rem","space-xs":"0.25rem","gutter":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","space-xl":"2rem","gutter-desktop":"1.5rem","margin":"1rem","margin-desktop":"2rem"},"fontFamily":{"headline-lg-mobile":["Inter"],"body-lg":["Inter"],"code-sm":["JetBrains Mono"],"body-sm":["Inter"],"headline-lg":["Inter"],"label-md":["Inter"],"title":["Inter"],"body-md":["Inter"],"headline-md":["Inter"],"headline-sm":["Inter"],"label-sm":["Inter"],"display":["Inter"]},"fontSize":{"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"22px","letterSpacing":"-0.005em","fontWeight":"400"}],"code-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.025em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"500"}],"title":["15px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"display":["36px",{"lineHeight":"44px","letterSpacing":"-0.03em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between"><header class="w-full max-w-7xl mx-auto px-gutter-desktop pt-space-lg flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-7 h-7 rounded-lg bg-primary flex items-center justify-center shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><span class="material-symbols-outlined text-on-primary text-[16px]">domain</span></div><span class="font-title text-title text-on-surface tracking-tight">CivicFix AI</span><span class="px-space-xs py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm uppercase ml-1">ID Portal</span></div><a class="inline-flex items-center gap-1.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="landing-page" href="#"><span class="material-symbols-outlined text-[16px]">arrow_back</span><span>Back to civic portal</span></a></header><main class="w-full flex-1 flex flex-col items-center justify-center px-gutter py-space-xl"><div class="flex flex-col w-full max-w-6xl mx-auto my-auto items-center justify-center p-gutter">
+<!-- Interactive State Controller Bar (Inspection Utility) -->
+<aside aria-label="Inspection State Switcher" class="w-full max-w-5xl mb-space-md flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-high px-space-md py-2.5 rounded-xl shadow-sm">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px] text-secondary">tune</span>
+<span>Simulator States</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-lowest p-1 rounded-lg shadow-sm">
+<button class="state-tab-btn px-3 py-1 text-label-md font-label-md rounded-md bg-primary-container text-on-primary transition-all" id="tab-default" onclick="switchState('default')" type="button">
+        Default Form
+      </button>
+<button class="state-tab-btn px-3 py-1 text-label-md font-label-md rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" id="tab-invalid" onclick="switchState('invalid')" type="button">
+        Invalid Credentials
+      </button>
+<button class="state-tab-btn px-3 py-1 text-label-md font-label-md rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" id="tab-pending" onclick="switchState('pending')" type="button">
+        Pending Verification
+      </button>
+</div>
+<div class="hidden md:flex items-center gap-1.5 font-code-sm text-code-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span>RBAC Gate v3.1</span>
+</div>
+</aside>
+<!-- Dual-Column Master Surface Card -->
+<div class="w-full max-w-5xl bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[660px]">
+<!-- LEFT BRANDING & INFRASTRUCTURE COLUMN (45% -> 5 cols on 12-col grid) -->
+<section class="lg:col-span-5 bg-surface-container-low p-space-xl flex flex-col justify-between relative overflow-hidden">
+<!-- Ambient glow accents -->
+<div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-primary-fixed-dim/20 blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-0 right-0 w-72 h-72 rounded-full bg-secondary-fixed/40 blur-3xl pointer-events-none"></div>
+<!-- Top Branding -->
+<div class="relative z-10">
+<div class="flex items-center gap-space-sm mb-space-lg">
+<div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shadow-md shadow-primary-container/20">
+<!-- Custom Location Pin with Resolution Checkmark -->
+<svg class="w-6 h-6 text-on-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M12 21c-4.418-4.59-8-8.5-8-12a8 8 0 1 1 16 0c0 3.5-3.582 7.41-8 12z"></path>
+<polyline points="9 10 11.5 12.5 15.5 8.5" stroke-width="2.5"></polyline>
+</svg>
+</div>
+<div>
+<div class="font-title text-title text-on-surface leading-tight tracking-tight">CivicFix AI</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Unified Municipal OS</div>
+</div>
+</div>
+<div class="space-y-space-sm max-w-sm">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+            Welcome back.
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+            Sign in to continue managing and tracking civic issues.
+          </p>
+<div class="inline-flex items-center gap-2 pt-1 font-label-md text-label-md text-primary-container font-semibold tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+            Report. Track. Fix. Together.
+          </div>
+</div>
+</div>
+<!-- Visual Anchor: Municipal Operations Telemetry Card -->
+<div class="relative z-10 mt-space-lg">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-md space-y-space-md">
+<!-- Top badge and status -->
+<div class="flex items-center justify-between">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-primary-container">hub</span>
+<span>District 04 Command</span>
+</div>
+<div class="flex items-center gap-1 font-code-sm text-code-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>Realtime</span>
+</div>
+</div>
+<!-- Street Infrastructure Preview Image with Scrim -->
+<div class="relative rounded-lg overflow-hidden h-36 bg-surface-container">
+<div class="bg-cover bg-center w-full h-full" data-alt="High angle architectural view of contemporary modern city traffic intersection and clean street infrastructure under clear morning sunlight with automated civic sensor overlays and precise urban grid layout" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAgaVZxR72kbU-RySr-lXdO2r8khFCx4HEs-Q9ABDg75Tj2IGnqfFWY9aCayaLo8X5u4YCYTNt1r6XjGJpPciwTSsD7JukHcZW3FSxs1Za_BTI-FocmAetlosqlF0q3u3nuE8GHvM5zrmZrmeVkb8PI-3kSFmYx7QGwN5boeK9AYIX_uLwJC4vcPGsfPG29_fB67z4MffPwQShE1pkGZB-6QTmRQjO4QUB42FUGOtHmqJVTWk6Bt9ag')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/30 to-transparent flex flex-col justify-end p-3">
+<div class="font-title text-title text-inverse-on-surface">Active Municipal Ops</div>
+<div class="font-body-sm text-body-sm text-surface-variant">Metropolitan Sector 4-B • 99.4% Automated Routing</div>
+</div>
+</div>
+<!-- Micro Stats Row -->
+<div class="grid grid-cols-2 gap-space-sm pt-0.5">
+<div class="bg-surface-container-low rounded-lg p-2.5">
+<div class="font-headline-sm text-headline-sm text-on-surface tracking-tight">14,820+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-primary-container">verified</span>
+                Verified Fixes
+              </div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-2.5">
+<div class="font-headline-sm text-headline-sm text-on-surface tracking-tight">&lt; 14m</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-secondary">bolt</span>
+                AI Triage Dispatch
+              </div>
+</div>
+</div>
+<!-- RBAC Capability Footer -->
+<div class="flex items-center gap-2 pt-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary-container">lock</span>
+<span>Encrypted RBAC Access for Citizens, Officers, Field Crews &amp; Admins</span>
+</div>
+</div>
+</div>
+<!-- Trust watermark -->
+<div class="relative z-10 pt-space-md flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+          FedRAMP High Compliant
+        </span>
+<span class="font-code-sm text-code-sm uppercase tracking-wider text-outline">SEC-ID 892-F</span>
+</div>
+</section>
+<!-- RIGHT CLEAN FORM PANEL (55% -> 7 cols on 12-col grid) -->
+<section class="lg:col-span-7 bg-surface-container-lowest p-space-xl sm:p-10 flex flex-col justify-between">
+<div class="w-full max-w-md mx-auto">
+<!-- Header -->
+<div class="mb-space-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">
+            Sign in to CivicFix
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Enter your account details to continue.
+          </p>
+</div>
+<!-- Dynamic State Notice Banner (Simulated Error / Pending / Default Hidden) -->
+<div class="hidden mb-space-md rounded-xl p-3.5 transition-all" id="state-banner">
+<!-- Populated by JavaScript -->
+</div>
+<!-- Form Elements -->
+<form class="space-y-space-md" id="auth-form" onsubmit="event.preventDefault(); handleFormSubmit();">
+<!-- Email Input -->
+<div class="space-y-1.5">
+<label class="block font-title text-title text-on-surface" for="email">
+              Email address
+            </label>
+<div class="relative rounded-lg shadow-sm">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+</div>
+<input class="block w-full pl-9 pr-3 py-2.5 bg-surface-container-low focus:bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md rounded-lg transition-colors outline-none focus:ring-2 focus:ring-primary-container" id="email" name="email" placeholder="you@example.com" required="" type="email" value="marcus.vance@metro.gov"/>
+</div>
+</div>
+<!-- Password Input with Eye Visibility Toggle -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="block font-title text-title text-on-surface" for="password">
+                Password
+              </label>
+</div>
+<div class="relative rounded-lg shadow-sm">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">key</span>
+</div>
+<input class="block w-full pl-9 pr-10 py-2.5 bg-surface-container-low focus:bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md rounded-lg transition-colors outline-none focus:ring-2 focus:ring-primary-container" id="password" name="password" placeholder="Enter password" required="" type="password" value="••••••••••••••••"/>
+<button aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-on-surface transition-colors" id="toggle-password-btn" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-[18px]" id="password-toggle-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Controls Row: Remember Me & Forgot Password -->
+<div class="flex items-center justify-between pt-1">
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded text-primary-container accent-primary-container focus:ring-primary-container cursor-pointer" id="remember" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant">
+                Remember me for 30 days
+              </span>
+</label>
+<a class="font-label-md text-label-md text-primary-container hover:underline transition-all" data-path="forgot-password" href="#">
+              Forgot password?
+            </a>
+</div>
+<!-- Primary Submit Button -->
+<div class="pt-2">
+<button class="w-full h-12 bg-primary-container hover:bg-primary text-on-primary font-title text-title rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 group" id="submit-btn" type="submit">
+<span>Sign In</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</button>
+</div>
+<!-- Sign Up Link -->
+<div class="text-center pt-2">
+<span class="font-body-md text-body-md text-on-surface-variant">Don't have an account? </span>
+<a class="font-title text-title text-primary-container hover:underline transition-all" data-path="citizen-signup" href="#">
+              Create a citizen account.
+            </a>
+</div>
+</form>
+<!-- Role-Aware Automatic Redirection Badge & Explainer -->
+<div class="mt-space-lg bg-surface-container-low rounded-xl p-3.5 space-y-2">
+<div class="flex items-start gap-2.5">
+<div class="w-5 h-5 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center mt-0.5 shrink-0">
+<span class="material-symbols-outlined text-[14px]">alt_route</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug">
+<strong class="font-semibold text-secondary">Unified Routing Engine:</strong> Authenticating automatically assigns Citizens, Municipal Officers, Field Workers, and Administrators directly to their verified departmental workspaces.
+            </p>
+</div>
+</div>
+<!-- Provisioned Staff Credentials Notice -->
+<div class="mt-space-md text-center">
+<a class="inline-flex items-center gap-1.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="staff-credentials-info" href="#">
+<span class="material-symbols-outlined text-[15px]">badge</span>
+<span>Staff account access? Learn about provisioned credentials.</span>
+</a>
+</div>
+</div>
+<!-- Subtle Operational Status Line -->
+<div class="pt-space-md text-center text-outline font-code-sm text-code-sm">
+        CivicFix Gateway • Node 10-US-EAST • TLS 1.3
+      </div>
+</section>
+</div>
+</div>
+<script>
+  function togglePasswordVisibility() {
+    const input = document.getElementById('password');
+    const icon = document.getElementById('password-toggle-icon');
+    if (!input || !icon) return;
+    
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.textContent = 'visibility_off';
+    } else {
+      input.type = 'password';
+      icon.textContent = 'visibility';
+    }
+  }
+
+  function switchState(state) {
+    const banner = document.getElementById('state-banner');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Reset tab buttons style
+    const tabs = ['default', 'invalid', 'pending'];
+    tabs.forEach(tab => {
+      const btn = document.getElementById('tab-' + tab);
+      if (!btn) return;
+      if (tab === state) {
+        btn.className = 'state-tab-btn px-3 py-1 text-label-md font-label-md rounded-md bg-primary-container text-on-primary transition-all';
+      } else {
+        btn.className = 'state-tab-btn px-3 py-1 text-label-md font-label-md rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all';
+      }
+    });
+
+    if (state === 'default') {
+      banner.className = 'hidden mb-space-md rounded-xl p-3.5 transition-all';
+      banner.innerHTML = '';
+      if (emailInput) emailInput.value = 'marcus.vance@metro.gov';
+      if (passwordInput) passwordInput.value = '••••••••••••••••';
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+      }
+    } else if (state === 'invalid') {
+      banner.className = 'block mb-space-md rounded-xl p-3.5 bg-error-container text-on-error-container transition-all shadow-sm';
+      banner.innerHTML = `
+        <div class="flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-error text-[20px] mt-0.5 shrink-0">error</span>
+          <div>
+            <div class="font-title text-title text-error">Authentication Failed</div>
+            <div class="font-body-sm text-body-sm text-on-error-container mt-0.5">
+              Email or password is incorrect. Please check your details and try again.
+            </div>
+          </div>
+        </div>
+      `;
+      if (passwordInput) passwordInput.value = 'wrong-password-entry';
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+      }
+    } else if (state === 'pending') {
+      banner.className = 'block mb-space-md rounded-xl p-3.5 bg-secondary-fixed text-on-secondary-fixed transition-all shadow-sm';
+      banner.innerHTML = `
+        <div class="flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-secondary text-[20px] mt-0.5 shrink-0">hourglass_top</span>
+          <div>
+            <div class="font-title text-title text-on-secondary-fixed">Account Pending Approval</div>
+            <div class="font-body-sm text-body-sm text-on-secondary-fixed-variant mt-0.5">
+              Your account is awaiting approval. Access to this municipal workspace will be available after departmental verification.
+            </div>
+          </div>
+        </div>
+      `;
+      if (emailInput) emailInput.value = 'cadet.elena@metro.gov';
+      if (passwordInput) passwordInput.value = '••••••••••••••••';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+      }
+    }
+  }
+
+  function handleFormSubmit() {
+    const currentActiveTab = document.querySelector('.state-tab-btn.bg-primary-container');
+    if (currentActiveTab && currentActiveTab.id === 'tab-pending') {
+      return;
+    }
+    // Subtle action feedback
+    const btn = document.getElementById('submit-btn');
+    if (btn) {
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Authenticating...</span>';
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+      }, 900);
+    }
+  }
+</script></main><footer class="w-full max-w-7xl mx-auto px-gutter-desktop pb-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant"><div class="font-body-sm text-body-sm">© 2024 CivicFix AI Infrastructure Systems. Authorized municipal access only.</div><div class="flex items-center gap-space-md font-body-sm text-body-sm"><a class="hover:text-on-surface transition-colors flex items-center gap-1.5" data-path="system-status" href="#"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Operational</a><a class="hover:text-on-surface transition-colors" data-path="privacy-policy" href="#">Security &amp; Privacy</a></div></footer></body></html>

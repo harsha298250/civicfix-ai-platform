@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-[#F5F7FA]" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Review Complaint #CF-2026-00124 | CivicFix AI Officer</title>
+<!-- Tailwind CSS v3 CDN with forms & container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration for Civic Precision Design System -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              teal: '#137A70',
+              'teal-hover': '#0E625A',
+              'teal-light': '#E8F4F1',
+              violet: '#7C6CF2',
+              'violet-light': '#F1EFFF',
+              bg: '#F5F7FA',
+              surface: '#FFFFFF',
+              dark: '#18232F',
+              muted: '#667384',
+              border: '#E2E8F0',
+              danger: '#C63F48',
+              'danger-light': '#FDF2F2',
+              warning: '#D97706',
+              'warning-light': '#FEF3C7',
+              success: '#198754',
+              'success-light': '#ECFDF5',
+            }
+          },
+          boxShadow: {
+            card: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)',
+            float: '0 4px 20px -2px rgba(24, 35, 47, 0.08)',
+            bottom: '0 -4px 16px rgba(0, 0, 0, 0.06)'
+          }
+        }
+      }
+    }
+  </script>
+<!-- Phosphor Icons for Crisp Civic System UI -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style data-purpose="custom-layout">
+    /* Mobile-first containment and smooth touch gestures */
+    body {
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .min-touch {
+      min-height: 48px;
+      min-width: 48px;
+    }
+  </style>
+</head>
+<body class="h-full text-brand-dark antialiased flex justify-center bg-slate-900 sm:py-6">
+<!-- Mobile Frame Container (Max 390px on Desktop Viewport) -->
+<div class="w-full max-w-[412px] bg-brand-bg min-h-screen flex flex-col relative pb-28 sm:rounded-3xl sm:shadow-2xl overflow-x-hidden border-x border-slate-200">
+<!-- BEGIN: TopMobileAppBar -->
+<header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-brand-border px-4 py-2.5 transition-all">
+<div class="flex items-center justify-between gap-2">
+<div class="flex items-center gap-2.5">
+<button aria-label="Back to Complaint Queue" class="min-touch w-10 h-10 -ml-1 rounded-full flex items-center justify-center text-brand-dark active:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-teal" type="button">
+<i class="ph ph-arrow-left text-xl font-bold"></i>
+</button>
+<div>
+<div class="flex items-center gap-1.5">
+<h1 class="text-base font-bold text-brand-dark leading-tight">Review Complaint</h1>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-brand-violet-light text-brand-violet tracking-tight">AI Officer</span>
+</div>
+<div class="flex items-center gap-1.5 text-xs text-brand-muted">
+<span class="font-mono font-medium text-brand-teal">#CF-2026-00124</span>
+<span>•</span>
+<span>Ward 8 Anna Nagar</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button aria-label="Copy Ticket Reference" class="w-9 h-9 rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-dark hover:bg-slate-100 transition-colors" onclick="navigator.clipboard.writeText('CF-2026-00124'); alert('Ref code copied: CF-2026-00124');" type="button">
+<i class="ph ph-copy text-lg"></i>
+</button>
+<button aria-label="Notifications" class="w-9 h-9 relative rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-dark hover:bg-slate-100 transition-colors" type="button">
+<i class="ph ph-bell text-lg"></i>
+<span class="absolute top-2 right-2 w-2 h-2 bg-brand-danger rounded-full ring-2 ring-white"></span>
+</button>
+</div>
+</div>
+<!-- State Simulator Pills (Officer Testing / Demo) -->
+<nav aria-label="Officer View Mode Simulator" class="mt-2.5 pt-2 border-t border-dashed border-brand-border/70 overflow-x-auto hide-scrollbar flex items-center gap-1.5 text-xs">
+<span class="text-[10px] uppercase font-bold text-brand-muted tracking-wider mr-1 shrink-0">Demo State:</span>
+<button class="px-2.5 py-1 rounded-full font-medium whitespace-nowrap bg-brand-dark text-white text-[11px] transition-colors" id="sim-review-btn" onclick="setSimMode('standard')">Review Mode</button>
+<button class="px-2.5 py-1 rounded-full font-medium whitespace-nowrap bg-white text-brand-muted border border-brand-border hover:border-brand-violet text-[11px] transition-colors" id="sim-duplicate-btn" onclick="setSimMode('duplicate')">Duplicate Match (1)</button>
+<button class="px-2.5 py-1 rounded-full font-medium whitespace-nowrap bg-white text-brand-muted border border-brand-border hover:border-brand-teal text-[11px] transition-colors" id="sim-dialog-btn" onclick="openWorkerModal()">Assign Modal</button>
+</nav>
+</header>
+<!-- END: TopMobileAppBar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 p-3.5 space-y-3.5">
+<!-- Case Identity Header Card -->
+<section class="bg-white rounded-2xl p-4 border border-brand-border shadow-card relative" data-purpose="case-identity-card">
+<div class="flex items-start justify-between gap-3">
+<div>
+<div class="flex flex-wrap items-center gap-1.5 mb-1.5">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-brand-warning-light text-brand-warning border border-amber-200">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-warning mr-1.5 animate-pulse"></span>
+                Under Review
+              </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-brand-danger-light text-brand-danger border border-red-200">
+<i class="ph ph-warning-octagon text-xs mr-1"></i>
+                High Hazard (P1)
+              </span>
+</div>
+<h2 class="text-lg font-bold text-brand-dark leading-snug">Large pothole near bus stop</h2>
+</div>
+<span class="px-2 py-1 rounded-lg bg-brand-teal-light text-brand-teal text-xs font-mono font-semibold shrink-0">
+            P1-HOT
+          </span>
+</div>
+<div class="mt-3.5 pt-3 border-t border-brand-border/60 text-xs text-brand-muted space-y-1.5">
+<div class="flex items-center justify-between">
+<span class="flex items-center gap-1.5">
+<i class="ph ph-calendar-blank text-sm text-slate-400"></i>
+              10 Oct 2026, 09:14 AM
+            </span>
+<span class="flex items-center text-emerald-700 font-medium">
+<i class="ph ph-seal-check text-sm mr-1"></i>
+              Alex M. (Verified Citizen)
+            </span>
+</div>
+<div class="flex items-center gap-1.5 text-brand-dark font-medium">
+<i class="ph ph-map-pin text-sm text-brand-teal"></i>
+<span>2nd Ave, Ward 8, Anna Nagar West, Chennai</span>
+</div>
+</div>
+</section>
+<!-- AI Triage & Assessment Card (Violet Accent) -->
+<section class="rounded-2xl p-4 bg-gradient-to-br from-white via-white to-purple-50/50 border-2 border-brand-violet/30 shadow-card relative overflow-hidden" data-purpose="ai-triage-card">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 bg-brand-violet/5 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-brand-violet text-white flex items-center justify-center shadow-sm">
+<i class="ph ph-sparkle text-base"></i>
+</div>
+<div>
+<h3 class="text-sm font-bold text-brand-dark">CivicFix AI Computer Vision Triage</h3>
+<p class="text-[11px] text-brand-muted">Automated inspection &amp; priority validation</p>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-violet-light text-brand-violet">
+              98.4% Match
+            </span>
+</div>
+</div>
+<!-- AI Suggested Badges -->
+<div class="grid grid-cols-2 gap-2 text-xs mb-3">
+<div class="bg-white/80 p-2.5 rounded-xl border border-brand-violet/20">
+<span class="text-[10px] uppercase font-bold text-brand-muted block">Suggested Category</span>
+<span class="font-semibold text-brand-dark flex items-center gap-1 mt-0.5">
+<i class="ph ph-road-horizon text-brand-teal"></i> Roads &amp; Potholes
+            </span>
+</div>
+<div class="bg-white/80 p-2.5 rounded-xl border border-brand-violet/20">
+<span class="text-[10px] uppercase font-bold text-brand-muted block">Suggested Priority</span>
+<span class="font-semibold text-brand-danger flex items-center gap-1 mt-0.5">
+<i class="ph ph-fire text-brand-danger"></i> High (P1 Dispatch)
+            </span>
+</div>
+</div>
+<!-- Model Explanation Text -->
+<div class="bg-white/90 p-3 rounded-xl border border-brand-violet/15 text-xs text-brand-dark leading-relaxed mb-3">
+<p class="text-slate-700">
+<strong class="text-brand-violet font-semibold">Triage Explanation:</strong> Asphalt fissure measured at <strong>~45cm width</strong> on a primary Metropolitan Transport Corporation (MTC) transit route. Classified as <strong class="text-brand-danger">High Hazard</strong> due to severe bike &amp; pedestrian spillover risk.
+          </p>
+</div>
+<!-- Potential Duplicate Alert Banner -->
+<div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 mb-3 flex items-start gap-2" id="duplicate-warning-box">
+<i class="ph ph-copy-simple text-amber-600 text-base shrink-0 mt-0.5"></i>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<strong class="font-semibold">Potential Duplicate Match:</strong>
+<span class="text-[10px] bg-amber-200/70 text-amber-800 px-1.5 py-0.2 rounded font-bold">94% Co-loc</span>
+</div>
+<p class="text-[11px] text-amber-800 mt-0.5">Ticket #CF-2026-00118 lodged 2h ago at same bus shelter junction.</p>
+<div class="mt-2 flex gap-2">
+<button class="px-2.5 py-1 rounded bg-amber-600 text-white font-medium text-[11px] active:bg-amber-700" onclick="alert('Opening side-by-side comparison with #CF-2026-00118')" type="button">Compare Evidence</button>
+<button class="px-2.5 py-1 rounded bg-white text-amber-900 border border-amber-300 font-medium text-[11px]" onclick="document.getElementById('duplicate-warning-box').classList.add('hidden')" type="button">Ignore Match</button>
+</div>
+</div>
+</div>
+<!-- Fast Actions for AI Assessment -->
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 min-touch py-2.5 px-3 bg-brand-violet text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 active:bg-[#6858E0] transition-colors shadow-sm" id="accept-ai-btn" onclick="acceptAiRecommendation()" type="button">
+<i class="ph ph-check-circle text-base"></i>
+<span>Accept AI Triage</span>
+</button>
+<button class="min-touch px-3.5 py-2.5 bg-white text-brand-muted border border-brand-border text-xs font-semibold rounded-xl hover:text-brand-dark active:bg-slate-100 transition-colors" onclick="alert('Manual Override mode opened. You can modify category and priority fields below.')" type="button">
+            Override
+          </button>
+</div>
+</section>
+<!-- Collapsible Issue Details & Evidence Photo Inspector -->
+<section class="bg-white rounded-2xl p-4 border border-brand-border shadow-card" data-purpose="issue-details-and-photos">
+<div class="flex items-center justify-between pb-2 border-b border-brand-border">
+<div class="flex items-center gap-2">
+<i class="ph ph-images-square text-lg text-brand-teal"></i>
+<h3 class="text-sm font-bold text-brand-dark">Citizen Evidence &amp; Description</h3>
+</div>
+<span class="text-xs text-brand-muted">2 Photos Attached</span>
+</div>
+<!-- Problem Description Text -->
+<div class="mt-3 text-xs leading-relaxed text-slate-700">
+<p class="font-medium text-brand-dark mb-1">Citizen Statement:</p>
+<blockquote class="bg-slate-50 p-2.5 rounded-xl border-l-2 border-brand-teal text-slate-600 italic">
+            "Roughly 45cm diameter pothole on right lane edge right in front of Bus Stop 14-B. Rainwater collected inside masking depth. Two 2-wheelers swerved sharply and almost fell into bus path."
+          </blockquote>
+<div class="mt-2.5 flex items-center gap-2 text-xs">
+<span class="font-semibold text-brand-danger flex items-center gap-1">
+<i class="ph ph-shield-warning text-sm"></i>
+              Immediate Safety Concern:
+            </span>
+<span class="bg-red-50 text-brand-danger px-2 py-0.5 rounded text-[11px] font-bold border border-red-200">
+              Yes (Critical Transit Risk)
+            </span>
+</div>
+</div>
+<!-- Evidence Gallery Scroll -->
+<div class="mt-3.5">
+<span class="text-[11px] font-bold uppercase tracking-wider text-brand-muted block mb-2">Photo Inspector (Swipe / Tap to Inspect)</span>
+<div class="flex gap-2.5 overflow-x-auto hide-scrollbar pb-1">
+<!-- Photo Item 1 (Provided in Datastore) -->
+<div class="relative shrink-0 w-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 group">
+<div class="h-28 w-full overflow-hidden bg-slate-900 relative">
+<!-- Fallback semantic representation with provided image placeholder -->
+<img alt="Reported pothole photo showing asphalt failure" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjZ8F7Jt5X1I_4wIb5_bo2JyzNqeQ3SvHfLHb5ng15Gt6gyM9sx9entwnaJ0ILh1Y0nbCT475ZYNjN1arIDO6Fn_aWnW7hfC9MuZohbmJXvZcaqaNBlUPMO6Spiup137-CARRjrQS6J32D1Ve3_V3Q-LuLXlI-VZJxZWB3UPvV0fZscUcKonS-D_M8vX6VLSHRb705BXeZ5xV7TyPM3rm7JF_UUWdu_EjcKJHe9TIyJFLzKX9mVbLJ"/>
+<span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 bg-black/70 backdrop-blur-md text-white rounded text-[9px] font-bold tracking-tight">
+                  ORIGINAL
+                </span>
+<span class="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 bg-black/70 backdrop-blur-md text-emerald-300 rounded text-[9px] font-mono flex items-center gap-1">
+<i class="ph ph-check"></i> Geo-Active
+                </span>
+</div>
+<div class="p-2 bg-white text-[11px]">
+<p class="font-semibold text-brand-dark truncate">IMG_20261010_0914.jpg</p>
+<div class="flex items-center justify-between text-brand-muted text-[10px] mt-0.5">
+<span>13.0850° N, 80.2101° E</span>
+<button class="text-brand-teal font-bold hover:underline" onclick="alert('Viewing full resolution original RAW evidence')" type="button">View</button>
+</div>
+</div>
+</div>
+<!-- Photo Item 2 (Alternate Angle) -->
+<div class="relative shrink-0 w-44 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 group">
+<div class="h-28 w-full overflow-hidden bg-slate-900 relative">
+<img alt="Bus stop context angle view" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm5Z-L7V-ugG-OPKGYU8NAZJahw6Zq1TFqrhC2JpZgVfs1-QFhMCTfSFSgTuMXkp9H227ujT0uKSFF_d7UpKAzSlZV7nVBX4rILjujGd21uqz4nLjrrCDoiaizW-jblwtuzqN8sQRQPGtj31dii-6ebvAtG-AykBY6nik0GDF3FKlhWYzOiTzJrdxyPB4avy8Ct_8Gt7Y6iHYLFQP_KiZIQ8a5eIWB2j2-ADLoDICm4s34fRWjNYIB"/>
+<span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 bg-brand-violet/90 text-white rounded text-[9px] font-bold tracking-tight">
+                  AI MAPPED
+                </span>
+</div>
+<div class="p-2 bg-white text-[11px]">
+<p class="font-semibold text-brand-dark truncate">IMG_20261010_0915.jpg</p>
+<div class="flex items-center justify-between text-brand-muted text-[10px] mt-0.5">
+<span>Context: Bus Bay 14-B</span>
+<button class="text-brand-teal font-bold hover:underline" onclick="alert('Viewing second photo context')" type="button">View</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Location & GIS Map Section -->
+<section class="bg-white rounded-2xl p-4 border border-brand-border shadow-card" data-purpose="incident-location-gis">
+<div class="flex items-center justify-between mb-2.5">
+<div class="flex items-center gap-2">
+<i class="ph ph-crosshair text-lg text-brand-teal"></i>
+<h3 class="text-sm font-bold text-brand-dark">Incident Geo-Location</h3>
+</div>
+<span class="text-[11px] font-mono text-brand-muted bg-slate-100 px-2 py-0.5 rounded">Zone 4B · Ward 8</span>
+</div>
+<!-- Simulated GIS Map Container -->
+<div class="relative w-full h-36 rounded-xl overflow-hidden border border-brand-border bg-slate-100 mb-3">
+<!-- Background stylized map mockup -->
+<div class="absolute inset-0 bg-[#E5ECF4] flex flex-col justify-between p-2">
+<div class="flex justify-between items-start">
+<span class="bg-white/90 text-[10px] font-semibold text-slate-700 px-2 py-0.5 rounded shadow-sm">
+                2nd Ave / Anna Nagar Roundtana
+              </span>
+<div class="flex flex-col gap-1">
+<button class="w-6 h-6 bg-white rounded shadow text-slate-700 flex items-center justify-center text-xs font-bold" type="button">+</button>
+<button class="w-6 h-6 bg-white rounded shadow text-slate-700 flex items-center justify-center text-xs font-bold" type="button">-</button>
+</div>
+</div>
+<div class="text-[9px] text-slate-500 font-medium">CivicFix GIS Spatial Layer v3</div>
+</div>
+<!-- Pulsing Map Pin -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="relative flex items-center justify-center">
+<span class="absolute w-10 h-10 bg-brand-danger/25 rounded-full animate-ping"></span>
+<div class="relative w-8 h-8 rounded-full bg-brand-danger text-white flex items-center justify-center shadow-lg border-2 border-white">
+<i class="ph ph-warning text-base font-bold"></i>
+</div>
+</div>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex justify-center">
+<span class="bg-brand-dark/85 backdrop-blur-sm text-white text-[10px] font-medium px-2.5 py-0.5 rounded-full shadow">
+              Shelter 14-B Bus Bay Corridor
+            </span>
+</div>
+</div>
+<!-- Address Bar & Coordinates -->
+<div class="space-y-2 text-xs">
+<div class="flex items-start justify-between gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+<div>
+<p class="font-semibold text-brand-dark">2nd Avenue, Opp. Bus Shelter 14-B</p>
+<p class="text-brand-muted text-[11px]">Near Anna Nagar Roundtana, Ward 8, Anna Nagar West</p>
+</div>
+<button class="text-brand-teal p-1.5 hover:bg-white rounded transition-colors" onclick="navigator.clipboard.writeText('13.0850, 80.2101'); alert('Coordinates copied');" title="Copy GPS Coordinates" type="button">
+<i class="ph ph-copy text-base"></i>
+</button>
+</div>
+<a class="min-touch w-full py-2.5 px-3 bg-brand-teal-light text-brand-teal hover:bg-teal-100 font-semibold rounded-xl flex items-center justify-center gap-1.5 transition-colors text-xs" href="https://maps.google.com/?q=13.0850,80.2101" rel="noopener noreferrer" target="_blank">
+<i class="ph ph-navigation-arrow text-sm font-bold"></i>
+<span>Open in Navigation / Field GIS Map</span>
+</a>
+</div>
+</section>
+<!-- Priority & Category Adjudication -->
+<section class="bg-white rounded-2xl p-4 border border-brand-border shadow-card" data-purpose="priority-and-category-selector">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-sm font-bold text-brand-dark flex items-center gap-1.5">
+<i class="ph ph-sliders-horizontal text-brand-teal"></i>
+            Official Adjudication
+          </h3>
+<span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold border border-emerald-200">
+            AI Pre-filled
+          </span>
+</div>
+<!-- Category Selector Chips -->
+<div class="mb-4">
+<label class="block text-xs font-semibold text-brand-muted mb-2 uppercase tracking-wider">Select Category</label>
+<div class="grid grid-cols-2 gap-2" id="category-selector-group">
+<button class="category-chip min-touch px-3 py-2 text-xs font-semibold rounded-xl border text-left flex items-center justify-between border-brand-teal bg-brand-teal-light text-brand-teal ring-1 ring-brand-teal" onclick="selectCategory(this)" type="button">
+<span class="flex items-center gap-1.5 truncate">
+<i class="ph ph-road-horizon"></i> Roads &amp; Potholes
+              </span>
+<i class="ph ph-check-circle-fill text-sm"></i>
+</button>
+<button class="category-chip min-touch px-3 py-2 text-xs font-medium rounded-xl border text-left flex items-center justify-between border-brand-border bg-white text-brand-muted hover:border-slate-300" onclick="selectCategory(this)" type="button">
+<span class="flex items-center gap-1.5 truncate">
+<i class="ph ph-waves"></i> Drainage Flood
+              </span>
+</button>
+<button class="category-chip min-touch px-3 py-2 text-xs font-medium rounded-xl border text-left flex items-center justify-between border-brand-border bg-white text-brand-muted hover:border-slate-300" onclick="selectCategory(this)" type="button">
+<span class="flex items-center gap-1.5 truncate">
+<i class="ph ph-lightbulb"></i> Streetlights
+              </span>
+</button>
+<button class="category-chip min-touch px-3 py-2 text-xs font-medium rounded-xl border text-left flex items-center justify-between border-brand-border bg-white text-brand-muted hover:border-slate-300" onclick="selectCategory(this)" type="button">
+<span class="flex items-center gap-1.5 truncate">
+<i class="ph ph-trash"></i> Waste Disposal
+              </span>
+</button>
+</div>
+</div>
+<!-- Priority Segmented Switcher -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="text-xs font-semibold text-brand-muted uppercase tracking-wider">Assigned Priority</label>
+<span class="text-[11px] font-bold text-brand-danger" id="sla-badge-text">Target SLA: 4 Hours</span>
+</div>
+<div class="grid grid-cols-4 gap-1.5 bg-slate-100 p-1 rounded-xl" id="priority-selector-group">
+<button class="priority-btn py-2 text-xs font-semibold rounded-lg text-brand-muted hover:text-brand-dark transition-all" onclick="selectPriority(this, 'Low (72h)')" type="button">Low</button>
+<button class="priority-btn py-2 text-xs font-semibold rounded-lg text-brand-muted hover:text-brand-dark transition-all" onclick="selectPriority(this, 'Normal (48h)')" type="button">Normal</button>
+<button class="priority-btn py-2 text-xs font-semibold rounded-lg text-brand-muted hover:text-brand-dark transition-all" onclick="selectPriority(this, 'High (12h)')" type="button">High</button>
+<button class="priority-btn py-2 text-xs font-bold rounded-lg bg-brand-danger text-white shadow-sm transition-all" onclick="selectPriority(this, 'Target SLA: 4 Hours')" type="button">Critical</button>
+</div>
+</div>
+</section>
+<!-- Field Worker Assignment Card -->
+<section class="bg-white rounded-2xl p-4 border border-brand-border shadow-card" data-purpose="field-assignment-card">
+<div class="flex items-center justify-between pb-3 border-b border-brand-border">
+<div class="flex items-center gap-2">
+<i class="ph ph-users-three text-lg text-brand-teal"></i>
+<h3 class="text-sm font-bold text-brand-dark">Worker Assignment</h3>
+</div>
+<button class="text-xs font-bold text-brand-teal hover:underline flex items-center gap-0.5" onclick="openWorkerModal()" type="button">
+<span>Change</span>
+<i class="ph ph-caret-right text-xs"></i>
+</button>
+</div>
+<!-- Selected Crew Lead Card View -->
+<div class="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Crew lead Marcus Chen" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWmlQ81oZT0p7x5A8GnVBeSpRfT7hZyI6cPGZmAjmTCDFoMvU7JSgk6eaDh1z9V_qRpYXYIKbzyECmjXu3f17xuqhWd1rzEAjiJIpOUPnhGL5Gf37El3OQZraowE7gwznVY2yYjZaMR2sjwHbYBonYmixQ1aVyI-b6NVcPoiQJewo3-3p_jCr_hFfy51BBk-cmS5-Vgfu-paRe6O5zC7U8XoFJSBk44fKwBFZh6mgmAyMLNWOrd3lh"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<p class="text-sm font-bold text-brand-dark truncate">Marcus Chen</p>
+<span class="text-[10px] font-mono font-semibold bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-700">#FW-882</span>
+</div>
+<p class="text-xs text-brand-muted truncate">Lead Field Engineer · SDOT Roads Unit 4</p>
+<div class="flex items-center gap-2 mt-1 text-[11px] text-emerald-700 font-medium">
+<span class="flex items-center gap-1"><i class="ph ph-check-circle"></i> On Shift</span>
+<span>•</span>
+<span>Van #14 (Cold-mix ready)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Operational Telemetry / Dispatch Estimates -->
+<div class="grid grid-cols-2 gap-2 mt-2.5 text-xs">
+<div class="p-2.5 rounded-xl bg-brand-teal-light/40 border border-brand-teal/20">
+<span class="text-[10px] uppercase font-bold text-brand-muted block">Target Completion SLA</span>
+<span class="font-bold text-brand-teal mt-0.5 block">Today by 4:30 PM</span>
+<span class="text-[10px] text-brand-muted">3.5 hrs remaining</span>
+</div>
+<div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+<span class="text-[10px] uppercase font-bold text-brand-muted block">Assigned Equipment</span>
+<span class="font-bold text-brand-dark mt-0.5 block">Roller T-12 &amp; Truck 44</span>
+<span class="text-[10px] text-brand-muted">Cold Mix Type 3B</span>
+</div>
+</div>
+<!-- Dispatch Instructions Input -->
+<div class="mt-3.5">
+<label class="block text-xs font-semibold text-brand-muted mb-1.5 uppercase tracking-wider" for="dispatch-notes">Crew Dispatch Instructions</label>
+<textarea class="w-full text-xs rounded-xl border-brand-border focus:border-brand-teal focus:ring-brand-teal text-brand-dark p-2.5" id="dispatch-notes" placeholder="Add specific guidance for field crew..." rows="2">Deploy safety pylons at bus shelter 14-B. Cold-mix asphalt patch with roller compaction before evening transit peak.</textarea>
+</div>
+</section>
+<!-- Audit History Feed (Collapsible) -->
+<section class="bg-white rounded-2xl border border-brand-border shadow-card overflow-hidden" data-purpose="audit-trail-section">
+<button class="w-full min-touch p-4 flex items-center justify-between text-left hover:bg-slate-50 transition-colors" onclick="toggleAuditHistory()" type="button">
+<div class="flex items-center gap-2">
+<i class="ph ph-clock-counter-clockwise text-lg text-brand-teal"></i>
+<h3 class="text-sm font-bold text-brand-dark">Audit Activity Trail</h3>
+</div>
+<i class="ph ph-caret-down text-base text-brand-muted transition-transform" id="audit-chevron"></i>
+</button>
+<div class="px-4 pb-4 space-y-3 pt-1 border-t border-brand-border/60" id="audit-content">
+<div class="relative pl-5 pb-3 border-l-2 border-brand-teal/40">
+<span class="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-brand-teal"></span>
+<div class="flex items-center justify-between text-[11px]">
+<span class="font-bold text-brand-dark">Officer Review Opened</span>
+<span class="text-brand-muted font-mono">10:22 AM</span>
+</div>
+<p class="text-xs text-brand-muted mt-0.5">Municipal Dispatch Officer reviewed AI triage scores.</p>
+</div>
+<div class="relative pl-5 pb-3 border-l-2 border-brand-violet/40">
+<span class="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-brand-violet"></span>
+<div class="flex items-center justify-between text-[11px]">
+<span class="font-bold text-brand-violet">Automated AI Assessment</span>
+<span class="text-brand-muted font-mono">09:15 AM</span>
+</div>
+<p class="text-xs text-brand-muted mt-0.5">Pothole diameter computed at 1.2m, classified high-risk priority.</p>
+</div>
+<div class="relative pl-5">
+<span class="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-slate-400"></span>
+<div class="flex items-center justify-between text-[11px]">
+<span class="font-bold text-brand-dark">Citizen Report Submitted</span>
+<span class="text-brand-muted font-mono">09:14 AM</span>
+</div>
+<p class="text-xs text-brand-muted mt-0.5">Geo-tagged photo submitted via CivicFix Citizen App.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: StickyBottomActionDrawer -->
+<div class="fixed sm:absolute bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-brand-border px-4 py-3 shadow-bottom" data-purpose="bottom-sticky-actions">
+<div class="max-w-[412px] mx-auto space-y-2">
+<div class="flex items-center gap-2">
+<!-- Secondary Outline: Reject -->
+<button class="min-touch flex-1 py-2.5 px-3 rounded-xl border border-brand-danger/30 text-brand-danger font-bold text-xs hover:bg-brand-danger-light active:bg-red-100 transition-colors flex items-center justify-center gap-1" onclick="confirmRejectModal()" type="button">
+<i class="ph ph-x-circle text-base"></i>
+<span>Reject</span>
+</button>
+<!-- Secondary Outline: Request Info -->
+<button class="min-touch flex-1 py-2.5 px-3 rounded-xl border border-slate-300 text-brand-dark font-bold text-xs hover:bg-slate-100 active:bg-slate-200 transition-colors flex items-center justify-center gap-1" onclick="promptRequestInfo()" type="button">
+<i class="ph ph-question text-base"></i>
+<span>Request Info</span>
+</button>
+</div>
+<!-- Primary Full Width CTA: Assign & Dispatch Crew -->
+<button class="min-touch w-full py-3.5 px-4 rounded-xl bg-brand-teal text-white font-bold text-sm tracking-wide shadow-md active:bg-brand-teal-hover transition-all flex items-center justify-center gap-2" id="main-dispatch-btn" onclick="executeDispatch()" type="button">
+<i class="ph ph-paper-plane-tilt text-lg"></i>
+<span>Assign &amp; Dispatch Crew (P1)</span>
+</button>
+</div>
+</div>
+<!-- END: StickyBottomActionDrawer -->
+<!-- BEGIN: WorkerAssignmentModal -->
+<div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-end justify-center transition-opacity" id="worker-modal">
+<div class="w-full max-w-[412px] bg-white rounded-t-3xl p-4 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom">
+<div class="flex items-center justify-between pb-2 border-b border-brand-border">
+<div>
+<h3 class="text-base font-bold text-brand-dark">Assign Field Worker / Crew</h3>
+<p class="text-xs text-brand-muted">Showing available crews in Ward 8 Zone</p>
+</div>
+<button class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800" onclick="closeWorkerModal()" type="button">
+<i class="ph ph-x text-base"></i>
+</button>
+</div>
+<!-- Worker Options List -->
+<div class="space-y-2">
+<!-- Worker 1 (Active Default) -->
+<div class="p-3 rounded-xl border-2 border-brand-teal bg-brand-teal-light/30 cursor-pointer flex items-center justify-between" onclick="selectWorker('Marcus Chen', '#FW-882', 'SDOT Roads Unit 4')">
+<div class="flex items-center gap-3">
+<img alt="Marcus Chen" class="w-10 h-10 rounded-full border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiKazOHwvNzIR-EwR7hEG0XUzCwx3xakZj59oo1h0kUfU7xTthgySiO-vY_2ABz31wc8hULuE6Mn-p4veSXsPBwSOJ-qg4YUmZXOF4Js73yOtUTuuMF-Vhgdg6qZS_B6PjXJOgqE5NEaqd477Z82JPA6oE5s5QirWp3nPI4ij2sHiBjKEtLWy-qX-xoYL_Y5_NkTC61lYnVtTNqV_H7t0lomayasUP4ViIgnWsY5ERBdVbiUL1JiUx"/>
+<div>
+<p class="text-xs font-bold text-brand-dark">Marcus Chen (Recommended)</p>
+<p class="text-[11px] text-brand-muted">SDOT Roads Unit 4 · Van #14</p>
+<span class="text-[10px] text-emerald-700 font-semibold">● 1.2km away · Ready now</span>
+</div>
+</div>
+<i class="ph ph-check-circle-fill text-brand-teal text-xl"></i>
+</div>
+<!-- Worker 2 -->
+<div class="p-3 rounded-xl border border-slate-200 bg-white hover:border-brand-teal cursor-pointer flex items-center justify-between transition-colors" onclick="selectWorker('Priya Sundaram', '#FW-409', 'Ward 8 Rapid Surface Patch')">
+<div class="flex items-center gap-3">
+<img alt="Priya Sundaram" class="w-10 h-10 rounded-full border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5B9kiKxUShFwFDbQfDLHk5VFxSG_ty-Oixn1d6h_JZ_M_PEsAOZ_lLzgc7YCrt9nNp58RURylMQmUTaKMP4xn_OyW4eoStFtGue3wlAUxcOvqFLu_xJGFoN0Tgu6-xKZ24bq31VTuz1tPkgu9KkasGA2e7ATgL45hpHLXVrYDaFy3zYUrIi0JKo-lp8YKKOA_ieM-ywzD3oL0N2aLTDZZIowucYKmmJ3Hqbn1osP2XumrFyuRlajF"/>
+<div>
+<p class="text-xs font-bold text-brand-dark">Priya Sundaram</p>
+<p class="text-[11px] text-brand-muted">Ward 8 Rapid Surface Patch</p>
+<span class="text-[10px] text-emerald-700 font-semibold">● 2.8km away · Available</span>
+</div>
+</div>
+<i class="ph ph-circle text-slate-300 text-xl"></i>
+</div>
+<!-- Worker 3 -->
+<div class="p-3 rounded-xl border border-slate-200 bg-white hover:border-brand-teal cursor-pointer flex items-center justify-between transition-colors" onclick="selectWorker('Rajesh Kumar', '#FW-112', 'Heavy Asphalt Unit 2')">
+<div class="flex items-center gap-3">
+<img alt="Rajesh Kumar" class="w-10 h-10 rounded-full border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBop9T6bw1h1KXwQryfCGVPJxfrZM3giGStfEX0gSZ_xikNtHOocqgms01dSXW3flU3b0zVRFFq3bPwmGUMPXbXjDI05DBIN_7irtXaEPepBEhgfERCWmnT5zoEv5gsN2giytMoEhzryUhMy2Kdfq91z8z1j5Am6l8RCcE6ob2wWFEd9CEIrMwiUzZunRCmGBBjtbHVPSSoM2FqojJ5BoSjA6nXZYrIvSWttyLmRvRn6yGh1k9iG77e"/>
+<div>
+<p class="text-xs font-bold text-brand-dark">Rajesh Kumar</p>
+<p class="text-[11px] text-brand-muted">Heavy Asphalt Unit 2</p>
+<span class="text-[10px] text-amber-600 font-semibold">● Busy until 14:00</span>
+</div>
+</div>
+<i class="ph ph-circle text-slate-300 text-xl"></i>
+</div>
+</div>
+<button class="w-full min-touch py-3 rounded-xl bg-brand-teal text-white font-bold text-xs uppercase tracking-wider" onclick="closeWorkerModal()" type="button">
+          Confirm Worker Selection
+        </button>
+</div>
+</div>
+<!-- END: WorkerAssignmentModal -->
+</div>
+<!-- BEGIN: InteractiveScripts -->
+<script data-purpose="interaction-handlers">
+    // Simulator states for demo bar
+    function setSimMode(mode) {
+      const reviewBtn = document.getElementById('sim-review-btn');
+      const dupBtn = document.getElementById('sim-duplicate-btn');
+      const dupBox = document.getElementById('duplicate-warning-box');
+
+      if (mode === 'standard') {
+        reviewBtn.className = "px-2.5 py-1 rounded-full font-medium whitespace-nowrap bg-brand-dark text-white text-[11px] transition-colors";
+        dupBtn.className = "px-2.5 py-1 rounded-full font-medium whitespace-nowrap bg-white text-brand-muted border border-brand-border hover:border-brand-violet text-[11px] transition-colors";
+        dupBox.classList.remove('hidden');
+      } else if (mode === 'duplicate') {
+        dupBtn.className = "px-2.5 py-1 rounded-full font-medium whitespace-nowrap bg-brand-violet text-white text-[11px] transition-colors";
+        reviewBtn.className = "px-2.5 py-1 rounded-full font-medium whitespace-nowrap bg-white text-brand-muted border border-brand-border hover:border-brand-violet text-[11px] transition-colors";
+        dupBox.classList.remove('hidden');
+        dupBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // Modal controls
+    function openWorkerModal() {
+      const modal = document.getElementById('worker-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeWorkerModal() {
+      const modal = document.getElementById('worker-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function selectWorker(name, badge, unit) {
+      alert(`Worker updated to: ${name} (${badge}) - ${unit}`);
+      closeWorkerModal();
+    }
+
+    // AI Accept Action
+    function acceptAiRecommendation() {
+      const acceptBtn = document.getElementById('accept-ai-btn');
+      acceptBtn.innerHTML = `<i class="ph ph-check text-base"></i><span>Triage Accepted</span>`;
+      acceptBtn.classList.remove('bg-brand-violet');
+      acceptBtn.classList.add('bg-brand-success');
+      alert('AI Recommendation (Roads & Potholes / High Hazard P1) accepted and locked.');
+    }
+
+    // Category Selector
+    function selectCategory(clickedEl) {
+      const chips = document.querySelectorAll('.category-chip');
+      chips.forEach(chip => {
+        chip.className = "category-chip min-touch px-3 py-2 text-xs font-medium rounded-xl border text-left flex items-center justify-between border-brand-border bg-white text-brand-muted hover:border-slate-300";
+        const icon = chip.querySelector('.ph-check-circle-fill');
+        if (icon) icon.remove();
+      });
+      clickedEl.className = "category-chip min-touch px-3 py-2 text-xs font-semibold rounded-xl border text-left flex items-center justify-between border-brand-teal bg-brand-teal-light text-brand-teal ring-1 ring-brand-teal";
+      const checkIcon = document.createElement('i');
+      checkIcon.className = "ph ph-check-circle-fill text-sm";
+      clickedEl.appendChild(checkIcon);
+    }
+
+    // Priority Selector
+    function selectPriority(btn, slaText) {
+      const priorityButtons = document.querySelectorAll('.priority-btn');
+      priorityButtons.forEach(b => {
+        b.className = "priority-btn py-2 text-xs font-semibold rounded-lg text-brand-muted hover:text-brand-dark transition-all";
+      });
+      btn.className = "priority-btn py-2 text-xs font-bold rounded-lg bg-brand-teal text-white shadow-sm transition-all";
+      document.getElementById('sla-badge-text').textContent = slaText;
+    }
+
+    // Audit History Toggle
+    function toggleAuditHistory() {
+      const content = document.getElementById('audit-content');
+      const chevron = document.getElementById('audit-chevron');
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        chevron.classList.remove('-rotate-90');
+      } else {
+        content.classList.add('hidden');
+        chevron.classList.add('-rotate-90');
+      }
+    }
+
+    // Sticky Actions
+    function confirmRejectModal() {
+      if (confirm("Are you sure you want to mark this complaint as Rejected or Invalid?")) {
+        alert("Complaint #CF-2026-00124 marked as Rejected. Notification dispatched to citizen.");
+      }
+    }
+
+    function promptRequestInfo() {
+      const note = prompt("Enter specific inquiry for citizen (e.g. Need clearer landmark photo):", "Please provide additional landmark reference near the bus stop.");
+      if (note) {
+        alert("Citizen pinged via SMS & Push with message: " + note);
+      }
+    }
+
+    function executeDispatch() {
+      const btn = document.getElementById('main-dispatch-btn');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="ph ph-spinner text-lg animate-spin"></i><span>Dispatching Crew #FW-882...</span>`;
+      setTimeout(() => {
+        btn.innerHTML = `<i class="ph ph-check-circle text-lg"></i><span>Dispatched Successfully!</span>`;
+        btn.classList.remove('bg-brand-teal');
+        btn.classList.add('bg-brand-success');
+        alert("Success! Work Order #WO-492 created and Marcus Chen notified via Field Device.");
+      }, 1000);
+    }
+  </script>
+<!-- END: InteractiveScripts -->
+</body></html>

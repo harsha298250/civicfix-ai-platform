@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>CivicFix AI</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#3f4752","surface-container":"#e4efff","outline":"#6e7977","inverse-on-surface":"#e9f1ff","on-tertiary-container":"#e9f1fe","primary-fixed-dim":"#7ed6ca","on-surface":"#111c28","inverse-surface":"#26313e","on-primary-fixed-variant":"#005049","on-secondary":"#ffffff","on-secondary-fixed-variant":"#422bb5","on-primary-fixed":"#00201d","surface-container-low":"#eef4ff","on-tertiary-fixed":"#141c25","primary":"#006057","on-secondary-container":"#fffbff","tertiary":"#4d5660","on-primary-container":"#aefff3","surface-container-lowest":"#ffffff","background":"#f8f9ff","secondary-fixed-dim":"#c7bfff","surface-tint":"#006a61","tertiary-fixed":"#dbe3f0","outline-variant":"#bdc9c6","tertiary-container":"#666e79","surface-dim":"#d0dbeb","error":"#ba1a1a","on-surface-variant":"#3e4947","on-primary":"#ffffff","on-error":"#ffffff","primary-fixed":"#9af2e6","on-error-container":"#93000a","secondary-fixed":"#e4dfff","surface-container-high":"#dee9fa","secondary-container":"#7160e6","on-tertiary":"#ffffff","inverse-primary":"#7ed6ca","tertiary-fixed-dim":"#bfc7d3","secondary":"#5845cb","surface-container-highest":"#d8e3f4","on-background":"#111c28","surface":"#f8f9ff","surface-bright":"#f8f9ff","error-container":"#ffdad6","on-secondary-fixed":"#170065","primary-container":"#137a70","surface-variant":"#d8e3f4"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-md":"1rem","space-sm":"0.5rem",margin:"1rem","space-xs":"0.25rem",gutter:"1rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","space-lg":"1.5rem","space-xl":"2rem"},fontFamily:{"code-sm":["JetBrains Mono"],"label-sm":["Inter"],"headline-lg-mobile":["Inter"],"body-md":["Inter"],"headline-sm":["Inter"],display:["Inter"],"label-md":["Inter"],"headline-lg":["Inter"],title:["Inter"],"headline-md":["Inter"],"body-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-lg-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["13px",{lineHeight:"18px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["18px",{lineHeight:"24px",letterSpacing:"-0.015em",fontWeight:"600"}],display:["36px",{lineHeight:"44px",letterSpacing:"-0.03em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"500"}],"headline-lg":["30px",{lineHeight:"38px",letterSpacing:"-0.025em",fontWeight:"600"}],title:["15px",{lineHeight:"20px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-md":["22px",{lineHeight:"28px",letterSpacing:"-0.02em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"body-lg":["15px",{lineHeight:"22px",letterSpacing:"-0.005em",fontWeight:"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm group" data-path="dashboard" href="#"><div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-[0_1px_2px_rgba(24,35,47,0.08)]"><span class="material-symbols-outlined text-[20px]">verified</span></div><div class="flex flex-col"><span class="font-title text-title tracking-tight text-on-surface flex items-center gap-1.5">CivicFix<span class="font-code-sm text-code-sm text-secondary bg-surface-container px-1.5 py-0.5 rounded">AI</span></span><span class="font-label-sm text-label-sm text-on-surface-variant hidden sm:inline">Citizen Portal</span></div></a><nav class="hidden md:flex items-center gap-space-xs p-1 bg-surface-container-low rounded-xl" data-active-classes="bg-surface-container text-primary font-title"><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="dashboard" href="#">Dashboard</a><a aria-current="page" class="px-3 py-1.5 rounded-lg transition-all bg-surface-container text-primary font-title" data-path="my-complaints" href="#">My Complaints</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="report-a-civic-issue" href="#">Report a Civic Issue</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" data-path="issue-map" href="#">Issue Map</a></nav></div><div class="flex items-center gap-space-md"><button aria-label="Notifications" class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all flex items-center justify-center" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><div class="flex items-center gap-space-sm pl-space-sm border-l border-outline-variant/30"><div class="hidden lg:flex flex-col text-right"><span class="font-label-md text-label-md text-on-surface leading-tight">Alex M.</span><span class="font-label-sm text-label-sm text-on-surface-variant">Verified Resident</span></div><button aria-label="User Profile Menu" class="flex items-center gap-1.5 p-1 rounded-lg hover:bg-surface-container-high transition-all group" type="button"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><span class="material-symbols-outlined text-on-surface-variant text-[18px] group-hover:text-on-surface">expand_more</span></button></div></div></div></header><main class="w-full pt-16 bg-background min-h-screen"><div class="w-full px-gutter-desktop py-space-md"><nav class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm mb-space-md"><a class="hover:text-primary transition-colors flex items-center gap-1" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[16px]">home</span><span>Portal</span></a><span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span><span class="text-on-surface font-label-md text-label-md">Citizen Hub</span></nav><div class="flex flex-col w-full">
+<!-- Interactive State Simulator Controller Banner -->
+<aside aria-label="Interactive State Preview Switcher" class="w-full bg-surface-container-low rounded-xl p-space-md mb-space-lg shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Demo Mode</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-title text-title text-on-surface truncate">Workflow Simulator</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Cycle through municipal inspection lifecycle states:</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs" id="state-switcher-container">
+<button class="state-btn active-state-pill px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all flex items-center gap-1.5 bg-primary text-on-primary shadow-sm" id="btn-state-in_progress" onclick="switchState('in_progress')" type="button">
+<span class="w-2 h-2 rounded-full bg-on-primary-container animate-pulse"></span>
+<span>1. In Progress</span>
+</button>
+<button class="state-btn px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all flex items-center gap-1.5 bg-surface-container-lowest text-on-surface hover:bg-surface-container hover:text-primary" id="btn-state-resolution_submitted" onclick="switchState('resolution_submitted')" type="button">
+<span class="material-symbols-outlined text-[15px] text-secondary">fact_check</span>
+<span>2. Resolution Submitted</span>
+</button>
+<button class="state-btn px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all flex items-center gap-1.5 bg-surface-container-lowest text-on-surface hover:bg-surface-container hover:text-primary" id="btn-state-verified_resolved" onclick="switchState('verified_resolved')" type="button">
+<span class="material-symbols-outlined text-[15px] text-primary">verified</span>
+<span>3. Verified Resolved</span>
+</button>
+<button class="state-btn px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all flex items-center gap-1.5 bg-surface-container-lowest text-on-surface hover:bg-surface-container hover:text-error" id="btn-state-reopened" onclick="switchState('reopened')" type="button">
+<span class="material-symbols-outlined text-[15px] text-error">history_toggle_off</span>
+<span>4. Reopened State</span>
+</button>
+<button class="state-btn px-3 py-1.5 rounded-lg font-label-md text-label-md transition-all flex items-center gap-1.5 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container" id="btn-state-loading_skeleton" onclick="switchState('loading_skeleton')" type="button">
+<span class="material-symbols-outlined text-[15px]">hourglass_empty</span>
+<span>5. Loading Skeleton</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- LOADING SKELETON STATE (Hidden by default) -->
+<div class="hidden flex-col gap-space-lg w-full animate-pulse" id="skeleton-view">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="h-6 w-48 bg-surface-container-high rounded-lg"></div>
+<div class="h-10 w-3/4 bg-surface-container-high rounded-lg"></div>
+<div class="flex gap-space-sm">
+<div class="h-6 w-24 bg-surface-container-high rounded-full"></div>
+<div class="h-6 w-32 bg-surface-container-high rounded-full"></div>
+<div class="h-6 w-28 bg-surface-container-high rounded-full"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop">
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<div class="h-32 bg-surface-container-lowest rounded-xl"></div>
+<div class="h-64 bg-surface-container-lowest rounded-xl"></div>
+<div class="h-80 bg-surface-container-lowest rounded-xl"></div>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<div class="h-48 bg-surface-container-lowest rounded-xl"></div>
+<div class="h-64 bg-surface-container-lowest rounded-xl"></div>
+</div>
+</div>
+</div>
+<!-- MAIN INTERACTIVE WORKSPACE CONTAINER -->
+<div class="flex flex-col w-full gap-space-lg" id="main-workspace">
+<!-- Complaint Header Card -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="font-code-sm text-code-sm bg-surface-container text-on-surface px-2.5 py-1 rounded-md font-medium">#CF-2026-00124</span>
+<button class="inline-flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors text-label-sm font-label-sm px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container" id="copy-ref-btn" onclick="copyReference()" title="Copy Reference to Clipboard" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span id="copy-ref-label">Copy Ref</span>
+</button>
+<span class="text-outline-variant font-label-sm">•</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">calendar_today</span>
+              10 Oct 2026, 09:14 AM IST
+            </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1" id="complaint-title">
+            Large pothole near bus stop
+          </h1>
+<div class="flex flex-wrap items-center gap-space-xs mt-1">
+<!-- Category Badge -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">add_road</span>
+              Roads &amp; Potholes
+            </span>
+<!-- Status Badge (Dynamic) -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold" id="header-status-badge">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              In Progress
+            </span>
+<!-- Priority Badge -->
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+              High Hazard • P1
+            </span>
+<!-- AI Geocoded Pill -->
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+              AI Triaged (98.4% Confidence)
+            </span>
+</div>
+</div>
+<!-- Quick Top Action Controls -->
+<div class="flex flex-wrap lg:flex-nowrap items-center gap-space-xs shrink-0 self-start mt-2 lg:mt-0">
+<a class="px-3.5 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all flex items-center gap-1.5" data-path="issue-map" href="#">
+<span class="material-symbols-outlined text-[18px] text-primary">map</span>
+<span>View on Map</span>
+</a>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all flex items-center gap-1.5" onclick="openAddInfoModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
+<span>Add Additional Info</span>
+</button>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all flex items-center gap-1.5" onclick="downloadAuditSlip()" title="Generate Digital Tamper-Proof Audit Slip" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span>Audit Slip</span>
+</button>
+<a class="px-3.5 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md transition-all flex items-center gap-1 shadow-sm" data-path="my-complaints" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>My Complaints</span>
+</a>
+</div>
+</div>
+</section>
+<!-- 2-Column Responsive Workspace Grid (65% / 35%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- MAIN WORKSPACE COLUMN (8 of 12 columns = 66.6%) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg min-w-0">
+<!-- CURRENT STATUS SPOTLIGHT CARD -->
+<div class="rounded-xl p-space-lg shadow-sm transition-all duration-300 bg-surface-container-low" id="status-spotlight">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shrink-0 shadow-sm" id="status-icon-box">
+<span class="material-symbols-outlined text-[26px]" id="status-icon-symbol">handyman</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Current Lifecycle Stage</span>
+<span class="font-code-sm text-code-sm text-primary bg-surface-container px-2 py-0.5 rounded" id="sla-countdown">SLA: 32h Remaining</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-0.5" id="status-spotlight-title">
+                  In Progress: Active Repair Underway
+                </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-relaxed" id="status-spotlight-desc">
+                  Field Unit 4 is on site on 2nd Avenue. Cold-mix asphalt application, trench edge trimming, and pneumatic roller compaction are currently underway.
+                </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-md flex flex-col justify-center min-w-[200px] shrink-0 shadow-sm" id="status-meta-card">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Est. Completion Target</span>
+<span class="font-title text-title text-primary mt-0.5" id="status-target-time">Today by 4:30 PM</span>
+<span class="font-body-sm text-body-sm text-outline mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">schedule</span>
+                Assigned SLA: 48 Hours
+              </span>
+</div>
+</div>
+<!-- Dynamic Progress Meter Bar -->
+<div class="w-full bg-surface-container rounded-full h-2 mt-space-md overflow-hidden">
+<div class="bg-primary h-2 rounded-full transition-all duration-500" id="lifecycle-progress-bar" style="width: 66%;"></div>
+</div>
+</div>
+<!-- 6-STAGE COMPLAINT LIFECYCLE VERTICAL TIMELINE -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-md mb-space-md bg-surface-container-low -mx-space-lg -mt-space-lg px-space-lg py-space-md rounded-t-xl">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[22px]">route</span>
+<div>
+<h3 class="font-title text-title text-on-surface">Lifecycle &amp; Escalation Timeline</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Verifiable end-to-end audit tracking across departments</p>
+</div>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">Stage 4 of 6</span>
+</div>
+<!-- Vertical Timeline Stages -->
+<div class="relative pl-6 sm:pl-8 space-y-6 before:content-[''] before:absolute before:left-[17px] sm:before:left-[21px] before:top-2 before:bottom-3 before:w-0.5 before:bg-surface-container-high" id="timeline-container">
+<!-- Stage 1: Submitted -->
+<div class="relative flex items-start gap-space-md group" id="tl-stage-1">
+<div class="absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg p-space-md ml-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-2">
+<span class="font-title text-title text-on-surface">1. Complaint Submitted</span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-primary/10 text-primary">Completed</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-code-sm">10 Oct 2026 • 09:14 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5">
+                  Report logged by verified resident <strong class="text-on-surface">Alex M.</strong> via mobile portal with high-resolution imagery and EXIF GPS tags.
+                </p>
+</div>
+</div>
+<!-- Stage 2: Under Review -->
+<div class="relative flex items-start gap-space-md" id="tl-stage-2">
+<div class="absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg p-space-md ml-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-2">
+<span class="font-title text-title text-on-surface">2. AI Validation &amp; Officer Review</span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-primary/10 text-primary">Completed</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-code-sm">10 Oct 2026 • 10:22 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5">
+                  CivicFix AI Computer Vision classified pothole volume (0.045 m³). Municipal Officer <strong class="text-on-surface">Elena Vance</strong> escalated to arterial road priority.
+                </p>
+</div>
+</div>
+<!-- Stage 3: Assigned -->
+<div class="relative flex items-start gap-space-md" id="tl-stage-3">
+<div class="absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg p-space-md ml-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-2">
+<span class="font-title text-title text-on-surface">3. Work Order Assigned</span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-primary/10 text-primary">Completed</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-code-sm">10 Oct 2026 • 11:05 AM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5">
+                  Dispatched to <strong class="text-on-surface">Roads Division Field Unit 4</strong>. Crew Lead <strong class="text-on-surface">Marcus Chen (Badge #FW-882)</strong> accepted dispatch ticket.
+                </p>
+</div>
+</div>
+<!-- Stage 4: In Progress (Active by default) -->
+<div class="relative flex items-start gap-space-md" id="tl-stage-4">
+<div class="absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md ring-4 ring-primary/20 animate-pulse" id="tl-stage-4-icon">
+<span class="material-symbols-outlined text-[18px]">construction</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest border-2 border-primary/30 rounded-lg p-space-md ml-3 shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-2">
+<span class="font-title text-title text-on-surface" id="tl-stage-4-heading">4. In Progress — On-Site Repair</span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-primary text-on-primary font-semibold" id="tl-stage-4-pill">Active Work</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-code-sm">10 Oct 2026 • 01:15 PM</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5" id="tl-stage-4-desc">
+                  Utility Truck #14 arrived at 2nd Avenue bus shelter. Barricades deployed. Cold asphalt patch and compaction underway.
+                </p>
+</div>
+</div>
+<!-- Stage 5: Resolution Submitted (Dynamic) -->
+<div class="relative flex items-start gap-space-md" id="tl-stage-5">
+<div class="absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-surface-container text-outline flex items-center justify-center" id="tl-stage-5-icon">
+<span class="material-symbols-outlined text-[18px]">task</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg p-space-md ml-3 opacity-60" id="tl-stage-5-card">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-2">
+<span class="font-title text-title text-on-surface" id="tl-stage-5-heading">5. Resolution Submitted</span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant" id="tl-stage-5-pill">Pending</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-code-sm" id="tl-stage-5-timestamp">Awaiting Crew Submission</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5" id="tl-stage-5-desc">
+                  Field crew uploads timestamped compaction data, roller passes, and post-repair photographic proof.
+                </p>
+</div>
+</div>
+<!-- Stage 6: Resolved (Dynamic) -->
+<div class="relative flex items-start gap-space-md" id="tl-stage-6">
+<div class="absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-surface-container text-outline flex items-center justify-center" id="tl-stage-6-icon">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg p-space-md ml-3 opacity-60" id="tl-stage-6-card">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-2">
+<span class="font-title text-title text-on-surface" id="tl-stage-6-heading">6. Municipal Sign-off &amp; Verified Resolved</span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant" id="tl-stage-6-pill">Pending</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-code-sm" id="tl-stage-6-timestamp">Awaiting Final Inspection</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5" id="tl-stage-6-desc">
+                  Independent municipal quality inspector confirms smooth asphalt grade, closes work order ticket, and generates citizen resolution certificate.
+                </p>
+</div>
+</div>
+</div>
+</section>
+<!-- REPAIR & RESOLUTION EVIDENCE SECTION (BEFORE / AFTER COMPARISON) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm" id="evidence-section">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-title text-title text-on-surface">Repair &amp; Resolution Evidence</span>
+<span class="font-code-sm text-code-sm bg-secondary/10 text-secondary px-2 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                  Tamper-Proof Audit
+                </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Side-by-side photographic verification captured via CivicFix Field Companion App</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Telemetry:</span>
+<span class="font-code-sm text-code-sm text-primary bg-primary/10 px-2 py-0.5 rounded">GPS Geofence Match (±1.8m)</span>
+</div>
+</div>
+<!-- Officer Dynamic Review Status Banner -->
+<div class="rounded-lg p-space-md mb-space-md flex items-start gap-space-sm bg-surface-container-low text-on-surface" id="officer-review-banner">
+<span class="material-symbols-outlined text-primary text-[22px] shrink-0" id="officer-review-icon">hourglass_top</span>
+<div class="flex-1">
+<span class="font-title text-title text-primary block" id="officer-review-title">Active Field Repair In Progress</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5" id="officer-review-desc">
+                Work crew is currently on location. Compaction verification sensors are transmitting real-time telemetry to Ward 8 dispatch headquarters.
+              </p>
+</div>
+</div>
+<!-- Side-by-Side Photographic Proof Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Left: BEFORE -->
+<div class="flex flex-col rounded-xl overflow-hidden bg-surface-container-low shadow-sm">
+<div class="p-space-sm bg-surface-container flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-error font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                  Before • Original Report
+                </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">10 Oct 09:14 AM</span>
+</div>
+<div class="relative aspect-video w-full overflow-hidden group">
+<img alt="Pothole Before Repair" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Close-up photograph of a dangerous asphalt pothole measuring 45cm across on an urban city road next to a yellow painted bicycle lane in Chennai. Daylight with deep crater showing aggregate road bed and broken bitumen edges with clear road markers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-jXejiRhYr1ABcWUAcxNH8E-WRTqf3TVRKyAU8MqePuORRdvo_R_rUIZ70iJrTcdez_gI4yXQ38F6kKUqj9TdiTAT9U9UzXFyMw_robDbBkm_8H8WJoPM7y4FWCboT1hPsN-bMnX6P7-swB7Zk7Re4SOd8Ihwc2zkS2xEqhHeeQeXEj-E0jSd-C7CkM_J6p4BTrhnhmCH63VZtTNYkhHTlfzEhyHGY_wAsx7U6iEbArQGmkHotcRl"/>
+<div class="absolute bottom-2 left-2 bg-on-surface/80 backdrop-blur text-on-secondary font-code-sm text-code-sm px-2 py-1 rounded">
+                  GPS: 13.08502° N, 80.21014° E
+                </div>
+</div>
+<div class="p-space-md flex flex-col gap-1">
+<span class="font-title text-title text-on-surface">Reported Hazard Condition</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Depth: 10.2 cm • Width: 46.5 cm • Surface type: Hot-mix asphalt. Impacting cycle corridor.
+                </p>
+</div>
+</div>
+<!-- Right: AFTER (Dynamic Content) -->
+<div class="flex flex-col rounded-xl overflow-hidden bg-surface-container-low shadow-sm" id="after-evidence-card">
+<div class="p-space-sm bg-surface-container flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-primary font-semibold flex items-center gap-1" id="after-badge">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                  After • Crew Telemetry
+                </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant" id="after-timestamp">10 Oct 01:25 PM</span>
+</div>
+<div class="relative aspect-video w-full overflow-hidden group bg-surface-container">
+<img alt="Pothole After Repair" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Road maintenance crew paving and rolling fresh dark bitumen asphalt patch flush with the surrounding road surface at bus shelter street in bright daylight. Clear compaction texture and safety cones visible." id="after-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBilpLQE2HEhoFqkqqsCFEIy_Chi7Wq1NlD8GcsX5eGC6kHCLfih9C4fxOzEGTYsZg7qSDRZ9SUQWHYkLfTdJHJ_FC9ktHMP15TSvI2LBmJUbMrGy3ZD-NC3sQG8sxIJkptmFq2ah117S9w10FgvxHbCZNzPuwlFiZkoh_-X29WHPgR4DwxKwdKdkvCRAvuXqub4iHevFGJn2Swr6lKCzclJJb44YtOSj8kXxNROURyDfzdjJI3GXta"/>
+<div class="absolute bottom-2 left-2 bg-primary/90 backdrop-blur text-on-primary font-code-sm text-code-sm px-2 py-1 rounded" id="after-geostamp">
+                  VERIFIED LOCATION • ACCURACY 1.2m
+                </div>
+</div>
+<div class="p-space-md flex flex-col gap-1">
+<span class="font-title text-title text-on-surface" id="after-card-title">Field Repair Compaction Proof</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant" id="after-card-notes">
+                  Patch application completed using Superpave Grade AC-20. Vibratory roller pass counter: 8 cycles. Ready for temperature stabilization.
+                </p>
+</div>
+</div>
+</div>
+</section>
+<!-- ISSUE DESCRIPTION & CONTEXT SECTION -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<h3 class="font-title text-title text-on-surface mb-space-sm flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">description</span>
+            Issue Description &amp; Environmental Context
+          </h3>
+<div class="bg-surface-container-low rounded-lg p-space-md text-on-surface font-body-lg text-body-lg leading-relaxed">
+            “Pothole measures roughly 45cm across and 10cm deep right in the cycling lane adjacent to the Anna Nagar bus shelter. Multiple two-wheelers have swerved into oncoming traffic to avoid rim damage.”
+          </div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md mt-space-md">
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Key Landmark</span>
+<span class="font-title text-title text-on-surface mt-1">Opposite Bus Shelter 14-B</span>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">High footfall transit stop</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Traffic Vulnerability</span>
+<span class="font-title text-title text-error mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">priority_high</span>
+                Cyclists &amp; Two-Wheelers
+              </span>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">Arterial corridor</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Weather Impact</span>
+<span class="font-title text-title text-on-surface mt-1">Light Rain Forecast</span>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">Rapid aggregate wash risk</span>
+</div>
+</div>
+<!-- Original Citizen Photo Gallery with Metadata -->
+<div class="mt-space-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Original Submitted Photographs (2 captures)</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">EXIF SHA-256 Validated</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="relative rounded-lg overflow-hidden bg-surface-container group">
+<img alt="Bus Stop Road Context" class="w-full h-44 object-cover transition-transform group-hover:scale-105" data-alt="Wide shot of a road pothole right in front of a modern steel and glass bus shelter with waiting passengers in Chennai city. Daylight with bicycle lane painted markings." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ2bMf4WgtIbsrxL-5eMl1yGGusKaqhk_rNZ4JNj5eeEmQA2VGHibxSZVpp_TdD9n2ntRMkteu5NhIZebFRPPLy825WFfwSzlf3PabCf38aCANWzH1jhXNF5so4asfqBzuDAGOskHP471oP4xYuWGCaaHyi44HM0APhH18RrLXxcwaD_WkKGRNa0mnM1TPGT7myCKvlSphk9bGkxh76-q_9B2E_LyryT9XcmJE6q4j1BZprp7z6eTb"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent flex items-end p-2.5">
+<div class="flex items-center justify-between w-full text-on-secondary font-code-sm text-code-sm">
+<span>Wide Angle • Shelter 14-B</span>
+<span>10-Oct 09:12:44</span>
+</div>
+</div>
+</div>
+<div class="relative rounded-lg overflow-hidden bg-surface-container group">
+<img alt="Depth Scale Close-up" class="w-full h-44 object-cover transition-transform group-hover:scale-105" data-alt="Perpendicular top down perspective of pothole showing water filled crater depth with measuring scale ruler placed beside edge on road asphalt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb2jZbXzmk3vqBKAK10NZhdWZwBimnaeO9J6yaGKQ5c3H_bBUhlgt5Fi0GhxrA_vxpG9FzbfcAQFtrCiGTigbPMP_IyxDJjMPnNwfUOLIlAGrftPk31wvQFSVXvtcaumGgk5ZZhg-JkxfWlGFEb8hyIlKgU_gl0pf8hwSxwC-s71AYDClVroY5p3_ly551AJ_CZH58CV0uRu0isPedw5bN9ihPkOaceylNQ2vl1SvlgnkP8LJgD1hI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent flex items-end p-2.5">
+<div class="flex items-center justify-between w-full text-on-secondary font-code-sm text-code-sm">
+<span>Depth Measurement • Macro</span>
+<span>10-Oct 09:13:12</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CHRONOLOGICAL ACTIVITY AUDIT FEED -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<h3 class="font-title text-title text-on-surface flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">history</span>
+                Audit Trail &amp; Real-Time Event Ledger
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cryptographically signed municipal ledger records</p>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface px-2.5 py-1 rounded-md">Live Stream</span>
+</div>
+<div class="divide-y divide-surface-container-high" id="audit-feed-list">
+<!-- Feed Item 1 -->
+<div class="py-space-sm flex items-start gap-space-md">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Citizen Alex M. (Verified Resident)</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">09:14 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Created complaint report #CF-2026-00124 via Resident Mobile App with geo-anchored photo uploads.</p>
+</div>
+</div>
+<!-- Feed Item 2 -->
+<div class="py-space-sm flex items-start gap-space-md">
+<div class="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">smart_toy</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-secondary font-semibold">CivicFix AI Triage v3.4</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">09:14 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Automated visual segmentation completed: Identified surface void 45x10cm. Priority tagged High Hazard (P1).</p>
+</div>
+</div>
+<!-- Feed Item 3 -->
+<div class="py-space-sm flex items-start gap-space-md">
+<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">badge</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Officer Elena Vance (Ward 8 Director)</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">10:22 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Approved auto-triage dispatch. Forwarded work order to SDOT Roads Unit 4 with 48-hour emergency SLA.</p>
+</div>
+</div>
+<!-- Feed Item 4 -->
+<div class="py-space-sm flex items-start gap-space-md">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">local_shipping</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Crew Lead Marcus Chen (Roads Unit 4)</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">01:15 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Work order accepted on mobile tablet. Field truck TN-09-CW-4102 geofence entered 2nd Avenue zone.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- SECONDARY COLUMN (4 of 12 columns = 33.3%) -->
+<aside aria-label="Metadata, Location, and Action Center" class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- ASSIGNMENT & CREW DETAILS CARD -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-sm mb-space-md bg-surface-container-low -mx-space-lg -mt-space-lg px-space-lg py-space-md rounded-t-xl">
+<span class="font-title text-title text-on-surface flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">groups</span>
+              Assigned Field Crew
+            </span>
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping" title="Crew Radio Active"></span>
+</div>
+<div class="flex flex-col gap-space-md">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Department &amp; Unit</span>
+<p class="font-title text-title text-on-surface mt-0.5">Dept. of Transportation (SDOT)</p>
+<p class="font-body-sm text-body-sm text-primary font-medium">Roads &amp; Asphalt Rapid Unit 4</p>
+</div>
+<div class="flex items-center gap-space-md p-space-sm bg-surface-container-low rounded-lg">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-title">
+                MC
+              </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Marcus Chen</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Crew Lead • Badge #FW-882</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm font-body-sm text-body-sm">
+<div class="bg-surface-container-low p-space-sm rounded-lg">
+<span class="text-on-surface-variant font-label-sm text-label-sm block">Dispatch Van</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium block mt-0.5">Truck #14</span>
+<span class="font-code-sm text-[10px] text-outline block">TN-09-CW-4102</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg">
+<span class="text-on-surface-variant font-label-sm text-label-sm block">Crew Strength</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium block mt-0.5">3 Technicians</span>
+<span class="font-code-sm text-[10px] text-primary block">Equipped: Hot Roller</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<span>Assigned On:</span>
+<span class="font-code-sm text-code-sm text-on-surface">10 Oct, 11:05 AM</span>
+</div>
+</div>
+</div>
+<!-- PRECISE INCIDENT LOCATION & MINI GIS MAP -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-title text-title text-on-surface flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">pin_drop</span>
+              Incident Location
+            </span>
+<span class="font-code-sm text-code-sm text-primary bg-primary/10 px-2 py-0.5 rounded">Ward 8</span>
+</div>
+<!-- Static Styled Map Element with data-location -->
+<div class="w-full h-48 bg-cover bg-center rounded-lg relative overflow-hidden shadow-sm" data-location="2nd Avenue, Anna Nagar, Chennai" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA3Nm_1xXk4WQ8dj4wQTlBlbAbEWOgcN8FQt1AnA0ER4jbHGmlHmzycweeTvmGagYlc3GYaO93QLkS2ZKaZvG_AvfNA3wPlNyQeK0D18W5YcV0K0mmTsaPknr6wpdccAUq3Xoy9Ll9RFF0SUKZP4ZcjyLc4a2ghNX5b-pc17xK72Ywtp9zcl9urjt2UYVJWpmQlI2SgodIwmblUI8tybTx_FupjPG5BrHceWeyrd4c1-aLAL8YEo8MV')">
+<!-- Simulated Map Overlay HUD -->
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/70 via-transparent to-transparent flex flex-col justify-between p- space-sm p-3">
+<div class="self-end bg-surface-container-lowest/90 backdrop-blur px-2 py-1 rounded text-on-surface font-code-sm text-code-sm shadow-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>13.0850° N, 80.2101° E</span>
+</div>
+<div class="text-on-secondary">
+<p class="font-title text-title leading-tight">2nd Avenue, Anna Nagar</p>
+<p class="font-body-sm text-body-sm text-inverse-on-surface">Near Bus Shelter 14-B Corridor</p>
+</div>
+</div>
+</div>
+<div class="mt-space-md space-y-space-xs font-body-sm text-body-sm">
+<div class="flex items-start justify-between py-1">
+<span class="text-on-surface-variant">Jurisdiction:</span>
+<span class="font-medium text-on-surface text-right">Greater Chennai Corp (GCC)</span>
+</div>
+<div class="flex items-start justify-between py-1">
+<span class="text-on-surface-variant">Nearest Ward Office:</span>
+<span class="font-medium text-on-surface text-right">Zone 8 HQ (1.4 km)</span>
+</div>
+<div class="flex items-start justify-between py-1">
+<span class="text-on-surface-variant">Street Hierarchy:</span>
+<span class="font-medium text-on-surface text-right">Arterial Roadway (Class II)</span>
+</div>
+</div>
+<a class="mt-space-md w-full py-2.5 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md flex items-center justify-center gap-1.5 transition-colors" data-path="issue-map" href="#">
+<span class="material-symbols-outlined text-[18px] text-primary">explore</span>
+<span>Open in Full-Screen GIS Spatial Map</span>
+</a>
+</div>
+<!-- CITIZEN ACTIONS & ESCALATION DESK -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<h3 class="font-title text-title text-on-surface mb-space-sm flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">campaign</span>
+            Citizen Action Center
+          </h3>
+<div class="flex flex-col gap-space-sm">
+<button class="w-full py-2.5 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface text-label-md font-label-md flex items-center justify-center gap-2 transition-all" onclick="openAddInfoModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Provide Additional Information</span>
+</button>
+<!-- Reopen Button (Active when in Resolved State) -->
+<button class="w-full py-2.5 px-3 rounded-lg bg-surface-container-low text-on-surface-variant opacity-50 cursor-not-allowed text-label-md font-label-md flex items-center justify-center gap-2 transition-all" disabled="" id="btn-reopen-action" onclick="openReopenModal()" title="Available once complaint is marked resolved" type="button">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span>Request Reopening / Re-evaluation</span>
+</button>
+</div>
+<!-- Emergency Notification Notice -->
+<div class="mt-space-md p-space-md rounded-lg bg-surface-container-low">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-tertiary text-[20px] shrink-0 mt-0.5">support_agent</span>
+<div class="text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-medium text-on-surface block">Urgent Utility Hazard?</span>
+                For water main bursts, exposed live wires, or active gas leaks, call the 24/7 GCC Emergency Dispatch at <strong class="text-on-surface">1913</strong> or dial <strong class="text-on-surface">311</strong> directly.
+              </div>
+</div>
+</div>
+</div>
+<!-- TRANSPARENCY & ACCOUNTABILITY SLA LEDGER -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm">
+<div class="flex items-center gap-space-xs text-primary mb-1">
+<span class="material-symbols-outlined text-[18px]">format_image_left</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Civic Integrity Guarantee</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Every step in this resolution is audited using FedRAMP-aligned tamper-evident logging. Photometric proof requires sub-meter GPS verification by the field crew before sign-off.
+          </p>
+<div class="mt-space-sm pt-space-sm flex items-center justify-between text-outline-variant font-code-sm text-[11px]">
+<span>Audit ID: 88F9-2A1C</span>
+<span class="text-primary font-medium">Verified Immutable</span>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<!-- INTERACTIVE MODAL: ADD ADDITIONAL INFO -->
+<dialog class="p-0 rounded-2xl bg-surface-container-lowest shadow-2xl max-w-lg w-full backdrop:bg-on-surface/40" id="add-info-modal">
+<div class="p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Add Information or Photos</h4>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container flex items-center justify-center text-on-surface-variant" onclick="closeAddInfoModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Have conditions changed or do you have further details regarding Complaint #CF-2026-00124?
+      </p>
+<form class="flex flex-col gap-space-md" onsubmit="submitCitizenUpdate(event)">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="info-notes">Supplemental Notes</label>
+<textarea class="w-full bg-surface-container-low rounded-lg p-space-sm font-body-md text-body-md text-on-surface outline-none focus:ring-2 focus:ring-primary" id="info-notes" placeholder="Describe any new developments (e.g. water accumulation, barricade fallen)..." required="" rows="3"></textarea>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">Attach New Photo</label>
+<div class="border-2 border-dashed border-surface-container-high rounded-lg p-space-md flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-primary text-[28px]">cloud_upload</span>
+<span class="font-label-md text-label-md text-on-surface mt-1">Click to upload or drag files</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">PNG, JPG up to 10MB</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm mt-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md hover:bg-surface-container" onclick="closeAddInfoModal()" type="button">
+            Cancel
+          </button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container shadow-sm flex items-center gap-1.5" type="submit">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Submit Update</span>
+</button>
+</div>
+</form>
+</div>
+</dialog>
+<!-- INTERACTIVE MODAL: REQUEST REOPENING -->
+<dialog class="p-0 rounded-2xl bg-surface-container-lowest shadow-2xl max-w-lg w-full backdrop:bg-on-surface/40" id="reopen-modal">
+<div class="p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[24px]">report_problem</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Request Case Reopening</h4>
+</div>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container flex items-center justify-center text-on-surface-variant" onclick="closeReopenModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        If the completed repair has deteriorated, settled unevenly, or failed within the 90-day warranty window, submit a reopening request for priority supervisor inspection.
+      </p>
+<form class="flex flex-col gap-space-md" onsubmit="submitReopenRequest(event)">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="reopen-reason">Reason for Reopening</label>
+<select class="w-full bg-surface-container-low rounded-lg p-space-sm font-body-md text-body-md text-on-surface outline-none focus:ring-2 focus:ring-primary" id="reopen-reason">
+<option value="edge_deterioration">Edge deterioration / bitumen breaking off</option>
+<option value="sinkage">Compaction depression / sinkage during rain</option>
+<option value="incomplete">Incomplete patch / hazard debris left on site</option>
+<option value="other">Other structural issue</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="reopen-comments">Specific Observations</label>
+<textarea class="w-full bg-surface-container-low rounded-lg p-space-sm font-body-md text-body-md text-on-surface outline-none focus:ring-2 focus:ring-primary" id="reopen-comments" placeholder="Describe why this repair is insufficient..." required="" rows="3"></textarea>
+</div>
+<div class="flex items-center justify-end gap-space-sm mt-2">
+<button class="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md hover:bg-surface-container" onclick="closeReopenModal()" type="button">
+            Cancel
+          </button>
+<button class="px-4 py-2 rounded-lg bg-error text-on-error font-label-md text-label-md hover:opacity-90 shadow-sm flex items-center gap-1.5" type="submit">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+<span>Confirm Reopening</span>
+</button>
+</div>
+</form>
+</div>
+</dialog>
+<!-- Interactive JavaScript Controller -->
+<script>
+    // State Switcher Controller Engine
+    function switchState(stateKey) {
+      const buttons = document.querySelectorAll('.state-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm', 'bg-error', 'text-on-error');
+        btn.classList.add('bg-surface-container-lowest', 'text-on-surface');
+      });
+
+      const activeBtn = document.getElementById('btn-state-' + stateKey);
+      if (activeBtn) {
+        if (stateKey === 'reopened') {
+          activeBtn.classList.remove('bg-surface-container-lowest', 'text-on-surface');
+          activeBtn.classList.add('bg-error', 'text-on-error', 'shadow-sm');
+        } else {
+          activeBtn.classList.remove('bg-surface-container-lowest', 'text-on-surface');
+          activeBtn.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+        }
+      }
+
+      const mainWorkspace = document.getElementById('main-workspace');
+      const skeletonView = document.getElementById('skeleton-view');
+
+      if (stateKey === 'loading_skeleton') {
+        mainWorkspace.classList.add('hidden');
+        skeletonView.classList.remove('hidden');
+        skeletonView.classList.add('flex');
+        return;
+      } else {
+        skeletonView.classList.add('hidden');
+        skeletonView.classList.remove('flex');
+        mainWorkspace.classList.remove('hidden');
+      }
+
+      // Reopen button in secondary column
+      const reopenActionBtn = document.getElementById('btn-reopen-action');
+
+      // Elements to mutate based on state
+      const headerStatusBadge = document.getElementById('header-status-badge');
+      const spotlightTitle = document.getElementById('status-spotlight-title');
+      const spotlightDesc = document.getElementById('status-spotlight-desc');
+      const spotlightTargetTime = document.getElementById('status-target-time');
+      const progressBar = document.getElementById('lifecycle-progress-bar');
+      const spotlightIconSymbol = document.getElementById('status-icon-symbol');
+      const spotlightIconBox = document.getElementById('status-icon-box');
+      
+      const tlStage4 = document.getElementById('tl-stage-4');
+      const tlStage4Icon = document.getElementById('tl-stage-4-icon');
+      const tlStage4Pill = document.getElementById('tl-stage-4-pill');
+      
+      const tlStage5 = document.getElementById('tl-stage-5');
+      const tlStage5Icon = document.getElementById('tl-stage-5-icon');
+      const tlStage5Card = document.getElementById('tl-stage-5-card');
+      const tlStage5Pill = document.getElementById('tl-stage-5-pill');
+      const tlStage5Desc = document.getElementById('tl-stage-5-desc');
+      const tlStage5Timestamp = document.getElementById('tl-stage-5-timestamp');
+
+      const tlStage6 = document.getElementById('tl-stage-6');
+      const tlStage6Icon = document.getElementById('tl-stage-6-icon');
+      const tlStage6Card = document.getElementById('tl-stage-6-card');
+      const tlStage6Pill = document.getElementById('tl-stage-6-pill');
+      const tlStage6Desc = document.getElementById('tl-stage-6-desc');
+      const tlStage6Timestamp = document.getElementById('tl-stage-6-timestamp');
+
+      const officerBanner = document.getElementById('officer-review-banner');
+      const officerReviewTitle = document.getElementById('officer-review-title');
+      const officerReviewDesc = document.getElementById('officer-review-desc');
+      const officerReviewIcon = document.getElementById('officer-review-icon');
+
+      const afterBadge = document.getElementById('after-badge');
+      const afterCardTitle = document.getElementById('after-card-title');
+      const afterCardNotes = document.getElementById('after-card-notes');
+      const afterTimestamp = document.getElementById('after-timestamp');
+
+      // Apply State Configurations
+      if (stateKey === 'in_progress') {
+        headerStatusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold';
+        headerStatusBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> In Progress';
+        
+        spotlightIconBox.className = 'w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shrink-0 shadow-sm';
+        spotlightIconSymbol.textContent = 'handyman';
+        spotlightTitle.textContent = 'In Progress: Active Repair Underway';
+        spotlightDesc.textContent = 'Field Unit 4 is on site on 2nd Avenue. Cold-mix asphalt application, trench edge trimming, and pneumatic roller compaction are currently underway.';
+        spotlightTargetTime.textContent = 'Today by 4:30 PM';
+        progressBar.style.width = '66%';
+
+        // Timeline resets
+        tlStage4Pill.className = 'font-code-sm text-code-sm px-2 py-0.5 rounded bg-primary text-on-primary font-semibold';
+        tlStage4Pill.textContent = 'Active Work';
+        tlStage4Icon.className = 'absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md ring-4 ring-primary/20 animate-pulse';
+
+        tlStage5Card.className = 'flex-1 bg-surface-container-low rounded-lg p-space-md ml-3 opacity-60';
+        tlStage5Icon.className = 'absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-surface-container text-outline flex items-center justify-center';
+        tlStage5Pill.textContent = 'Pending';
+        tlStage5Pill.className = 'font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant';
+        tlStage5Timestamp.textContent = 'Awaiting Crew Submission';
+
+        tlStage6Card.className = 'flex-1 bg-surface-container-low rounded-lg p-space-md ml-3 opacity-60';
+        tlStage6Icon.className = 'absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-surface-container text-outline flex items-center justify-center';
+        tlStage6Pill.textContent = 'Pending';
+        tlStage6Timestamp.textContent = 'Awaiting Final Inspection';
+
+        officerBanner.className = 'rounded-lg p-space-md mb-space-md flex items-start gap-space-sm bg-surface-container-low text-on-surface';
+        officerReviewIcon.className = 'material-symbols-outlined text-primary text-[22px] shrink-0';
+        officerReviewIcon.textContent = 'hourglass_top';
+        officerReviewTitle.textContent = 'Active Field Repair In Progress';
+        officerReviewDesc.textContent = 'Work crew is currently on location. Compaction verification sensors are transmitting real-time telemetry to Ward 8 dispatch headquarters.';
+
+        afterBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> After &bull; Crew Telemetry';
+        afterCardTitle.textContent = 'Field Repair Compaction Proof';
+        afterCardNotes.textContent = 'Patch application completed using Superpave Grade AC-20. Vibratory roller pass counter: 8 cycles. Ready for temperature stabilization.';
+        afterTimestamp.textContent = '10 Oct 01:25 PM';
+
+        reopenActionBtn.disabled = true;
+        reopenActionBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        reopenActionBtn.classList.remove('hover:bg-error-container', 'hover:text-on-error-container', 'text-error');
+      }
+
+      if (stateKey === 'resolution_submitted') {
+        headerStatusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm font-semibold';
+        headerStatusBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span> Resolution Submitted';
+
+        spotlightIconBox.className = 'w-12 h-12 rounded-xl bg-secondary flex items-center justify-center text-on-secondary shrink-0 shadow-sm';
+        spotlightIconSymbol.textContent = 'fact_check';
+        spotlightTitle.textContent = 'Resolution Submitted: Awaiting Sign-off';
+        spotlightDesc.textContent = 'Crew Lead Marcus Chen completed the asphalt compaction and submitted high-res telemetry photos. Municipal Inspector queued for physical verification.';
+        spotlightTargetTime.textContent = 'Inspection by 6:00 PM';
+        progressBar.style.width = '83%';
+
+        tlStage4Pill.className = 'font-code-sm text-code-sm px-2 py-0.5 rounded bg-primary/10 text-primary';
+        tlStage4Pill.textContent = 'Completed';
+        tlStage4Icon.className = 'absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm';
+
+        tlStage5Card.className = 'flex-1 bg-surface-container-lowest border-2 border-secondary/40 rounded-lg p-space-md ml-3 shadow-sm';
+        tlStage5Icon.className = 'absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md ring-4 ring-secondary/20 animate-pulse';
+        tlStage5Pill.className = 'font-code-sm text-code-sm px-2 py-0.5 rounded bg-secondary text-on-secondary font-semibold';
+        tlStage5Pill.textContent = 'Submitted for Review';
+        tlStage5Timestamp.textContent = '10 Oct &bull; 02:45 PM';
+
+        officerBanner.className = 'rounded-lg p-space-md mb-space-md flex items-start gap-space-sm bg-secondary/10 text-on-surface';
+        officerReviewIcon.className = 'material-symbols-outlined text-secondary text-[22px] shrink-0';
+        officerReviewIcon.textContent = 'pending_actions';
+        officerReviewTitle.textContent = 'Awaiting Officer Verification';
+        officerReviewDesc.textContent = 'Worker submitted compaction telemetry & geotagged photos. Officer Elena Vance dispatch ticket generated for audit sign-off.';
+
+        afterBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-secondary"></span> Submitted Proof &bull; Unit 4';
+        afterCardTitle.textContent = 'Compaction & Flush Surface Verified';
+        afterCardNotes.textContent = 'Infrared thermal reading: 65°C. Clean asphalt bond across 100% of perimeter cut. Ready for traffic reopening.';
+        afterTimestamp.textContent = '10 Oct 02:45 PM';
+
+        reopenActionBtn.disabled = true;
+        reopenActionBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+
+      if (stateKey === 'verified_resolved') {
+        headerStatusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary font-label-sm text-label-sm font-semibold';
+        headerStatusBadge.innerHTML = '<span class="material-symbols-outlined text-[15px]">verified</span> Verified Resolved';
+
+        spotlightIconBox.className = 'w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shrink-0 shadow-sm';
+        spotlightIconSymbol.textContent = 'task_alt';
+        spotlightTitle.textContent = 'Verified Resolved & Sign-off Complete';
+        spotlightDesc.textContent = 'Municipal Officer Elena Vance physically verified the repair grade at 2nd Avenue. Work order closed with tamper-proof cryptographic audit slip.';
+        spotlightTargetTime.textContent = 'Resolved at 03:10 PM';
+        progressBar.style.width = '100%';
+
+        tlStage4Pill.textContent = 'Completed';
+        tlStage4Pill.className = 'font-code-sm text-code-sm px-2 py-0.5 rounded bg-primary/10 text-primary';
+        tlStage4Icon.className = 'absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm';
+
+        tlStage5Card.className = 'flex-1 bg-surface-container-low rounded-lg p-space-md ml-3';
+        tlStage5Icon.className = 'absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm';
+        tlStage5Pill.className = 'font-code-sm text-code-sm px-2 py-0.5 rounded bg-primary/10 text-primary';
+        tlStage5Pill.textContent = 'Approved';
+        tlStage5Timestamp.textContent = '10 Oct &bull; 02:45 PM';
+
+        tlStage6Card.className = 'flex-1 bg-surface-container-lowest border-2 border-primary/40 rounded-lg p-space-md ml-3 shadow-sm';
+        tlStage6Icon.className = 'absolute -left-[23px] sm:-left-[27px] w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md';
+        tlStage6Pill.className = 'font-code-sm text-code-sm px-2 py-0.5 rounded bg-primary text-on-primary font-semibold';
+        tlStage6Pill.textContent = 'Certified Closed';
+        tlStage6Timestamp.textContent = '10 Oct &bull; 03:10 PM';
+
+        officerBanner.className = 'rounded-lg p-space-md mb-space-md flex items-start gap-space-sm bg-primary/10 text-on-surface';
+        officerReviewIcon.className = 'material-symbols-outlined text-primary text-[22px] shrink-0';
+        officerReviewIcon.textContent = 'verified_user';
+        officerReviewTitle.textContent = 'Resolution Verified by Officer Elena Vance';
+        officerReviewDesc.textContent = 'Digital sign-off hash generated [SHA-256: 4f88e...]. Citizen resolution notification transmitted. 90-day road warranty window activated.';
+
+        afterBadge.innerHTML = '<span class="material-symbols-outlined text-[14px]">check_circle</span> Verified Clean Patch';
+        afterCardTitle.textContent = 'Official Resolution Record';
+        afterCardNotes.textContent = 'Sign-off inspection passed GCC Standard P-401. Surface flatness variance < 2mm. Cycling corridor safely reopened.';
+        afterTimestamp.textContent = '10 Oct 03:10 PM';
+
+        // Enable reopen action
+        reopenActionBtn.disabled = false;
+        reopenActionBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        reopenActionBtn.classList.add('hover:bg-error-container', 'hover:text-on-error-container', 'text-error');
+      }
+
+      if (stateKey === 'reopened') {
+        headerStatusBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold';
+        headerStatusBadge.innerHTML = '<span class="material-symbols-outlined text-[15px]">history_toggle_off</span> Case Reopened';
+
+        spotlightIconBox.className = 'w-12 h-12 rounded-xl bg-error flex items-center justify-center text-on-error shrink-0 shadow-sm';
+        spotlightIconSymbol.textContent = 'replay';
+        spotlightTitle.textContent = 'Case Reopened by Resident';
+        spotlightDesc.textContent = 'Citizen Alex M. flagged premature edge deterioration and loose gravel aggregate along the cycling strip. Re-assigned for priority supervisor re-inspection.';
+        spotlightTargetTime.textContent = 'Re-inspection: Within 24h';
+        progressBar.style.width = '45%';
+
+        officerBanner.className = 'rounded-lg p-space-md mb-space-md flex items-start gap-space-sm bg-error-container text-on-error-container';
+        officerReviewIcon.className = 'material-symbols-outlined text-error text-[22px] shrink-0';
+        officerReviewIcon.textContent = 'error';
+        officerReviewTitle.textContent = 'Supervisor Re-inspection Triggered';
+        officerReviewDesc.textContent = 'Citizen report submitted with evidence of edge crumble. Contractor warranty clause triggered with Roads Division Unit 4.';
+
+        afterBadge.innerHTML = '<span class="material-symbols-outlined text-[14px] text-error">warning</span> Re-evaluation Pending';
+        afterCardTitle.textContent = 'Under Contractor Warranty Review';
+        afterCardNotes.textContent = 'Field crew notified of edge sealing requirement. Supplementary emulsion seal coat scheduled.';
+        afterTimestamp.textContent = '10 Oct 04:05 PM';
+
+        reopenActionBtn.disabled = true;
+        reopenActionBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+    }
+
+    // Copy Reference ID
+    function copyReference() {
+      const refId = '#CF-2026-00124';
+      navigator.clipboard.writeText(refId).then(() => {
+        const label = document.getElementById('copy-ref-label');
+        label.textContent = 'Copied!';
+        setTimeout(() => { label.textContent = 'Copy Ref'; }, 2000);
+      });
+    }
+
+    // Modal Triggers
+    function openAddInfoModal() {
+      document.getElementById('add-info-modal').showModal();
+    }
+    function closeAddInfoModal() {
+      document.getElementById('add-info-modal').close();
+    }
+    function submitCitizenUpdate(e) {
+      e.preventDefault();
+      const notes = document.getElementById('info-notes').value;
+      const list = document.getElementById('audit-feed-list');
+      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      const newEntry = document.createElement('div');
+      newEntry.className = 'py-space-sm flex items-start gap-space-md bg-surface-container-low p-2 rounded-lg';
+      newEntry.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[16px]">add_comment</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">Alex M. (Citizen Update)</span>
+            <span class="font-code-sm text-code-sm text-on-surface-variant">${now}</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">${notes}</p>
+        </div>
+      `;
+      list.prepend(newEntry);
+      closeAddInfoModal();
+      document.getElementById('info-notes').value = '';
+    }
+
+    function openReopenModal() {
+      document.getElementById('reopen-modal').showModal();
+    }
+    function closeReopenModal() {
+      document.getElementById('reopen-modal').close();
+    }
+    function submitReopenRequest(e) {
+      e.preventDefault();
+      closeReopenModal();
+      switchState('reopened');
+    }
+
+    // Audit slip generator download stub
+    function downloadAuditSlip() {
+      alert('Generating FedRAMP-compliant cryptographic Audit Slip for Complaint #CF-2026-00124 with SHA-256 verify hash.');
+    }
+  </script>
+</div></div></main><footer class="w-full bg-surface-container-low mt-space-xl"><div class="w-full px-gutter-desktop py-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant font-body-sm text-body-sm"><div class="flex items-center gap-space-sm"><span class="font-title text-title text-on-surface">CivicFix AI</span><span class="text-outline-variant">•</span><span>Department of Civic Services &amp; Infrastructure</span></div><div class="flex items-center gap-space-lg"><a class="hover:text-primary transition-colors" href="#">Municipal SLA</a><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a><a class="hover:text-primary transition-colors" href="#">Emergency Contacts</a><span>© 2025 City of Metrofield</span></div></div></footer></body></html>

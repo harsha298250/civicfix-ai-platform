@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-lowest":"#ffffff","tertiary-fixed":"#dbe3f0","on-background":"#111c28","on-secondary-container":"#fffbff","surface-dim":"#d0dbeb","on-error-container":"#93000a","background":"#f8f9ff","inverse-on-surface":"#e9f1ff","surface-bright":"#f8f9ff","on-secondary":"#ffffff","primary-fixed":"#9af2e6","tertiary-container":"#666e79","secondary":"#5845cb","primary-container":"#137a70","surface-tint":"#006a61","on-secondary-fixed-variant":"#422bb5","error":"#ba1a1a","outline-variant":"#bdc9c6","surface-container-highest":"#d8e3f4","surface-variant":"#d8e3f4","surface-container-low":"#eef4ff","on-tertiary-container":"#e9f1fe","on-tertiary":"#ffffff","secondary-fixed":"#e4dfff","on-surface":"#111c28","outline":"#6e7977","on-surface-variant":"#3e4947","surface-container-high":"#dee9fa","inverse-surface":"#26313e","on-secondary-fixed":"#170065","tertiary-fixed-dim":"#bfc7d3","secondary-container":"#7160e6","on-error":"#ffffff","surface-container":"#e4efff","on-tertiary-fixed":"#141c25","surface":"#f8f9ff","secondary-fixed-dim":"#c7bfff","on-primary":"#ffffff","on-primary-fixed-variant":"#005049","on-primary-fixed":"#00201d","error-container":"#ffdad6","on-primary-container":"#aefff3","tertiary":"#4d5660","on-tertiary-fixed-variant":"#3f4752","inverse-primary":"#7ed6ca","primary-fixed-dim":"#7ed6ca","primary":"#006057"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin":"1rem","gutter-desktop":"1.5rem","margin-desktop":"2rem","space-xl":"2rem","space-md":"1rem","space-xs":"0.25rem","space-sm":"0.5rem","space-lg":"1.5rem","gutter":"1rem"},fontFamily:{"body-lg":["Inter"],"headline-sm":["Inter"],"label-md":["Inter"],"headline-md":["Inter"],"body-sm":["Inter"],"code-sm":["JetBrains Mono"],"body-md":["Inter"],"label-sm":["Inter"],"headline-lg":["Inter"],"headline-lg-mobile":["Inter"],"title":["Inter"],"display":["Inter"]},fontSize:{"body-lg":["15px",{"lineHeight":"22px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"500"}],"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"code-sm":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.025em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"title":["15px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"600"}],"display":["36px",{"lineHeight":"44px","letterSpacing":"-0.03em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-inverse-surface z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-md flex items-center gap-space-sm bg-inverse-surface"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary-container text-[20px]">admin_panel_settings</span></div><div class="flex flex-col min-w-0"><span class="font-title text-title text-inverse-on-surface truncate tracking-tight">CivicFix Admin Suite</span><span class="font-label-sm text-label-sm text-tertiary-fixed-dim uppercase tracking-wider">Root Control</span></div></div><div class="px-space-md py-space-sm"><div class="px-space-sm py-space-xs rounded bg-surface-container-lowest/5 flex items-center justify-between"><span class="font-code-sm text-code-sm text-tertiary-fixed-dim">NODE // MUNI-CORE-01</span><span class="w-2 h-2 rounded-full bg-primary-fixed"></span></div></div><nav class="flex-1 px-space-sm py-space-xs space-y-1 overflow-y-auto" data-active-classes="bg-primary-container text-on-primary-container font-title"><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg transition-colors bg-primary-container text-on-primary-container font-title" data-path="overview" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-body-md text-body-md">Overview</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-inverse-on-surface/80 hover:bg-surface-container-lowest/10 hover:text-inverse-on-surface transition-colors" data-path="user-management" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-body-md text-body-md">User Management</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-inverse-on-surface/80 hover:bg-surface-container-lowest/10 hover:text-inverse-on-surface transition-colors" data-path="roles-and-permissions" href="#"><span class="material-symbols-outlined text-[20px]">verified_user</span><span class="font-body-md text-body-md">Roles &amp; Permissions</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-inverse-on-surface/80 hover:bg-surface-container-lowest/10 hover:text-inverse-on-surface transition-colors" data-path="platform-analytics" href="#"><span class="material-symbols-outlined text-[20px]">analytics</span><span class="font-body-md text-body-md">Platform Analytics</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-inverse-on-surface/80 hover:bg-surface-container-lowest/10 hover:text-inverse-on-surface transition-colors" data-path="audit-logs" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span class="font-body-md text-body-md">Audit Logs</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-inverse-on-surface/80 hover:bg-surface-container-lowest/10 hover:text-inverse-on-surface transition-colors" data-path="system-settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md">System Settings</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-inverse-on-surface/80 hover:bg-surface-container-lowest/10 hover:text-inverse-on-surface transition-colors" data-path="notifications-and-alerts" href="#"><span class="material-symbols-outlined text-[20px]">notifications_active</span><span class="font-body-md text-body-md">Notifications &amp; Alerts</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-inverse-on-surface/80 hover:bg-surface-container-lowest/10 hover:text-inverse-on-surface transition-colors" data-path="my-profile" href="#"><span class="material-symbols-outlined text-[20px]">account_circle</span><span class="font-body-md text-body-md">My Profile</span></a></nav></div><div class="p-space-md bg-inverse-surface space-y-space-sm"><div class="flex items-center justify-between text-tertiary-fixed-dim"><span class="font-label-sm text-label-sm uppercase tracking-wide">Security Engine</span><span class="font-code-sm text-code-sm text-primary-fixed">RBAC Active</span></div><div class="p-space-sm rounded bg-surface-container-lowest/5 space-y-1"><div class="flex items-center justify-between text-inverse-on-surface"><span class="font-label-sm text-label-sm">Session Timeout</span><span class="font-code-sm text-code-sm text-secondary-fixed">14:28</span></div><div class="w-full h-1 bg-surface-container-lowest/10 rounded-full overflow-hidden"><div class="h-full w-3/4 bg-primary-container rounded-full"></div></div></div><button class="w-full flex items-center justify-center gap-space-xs px-space-sm py-2 rounded bg-surface-container-lowest/5 text-inverse-on-surface hover:bg-surface-container-lowest/10 hover:text-inverse-on-surface transition-colors font-label-md text-label-md" type="button"><span class="material-symbols-outlined text-[16px]">logout</span><span>Sign Out</span></button></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40"><div class="w-full h-full px-space-gutter-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md min-w-0"><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">CivicFix AI</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Platform Governance &amp; Administration</span></div><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm whitespace-nowrap"><span class="w-2 h-2 rounded-full bg-secondary"></span><span>STAGING / DEMO REPOSITORY · RBAC v2.4 Active</span></div></div><div class="flex-1 max-w-md mx-space-sm"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span><input class="w-full pl-9 pr-space-sm py-1.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest" placeholder="Search users, roles, audit events, system parameters..." type="text"/></div></div><div class="flex items-center gap-space-md shrink-0"><div class="relative flex items-center"><button class="w-9 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container hover:text-on-surface text-on-surface-variant flex items-center justify-center transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-error text-on-error font-label-sm text-label-sm flex items-center justify-center shadow-sm">3</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex flex-col text-right hidden lg:block"><span class="font-title text-title text-on-surface leading-tight">Priya Sharma</span><span class="font-label-sm text-label-sm text-on-surface-variant">Principal Platform Admin · Ward Ops</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="relative w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Staging / Environment Compliance Banner -->
+<div class="px-space-gutter-desktop py-space-xs bg-surface-container-high/80 border-b border-surface-container-highest flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-secondary text-on-secondary">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+</span>
+<p class="font-label-sm text-label-sm truncate">
+<span class="font-title text-title text-on-surface">DEMO &amp; STAGING ENVIRONMENT</span>
+<span class="mx-1.5 text-outline">/</span>
+<span class="text-on-surface-variant">Illustrative Data Only · Spring Security RBAC v2.4 Enforced · Server-Side Authorization Enabled</span>
+</p>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-lowest font-code-sm text-code-sm text-primary-container shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span>TLS 1.3 · STRICT_AUTH</span>
+</span>
+<span class="hidden md:inline font-code-sm text-code-sm text-tertiary">MUNI-ZONE-CORP-4</span>
+</div>
+</div>
+<!-- Workspace Sub-Header & Executive Tab Bar -->
+<div class="px-space-gutter-desktop pt-space-md pb-space-sm bg-surface-container-lowest border-b border-surface-container-highest">
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md mb-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-11 h-11 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary-container shadow-sm">
+<span class="material-symbols-outlined text-[24px]">policy</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Platform Administration Workspace</h1>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed/50 text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">Tier-0 Root</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">System oversight, role governance, pending workforce vetting, and compliance ledger for Ward 4 Operations.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:bg-primary transition-all" id="open-invite-modal" type="button">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>Create Staff Account</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md" onclick="switchTab('tab-system-settings')" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Global Settings</span>
+</button>
+</div>
+</div>
+<!-- Executive Tab Bar -->
+<div class="flex items-center gap-1 overflow-x-auto no-scrollbar border-b border-surface-container-high/60 -mb-[1px]">
+<button class="tab-trigger flex items-center gap-2 px-3.5 py-2.5 font-label-md text-label-md transition-all border-b-2 border-primary-container text-primary-container font-semibold whitespace-nowrap" id="nav-tab-overview" onclick="switchTab('tab-overview')">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+<span>1. Platform Overview</span>
+<span class="px-1.5 py-0.2 rounded-full bg-primary-fixed text-on-primary-fixed font-code-sm text-[10px]">LIVE</span>
+</button>
+<button class="tab-trigger flex items-center gap-2 px-3.5 py-2.5 font-label-md text-label-md transition-all border-b-2 border-transparent text-on-surface-variant hover:text-on-surface whitespace-nowrap" id="nav-tab-users" onclick="switchTab('tab-users')">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span>2. User Directory &amp; Approvals</span>
+<span class="px-1.5 py-0.2 rounded-full bg-error-container text-error font-code-sm text-[10px]">5 Pending</span>
+</button>
+<button class="tab-trigger flex items-center gap-2 px-3.5 py-2.5 font-label-md text-label-md transition-all border-b-2 border-transparent text-on-surface-variant hover:text-on-surface whitespace-nowrap" id="nav-tab-rbac" onclick="switchTab('tab-rbac')">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>3. Roles &amp; RBAC Matrix</span>
+</button>
+<button class="tab-trigger flex items-center gap-2 px-3.5 py-2.5 font-label-md text-label-md transition-all border-b-2 border-transparent text-on-surface-variant hover:text-on-surface whitespace-nowrap" id="nav-tab-analytics" onclick="switchTab('tab-analytics')">
+<span class="material-symbols-outlined text-[18px]">monitoring</span>
+<span>4. System Analytics</span>
+</button>
+<button class="tab-trigger flex items-center gap-2 px-3.5 py-2.5 font-label-md text-label-md transition-all border-b-2 border-transparent text-on-surface-variant hover:text-on-surface whitespace-nowrap" id="nav-tab-audit" onclick="switchTab('tab-audit')">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span>5. Audit Event Ledger</span>
+</button>
+<button class="tab-trigger flex items-center gap-2 px-3.5 py-2.5 font-label-md text-label-md transition-all border-b-2 border-transparent text-on-surface-variant hover:text-on-surface whitespace-nowrap" id="nav-tab-settings" onclick="switchTab('tab-settings')">
+<span class="material-symbols-outlined text-[18px]">settings_suggest</span>
+<span>6. System Settings</span>
+</button>
+</div>
+</div>
+<!-- WORKSPACE CONTENT CONTAINER -->
+<div class="px-space-gutter-desktop py-space-lg max-w-[1600px] w-full mx-auto space-y-space-lg">
+<!-- ========================================================================= -->
+<!-- TAB 1: PLATFORM OVERVIEW (Default active) -->
+<!-- ========================================================================= -->
+<div class="tab-panel space-y-space-lg" id="tab-overview">
+<!-- 4 Compact Summary KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- KPI 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Total Registered Users</span>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface tracking-tight">1,428</span>
+<span class="font-code-sm text-code-sm text-primary-container font-semibold">+4.2% m/m</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">group</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-surface-container-high/60 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>1,240 Citizens · 112 Officers</span>
+<span class="font-code-sm text-code-sm text-tertiary">68 Field · 8 Admins</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Active Accounts</span>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface tracking-tight">1,394</span>
+<span class="font-code-sm text-code-sm text-primary-container font-semibold">97.6% Healthy</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-surface-container-high/60 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>0 Compromised Credentials</span>
+<span class="inline-flex items-center gap-1 text-primary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span>Passkey / MFA Active</span>
+</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Pending Staff Approvals</span>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface tracking-tight">5</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">Action Required</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-error-container/40 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[22px]">warning</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-surface-container-high/60 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>3 Municipal Officers · 2 Field Leads</span>
+<button class="text-primary-container font-semibold hover:underline" onclick="switchTab('tab-users')" type="button">Review All</button>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">24h Admin Events</span>
+<div class="mt-1 flex items-baseline gap-2">
+<span class="font-display text-display text-on-surface tracking-tight">42</span>
+<span class="font-code-sm text-code-sm text-secondary font-semibold">Audited</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">shield</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-surface-container-high/60 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Role updates, grants &amp; locks</span>
+<span class="font-code-sm text-code-sm text-tertiary">Immutable Ledger</span>
+</div>
+</div>
+</div>
+<!-- Split Grid Layout: 65% / 35% -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Left: Quick Access User Table (Pending Staff Approvals & Recent Users) (65%) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between">
+<div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm border-b border-surface-container-high/70">
+<div>
+<div class="flex items-center gap-space-xs">
+<h2 class="font-title text-title text-on-surface">Pending Staff Approvals &amp; Vetting Triage</h2>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">5 Awaiting Vetting</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Staff accounts provisioned with official municipal domains awaiting Tier-1 dual approval.</p>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-colors flex items-center gap-1 shadow-sm" onclick="batchApproveModal()" type="button">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Approve Selected</span>
+</button>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto mt-space-sm">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-2.5 px-3 rounded-l-lg">
+<input class="rounded text-primary-container focus:ring-0 focus:outline-none cursor-pointer" id="select-all-approvals" type="checkbox"/>
+</th>
+<th class="py-2.5 px-3">User &amp; System ID</th>
+<th class="py-2.5 px-3">Official Domain</th>
+<th class="py-2.5 px-3">Requested Role</th>
+<th class="py-2.5 px-3">Organization / Ward</th>
+<th class="py-2.5 px-3">Status</th>
+<th class="py-2.5 px-3 text-right rounded-r-lg">Decision Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3">
+<input class="approval-row-check rounded text-primary-container focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-title text-body-md text-on-surface">Arun Prakash</span>
+<span class="font-code-sm text-code-sm text-tertiary">#USR-1084</span>
+</div>
+</td>
+<td class="py-3 px-3 text-on-surface font-body-sm">arun.prakash@chennaicorp.gov</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">location_city</span>
+<span>Municipal Officer</span>
+</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">Zone 4 (Mylapore Corp)</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">Pending Approval</span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary hover:bg-primary text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Approved #USR-1084 (Arun Prakash)')" type="button">
+                          Approve
+                        </button>
+<button class="px-2 py-1 rounded bg-surface-container-low hover:bg-error-container hover:text-on-error-container text-on-surface-variant text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Rejected #USR-1084')" type="button">
+                          Reject
+                        </button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3">
+<input class="approval-row-check rounded text-primary-container focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-title text-body-md text-on-surface">Dr. Meera Nambiar</span>
+<span class="font-code-sm text-code-sm text-tertiary">#USR-1085</span>
+</div>
+</td>
+<td class="py-3 px-3 text-on-surface font-body-sm">meera.nambiar@sanitation.gov</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">health_and_safety</span>
+<span>Municipal Officer</span>
+</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">Health &amp; Solid Waste</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">Pending Approval</span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary hover:bg-primary text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Approved #USR-1085 (Dr. Meera)')" type="button">
+                          Approve
+                        </button>
+<button class="px-2 py-1 rounded bg-surface-container-low hover:bg-error-container hover:text-on-error-container text-on-surface-variant text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Rejected #USR-1085')" type="button">
+                          Reject
+                        </button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3">
+<input class="approval-row-check rounded text-primary-container focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-title text-body-md text-on-surface">Venkatesh Rao</span>
+<span class="font-code-sm text-code-sm text-tertiary">#USR-1086</span>
+</div>
+</td>
+<td class="py-3 px-3 text-on-surface font-body-sm">venkat.rao@waterboard.gov</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">construction</span>
+<span>Field Worker (Crew Lead)</span>
+</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">Hydro Triage Crew #9</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">Pending Approval</span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary hover:bg-primary text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Approved #USR-1086 (Venkat Rao)')" type="button">
+                          Approve
+                        </button>
+<button class="px-2 py-1 rounded bg-surface-container-low hover:bg-error-container hover:text-on-error-container text-on-surface-variant text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Rejected #USR-1086')" type="button">
+                          Reject
+                        </button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3">
+<input class="approval-row-check rounded text-primary-container focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-title text-body-md text-on-surface">S. Dineshkumar</span>
+<span class="font-code-sm text-code-sm text-tertiary">#USR-1087</span>
+</div>
+</td>
+<td class="py-3 px-3 text-on-surface font-body-sm">dinesh.s@highways.gov</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">handyman</span>
+<span>Field Worker</span>
+</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">Road Maintenance Div 2</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">Pending Approval</span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary hover:bg-primary text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Approved #USR-1087')" type="button">
+                          Approve
+                        </button>
+<button class="px-2 py-1 rounded bg-surface-container-low hover:bg-error-container hover:text-on-error-container text-on-surface-variant text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Rejected #USR-1087')" type="button">
+                          Reject
+                        </button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3">
+<input class="approval-row-check rounded text-primary-container focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-title text-body-md text-on-surface">Fatima Zahra</span>
+<span class="font-code-sm text-code-sm text-tertiary">#USR-1088</span>
+</div>
+</td>
+<td class="py-3 px-3 text-on-surface font-body-sm">fatima.z@electric.gov</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">bolt</span>
+<span>Municipal Officer</span>
+</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant">Grid Infrastructure Ops</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">Pending Approval</span>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary hover:bg-primary text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Approved #USR-1088 (Fatima Zahra)')" type="button">
+                          Approve
+                        </button>
+<button class="px-2 py-1 rounded bg-surface-container-low hover:bg-error-container hover:text-on-error-container text-on-surface-variant text-label-sm font-label-sm transition-colors" onclick="singleActionToast('Rejected #USR-1088')" type="button">
+                          Reject
+                        </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-high/60 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Showing 5 of 5 pending approval records</span>
+<button class="text-primary-container font-semibold hover:underline flex items-center gap-1" onclick="switchTab('tab-users')" type="button">
+<span>Go to Full User Directory</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Right: Administrative Alerts & System Health (35%) -->
+<div class="lg:col-span-4 space-y-space-md">
+<!-- Real-Time Administrative Alerts -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high/60 mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">notifications_active</span>
+<h3 class="font-title text-title text-on-surface">Administrative Alerts</h3>
+</div>
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+</div>
+<div class="space-y-space-sm">
+<div class="p-2.5 rounded-lg bg-surface-container-low/70 hover:bg-surface-container-low transition-colors">
+<div class="flex items-start justify-between">
+<span class="px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-[10px] font-bold">STAFF VETTING</span>
+<span class="font-code-sm text-[11px] text-tertiary">3m ago</span>
+</div>
+<p class="font-title text-body-sm text-on-surface mt-1">Pending Staff Approval: Arun Prakash</p>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Zone 4 Municipal Officer account submitted credentials for administrative verification.</p>
+</div>
+<div class="p-2.5 rounded-lg bg-error-container/20 border-l-2 border-error">
+<div class="flex items-start justify-between">
+<span class="px-1.5 py-0.5 rounded bg-error text-on-error font-label-sm text-[10px] font-bold">RATE LIMIT</span>
+<span class="font-code-sm text-[11px] text-tertiary">14m ago</span>
+</div>
+<p class="font-title text-body-sm text-error mt-1">Failed Login Spike: IP 192.168.1.45</p>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Spring Security throttled consecutive failed attempts against officer auth endpoints.</p>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low/70 hover:bg-surface-container-low transition-colors">
+<div class="flex items-start justify-between">
+<span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-[10px] font-bold">POLICY AUDIT</span>
+<span class="font-code-sm text-[11px] text-tertiary">1h ago</span>
+</div>
+<p class="font-title text-body-sm text-on-surface mt-1">Role Policy Audit Completed</p>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Automated RBAC scan verified 0 unauthorized privilege escalations across all active tokens.</p>
+</div>
+</div>
+</div>
+<!-- Quick System Configuration & Daemon Health -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high/60 mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">dns</span>
+<h3 class="font-title text-title text-on-surface">Core Infrastructure Health</h3>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed/60 text-on-primary-fixed font-code-sm text-[10px]">ALL SYSTEMS NOMINAL</span>
+</div>
+<div class="space-y-space-sm font-body-sm text-body-sm">
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<div>
+<span class="font-title text-body-sm text-on-surface block">HikariCP DB Connection Pool</span>
+<span class="font-code-sm text-code-sm text-tertiary">MySQL 8.0 Enterprise Cluster</span>
+</div>
+<div class="text-right">
+<span class="font-code-sm text-code-sm font-semibold text-primary-container">12 / 50 Conns</span>
+<span class="block text-[11px] text-on-surface-variant">24% capacity</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<div>
+<span class="font-title text-body-sm text-on-surface block">Auth Provider &amp; Token Engine</span>
+<span class="font-code-sm text-code-sm text-tertiary">Stateless JWT · BCrypt (cost=12)</span>
+</div>
+<div class="text-right">
+<span class="font-code-sm text-code-sm font-semibold text-primary-container">HEALTHY (OK)</span>
+<span class="block text-[11px] text-on-surface-variant">0 token rejections</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<div>
+<span class="font-title text-body-sm text-on-surface block">API Gateway Latency (p95)</span>
+<span class="font-code-sm text-code-sm text-tertiary">Regional Ingress Controller</span>
+</div>
+<div class="text-right">
+<span class="font-code-sm text-code-sm font-semibold text-secondary">24 ms</span>
+<span class="block text-[11px] text-on-surface-variant">Target &lt; 80ms</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- TAB 2: USER DIRECTORY & PENDING APPROVALS -->
+<!-- ========================================================================= -->
+<div class="tab-panel hidden space-y-space-md" id="tab-users">
+<!-- Search & Filter Bar -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex-1 w-full md:max-w-lg relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest border-0" id="user-search-input" placeholder="Search by name, email, or user system ID (e.g., #USR-1085)..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm w-full md:w-auto">
+<!-- Role Filter -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md pl-3 pr-8 py-2 rounded-lg focus:outline-none cursor-pointer" id="user-role-filter">
+<option value="all">Role: All Roles</option>
+<option value="citizen">Citizen</option>
+<option value="officer">Municipal Officer</option>
+<option value="worker">Field Worker</option>
+<option value="admin">Administrator</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-outline pointer-events-none text-[16px]">expand_more</span>
+</div>
+<!-- Status Filter -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md pl-3 pr-8 py-2 rounded-lg focus:outline-none cursor-pointer" id="user-status-filter">
+<option value="all">Status: All Statuses</option>
+<option value="active">Active</option>
+<option value="pending">Pending Approval</option>
+<option value="suspended">Suspended</option>
+<option value="deactivated">Deactivated</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-outline pointer-events-none text-[16px]">expand_more</span>
+</div>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container text-label-md font-label-md flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+<span>More Filters</span>
+</button>
+</div>
+</div>
+<!-- Realistic User Directory Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="p-space-md border-b border-surface-container-high/60 flex items-center justify-between">
+<div>
+<h2 class="font-title text-title text-on-surface">Registered User Directory</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Showing active municipal employees, contractors, and verified public citizen accounts.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-code-sm text-code-sm text-tertiary">Showing 5 of 1,428 Users</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-4">User &amp; Identifiers</th>
+<th class="py-3 px-4">Role Assignment</th>
+<th class="py-3 px-4">Department / Domain</th>
+<th class="py-3 px-4">Status</th>
+<th class="py-3 px-4">Created Date</th>
+<th class="py-3 px-4">Last Activity</th>
+<th class="py-3 px-4 text-right">Administrative Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/50">
+<!-- User 1: Priya Sharma -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-title text-sm">PS</div>
+<div>
+<div class="font-title text-body-md text-on-surface">Priya Sharma</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant">priya.sharma@civicfix.internal</div>
+<div class="font-code-sm text-[11px] text-tertiary">#USR-1001</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+<span>Administrator</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface">Ward Ops / Root Administration</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Active</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant font-code-sm text-code-sm">12 Jan 2026</td>
+<td class="py-3.5 px-4 text-primary font-semibold font-code-sm text-code-sm">2 mins ago</td>
+<td class="py-3.5 px-4 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md" type="button">Edit Permissions</button>
+</td>
+</tr>
+<!-- User 2: Arun Prakash -->
+<tr class="hover:bg-surface-container-low/40 transition-colors bg-error-container/5">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-title text-sm">AP</div>
+<div>
+<div class="font-title text-body-md text-on-surface">Arun Prakash</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant">arun.prakash@chennaicorp.gov</div>
+<div class="font-code-sm text-[11px] text-tertiary">#USR-1084</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">location_city</span>
+<span>Municipal Officer</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface">Ward 8 Operations</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span>Pending Approval</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant font-code-sm text-code-sm">11 Oct 2026</td>
+<td class="py-3.5 px-4 text-on-surface-variant font-code-sm text-code-sm">Awaiting First Auth</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary hover:bg-primary font-label-md text-label-md shadow-sm" onclick="singleActionToast('Account #USR-1084 Approved')" type="button">
+                      Approve Account
+                    </button>
+<button class="px-2 py-1 rounded bg-surface-container-low hover:bg-error-container hover:text-on-error-container text-on-surface-variant font-label-md text-label-md" onclick="singleActionToast('Account #USR-1084 Deactivated')" type="button">
+                      Deactivate
+                    </button>
+</div>
+</td>
+</tr>
+<!-- User 3: Karthik Raj -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-title text-sm">KR</div>
+<div>
+<div class="font-title text-body-md text-on-surface">Karthik Raj</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant">karthik.raj@sdot.gov</div>
+<div class="font-code-sm text-[11px] text-tertiary">#USR-1085</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-tertiary-container/30 text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">engineering</span>
+<span>Field Worker</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface">Crew Lead #FW-882 (South Div)</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Active</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant font-code-sm text-code-sm">14 Aug 2026</td>
+<td class="py-3.5 px-4 text-on-surface-variant font-code-sm text-code-sm">Today, 11:34</td>
+<td class="py-3.5 px-4 text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md" type="button">Edit</button>
+<button class="px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md" type="button">Manage Roles</button>
+</div>
+</td>
+</tr>
+<!-- User 4: Ananya Kumar -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-title text-sm">AK</div>
+<div>
+<div class="font-title text-body-md text-on-surface">Ananya Kumar</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant">ananya.k@gmail.com</div>
+<div class="font-code-sm text-[11px] text-tertiary">#USR-1042</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span>Citizen (Verified Resident)</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant">Resident Ward 4</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Active</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant font-code-sm text-code-sm">04 Sep 2026</td>
+<td class="py-3.5 px-4 text-on-surface-variant font-code-sm text-code-sm">Yesterday, 19:10</td>
+<td class="py-3.5 px-4 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md" type="button">View Profile</button>
+</td>
+</tr>
+<!-- User 5: Suresh Babu -->
+<tr class="hover:bg-surface-container-low/40 transition-colors bg-error-container/10">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-title text-sm">SB</div>
+<div>
+<div class="font-title text-body-md text-on-surface">Suresh Babu</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant">suresh.babu@dept.gov</div>
+<div class="font-code-sm text-[11px] text-tertiary">#USR-1077</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">location_city</span>
+<span>Municipal Officer</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface">Roads &amp; Bridges Inspection</td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error text-on-error font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[12px]">lock</span>
+<span>Suspended (3 Failed MFA)</span>
+</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant font-code-sm text-code-sm">22 Feb 2026</td>
+<td class="py-3.5 px-4 text-error font-semibold font-code-sm text-code-sm">Locked 10 Oct</td>
+<td class="py-3.5 px-4 text-right">
+<button class="px-2.5 py-1 rounded bg-error-container text-on-error-container hover:bg-error hover:text-on-error font-label-md text-label-md transition-colors" onclick="singleActionToast('MFA Challenge Reset &amp; Reactivated for #USR-1077')" type="button">
+                    Reactivate / Reset MFA
+                  </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-md bg-surface-container-low/40 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing page 1 of 286 pages</span>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-surface-container-low text-on-surface-variant disabled:opacity-50 font-label-sm text-label-sm" disabled="">Previous</button>
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-label-sm text-label-sm">1</button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm">2</button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm">3</button>
+<span class="px-1 text-on-surface-variant">...</span>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm">286</button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm">Next</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- TAB 3: ROLES & RBAC MATRIX -->
+<!-- ========================================================================= -->
+<div class="tab-panel hidden space-y-space-md" id="tab-rbac">
+<!-- RBAC Explainer Header -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Role-Based Access Control (RBAC) Enforcement Matrix</h2>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-code-sm text-code-sm">Spring Security 6.2 · PreAuthorize</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Strict multi-tier permission matrix defining authorization boundaries across all system endpoints.</p>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border-l-4 border-secondary max-w-lg">
+<p class="font-label-sm text-label-sm text-on-surface">
+<strong class="text-secondary font-semibold">Principle of Least Privilege Enforced:</strong> Privilege escalation requires dual-administrator sign-off. Citizen accounts cannot access administrative REST APIs.
+          </p>
+</div>
+</div>
+<!-- Matrix Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low text-on-surface">
+<th class="py-3 px-4 font-title text-title w-2/5">Permission Capability Domain</th>
+<th class="py-3 px-4 font-title text-title text-center w-[15%]">
+<div class="flex flex-col items-center">
+<span class="font-title text-body-md text-on-surface">Citizen</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Public Tier</span>
+</div>
+</th>
+<th class="py-3 px-4 font-title text-title text-center w-[15%]">
+<div class="flex flex-col items-center">
+<span class="font-title text-body-md text-on-surface">Field Worker</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Maintenance Crew</span>
+</div>
+</th>
+<th class="py-3 px-4 font-title text-title text-center w-[15%]">
+<div class="flex flex-col items-center">
+<span class="font-title text-body-md text-on-surface">Municipal Officer</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Department Lead</span>
+</div>
+</th>
+<th class="py-3 px-4 font-title text-title text-center w-[15%]">
+<div class="flex flex-col items-center">
+<span class="font-title text-body-md text-on-surface">Administrator</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Root Security</span>
+</div>
+</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/60">
+<!-- Domain 1 -->
+<tr class="bg-surface-container-low/30">
+<td class="py-2 px-4 font-title text-body-md text-primary-container uppercase tracking-wider" colspan="5">
+                  1. Complaint Submission &amp; Tracking
+                </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30">
+<td class="py-2.5 px-4">
+<div class="font-title text-body-md text-on-surface">Submit Geospatial Civic Complaints</div>
+<div class="font-body-sm text-on-surface-variant text-[12px]">Upload geotagged issue photos, descriptions, and road hazards.</div>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30">
+<td class="py-2.5 px-4">
+<div class="font-title text-body-md text-on-surface">Track Resolution Status &amp; Post Public Updates</div>
+<div class="font-body-sm text-on-surface-variant text-[12px]">View SLA countdown timers and feedback notes on owned tickets.</div>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+</tr>
+<!-- Domain 2 -->
+<tr class="bg-surface-container-low/30">
+<td class="py-2 px-4 font-title text-body-md text-primary-container uppercase tracking-wider" colspan="5">
+                  2. Case Triage &amp; Review
+                </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30">
+<td class="py-2.5 px-4">
+<div class="font-title text-body-md text-on-surface">Auto-Assign Tickets &amp; Override AI Urgency</div>
+<div class="font-body-sm text-on-surface-variant text-[12px]">Modify AI severity ranking, re-route department, assign crew leaders.</div>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+</tr>
+<!-- Domain 3 -->
+<tr class="bg-surface-container-low/30">
+<td class="py-2 px-4 font-title text-body-md text-primary-container uppercase tracking-wider" colspan="5">
+                  3. Field Work &amp; Repair Evidence
+                </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30">
+<td class="py-2.5 px-4">
+<div class="font-title text-body-md text-on-surface">Upload Geotagged Repair Evidence &amp; Timestamp Sign-Off</div>
+<div class="font-body-sm text-on-surface-variant text-[12px]">Submit after-repair photos, crew labor logs, and materials consumption.</div>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+</tr>
+<!-- Domain 4 -->
+<tr class="bg-surface-container-low/30">
+<td class="py-2 px-4 font-title text-body-md text-primary-container uppercase tracking-wider" colspan="5">
+                  4. Resolution Verification &amp; Approval
+                </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30">
+<td class="py-2.5 px-4">
+<div class="font-title text-body-md text-on-surface">Execute Final Resolution Sign-off &amp; Close Complaints</div>
+<div class="font-body-sm text-on-surface-variant text-[12px]">Officially certify ticket closure and broadcast public resolution alert.</div>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+</tr>
+<!-- Domain 5 -->
+<tr class="bg-surface-container-low/30">
+<td class="py-2 px-4 font-title text-body-md text-primary-container uppercase tracking-wider" colspan="5">
+                  5. User &amp; Role Management
+                </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30">
+<td class="py-2.5 px-4">
+<div class="font-title text-body-md text-on-surface">Provision Staff, Modify Roles, Lock Suspended Profiles</div>
+<div class="font-body-sm text-on-surface-variant text-[12px]">Issue corporate credentials, adjust security groups, force MFA resets.</div>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+</tr>
+<!-- Domain 6 -->
+<tr class="bg-surface-container-low/30">
+<td class="py-2 px-4 font-title text-body-md text-primary-container uppercase tracking-wider" colspan="5">
+                  6. System Configuration &amp; Audit Logs
+                </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30">
+<td class="py-2.5 px-4">
+<div class="font-title text-body-md text-on-surface">Inspect Immutable Audit Logs &amp; Mutate Core Parameters</div>
+<div class="font-body-sm text-on-surface-variant text-[12px]">Access raw event hashes, export compliance CSVs, modify daemon settings.</div>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="text-outline-variant font-code-sm text-base">—</span>
+</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed/80 text-primary"><span class="material-symbols-outlined text-[16px]">check</span></span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- TAB 4: SYSTEM ANALYTICS -->
+<!-- ========================================================================= -->
+<div class="tab-panel hidden space-y-space-md" id="tab-analytics">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Chart 1: 30-Day Registrations & Issue Intake Trend -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between">
+<div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-sm border-b border-surface-container-high/60">
+<div>
+<h3 class="font-title text-title text-on-surface">30-Day Civic Registration &amp; Resolution Velocity</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Citizen sign-ups vs. completed municipal ticket resolutions.</p>
+</div>
+<div class="flex items-center gap-space-md text-label-sm font-label-sm">
+<span class="inline-flex items-center gap-1.5 text-primary-container">
+<span class="w-2.5 h-2.5 rounded-sm bg-primary-container"></span>
+<span>Citizen Sign-ups</span>
+</span>
+<span class="inline-flex items-center gap-1.5 text-secondary">
+<span class="w-2.5 h-2.5 rounded-sm bg-secondary"></span>
+<span>Complaints Resolved</span>
+</span>
+</div>
+</div>
+<!-- Inline SVG Chart -->
+<div class="mt-space-md w-full h-64">
+<svg class="w-full h-full" fill="none" viewbox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+<!-- Background Gridlines -->
+<line stroke="#E2E7ED" stroke-dasharray="3 3" x1="40" x2="680" y1="20" y2="20"></line>
+<line stroke="#E2E7ED" stroke-dasharray="3 3" x1="40" x2="680" y1="70" y2="70"></line>
+<line stroke="#E2E7ED" stroke-dasharray="3 3" x1="40" x2="680" y1="120" y2="120"></line>
+<line stroke="#E2E7ED" stroke-dasharray="3 3" x1="40" x2="680" y1="170" y2="170"></line>
+<line stroke="#CBD5E1" x1="40" x2="680" y1="195" y2="195"></line>
+<!-- Left Y-Axis Labels -->
+<text fill="#667384" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="30" y="24">120</text>
+<text fill="#667384" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="30" y="74">80</text>
+<text fill="#667384" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="30" y="124">40</text>
+<text fill="#667384" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="30" y="174">10</text>
+<text fill="#667384" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="30" y="198">0</text>
+<!-- Bars (Citizens Registered) -->
+<rect fill="#137A70" height="85" opacity="0.85" rx="3" width="16" x="70" y="110"></rect>
+<rect fill="#137A70" height="105" opacity="0.85" rx="3" width="16" x="135" y="90"></rect>
+<rect fill="#137A70" height="115" opacity="0.85" rx="3" width="16" x="200" y="80"></rect>
+<rect fill="#137A70" height="135" opacity="0.85" rx="3" width="16" x="265" y="60"></rect>
+<rect fill="#137A70" height="145" opacity="0.85" rx="3" width="16" x="330" y="50"></rect>
+<rect fill="#137A70" height="150" opacity="0.85" rx="3" width="16" x="395" y="45"></rect>
+<rect fill="#137A70" height="140" opacity="0.85" rx="3" width="16" x="460" y="55"></rect>
+<rect fill="#137A70" height="160" opacity="0.85" rx="3" width="16" x="525" y="35"></rect>
+<rect fill="#137A70" height="165" opacity="0.85" rx="3" width="16" x="590" y="30"></rect>
+<rect fill="#137A70" height="170" opacity="0.85" rx="3" width="16" x="650" y="25"></rect>
+<!-- Line: Complaints Resolved -->
+<path d="M 78 140 Q 143 125, 208 115 T 338 75 T 468 70 T 598 40 L 658 35" fill="none" stroke="#5845CB" stroke-linecap="round" stroke-width="3"></path>
+<circle cx="78" cy="140" fill="#5845CB" r="4"></circle>
+<circle cx="208" cy="115" fill="#5845CB" r="4"></circle>
+<circle cx="338" cy="75" fill="#5845CB" r="4"></circle>
+<circle cx="468" cy="70" fill="#5845CB" r="4"></circle>
+<circle cx="598" cy="40" fill="#5845CB" r="4"></circle>
+<circle cx="658" cy="35" fill="#5845CB" r="4"></circle>
+<!-- X-Axis Labels -->
+<text fill="#667384" font-family="Inter" font-size="10" text-anchor="middle" x="78" y="212">Sep 15</text>
+<text fill="#667384" font-family="Inter" font-size="10" text-anchor="middle" x="208" y="212">Sep 22</text>
+<text fill="#667384" font-family="Inter" font-size="10" text-anchor="middle" x="338" y="212">Sep 29</text>
+<text fill="#667384" font-family="Inter" font-size="10" text-anchor="middle" x="468" y="212">Oct 06</text>
+<text fill="#667384" font-family="Inter" font-size="10" text-anchor="middle" x="658" y="212">Today</text>
+</svg>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-surface-container-high/60 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Overall intake conversion: <strong>92.4%</strong> of reported issues verified within 48h.</span>
+<span class="font-code-sm text-code-sm text-tertiary">Real-time aggregate data</span>
+</div>
+</div>
+<!-- Chart 2: User Role Distribution (Donut breakdown) -->
+<div class="lg:col-span-4 bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high/60 mb-space-sm">
+<h3 class="font-title text-title text-on-surface">User Role Distribution</h3>
+<span class="font-code-sm text-code-sm text-tertiary">1,428 Total</span>
+</div>
+<!-- SVG Donut Chart -->
+<div class="flex items-center justify-center my-4">
+<div class="relative w-40 h-40">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<!-- Background circle -->
+<circle cx="50" cy="50" fill="none" r="38" stroke="#E2E7ED" stroke-width="14"></circle>
+<!-- Citizens: 86.8% -> 207 stroke-dasharray (circumference ~ 238) -->
+<circle cx="50" cy="50" fill="none" r="38" stroke="#137A70" stroke-dasharray="207 238" stroke-dashoffset="0" stroke-width="14"></circle>
+<!-- Officers: 7.8% -> 18.5 dasharray -->
+<circle cx="50" cy="50" fill="none" r="38" stroke="#5845CB" stroke-dasharray="19 238" stroke-dashoffset="-207" stroke-width="14"></circle>
+<!-- Field Workers: 4.8% -> 11 dasharray -->
+<circle cx="50" cy="50" fill="none" r="38" stroke="#666E79" stroke-dasharray="11 238" stroke-dashoffset="-226" stroke-width="14"></circle>
+<!-- Admins: 0.6% -> 1.5 dasharray -->
+<circle cx="50" cy="50" fill="none" r="38" stroke="#C63F48" stroke-dasharray="2 238" stroke-dashoffset="-237" stroke-width="14"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="font-title text-headline-sm text-on-surface">1,428</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase">Accounts</span>
+</div>
+</div>
+</div>
+<!-- Legend breakdown -->
+<div class="space-y-2 mt-2 font-body-sm text-body-sm">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 text-on-surface">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span>Citizens (Verified Residents)</span>
+</span>
+<span class="font-code-sm text-code-sm font-semibold text-on-surface">86.8% (1,240)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 text-on-surface">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span>Municipal Officers</span>
+</span>
+<span class="font-code-sm text-code-sm font-semibold text-on-surface">7.8% (112)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 text-on-surface">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+<span>Field Workers / Crew</span>
+</span>
+<span class="font-code-sm text-code-sm font-semibold text-on-surface">4.8% (68)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 text-on-surface">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span>Root Administrators</span>
+</span>
+<span class="font-code-sm text-code-sm font-semibold text-on-surface">0.6% (8)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Chart 3: Weekly Administrative Interventions -->
+<div class="lg:col-span-12 bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high/60 mb-space-sm">
+<div>
+<h3 class="font-title text-title text-on-surface">Weekly Administrative Interventions &amp; Governance Cadence</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Breakdown of manual staff credential approvals, role grants, and security lockouts over 7 days.</p>
+</div>
+<span class="px-2.5 py-1 rounded bg-surface-container-low font-code-sm text-code-sm text-on-surface">Current Week: Oct 06 – Oct 12</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-md pt-2">
+<div class="p-3 rounded-lg bg-surface-container-low/70">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Staff Credential Approvals</span>
+<span class="font-headline-md text-headline-md text-primary-container font-bold">18</span>
+<span class="block font-code-sm text-[11px] text-tertiary mt-1">Avg turnaround: 3.2 hrs</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low/70">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Privilege Grants &amp; Promotions</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold">9</span>
+<span class="block font-code-sm text-[11px] text-tertiary mt-1">Dual sign-offs complete</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low/70">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Automated MFA Suspensions</span>
+<span class="font-headline-md text-headline-md text-error font-bold">3</span>
+<span class="block font-code-sm text-[11px] text-tertiary mt-1">Failed challenge lockouts</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low/70">
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase">Security Scans Executed</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">14</span>
+<span class="block font-code-sm text-[11px] text-primary-container mt-1">100% compliant passes</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- TAB 5: AUDIT EVENT LEDGER -->
+<!-- ========================================================================= -->
+<div class="tab-panel hidden space-y-space-md" id="tab-audit">
+<!-- Ledger Filter Bar -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex flex-wrap items-center gap-space-sm w-full md:w-auto">
+<!-- Action Category Filter -->
+<select class="appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md px-3 py-2 rounded-lg focus:outline-none cursor-pointer">
+<option>Action: All Administrative Actions</option>
+<option>USER_ROLE_UPDATED</option>
+<option>LOGIN_FAILED_RATE_LIMITED</option>
+<option>RESOLUTION_VERIFIED</option>
+<option>ACCOUNT_SUSPENDED</option>
+</select>
+<!-- Result Status Filter -->
+<select class="appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md px-3 py-2 rounded-lg focus:outline-none cursor-pointer">
+<option>Result: All (Success, Blocked, Error)</option>
+<option>SUCCESS</option>
+<option>BLOCKED</option>
+<option>FAILED</option>
+</select>
+<!-- Date Picker Dummy -->
+<div class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-outline">calendar_today</span>
+<span>Past 7 Days (Oct 05 - Oct 12, 2026)</span>
+</div>
+</div>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-colors" onclick="singleActionToast('Exporting Immutable Audit Log (CSV)...')" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export Audit CSV</span>
+</button>
+</div>
+<!-- Audit Log Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-4">Event ID &amp; Timestamp</th>
+<th class="py-3 px-4">Actor</th>
+<th class="py-3 px-4">Origin IP</th>
+<th class="py-3 px-4">Action Signature</th>
+<th class="py-3 px-4">Target Record</th>
+<th class="py-3 px-4">Result</th>
+<th class="py-3 px-4">Context Details</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/50">
+<!-- Event 1 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-code-sm text-code-sm">
+<div class="text-on-surface font-semibold">#EVT-9921</div>
+<div class="text-tertiary">12 Oct 2026, 14:22:10</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-[10px]">PS</span>
+<div>
+<span class="text-on-surface font-semibold block">Priya Sharma</span>
+<span class="text-tertiary font-label-sm text-[11px]">Root Admin</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface-variant">10.14.0.12 (Internal VPN)</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-container-high font-code-sm text-code-sm text-on-surface font-semibold">USER_ROLE_UPDATED</span>
+</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-primary-container font-semibold">
+                  #USR-1085 [Field Worker]
+                </td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">SUCCESS</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant text-[12px]">
+                  Granted offline sync batch upload rights for remote Ward 8 fieldwork.
+                </td>
+</tr>
+<!-- Event 2 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors bg-error-container/10">
+<td class="py-3.5 px-4 font-code-sm text-code-sm">
+<div class="text-on-surface font-semibold">#EVT-9920</div>
+<div class="text-tertiary">12 Oct 2026, 14:05:48</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-error text-on-error flex items-center justify-center font-bold text-[10px]">!</span>
+<div>
+<span class="text-on-surface font-semibold block">System Security Daemon</span>
+<span class="text-tertiary font-label-sm text-[11px]">Auto Throttler</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-error font-semibold">192.168.1.45 (External WAN)</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-code-sm text-code-sm font-semibold">LOGIN_FAILED_RATE_LIMITED</span>
+</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-tertiary">
+                  /api/v2/auth/login
+                </td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-full bg-error text-on-error font-label-sm text-label-sm font-semibold">BLOCKED</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant text-[12px]">
+                  Rate limiter triggered after 10 invalid secret attempts in 60s. Origin blocked for 15m.
+                </td>
+</tr>
+<!-- Event 3 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-code-sm text-code-sm">
+<div class="text-on-surface font-semibold">#EVT-9919</div>
+<div class="text-tertiary">12 Oct 2026, 13:41:22</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-[10px]">EV</span>
+<div>
+<span class="text-on-surface font-semibold block">Elena Vance</span>
+<span class="text-tertiary font-label-sm text-[11px]">Municipal Officer</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface-variant">10.14.2.89 (Ward 4 Station)</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-container-high font-code-sm text-code-sm text-on-surface font-semibold">RESOLUTION_VERIFIED</span>
+</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-primary font-semibold">
+                  #CF-2026-00124
+                </td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">SUCCESS</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant text-[12px]">
+                  Approved road asphalt patch verification photo; closed complaint and informed resident.
+                </td>
+</tr>
+<!-- Event 4 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-code-sm text-code-sm">
+<div class="text-on-surface font-semibold">#EVT-9918</div>
+<div class="text-tertiary">12 Oct 2026, 12:15:04</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-[10px]">PS</span>
+<div>
+<span class="text-on-surface font-semibold block">Priya Sharma</span>
+<span class="text-tertiary font-label-sm text-[11px]">Root Admin</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface-variant">10.14.0.12 (Internal VPN)</td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-container-high font-code-sm text-code-sm text-on-surface font-semibold">CONFIG_MUTATED</span>
+</td>
+<td class="py-3.5 px-4 font-code-sm text-code-sm text-on-surface">
+                  SYSTEM_SESSION_TTL
+                </td>
+<td class="py-3.5 px-4">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">SUCCESS</span>
+</td>
+<td class="py-3.5 px-4 text-on-surface-variant text-[12px]">
+                  Adjusted session inactivity timeout to strict 30 minutes policy.
+                </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- TAB 6: SYSTEM SETTINGS PANEL -->
+<!-- ========================================================================= -->
+<div class="tab-panel hidden space-y-space-md" id="tab-settings">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Configuration Card 1: General Platform -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 pb-space-xs border-b border-surface-container-high/60 mb-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px]">tune</span>
+<h3 class="font-title text-title text-on-surface">General Platform Settings</h3>
+</div>
+<div class="space-y-space-sm">
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Platform Instance Identifier</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" type="text" value="CivicFix AI Municipal Core"/>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Standard Timezone</label>
+<select class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none cursor-pointer">
+<option selected="">Asia/Kolkata (IST +05:30)</option>
+<option>UTC (Coordinated Universal Time)</option>
+<option>America/New_York (EST -05:00)</option>
+</select>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Timestamp Display Format</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" type="text" value="DD MMM YYYY, HH:mm"/>
+</div>
+</div>
+</div>
+<p class="font-label-sm text-[11px] text-tertiary mt-4">Affects administrative dashboard reports and notifications.</p>
+</div>
+<!-- Configuration Card 2: Security & Authentication -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 pb-space-xs border-b border-surface-container-high/60 mb-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">lock_reset</span>
+<h3 class="font-title text-title text-on-surface">Security &amp; Auth Controls</h3>
+</div>
+<div class="space-y-space-sm">
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Session Inactivity Timeout</label>
+<select class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none cursor-pointer">
+<option>15 Minutes</option>
+<option selected="">30 Minutes (Recommended)</option>
+<option>60 Minutes</option>
+</select>
+</div>
+<div class="pt-1">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-title text-body-md text-on-surface block">Mandatory MFA</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Enforce TOTP / WebAuthn for Officers &amp; Admins</span>
+</div>
+<input checked="" class="rounded text-primary-container focus:ring-0 cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">BCrypt Hash Work Factor &amp; Password Length</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-code-sm text-code-sm text-tertiary" readonly="" type="text" value="Cost Factor: 12 · Minimum 10 chars with special"/>
+</div>
+</div>
+</div>
+<p class="font-label-sm text-[11px] text-tertiary mt-4">Enforced at the Spring Security filter chain layer.</p>
+</div>
+<!-- Configuration Card 3: Operations & Governance -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 pb-space-xs border-b border-surface-container-high/60 mb-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">auto_mode</span>
+<h3 class="font-title text-title text-on-surface">Operations &amp; AI Governance</h3>
+</div>
+<div class="space-y-space-sm">
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Resolved Ticket Auto-Archive</label>
+<select class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none cursor-pointer">
+<option>30 Days</option>
+<option>60 Days</option>
+<option selected="">90 Days (Municipal standard)</option>
+</select>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low">
+<div class="flex items-center justify-between mb-1">
+<span class="font-title text-body-sm text-on-surface">AI Triage Advisory Mode</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-code-sm text-[10px]">ACTIVE</span>
+</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Human-in-the-loop mandated. AI suggestions cannot auto-close complaints without officer sign-off.</p>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-high/60 flex items-center justify-end gap-space-xs">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" onclick="singleActionToast('Settings discarded')" type="button">Discard</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-primary font-label-md text-label-md shadow-sm transition-colors" onclick="singleActionToast('Platform configuration saved and synchronized')" type="button">Save Configuration</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SLIDE-OVER / MODAL: CREATE STAFF ACCOUNT -->
+<div class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-4" id="invite-modal">
+<div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150">
+<div class="px-space-md py-space-sm bg-surface-container-low border-b border-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+</div>
+<div>
+<h3 class="font-title text-title text-on-surface">Provision Staff Account</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dual-Authentication Required for Tier-1</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:bg-surface-container flex items-center justify-center transition-colors" id="close-invite-modal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<form class="p-space-md space-y-space-sm" id="staff-invite-form" onsubmit="handleStaffInvite(event)">
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Full Legal Name</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="e.g. Ramesh Krishnan" required="" type="text"/>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Official Government Email</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="name@corporation.gov or @chennaicorp.gov" required="" type="email"/>
+<span class="font-code-sm text-[11px] text-tertiary mt-1 block">Domain validation strictly enforced. Public mail domains will fail.</span>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Assigned Operational Role</label>
+<select class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none cursor-pointer">
+<option value="officer">Municipal Officer (Zone Triage &amp; Sign-off)</option>
+<option value="field">Field Worker (Crew Lead / Repair Evidence)</option>
+<option value="admin">Administrator (Requires Dual-Auth Sign-off)</option>
+</select>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Ward / Department Assignment</label>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" placeholder="e.g., Ward 4 - Roads &amp; Stormwater Drainage" required="" type="text"/>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border-l-4 border-primary">
+<span class="font-title text-body-sm text-on-surface block">Zero-Plaintext Credential Safety Policy</span>
+<p class="font-body-sm text-[12px] text-on-surface-variant mt-0.5">A secure time-limited tokenized invitation link will be sent to the employee's official email. Administrators do not set plaintext initial passwords.</p>
+</div>
+<div class="pt-3 border-t border-surface-container-high/60 flex items-center justify-end gap-space-sm">
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" id="cancel-invite-modal" type="button">
+            Cancel
+          </button>
+<button class="px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary font-label-md text-label-md shadow-sm transition-colors flex items-center gap-1.5" type="submit">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Send Invitation &amp; Provision</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+<!-- TOAST NOTIFICATION HUD -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300" id="toast-hud">
+<div class="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-inverse-surface text-inverse-on-surface shadow-xl">
+<span class="material-symbols-outlined text-primary-fixed text-[20px]">check_circle</span>
+<span class="font-body-sm text-body-sm font-medium" id="toast-hud-msg">Operation executed successfully</span>
+</div>
+</div>
+</div>
+<script>
+  // Executive Tab Switcher Logic
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-panel').forEach(panel => {
+      panel.classList.add('hidden');
+    });
+    const activePanel = document.getElementById(tabId);
+    if (activePanel) {
+      activePanel.classList.remove('hidden');
+    }
+
+    // Update Tab Header Active Styles
+    document.querySelectorAll('.tab-trigger').forEach(btn => {
+      btn.classList.remove('border-primary-container', 'text-primary-container', 'font-semibold');
+      btn.classList.add('border-transparent', 'text-on-surface-variant');
+    });
+
+    const activeBtnMap = {
+      'tab-overview': 'nav-tab-overview',
+      'tab-users': 'nav-tab-users',
+      'tab-rbac': 'nav-tab-rbac',
+      'tab-analytics': 'nav-tab-analytics',
+      'tab-audit': 'nav-tab-audit',
+      'tab-settings': 'nav-tab-settings'
+    };
+
+    const targetBtn = document.getElementById(activeBtnMap[tabId]);
+    if (targetBtn) {
+      targetBtn.classList.remove('border-transparent', 'text-on-surface-variant');
+      targetBtn.classList.add('border-primary-container', 'text-primary-container', 'font-semibold');
+    }
+  }
+
+  // Toast Notification HUD
+  function singleActionToast(message) {
+    const toast = document.getElementById('toast-hud');
+    const msgElem = document.getElementById('toast-hud-msg');
+    if (!toast || !msgElem) return;
+
+    msgElem.textContent = message;
+    toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    setTimeout(() => {
+      toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }, 3200);
+  }
+
+  // Batch Approval Trigger
+  function batchApproveModal() {
+    const checked = document.querySelectorAll('.approval-row-check:checked');
+    if (checked.length === 0) {
+      singleActionToast('Please select at least one pending staff account.');
+    } else {
+      singleActionToast(`Batch approved ${checked.length} staff credentials.`);
+      checked.forEach(box => { box.checked = false; });
+      const selectAll = document.getElementById('select-all-approvals');
+      if (selectAll) selectAll.checked = false;
+    }
+  }
+
+  // Select all checkboxes toggle
+  const selectAllApprovals = document.getElementById('select-all-approvals');
+  if (selectAllApprovals) {
+    selectAllApprovals.addEventListener('change', (e) => {
+      document.querySelectorAll('.approval-row-check').forEach(box => {
+        box.checked = e.target.checked;
+      });
+    });
+  }
+
+  // Provision Staff Account Modal Logic
+  const inviteModal = document.getElementById('invite-modal');
+  const openInviteBtn = document.getElementById('open-invite-modal');
+  const closeInviteBtn = document.getElementById('close-invite-modal');
+  const cancelInviteBtn = document.getElementById('cancel-invite-modal');
+
+  function openModal() {
+    if (inviteModal) inviteModal.classList.remove('hidden');
+  }
+
+  function closeModal() {
+    if (inviteModal) inviteModal.classList.add('hidden');
+  }
+
+  if (openInviteBtn) openInviteBtn.addEventListener('click', openModal);
+  if (closeInviteBtn) closeInviteBtn.addEventListener('click', closeModal);
+  if (cancelInviteBtn) cancelInviteBtn.addEventListener('click', closeModal);
+
+  function handleStaffInvite(event) {
+    event.preventDefault();
+    closeModal();
+    singleActionToast('Secure invitation dispatched with tokenized onboarding magic link.');
+  }
+
+  // Quick User Filter Interaction
+  const searchInput = document.getElementById('user-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      // Micro visual response
+      if (e.target.value.length > 2) {
+        console.log("Filtering user list for:", e.target.value);
+      }
+    });
+  }
+</script></main></div></body></html>

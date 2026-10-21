@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-container":"#fffbff","on-primary-fixed":"#00201d","tertiary":"#4d5660","on-primary":"#ffffff","primary-container":"#137a70","tertiary-container":"#666e79","surface-container-low":"#eef4ff","outline-variant":"#bdc9c6","error":"#ba1a1a","on-secondary-fixed":"#170065","primary-fixed-dim":"#7ed6ca","primary":"#006057","on-tertiary-fixed":"#141c25","surface-container-lowest":"#ffffff","inverse-primary":"#7ed6ca","surface-tint":"#006a61","secondary-fixed":"#e4dfff","surface-container-high":"#dee9fa","tertiary-fixed":"#dbe3f0","on-surface-variant":"#3e4947","error-container":"#ffdad6","surface-variant":"#d8e3f4","on-secondary-fixed-variant":"#422bb5","on-background":"#111c28","on-tertiary-container":"#e9f1fe","secondary":"#5845cb","on-tertiary-fixed-variant":"#3f4752","inverse-on-surface":"#e9f1ff","on-error-container":"#93000a","on-primary-fixed-variant":"#005049","on-error":"#ffffff","outline":"#6e7977","secondary-fixed-dim":"#c7bfff","surface-dim":"#d0dbeb","surface":"#f8f9ff","on-secondary":"#ffffff","background":"#f8f9ff","inverse-surface":"#26313e","tertiary-fixed-dim":"#bfc7d3","surface-bright":"#f8f9ff","on-primary-container":"#aefff3","on-tertiary":"#ffffff","on-surface":"#111c28","primary-fixed":"#9af2e6","surface-container":"#e4efff","secondary-container":"#7160e6","surface-container-highest":"#d8e3f4"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1rem","gutter-desktop":"1.5rem","space-xl":"2rem","margin-desktop":"2rem","space-sm":"0.5rem","space-xs":"0.25rem","space-md":"1rem","space-lg":"1.5rem","margin":"1rem"},fontFamily:{"headline-lg-mobile":["Inter"],"display":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"label-sm":["Inter"],"headline-sm":["Inter"],"code-sm":["JetBrains Mono"],"body-lg":["Inter"],"body-sm":["Inter"],"title":["Inter"],"body-md":["Inter"],"label-md":["Inter"]},fontSize:{"headline-lg-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"600"}],"display":["36px",{lineHeight:"44px",letterSpacing:"-0.03em",fontWeight:"600"}],"headline-md":["22px",{lineHeight:"28px",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-lg":["30px",{lineHeight:"38px",letterSpacing:"-0.025em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-sm":["18px",{lineHeight:"24px",letterSpacing:"-0.015em",fontWeight:"600"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"body-lg":["15px",{lineHeight:"22px",letterSpacing:"-0.005em",fontWeight:"400"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"title":["15px",{lineHeight:"20px",letterSpacing:"-0.01em",fontWeight:"600"}],"body-md":["13px",{lineHeight:"18px",letterSpacing:"0em",fontWeight:"400"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"500"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><main class="w-full min-h-screen flex items-center justify-center p-space-md bg-surface"><div class="flex flex-col w-full">
+<!-- Top Utility Context Bar -->
+<header class="w-full bg-surface-container-lowest shadow-sm rounded-xl px-gutter-desktop py-space-sm mb-space-md">
+<div class="flex items-center justify-between">
+<nav aria-label="Breadcrumb" class="flex items-center space-x-2">
+<a class="flex items-center gap-1.5 font-label-md text-label-md text-tertiary hover:text-primary transition-colors" href="#dashboard">
+<span class="material-symbols-outlined text-[18px]">home</span>
+<span>CivicOps</span>
+</a>
+<span class="font-label-sm text-label-sm text-outline-variant">/</span>
+<a class="font-label-md text-label-md text-tertiary hover:text-primary transition-colors" href="#issues">Portals</a>
+<span class="font-label-sm text-label-sm text-outline-variant">/</span>
+<span class="font-label-md text-label-md text-primary font-semibold">Report an Issue</span>
+</nav>
+<div class="flex items-center space-x-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container font-code-sm text-code-sm text-on-surface-variant">
+<span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          GIS Sector 04-W Connected
+        </span>
+<a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-on-primary-fixed-variant transition-colors" href="#dashboard">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+          Return to Dashboard
+        </a>
+</div>
+</div>
+</header>
+<!-- Editorial Headline Section -->
+<section class="mb-space-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm tracking-wide uppercase">Public Intake Flow</span>
+<span class="font-code-sm text-code-sm text-tertiary">REF: DISPATCH-2025-V3</span>
+</div>
+<h1 class="font-display text-display text-on-surface tracking-tight">Report a Civic Issue</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Help improve municipal responsiveness by logging infrastructure defects directly into the field dispatch pipeline.</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-tertiary">Estimated intake: ~2 mins</span>
+<div class="h-6 w-[1px] bg-outline-variant"></div>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container font-label-md text-label-md text-primary hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">help_outline</span>
+          Assisted Mode
+        </button>
+</div>
+</div>
+</section>
+<!-- Step Progression Bar -->
+<div class="w-full bg-surface-container-lowest shadow-sm rounded-xl p-space-md mb-space-lg">
+<div class="grid grid-cols-4 gap-2 relative">
+<!-- Step 1: Active -->
+<div class="flex items-center gap-3 p-2 rounded-lg bg-surface-container-low transition-all">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md font-bold shadow-sm">
+          1
+        </div>
+<div class="min-w-0">
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Step 1</p>
+<p class="font-title text-title text-on-surface truncate">Issue Details</p>
+</div>
+</div>
+<!-- Step 2: Next -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container-lowest transition-all">
+<div class="w-8 h-8 rounded-full bg-surface-container text-tertiary flex items-center justify-center font-label-md text-label-md font-semibold">
+          2
+        </div>
+<div class="min-w-0">
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Step 2</p>
+<p class="font-title text-title text-tertiary truncate">Photos &amp; Media</p>
+</div>
+</div>
+<!-- Step 3: Pending -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container-lowest transition-all">
+<div class="w-8 h-8 rounded-full bg-surface-container text-tertiary flex items-center justify-center font-label-md text-label-md font-semibold">
+          3
+        </div>
+<div class="min-w-0">
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Step 3</p>
+<p class="font-title text-title text-tertiary truncate">Precise Location</p>
+</div>
+</div>
+<!-- Step 4: Pending -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container-lowest transition-all">
+<div class="w-8 h-8 rounded-full bg-surface-container text-tertiary flex items-center justify-center font-label-md text-label-md font-semibold">
+          4
+        </div>
+<div class="min-w-0">
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Step 4</p>
+<p class="font-title text-title text-tertiary truncate">Review &amp; Submit</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Workspace: Two-Column Split (65% / 35%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT: Main Form Column (65%) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Section A: Issue Details -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg">
+<div class="flex items-center justify-between pb-space-sm mb-space-md">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">1. Tell us about the issue</h2>
+</div>
+<span class="font-code-sm text-code-sm text-tertiary uppercase">Mandatory Intake</span>
+</div>
+<div class="space-y-space-md">
+<!-- Title Field -->
+<div>
+<label class="flex items-center justify-between font-label-md text-label-md text-on-surface mb-1" for="issue-title">
+<span>Issue Title <span class="text-error font-bold">*</span></span>
+<span class="font-label-sm text-label-sm text-tertiary">Max 80 characters</span>
+</label>
+<input class="w-full bg-surface-container-lowest rounded-lg px-3 py-2 text-on-surface font-body-lg text-body-lg placeholder:text-outline shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition" id="issue-title" placeholder="e.g. Broken water mains flooding pedestrian lane" type="text" value="Deep pothole causing vehicular damage near crosswalk"/>
+<p class="font-body-sm text-body-sm text-tertiary mt-1">Provide a concise, declarative summary of the defect observed.</p>
+</div>
+<!-- Category Selector Grid -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">
+              Issue Classification <span class="text-error font-bold">*</span>
+</label>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+<!-- Selected Item: Roads & Potholes -->
+<button class="flex flex-col items-start p-3 rounded-lg bg-surface-container-high text-on-primary-fixed shadow-sm text-left transition-all relative overflow-hidden group" type="button">
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="material-symbols-outlined text-primary-container text-[22px] mb-1">remove_road</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Roads &amp; Potholes</span>
+<span class="font-label-sm text-label-sm text-tertiary mt-0.5">Asphalt, fissures</span>
+</button>
+<button class="flex flex-col items-start p-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container shadow-sm text-left transition-all" type="button">
+<span class="material-symbols-outlined text-tertiary text-[22px] mb-1">light</span>
+<span class="font-label-md text-label-md text-on-surface">Streetlights</span>
+<span class="font-label-sm text-label-sm text-tertiary mt-0.5">Outage, flicker</span>
+</button>
+<button class="flex flex-col items-start p-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container shadow-sm text-left transition-all" type="button">
+<span class="material-symbols-outlined text-tertiary text-[22px] mb-1">delete_sweep</span>
+<span class="font-label-md text-label-md text-on-surface">Waste &amp; Refuse</span>
+<span class="font-label-sm text-label-sm text-tertiary mt-0.5">Overflow, debris</span>
+</button>
+<button class="flex flex-col items-start p-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container shadow-sm text-left transition-all" type="button">
+<span class="material-symbols-outlined text-tertiary text-[22px] mb-1">water_damage</span>
+<span class="font-label-md text-label-md text-on-surface">Drainage</span>
+<span class="font-label-sm text-label-sm text-tertiary mt-0.5">Blockage, runoff</span>
+</button>
+<button class="flex flex-col items-start p-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container shadow-sm text-left transition-all" type="button">
+<span class="material-symbols-outlined text-tertiary text-[22px] mb-1">valve</span>
+<span class="font-label-md text-label-md text-on-surface">Water Supply</span>
+<span class="font-label-sm text-label-sm text-tertiary mt-0.5">Mains burst, leak</span>
+</button>
+<button class="flex flex-col items-start p-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container shadow-sm text-left transition-all" type="button">
+<span class="material-symbols-outlined text-tertiary text-[22px] mb-1">apartment</span>
+<span class="font-label-md text-label-md text-on-surface">Public Infra</span>
+<span class="font-label-sm text-label-sm text-tertiary mt-0.5">Benches, fences</span>
+</button>
+<button class="flex flex-col items-start p-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container shadow-sm text-left transition-all" type="button">
+<span class="material-symbols-outlined text-tertiary text-[22px] mb-1">nature_people</span>
+<span class="font-label-md text-label-md text-on-surface">Urban Forestry</span>
+<span class="font-label-sm text-label-sm text-tertiary mt-0.5">Fallen branches</span>
+</button>
+<button class="flex flex-col items-start p-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container shadow-sm text-left transition-all" type="button">
+<span class="material-symbols-outlined text-tertiary text-[22px] mb-1">more_horiz</span>
+<span class="font-label-md text-label-md text-on-surface">Other</span>
+<span class="font-label-sm text-label-sm text-tertiary mt-0.5">Custom category</span>
+</button>
+</div>
+</div>
+<!-- Description Textarea -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="font-label-md text-label-md text-on-surface" for="issue-desc">
+                Detailed Description <span class="text-error font-bold">*</span>
+</label>
+<span class="font-label-sm text-label-sm text-tertiary">314 characters entered</span>
+</div>
+<textarea class="w-full bg-surface-container-lowest rounded-lg p-3 text-on-surface font-body-md text-body-md placeholder:text-outline shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition resize-none" id="issue-desc" placeholder="Detail the issue: specify landmarks (e.g. directly opposite the municipal library), dimensions, traffic impact, and how long the defect has persisted..." rows="4">Pothole measures roughly 2.5 feet across and appears to be at least 4 inches deep with loose road gravel scattering into the bicycle lane. Located on Pine Boulevard right past the 4th Avenue junction, immediately adjacent to the eastbound bus stop shelter. Vehicles are swerving aggressively to avoid rim damage.</textarea>
+<div class="flex items-center gap-2 mt-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">lightbulb</span>
+<span>Pro-tip: Note specific landmark alignments (e.g., telephone pole ID, shopfronts) to accelerate field crews.</span>
+</div>
+</div>
+<!-- Safety Concern Toggle -->
+<div class="bg-surface-container-low rounded-xl p-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-error text-[18px]">warning</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Immediate Safety Concern?</span>
+</div>
+<p class="font-body-sm text-body-sm text-tertiary mt-0.5">Poses an imminent threat to life, pedestrian injury, or high-speed vehicle impact.</p>
+</div>
+<div class="inline-flex rounded-lg bg-surface-container-lowest p-1 shadow-sm">
+<button class="px-3 py-1 rounded-md bg-error text-on-error font-label-md text-label-md font-semibold transition" type="button">Yes (Critical)</button>
+<button class="px-3 py-1 rounded-md hover:bg-surface-container text-tertiary font-label-md text-label-md transition" type="button">No</button>
+<button class="px-3 py-1 rounded-md hover:bg-surface-container text-tertiary font-label-md text-label-md transition" type="button">Not sure</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section B: Media Upload & Photographic Verification -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg">
+<div class="flex items-center justify-between pb-space-sm mb-space-md">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">2. Add photographs &amp; evidence</h2>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container font-semibold text-tertiary">1 of 5 Files Attached</span>
+</div>
+<!-- Drag & Drop Zone -->
+<div class="bg-surface-container-low/60 rounded-xl p-space-lg flex flex-col items-center justify-center text-center transition hover:bg-surface-container-low cursor-pointer mb-space-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest shadow-sm flex items-center justify-center text-primary mb-2">
+<span class="material-symbols-outlined text-[26px]">add_a_photo</span>
+</div>
+<p class="font-title text-title text-on-surface mb-0.5">Drag and drop high-resolution evidence here</p>
+<p class="font-body-sm text-body-sm text-tertiary mb-3">Accepts JPG, PNG, HEIC up to 25MB each. Geo-tagged mobile photos preferred.</p>
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">photo_camera</span>
+              Take Photo
+            </button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container shadow-sm transition" type="button">
+<span class="material-symbols-outlined text-[16px]">folder_open</span>
+              Browse Local Files
+            </button>
+</div>
+</div>
+<!-- File Preview Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-3 flex flex-col md:flex-row items-center gap-3">
+<div class="relative w-full md:w-32 h-24 rounded-lg overflow-hidden shrink-0 shadow-sm bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close up street photograph of severe road degradation and asphalt fissure on an urban avenue. Realistic civil engineering inspection angle with loose stones and clear yellow pavement markings under crisp natural overcast daylight. Colors strictly match slate and charcoal municipal infrastructure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC8xrbBFV1QcjqGDA-tuY4yPX-gnbMhFHnG-Hxq5vfM5Mox1djmCa2SuT7bP0ZaoJwyOwByYmoAfT79w454Apy6-4R3thGdPlLlcR8k42pGT7k0VgDujJBuSaxh66OBAZdbq1wnei3pZKV4CvZOmpyhd1SJecotZU3D2QEBxlbo8g5kFkZFi7D0FqtT6VMFMuiYRvdQX3hnY2PtUxXA14zWE47t7m9NkUwDRUkR-jtC-YhZXsd-jkw"/>
+<span class="absolute bottom-1 left-1 px-1.5 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-code-sm text-code-sm text-[10px]">RAW_EXIF</span>
+</div>
+<div class="flex-1 w-full min-w-0">
+<div class="flex items-center justify-between mb-1">
+<div class="flex items-center gap-2 truncate">
+<span class="font-title text-title text-on-surface truncate">IMG_20250512_104218_Pothole.jpg</span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.2 rounded-full bg-surface-container text-primary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px]">verified</span> Validated
+                </span>
+</div>
+<button class="text-tertiary hover:text-error transition-colors p-1" title="Remove file">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<p class="font-code-sm text-code-sm text-tertiary mb-2">4.2 MB • 4032 × 3024 • GPS Tag Extracted: 47.6097° N, 122.3331° W</p>
+<!-- Caption Input -->
+<div class="flex items-center gap-2">
+<input class="flex-1 bg-surface-container-low rounded-md px-2.5 py-1 text-on-surface font-body-sm text-body-sm focus:outline-none focus:bg-surface-container-lowest transition" placeholder="Add contextual caption..." type="text" value="Looking eastward from 4th Ave curb. Deep rutting around drain lip."/>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Saved
+              </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section C: Geospatial & Location Pinning -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg">
+<div class="flex items-center justify-between pb-space-sm mb-space-md">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">3. Where is the issue?</h2>
+</div>
+<span class="font-code-sm text-code-sm text-primary font-medium">PRECISION: HIGH (±3m)</span>
+</div>
+<!-- Address Bar & Geolocation Trigger -->
+<div class="flex flex-col sm:flex-row gap-2 mb-space-md">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-[20px] text-tertiary">search</span>
+<input class="w-full bg-surface-container-lowest rounded-lg pl-10 pr-3 py-2 text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition" placeholder="Enter address, cross street, or landmark" type="text" value="Pine Boulevard &amp; 4th Avenue, Seattle, WA 98101"/>
+</div>
+<button class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-surface-container text-primary font-label-md text-label-md hover:bg-surface-container-high transition shadow-sm shrink-0" type="button">
+<span class="material-symbols-outlined text-[18px]">my_location</span>
+<span>Use My Location</span>
+</button>
+</div>
+<!-- Interactive Map Preview Card -->
+<div class="relative w-full h-80 rounded-xl overflow-hidden shadow-sm bg-surface-container">
+<!-- Realistic Map Surface Placeholder via Google Location System -->
+<div class="w-full h-full bg-cover bg-center" data-location="Pine Boulevard and 4th Avenue, Seattle, WA" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDY28BIXFmWGxLUyx7fw0hI6Ah0qZuXBEWwVegffNEP0GXlA91oAifbtqFp0Y3wJeVOtb_Txy1gqRMAKeHD3MWFlkBWYcLM4MmJfdmTFLwDaT0zYB8SkHOxed65V_4fvdPrDpVIDAxwt0yjn9xOl5uiXY4KAAwzmqGDCArBG_4aaVy77um1rXqe6tCMLMImxf4owG_s52ZgVuLM1YmFJx8LxIldNF2aNKkFfwVHvxR_nwMceHHoWi3S')"></div>
+<!-- Synthetic Map Canvas HUD Overlay -->
+<div class="absolute inset-0 pointer-events-none flex flex-col justify-between p-3">
+<!-- Top Map Floating Bar -->
+<div class="flex items-center justify-between pointer-events-auto">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container-lowest/95 backdrop-blur-md shadow-md text-on-surface font-code-sm text-code-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span>47°36'34.9"N 122°19'59.2"W</span>
+</div>
+<div class="flex items-center bg-surface-container-lowest/95 backdrop-blur-md shadow-md rounded-lg p-0.5 space-x-0.5">
+<button class="p-1.5 hover:bg-surface-container rounded text-tertiary hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-tertiary hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Custom CivicFix Pin Marker Pinned at Center -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full flex flex-col items-center">
+<div class="px-2.5 py-1 rounded-md bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm font-semibold shadow-lg mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary-fixed">trip_origin</span>
+<span>Pin: Pine Blvd Eastbound</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-xl ring-4 ring-white">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+<div class="w-2 h-2 bg-primary-container rotate-45 -mt-1 shadow-md"></div>
+</div>
+<!-- Bottom Map Bar: Controls & Instruction -->
+<div class="flex items-end justify-between pointer-events-auto">
+<div class="bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm font-label-sm text-label-sm text-tertiary">
+                Drag marker to pinpoint exact road fissure coordinates
+              </div>
+<div class="flex flex-col bg-surface-container-lowest/95 backdrop-blur-md rounded-lg shadow-md overflow-hidden">
+<button class="p-2 hover:bg-surface-container text-tertiary hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+<div class="h-[1px] bg-outline-variant/40"></div>
+<button class="p-2 hover:bg-surface-container text-tertiary hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-sm pt-space-xs text-tertiary font-body-sm text-body-sm">
+<span>Jurisdiction: City of Seattle Dept. of Transportation (SDOT)</span>
+<span class="font-code-sm text-code-sm">Ward 7 • Census Tract 008100</span>
+</div>
+</section>
+<!-- Action Footer Toolbar -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col sm:flex-row items-center justify-between gap-3">
+<button class="w-full sm:w-auto px-4 py-2 rounded-lg text-tertiary hover:text-on-surface hover:bg-surface-container font-label-md text-label-md transition" type="button">
+          Discard &amp; Exit
+        </button>
+<div class="w-full sm:w-auto flex items-center gap-3">
+<button class="w-full sm:w-auto px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition shadow-sm" type="button">
+            Save as Draft
+          </button>
+<button class="w-full sm:w-auto px-6 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-primary transition shadow-md flex items-center justify-center gap-2" type="button">
+<span>Review &amp; Submit Report</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- RIGHT: Contextual Sidebar Column (35%) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Card 1: Reporting Guidelines & Tips -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-[20px]">tips_and_updates</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Reporting Guidelines</h3>
+</div>
+<p class="font-body-sm text-body-sm text-tertiary mb-space-md">Field crews prioritize reports with actionable geographic clarity and photo evidence.</p>
+<ul class="space-y-space-md">
+<li class="flex items-start gap-2.5">
+<div class="w-6 h-6 rounded-full bg-surface-container text-primary-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+</div>
+<div>
+<p class="font-title text-title text-on-surface">High-Contrast Framing</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Include an object (like a water bottle) or clear road line to convey scale and depth.</p>
+</div>
+</li>
+<li class="flex items-start gap-2.5">
+<div class="w-6 h-6 rounded-full bg-surface-container text-primary-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">share_location</span>
+</div>
+<div>
+<p class="font-title text-title text-on-surface">Exact Intersections</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Specify lane direction (e.g., "eastbound curb lane") to keep utility crews safe during dispatch.</p>
+</div>
+</li>
+<li class="flex items-start gap-2.5">
+<div class="w-6 h-6 rounded-full bg-surface-container text-primary-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">privacy_tip</span>
+</div>
+<div>
+<p class="font-title text-title text-on-surface">Protect Private Privacy</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Do not capture vehicle license plates, faces of passersby, or private residential interiors.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Card 2: Lifecycle Workflow Preview -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">timeline</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Resolution Lifecycle</h3>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed">SLA 48h</span>
+</div>
+<div class="relative pl-6 space-y-4">
+<!-- Flow Line -->
+<div class="absolute left-2.5 top-2 bottom-2 w-0.5 bg-surface-container"></div>
+<!-- Step 1 -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-secondary ring-4 ring-white"></div>
+<p class="font-label-md text-label-md text-secondary font-bold">1. AI Spatial Triage</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Automatic duplicate clustering and hazard severity indexing within 30 seconds.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-surface-container ring-4 ring-white"></div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">2. Officer Verification</p>
+<p class="font-body-sm text-body-sm text-tertiary mt-0.5">District superintendent confirms SDOT road maintenance accountability.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-surface-container ring-4 ring-white"></div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">3. Field Crew Dispatch</p>
+<p class="font-body-sm text-body-sm text-tertiary mt-0.5">Maintenance unit receives geocoded work order directly in field terminal.</p>
+</div>
+<!-- Step 4 -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-surface-container ring-4 ring-white"></div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">4. Photographic Proof</p>
+<p class="font-body-sm text-body-sm text-tertiary mt-0.5">Crew uploads post-repair photo; notification delivered back to your portal.</p>
+</div>
+</div>
+</div>
+<!-- Card 3: District 4 Live Impact Statistics -->
+<div class="bg-surface-container-high rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-label-sm uppercase font-bold text-on-surface">Neighbourhood Impact</span>
+<span class="material-symbols-outlined text-[16px] text-primary">analytics</span>
+</div>
+<div class="flex items-baseline gap-2 mb-2">
+<span class="font-display text-display text-on-surface font-bold">18</span>
+<span class="font-title text-title text-on-surface">issues resolved this week</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">In District 4 (Downtown &amp; Waterfront), municipal response time improved by 22% this quarter.</p>
+<!-- Inline SVG Performance Donut Chart / Progress Visualization -->
+<div class="flex items-center gap-4 bg-surface-container-lowest/80 rounded-lg p-3">
+<div class="w-14 h-14 shrink-0 relative">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="88, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center font-label-md text-label-md font-bold text-on-surface">
+              88%
+            </div>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md font-bold text-on-surface">Within 48h SLA</p>
+<p class="font-body-sm text-body-sm text-tertiary">14 road repairs, 4 lighting fixtures restored</p>
+</div>
+</div>
+</div>
+<!-- Card 4: Immediate Emergency Contact Notice -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">phone_in_talk</span>
+</div>
+<div>
+<h4 class="font-title text-title text-on-surface">Is this an immediate emergency?</h4>
+<p class="font-body-sm text-body-sm text-tertiary mt-1">
+              For active power line hazards, major gas leaks, or collapsing structures, immediately contact emergency dispatch instead of filing a digital web report.
+            </p>
+<div class="flex items-center gap-3 mt-3">
+<a class="font-label-md text-label-md font-bold text-error hover:underline flex items-center gap-1" href="tel:911">
+<span>Call 911 (Emergency)</span>
+</a>
+<span class="text-outline-variant">•</span>
+<a class="font-label-md text-label-md font-bold text-primary hover:underline flex items-center gap-1" href="tel:311">
+<span>Call 311 (24/7 Hotline)</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div></main></body></html>

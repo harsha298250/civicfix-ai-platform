@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-fixed-variant": "#3f4752", "surface-container": "#e4efff", "outline": "#6e7977", "inverse-on-surface": "#e9f1ff", "on-tertiary-container": "#e9f1fe", "primary-fixed-dim": "#7ed6ca", "on-surface": "#111c28", "inverse-surface": "#26313e", "on-primary-fixed-variant": "#005049", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#422bb5", "on-primary-fixed": "#00201d", "surface-container-low": "#eef4ff", "on-tertiary-fixed": "#141c25", "primary": "#006057", "on-secondary-container": "#fffbff", "tertiary": "#4d5660", "on-primary-container": "#aefff3", "surface-container-lowest": "#ffffff", "background": "#f8f9ff", "secondary-fixed-dim": "#c7bfff", "surface-tint": "#006a61", "tertiary-fixed": "#dbe3f0", "outline-variant": "#bdc9c6", "tertiary-container": "#666e79", "surface-dim": "#d0dbeb", "error": "#ba1a1a", "on-surface-variant": "#3e4947", "on-primary": "#ffffff", "on-error": "#ffffff", "primary-fixed": "#9af2e6", "on-error-container": "#93000a", "secondary-fixed": "#e4dfff", "surface-container-high": "#dee9fa", "secondary-container": "#7160e6", "on-tertiary": "#ffffff", "inverse-primary": "#7ed6ca", "tertiary-fixed-dim": "#bfc7d3", "secondary": "#5845cb", "surface-container-highest": "#d8e3f4", "on-background": "#111c28", "surface": "#f8f9ff", "surface-bright": "#f8f9ff", "error-container": "#ffdad6", "on-secondary-fixed": "#170065", "primary-container": "#137a70", "surface-variant": "#d8e3f4" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "1rem", "space-sm": "0.5rem", "margin": "1rem", "space-xs": "0.25rem", "gutter": "1rem", "margin-desktop": "2rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-xl": "2rem" }, "fontFamily": { "code-sm": ["JetBrains Mono"], "label-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Inter"], "display": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Inter"], "title": ["Inter"], "headline-md": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"] }, "fontSize": { "code-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.025em", "fontWeight": "600" }], "title": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" }], "body-lg": ["15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-space-md flex items-center justify-between gap-space-sm"><div class="flex items-center min-w-0 flex-1"><h1 class="font-title text-title text-on-surface truncate tracking-tight">My Reports</h1></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full pb-10">
+<!-- Interactive Prototype State Simulator Bar -->
+<div class="px-space-md py-space-sm bg-surface-container-high shadow-sm">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">tune</span>
+        Demo State Simulator
+      </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant font-medium" id="current-state-label">In Progress</span>
+</div>
+<div class="grid grid-cols-4 gap-1.5 p-1 bg-surface-container-highest rounded-lg">
+<button class="py-1.5 px-1 rounded-md text-center font-label-sm text-label-sm bg-surface-container-lowest text-primary font-semibold shadow-sm transition-all" id="btn-state-in_progress" onclick="setScreenState('in_progress')" type="button">
+        In Progress
+      </button>
+<button class="py-1.5 px-1 rounded-md text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" id="btn-state-submitted" onclick="setScreenState('submitted')" type="button">
+        Submitted
+      </button>
+<button class="py-1.5 px-1 rounded-md text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" id="btn-state-resolved" onclick="setScreenState('resolved')" type="button">
+        Resolved
+      </button>
+<button class="py-1.5 px-1 rounded-md text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" id="btn-state-reopened" onclick="setScreenState('reopened')" type="button">
+        Reopened
+      </button>
+</div>
+</div>
+<!-- Navigation Breadcrumb & Back Action -->
+<div class="px-space-md pt-space-md pb-space-sm flex items-center justify-between">
+<button class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary transition-colors py-1.5 pr-2 rounded-lg -ml-1" type="button">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+<span class="font-title text-title font-medium">My Complaints</span>
+</button>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-code-sm text-code-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+      CivicFix AI Verified
+    </div>
+</div>
+<!-- Complaint Header Summary Card -->
+<div class="px-space-md mb-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-code-sm text-code-sm font-semibold text-primary select-all">#CF-2026-00124</span>
+<button class="inline-flex items-center justify-center w-7 h-7 rounded-md bg-surface-container text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors active:scale-95" id="copy-btn" onclick="copyRefId()" title="Copy Reference ID" type="button">
+<span class="material-symbols-outlined text-[15px]" id="copy-icon">content_copy</span>
+</button>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface leading-tight tracking-tight">Large pothole near bus stop</h2>
+</div>
+</div>
+<!-- Badges Cluster -->
+<div class="flex flex-wrap items-center gap-1.5 mb-space-sm">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">construction</span>
+          Roads &amp; Potholes
+        </span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold" id="badge-status-pill">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" id="badge-pulse-dot"></span>
+<span id="badge-status-text">In Progress</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">warning</span>
+          High Hazard (P1)
+        </span>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">schedule</span>
+<span>10 Oct 2026, 09:14 AM</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">location_on</span>
+<span>Ward 8, Anna Nagar</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 1. Current Status Spotlight Card -->
+<div class="px-space-md mb-space-md">
+<div class="p-space-md rounded-xl bg-gradient-to-br from-surface-container-lowest to-surface-container-low shadow-sm">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0 shadow-sm" id="spotlight-icon-box">
+<span class="material-symbols-outlined text-[24px]" id="spotlight-icon">engineering</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1 mb-1">
+<h3 class="font-title text-title text-on-surface font-semibold" id="spotlight-title">In Progress: Active Repair Underway</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug mb-space-sm" id="spotlight-desc">
+            SDOT Roads Unit 4 is on site. Cold-mix asphalt application and roller compaction active.
+          </p>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-container text-primary font-label-md text-label-md font-semibold" id="spotlight-sla">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Est. Completion: Today by 4:30 PM (3.5h remaining)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. 6-Stage Vertical Lifecycle Tracker -->
+<div class="px-space-md mb-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<h3 class="font-title text-title text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">timeline</span>
+          Resolution Lifecycle
+        </h3>
+<span class="font-label-sm text-label-sm text-tertiary bg-surface-container px-2 py-0.5 rounded-full">Step 4 of 6</span>
+</div>
+<!-- Tracker Stepper -->
+<div class="relative pl-1">
+<!-- Step 1: Complete -->
+<div class="flex items-start gap-space-sm relative pb-5">
+<div class="absolute left-3.5 top-6 bottom-0 w-0.5 bg-primary"></div>
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex-1 min-w-0 pt-0.5">
+<div class="flex items-center justify-between">
+<p class="font-body-md text-body-md font-semibold text-on-surface">1. Citizen Report Submitted</p>
+<span class="font-code-sm text-code-sm text-on-surface-variant">09:14 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Automated geo-tagging &amp; photo validation complete.</p>
+</div>
+</div>
+<!-- Step 2: Complete -->
+<div class="flex items-start gap-space-sm relative pb-5">
+<div class="absolute left-3.5 top-6 bottom-0 w-0.5 bg-primary"></div>
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex-1 min-w-0 pt-0.5">
+<div class="flex items-center justify-between">
+<p class="font-body-md text-body-md font-semibold text-on-surface">2. Under Review by Officer</p>
+<span class="font-code-sm text-code-sm text-on-surface-variant">10:22 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Assigned P1 hazard score by Municipal Dispatch AI.</p>
+</div>
+</div>
+<!-- Step 3: Complete -->
+<div class="flex items-start gap-space-sm relative pb-5">
+<div class="absolute left-3.5 top-6 bottom-0 w-0.5 bg-primary"></div>
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[16px] font-bold">check</span>
+</div>
+<div class="flex-1 min-w-0 pt-0.5">
+<div class="flex items-center justify-between">
+<p class="font-body-md text-body-md font-semibold text-on-surface">3. Dispatched to Crew</p>
+<span class="font-code-sm text-code-sm text-on-surface-variant">11:05 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Assigned to SDOT Roads Unit 4 (Lead: Marcus Chen).</p>
+</div>
+</div>
+<!-- Step 4: Active Highlight -->
+<div class="flex items-start gap-space-sm relative pb-5" id="step-4-row">
+<div class="absolute left-3.5 top-6 bottom-0 w-0.5 bg-surface-container-highest" id="step-4-line"></div>
+<div class="w-7 h-7 rounded-full bg-secondary text-on-secondary flex items-center justify-center z-10 shrink-0 shadow-md ring-4 ring-secondary/20" id="step-4-icon-circle">
+<span class="material-symbols-outlined text-[16px] animate-spin">sync</span>
+</div>
+<div class="flex-1 min-w-0 pt-0.5 bg-surface-container-low p-2.5 rounded-lg -mr-1" id="step-4-box">
+<div class="flex items-center justify-between">
+<p class="font-title text-title font-semibold text-on-surface flex items-center gap-1.5">
+                4. In Progress on Site
+                <span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+</p>
+<span class="font-code-sm text-code-sm font-semibold text-secondary">01:15 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Crew deployed safety pylons and begun cold-patch surfacing.</p>
+</div>
+</div>
+<!-- Step 5: Pending -->
+<div class="flex items-start gap-space-sm relative pb-5" id="step-5-row">
+<div class="absolute left-3.5 top-6 bottom-0 w-0.5 bg-surface-container-highest"></div>
+<div class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center z-10 shrink-0" id="step-5-icon-circle">
+<span class="material-symbols-outlined text-[15px]">pending_actions</span>
+</div>
+<div class="flex-1 min-w-0 pt-0.5">
+<div class="flex items-center justify-between">
+<p class="font-body-md text-body-md font-medium text-tertiary" id="step-5-title">5. Resolution Submitted</p>
+<span class="font-code-sm text-code-sm text-tertiary">Est. 03:45 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-tertiary mt-0.5">Field photo proof &amp; material telemetry upload.</p>
+</div>
+</div>
+<!-- Step 6: Pending -->
+<div class="flex items-start gap-space-sm relative">
+<div class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center z-10 shrink-0" id="step-6-icon-circle">
+<span class="material-symbols-outlined text-[15px]">verified_user</span>
+</div>
+<div class="flex-1 min-w-0 pt-0.5">
+<div class="flex items-center justify-between">
+<p class="font-body-md text-body-md font-medium text-tertiary" id="step-6-title">6. Municipal Verification</p>
+<span class="font-code-sm text-code-sm text-tertiary">Est. Today</span>
+</div>
+<p class="font-body-sm text-body-sm text-tertiary mt-0.5">Ward 8 Engineer sign-off &amp; automated citizen close-loop.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Repair & Resolution Evidence (Before vs After) -->
+<div class="px-space-md mb-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<h3 class="font-title text-title text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">compare</span>
+          Resolution Evidence Proof
+        </h3>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary font-semibold bg-surface-container px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[13px]">auto_awesome</span>
+          AI Visual Match: 98%
+        </span>
+</div>
+<!-- Before / After Photo Display (Vertical Stack Mobile Optimized) -->
+<div class="space-y-space-sm">
+<!-- Before Card -->
+<div class="bg-surface rounded-lg overflow-hidden shadow-sm">
+<div class="relative h-44 w-full">
+<img class="w-full h-full object-cover" data-alt="High angle close-up documentary photo of a dangerous asphalt road pothole 30cm deep filled with loose gravel and cracked pavement edge near a city curb, daylight natural outdoor lighting, urban street setting with teal spray paint hazard markings." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEUmAC6LgbNBAD6P_KcsGRpk3ezYBFqUzrIdeeIwmX9gtUUWtjfItDcTLsLjrX1e-CLYEDjK2OKIn-MGsiWG0RNrx41CwVbm1ZSLg5DiHepCWsAT13TMpquK2Wxrs9pwwyesZMCjkwAMPyy-biNmzpwTcbWf34PkWn9Af_xctHKsw7mUsgYOvmZNOSzcAhV9g1Md-JrTOmcQaDaj7niogPrq15tRqrZo3gUnaV95uRhMb45w0yG7nI"/>
+<div class="absolute top-2 left-2 px-2.5 py-1 rounded bg-inverse-surface/85 backdrop-blur text-inverse-on-surface font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[13px] text-error-container">report_problem</span>
+              BEFORE · Hazard Reported
+            </div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-inverse-surface/75 text-inverse-on-surface font-code-sm text-code-sm">
+              10 Oct 2026 · 09:14 AM
+            </div>
+</div>
+<div class="p-2.5 bg-surface-container-low flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span>
+              Citizen Upload (Original)
+            </span>
+<span class="font-code-sm text-code-sm text-tertiary">GPS: 13.0850° N, 80.2101° E</span>
+</div>
+</div>
+<!-- After / Work-in-Progress Card -->
+<div class="bg-surface rounded-lg overflow-hidden shadow-sm">
+<div class="relative h-44 w-full">
+<img class="w-full h-full object-cover" data-alt="Documentary field photo of fresh dark smooth compacted asphalt pavement repair on a suburban street, steam rising subtly from freshly laid tar patch, orange traffic pylon nearby, municipal public works precision restoration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeR1azbFylFlyZIlS8dKwxmdA78nN5L-Z3QZy1DcGhTdb9TzVY9xLd_qMdRSygTpUHABSsZosXW8Tsi2oKLFOvuqnnmIhuPb-EPKNGFpKnMTrFq98ZIOnSIAKVUMK4xRQ3H-RH0Y44-jls09UgrYjh7ZFJgR3tLHoZJiAbXt6hPQ5h2vuhZdgX8boqDLvznJOH77iUGld6WHRk26XY8uVonm95VjEtg3-_wO2LV03NziEhGbgyhlhO"/>
+<div class="absolute top-2 left-2 px-2.5 py-1 rounded bg-primary/90 backdrop-blur text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">task_alt</span>
+              AFTER · Compaction &amp; Resurface Proof
+            </div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-inverse-surface/75 text-inverse-on-surface font-code-sm text-code-sm">
+              10 Oct 2026 · 01:25 PM
+            </div>
+</div>
+<div class="p-2.5 bg-surface-container-low flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Crew Lead Certified Upload
+            </span>
+<span class="font-code-sm text-code-sm text-tertiary">GPS: 13.0851° N, 80.2102° E</span>
+</div>
+</div>
+</div>
+<!-- Evidence Verification Callout -->
+<div class="mt-space-sm p-3 rounded-lg bg-surface-container flex items-start gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">policy</span>
+<div class="text-on-surface font-body-sm text-body-sm leading-snug">
+<span class="font-semibold text-secondary">Awaiting Officer Verification:</span>
+          Field Crew Lead Marcus Chen uploaded geo-stamped photos. Official municipal sign-off and compaction audit pending.
+        </div>
+</div>
+</div>
+</div>
+<!-- 4. Assigned Field Crew Card -->
+<div class="px-space-md mb-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<h3 class="font-title text-title text-on-surface font-semibold flex items-center gap-2 mb-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">groups</span>
+        Assigned Municipal Team
+      </h3>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low mb-space-sm">
+<div class="relative w-12 h-12 rounded-full overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Portrait photo of Marcus Chen, an East Asian civil municipal engineer wearing a high-visibility fluorescent orange safety vest, white hardhat, calm confident professional demeanor, outdoor city project backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEzaQifl_6mFCtSGFcJZH7ekxW6zqEo6IPM25ODUNuRlha2JGtpq0NzsI_j1lxsVpPzgup83GwszuS0HRbscz4na62Kvd70j2aghHN9aFopDnNJ1m6y0s1MhocNj99lFdUUu3GJwHVsOtKKRYD4n6DAzlbMRm7DIRe5XZMhQhh00i3dnqLnxqNqyctCBwwIKl8kNYpsaFMdIKMZCnGaKtrMLCIQdvN4EXxWO_tJ3J60iqH6BWfHXlJ"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h4 class="font-title text-title text-on-surface font-semibold truncate">Marcus Chen</h4>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-medium">#FW-882</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Lead Field Engineer · SDOT Roads Unit 4</p>
+<div class="flex items-center gap-3 mt-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+              Dispatched 11:05 AM
+            </span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-center">
+<div class="p-2.5 rounded-lg bg-surface-container">
+<div class="font-label-sm text-label-sm text-tertiary">Vehicles On-Site</div>
+<div class="font-title text-title font-semibold text-on-surface mt-0.5">Roller T-12 &amp; Truck 44</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container">
+<div class="font-label-sm text-label-sm text-tertiary">Material Telemetry</div>
+<div class="font-title text-title font-semibold text-on-surface mt-0.5">Cold Mix Type 3B</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. Location & Map Snapshot -->
+<div class="px-space-md mb-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<h3 class="font-title text-title text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">map</span>
+          Incident Geo-Location
+        </h3>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Zone 4B · Ward 8</span>
+</div>
+<!-- Map Div with data-location -->
+<div class="relative w-full h-44 rounded-lg overflow-hidden shadow-sm mb-space-sm" data-location="2nd Ave, Anna Nagar, Chennai" style="">
+<div class="w-full h-full bg-surface-container-high flex flex-col items-center justify-center relative">
+<!-- Stylized map marker badge -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim/40 to-transparent"></div>
+<div class="relative flex flex-col items-center z-10">
+<div class="w-10 h-10 rounded-full bg-error text-on-error flex items-center justify-center shadow-lg ring-4 ring-error/20 animate-bounce">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+<div class="mt-1 px-2.5 py-1 rounded-full bg-inverse-surface/90 text-inverse-on-surface font-label-sm text-label-sm font-semibold shadow-md">
+              Bus Shelter 14-B Pothole
+            </div>
+</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low mb-space-sm">
+<p class="font-title text-title text-on-surface font-medium">2nd Avenue, Opp. Bus Shelter 14-B</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Near Anna Nagar Roundtana, Ward 8, Anna Nagar West</p>
+</div>
+<button class="w-full h-11 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-title text-title font-semibold flex items-center justify-center gap-2 transition-colors active:scale-[0.99]" type="button">
+<span class="material-symbols-outlined text-[20px]">near_me</span>
+        Open in Navigation Map
+      </button>
+</div>
+</div>
+<!-- 6. Original Citizen Report & Context (Expandable) -->
+<div class="px-space-md mb-space-md">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container transition-colors" onclick="toggleDetails()" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">description</span>
+<span class="font-title text-title text-on-surface font-semibold">Original Citizen Submission</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform duration-200" id="expand-icon">expand_more</span>
+</button>
+<div class="px-space-md pb-space-md hidden space-y-space-sm pt-1" id="details-content">
+<div class="p-3 rounded-lg bg-surface-container-low">
+<div class="font-label-sm text-label-sm text-tertiary mb-1">Citizen Narrative</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+            "Deep pothole directly in the front bus boarding bay. Two two-wheelers skid this morning due to muddy water filling the cavity. Needs urgent asphalt leveling before evening rush hour."
+          </p>
+</div>
+<div class="grid grid-cols-2 gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<div class="p-2.5 rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-tertiary block">Reported By</span>
+<span class="font-medium text-on-surface">Karthik R. (Verified Resident)</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container">
+<span class="font-label-sm text-label-sm text-tertiary block">AI Hazard Index</span>
+<span class="font-medium text-error font-semibold">Score: 8.7 / 10 (Critical)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 7. Chronological Event Activity Feed -->
+<div class="px-space-md mb-space-lg">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<h3 class="font-title text-title text-on-surface font-semibold flex items-center gap-2 mb-space-md">
+<span class="material-symbols-outlined text-primary text-[20px]">history</span>
+        Audit Activity Trail
+      </h3>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary mt-1.5 shrink-0"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Crew Arrived on Location</span>
+<span class="font-code-sm text-code-sm text-tertiary">01:15 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Geo-fence trigger: Marcus Chen vehicle reached within 20m of site.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Work Order #WO-492 Issued</span>
+<span class="font-code-sm text-code-sm text-tertiary">11:05 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Automated job dispatch routed to nearest standby road maintenance squad.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-2 h-2 rounded-full bg-primary mt-1.5 shrink-0"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Automated AI Assessment</span>
+<span class="font-code-sm text-code-sm text-tertiary">09:15 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Pothole diameter computed at 1.2m, classified high-risk priority.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 8. Citizen Interaction Deck (Action Buttons) -->
+<div class="px-space-md space-y-2.5">
+<button class="w-full h-11 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-title text-title font-semibold flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.99]" onclick="openFeedbackModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">add_comment</span>
+      Provide Additional Details or Note
+    </button>
+<button class="w-full h-11 rounded-lg bg-surface-container text-tertiary font-title text-title font-semibold flex items-center justify-center gap-2 transition-colors cursor-not-allowed opacity-60" disabled="" id="btn-reopen-action" type="button">
+<span class="material-symbols-outlined text-[20px]">restart_alt</span>
+      Request Re-evaluation (Available Once Resolved)
+    </button>
+</div>
+</div>
+<script>
+  function copyRefId() {
+    const text = "#CF-2026-00124";
+    navigator.clipboard.writeText(text).then(() => {
+      const copyIcon = document.getElementById('copy-icon');
+      const copyBtn = document.getElementById('copy-btn');
+      if (copyIcon && copyBtn) {
+        copyIcon.textContent = 'done';
+        copyBtn.classList.add('bg-primary-fixed', 'text-primary');
+        setTimeout(() => {
+          copyIcon.textContent = 'content_copy';
+          copyBtn.classList.remove('bg-primary-fixed', 'text-primary');
+        }, 1800);
+      }
+    }).catch(() => {});
+  }
+
+  function toggleDetails() {
+    const content = document.getElementById('details-content');
+    const icon = document.getElementById('expand-icon');
+    if (content.classList.contains('hidden')) {
+      content.classList.remove('hidden');
+      icon.style.transform = 'rotate(180deg)';
+    } else {
+      content.classList.add('hidden');
+      icon.style.transform = 'rotate(0deg)';
+    }
+  }
+
+  function setScreenState(state) {
+    const states = ['in_progress', 'submitted', 'resolved', 'reopened'];
+    states.forEach(s => {
+      const btn = document.getElementById('btn-state-' + s);
+      if (btn) {
+        if (s === state) {
+          btn.className = "py-1.5 px-1 rounded-md text-center font-label-sm text-label-sm bg-surface-container-lowest text-primary font-semibold shadow-sm transition-all";
+        } else {
+          btn.className = "py-1.5 px-1 rounded-md text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all";
+        }
+      }
+    });
+
+    const stateLabel = document.getElementById('current-state-label');
+    const badgeStatusText = document.getElementById('badge-status-text');
+    const spotlightTitle = document.getElementById('spotlight-title');
+    const spotlightDesc = document.getElementById('spotlight-desc');
+    const spotlightIcon = document.getElementById('spotlight-icon');
+    const reopenBtn = document.getElementById('btn-reopen-action');
+
+    if (state === 'in_progress') {
+      stateLabel.textContent = "In Progress";
+      badgeStatusText.textContent = "In Progress";
+      spotlightTitle.textContent = "In Progress: Active Repair Underway";
+      spotlightDesc.textContent = "SDOT Roads Unit 4 is on site. Cold-mix asphalt application and roller compaction active.";
+      spotlightIcon.textContent = "engineering";
+      reopenBtn.disabled = true;
+      reopenBtn.className = "w-full h-11 rounded-lg bg-surface-container text-tertiary font-title text-title font-semibold flex items-center justify-center gap-2 transition-colors cursor-not-allowed opacity-60";
+      reopenBtn.textContent = "Request Re-evaluation (Available Once Resolved)";
+    } else if (state === 'submitted') {
+      stateLabel.textContent = "Resolution Submitted";
+      badgeStatusText.textContent = "Resolution Submitted";
+      spotlightTitle.textContent = "Resolution Submitted: Pending Inspection";
+      spotlightDesc.textContent = "Crew lead has uploaded resurfacing evidence and compaction logs. Ward 8 inspector assigned.";
+      spotlightIcon.textContent = "assignment_turned_in";
+      reopenBtn.disabled = true;
+      reopenBtn.className = "w-full h-11 rounded-lg bg-surface-container text-tertiary font-title text-title font-semibold flex items-center justify-center gap-2 transition-colors cursor-not-allowed opacity-60";
+      reopenBtn.textContent = "Request Re-evaluation (Available Once Resolved)";
+    } else if (state === 'resolved') {
+      stateLabel.textContent = "Resolved";
+      badgeStatusText.textContent = "Resolved & Verified";
+      spotlightTitle.textContent = "Issue Resolved: Municipal Sign-off Complete";
+      spotlightDesc.textContent = "Senior Ward Inspector signed off at 03:42 PM. Road surface restored to smooth grade.";
+      spotlightIcon.textContent = "task_alt";
+      reopenBtn.disabled = false;
+      reopenBtn.className = "w-full h-11 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-error font-title text-title font-semibold flex items-center justify-center gap-2 transition-colors active:scale-[0.99] cursor-pointer";
+      reopenBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">restart_alt</span> Request Re-evaluation';
+    } else if (state === 'reopened') {
+      stateLabel.textContent = "Reopened";
+      badgeStatusText.textContent = "Re-evaluation Active";
+      spotlightTitle.textContent = "Reopened: Citizen Review Requested";
+      spotlightDesc.textContent = "Citizen indicated uneven tarmac settling. Re-inspection dispatched for SDOT quality check.";
+      spotlightIcon.textContent = "history";
+      reopenBtn.disabled = true;
+      reopenBtn.className = "w-full h-11 rounded-lg bg-surface-container text-tertiary font-title text-title font-semibold flex items-center justify-center gap-2 transition-colors cursor-not-allowed opacity-60";
+      reopenBtn.textContent = "Re-evaluation Already in Queue";
+    }
+  }
+
+  function openFeedbackModal() {
+    alert("Feedback note modal triggered: Citizens can attach supplementary photos or location notes.");
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-primary font-title"><div class="h-16 px-space-sm flex items-center justify-around"><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-on-surface transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">home</span><span class="font-label-sm text-label-sm tracking-normal">Home</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] h-11 transition-colors text-primary font-title" data-path="my-reports" href="#"><span class="material-symbols-outlined text-[22px]">assignment</span><span class="font-label-sm text-label-sm tracking-normal">My Reports</span></a><a class="flex items-center justify-center min-w-[44px] h-11" data-path="new-report" href="#"><div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-md hover:bg-primary-container transition-transform active:scale-95"><span class="material-symbols-outlined text-[24px]">add</span></div></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-on-surface transition-colors" data-path="live-map" href="#"><span class="material-symbols-outlined text-[22px]">map</span><span class="font-label-sm text-label-sm tracking-normal">Live Map</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-11 text-on-surface-variant hover:text-on-surface transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-label-sm text-label-sm tracking-normal">Profile</span></a></div></nav></body></html>
