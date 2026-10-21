@@ -33,16 +33,17 @@ describe('AuthService Stabilization Tests', () => {
   });
 
   test('Defect 3: Registering citizen via email with no phone does not collide with Alex Morgan', async () => {
+    const uniqueEmail = `subramanian.test.${Date.now()}@chennaicivic.in`;
     const registered = await authService.registerCitizen({
       name: 'Dr. Subramanian',
-      email: 'subramanian.test@chennaicivic.in',
+      email: uniqueEmail,
       phone: '',
       ward: 'Ward 08, Anna Nagar, Chennai',
       password: 'CustomSecurePass#999'
     });
 
     assert.ok(registered.id, 'Registered user should have an ID');
-    assert.equal(registered.email, 'subramanian.test@chennaicivic.in');
+    assert.equal(registered.email, uniqueEmail);
     assert.equal(registered.phone, '', 'Phone should be empty string, NOT Alex Morgan phone');
     assert.notEqual(registered.phone, '+91 98401 23456', 'Must not default to Alex Morgan phone number');
   });
@@ -55,10 +56,12 @@ describe('AuthService Stabilization Tests', () => {
 
   test('Defect 4: Registered citizen with custom password REJECTS universal demo password', async () => {
     const customPass = 'UniqueSecret123!';
+    const uniqueEmail = `ravi.kumar.${Date.now()}@chennai.org`;
+    const uniquePhone = `+91 979${String(Date.now()).slice(-7)}`;
     await authService.registerCitizen({
       name: 'Ravi Kumar',
-      email: 'ravi.kumar@chennai.org',
-      phone: '+91 97910 11223',
+      email: uniqueEmail,
+      phone: uniquePhone,
       ward: 'Ward 04',
       password: customPass
     });
@@ -66,10 +69,13 @@ describe('AuthService Stabilization Tests', () => {
     // Attempt login with universal demo password - MUST FAIL
     await assert.rejects(
       async () => {
-        await authService.login('ravi.kumar@chennai.org', 'CivicSecure#2026!');
+        await authService.login(uniqueEmail, 'CivicSecure#2026!');
       },
       (err) => {
-        assert.match(err.message, /Incorrect password/);
+        assert.ok(
+          /Incorrect password|Invalid credentials/i.test(err.message),
+          `Expected password rejection message, got: ${err.message}`
+        );
         return true;
       },
       'Universal demo password bypass should be blocked for accounts with custom passwords'

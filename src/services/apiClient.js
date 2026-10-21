@@ -9,7 +9,20 @@
  * - Backward-compatible fallback toggle for seamless Sprint transition
  */
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+export const getApiBaseUrl = () => {
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  if (typeof process !== 'undefined' && process.env && process.env.VITE_API_BASE_URL) {
+    return process.env.VITE_API_BASE_URL;
+  }
+  if (typeof window !== 'undefined' && window.location) {
+    return '/api';
+  }
+  return 'http://localhost:8080/api';
+};
+
+export const API_BASE_URL = getApiBaseUrl();
 
 /**
  * Extracts a cookie value by name from document.cookie
@@ -24,7 +37,17 @@ export const getCookie = (name) => {
  * Core HTTP Request Wrapper
  */
 export async function apiRequest(endpoint, options = {}) {
-  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+  const baseUrl = getApiBaseUrl();
+  let url;
+  if (endpoint.startsWith('http://') || endpoint.startsWith('https://')) {
+    url = endpoint;
+  } else if (baseUrl.startsWith('http://') || baseUrl.startsWith('https://')) {
+    url = `${baseUrl}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+  } else if (typeof window !== 'undefined' && window.location) {
+    url = `${baseUrl}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+  } else {
+    url = `http://localhost:8080${baseUrl.startsWith('/') ? '' : '/'}${baseUrl}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+  }
 
   const headers = {
     'Accept': 'application/json',
@@ -74,8 +97,14 @@ export async function apiRequest(endpoint, options = {}) {
 
     return data;
   } catch (err) {
-    if (err.name === 'TypeError' && err.message.includes('Failed to fetch')) {
-      throw new Error(`Cannot connect to CivicFix backend at ${API_BASE_URL}. Ensure Spring Boot is running.`);
+    if (
+      err.name === 'TypeError' ||
+      err.code === 'ECONNREFUSED' ||
+      (err.message && (err.message.includes('fetch') || err.message.includes('Failed to parse URL')))
+    ) {
+      const connErr = new Error(`Cannot connect to CivicFix backend at ${url}. Ensure Spring Boot is running.`);
+      connErr.status = 0;
+      throw connErr;
     }
     throw err;
   }

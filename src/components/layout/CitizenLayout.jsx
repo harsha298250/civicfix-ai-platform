@@ -122,9 +122,20 @@ export const CitizenLayout = () => {
                   <div className="px-4 py-2 border-b border-outline-variant/30">
                     <p className="font-semibold text-sm text-on-surface">{currentUser?.name || 'Resident'}</p>
                     <p className="text-xs text-tertiary">{currentUser?.email || ''}</p>
-                    <span className="inline-block mt-1 px-2 py-0.5 rounded-full bg-surface-container-low text-primary text-[10px] font-semibold">
-                      {currentUser?.ward || 'Registered Citizen'}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                      <span className="px-2 py-0.5 rounded-full bg-surface-container-low text-primary text-[10px] font-semibold">
+                        {currentUser?.ward || 'Registered Citizen'}
+                      </span>
+                      {currentUser?.isLiveBackend ? (
+                        <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-semibold">
+                          Live DB
+                        </span>
+                      ) : (
+                        <span className="px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[9px] font-semibold">
+                          Demo Mode
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <Link
                     to="/citizen/profile"

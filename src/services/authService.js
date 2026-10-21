@@ -1,4 +1,5 @@
 import { INITIAL_USERS } from './mockData.js';
+import { apiClient } from './apiClient.js';
 import {
   canonicalizeContact,
   detectContactType,
@@ -144,25 +145,67 @@ export const authService = {
   /**
    * Terminate active user session
    */
-  logout: () => {
+  logout: async () => {
+    localStorage.removeItem(CURRENT_USER_KEY);
     try {
-      localStorage.removeItem(CURRENT_USER_KEY);
+      await apiClient.auth.logout();
     } catch (e) {
-      console.warn('LocalStorage logout failed', e);
+      // Backend may be offline or unreachable, ignore network failure on logout
     }
   },
 
   /**
-   * Switch role for demo & rapid testing
+   * Check active server session via GET /api/auth/me
+   */
+  checkSession: async () => {
+    try {
+      const res = await apiClient.auth.getCurrentUser();
+      const backendUser = res?.data || res;
+      if (backendUser && backendUser.id) {
+        const liveUser = {
+          id: String(backendUser.id),
+          name: backendUser.name || 'Citizen User',
+          email: backendUser.email || '',
+          phone: backendUser.phone || '',
+          role: backendUser.role || 'CITIZEN',
+          roles: backendUser.roles || [backendUser.role || 'CITIZEN'],
+          department: backendUser.department || '',
+          ward: backendUser.ward || 'Ward 08, Anna Nagar, Chennai',
+          trustScore: backendUser.trustScore ?? 90,
+          status: backendUser.accountStatus || 'ACTIVE',
+          isLiveBackend: true,
+          authSource: 'POSTGRESQL_BACKEND'
+        };
+        authService.setCurrentUser(liveUser);
+        return liveUser;
+      }
+    } catch (err) {
+      if (err.status === 401 || err.status === 403) {
+        authService.setCurrentUser(null);
+        return null;
+      }
+    }
+    return authService.getCurrentUser();
+  },
+
+  /**
+   * Switch role for demo & rapid testing (explicitly non-authoritative client persona switch)
    */
   switchRole: (role) => {
     const users = getStoredUsers();
     const targetUser = users.find((u) => u.role === role) || INITIAL_USERS.find((u) => u.role === role) || INITIAL_USERS[0];
-    return authService.setCurrentUser(targetUser);
+    const demoPersona = {
+      ...targetUser,
+      isLiveBackend: false,
+      isDemoMode: true,
+      authSource: 'DEMO_PERSONA_SWITCH'
+    };
+    return authService.setCurrentUser(demoPersona);
   },
 
   /**
    * Log in via Email OR Indian Mobile Number (+91 XXXXX XXXXX or 10 digits)
+   * Connects to Spring Boot POST /api/auth/login backed by PostgreSQL
    */
   login: async (identifier, password) => {
     if (!identifier || !identifier.trim()) {
@@ -173,7 +216,63 @@ export const authService = {
     }
 
     const trimmed = identifier.trim();
-    const contactType = detectContactType(trimmed);
+
+    // 1. Attempt Real Backend Authentication against PostgreSQL Spring Boot API
+    try {
+      const response = await apiClient.auth.login(trimmed, password);
+      const backendUser = response?.data || response;
+
+      const legacyIdMap = {
+        '00000000-0000-0000-0000-000000000001': 'usr-001',
+        '00000000-0000-0000-0000-000000000002': 'usr-002',
+        '00000000-0000-0000-0000-000000000003': 'usr-003',
+        '00000000-0000-0000-0000-000000000004': 'usr-004'
+      };
+
+      const user = {
+        id: legacyIdMap[String(backendUser.id)] || String(backendUser.id),
+        backendId: String(backendUser.id),
+        name: backendUser.name || 'Citizen User',
+        email: backendUser.email || trimmed,
+        phone: backendUser.phone || '',
+        role: backendUser.role || 'CITIZEN',
+        roles: backendUser.roles || [backendUser.role || 'CITIZEN'],
+        department: backendUser.department || '',
+        ward: backendUser.ward || 'Ward 08, Anna Nagar, Chennai',
+        trustScore: backendUser.trustScore ?? 90,
+        status: backendUser.accountStatus || 'ACTIVE',
+        isLiveBackend: true,
+        authSource: 'POSTGRESQL_BACKEND'
+      };
+
+      authService.setCurrentUser(user);
+      clearFailedLogin(canonicalizeContact(trimmed));
+      return user;
+    } catch (apiError) {
+      // MANDATORY SECURITY SAFEGUARD:
+      // Never silently fall back to mock data after an authentication or authorization failure (401/403/400).
+      if (apiError.status === 401 || apiError.status === 403 || apiError.status === 400) {
+        const errorMsg = apiError.data?.message || apiError.message || 'Invalid credentials. Please verify your email or mobile number and password.';
+        throw new Error(errorMsg);
+      }
+
+      // Check if it is a genuine network connection failure (backend unreachable)
+      const isNetworkError =
+        apiError.message &&
+        (apiError.message.includes('Cannot connect to CivicFix backend') ||
+         apiError.message.includes('Failed to fetch') ||
+         apiError.message.includes('NetworkError') ||
+         apiError.message.includes('ECONNREFUSED'));
+
+      if (!isNetworkError) {
+        // Real server error (e.g. 500) must be shown directly
+        throw new Error(apiError.data?.message || apiError.message || 'Backend authentication service error. Please try again.');
+      }
+
+      console.warn('[CivicFix Auth] Backend server unreachable. Falling back to local offline demo mode.');
+    }
+
+    // 2. Offline Demo Fallback (Only executed when backend is unreachable)
     const canonical = canonicalizeContact(trimmed);
 
     // Check rate limit lockout
@@ -189,18 +288,9 @@ export const authService = {
 
     // Match by email or Indian phone number
     const user = allUsers.find((u) => {
-      // Check email match
-      if (u.email && normalizeEmail(u.email) === canonical) {
-        return true;
-      }
-      // Check Indian phone match (normalize both sides for robust matching)
-      if (u.phone && normalizeIndianPhone(u.phone) === canonical) {
-        return true;
-      }
-      // Direct raw phone match
-      if (u.phone && u.phone.replace(/\D/g, '') === trimmed.replace(/\D/g, '')) {
-        return true;
-      }
+      if (u.email && normalizeEmail(u.email) === canonical) return true;
+      if (u.phone && normalizeIndianPhone(u.phone) === canonical) return true;
+      if (u.phone && u.phone.replace(/\D/g, '') === trimmed.replace(/\D/g, '')) return true;
       return false;
     });
 
@@ -217,10 +307,6 @@ export const authService = {
       );
     }
 
-    // Password verification:
-    // 1. If user has a registered passwordHash or explicit password, authenticate ONLY against that credential.
-    // 2. Initial seed demo accounts (without custom passwords) accept the demo preset 'CivicSecure#2026!'.
-    // 3. Prevent arbitrary users with custom passwords from being bypassed by 'CivicSecure#2026!'.
     const isSeedUser = INITIAL_USERS.some((u) => u.id === user.id);
     let passwordMatches = false;
 
@@ -230,7 +316,6 @@ export const authService = {
     } else if (user.password) {
       passwordMatches = user.password === password;
     } else if (isSeedUser) {
-      // Uncustomized seed demo accounts accept the documented demo password
       passwordMatches = password === 'CivicSecure#2026!';
     }
 
@@ -247,8 +332,14 @@ export const authService = {
     // Clear failed attempts on success
     clearFailedLogin(canonical);
 
-    // Save session
-    return authService.setCurrentUser(user);
+    // Save demo session
+    const demoUser = {
+      ...user,
+      isLiveBackend: false,
+      isDemoMode: true,
+      authSource: 'LOCAL_STORAGE_DEMO'
+    };
+    return authService.setCurrentUser(demoUser);
   },
 
   /**
@@ -383,9 +474,68 @@ export const authService = {
     const formattedPhone = phone ? formatIndianPhone(phone) : '';
     const canonicalPhone = phone ? normalizeIndianPhone(phone) : '';
     const canonicalEmail = email ? normalizeEmail(email) : '';
-
-    // Enforce duplicate prevention before saving
     const users = getStoredUsers();
+
+    // 1. Attempt Real Backend Registration against PostgreSQL Spring Boot API
+    try {
+      const res = await apiClient.auth.register({
+        name: name.trim(),
+        email: canonicalEmail || null,
+        phone: formattedPhone || null,
+        ward: ward || 'Ward 08, Anna Nagar, Chennai',
+        password: password || 'CivicSecure#2026!'
+      });
+
+      const backendUser = res?.data || res;
+      const user = {
+        id: backendUser.id ? String(backendUser.id) : `usr-backend`,
+        name: backendUser.name || name.trim(),
+        email: backendUser.email || canonicalEmail,
+        phone: backendUser.phone || formattedPhone,
+        role: 'CITIZEN',
+        roles: ['CITIZEN'],
+        department: backendUser.department || 'Resident Community Member',
+        ward: backendUser.ward || ward || 'Ward 08, Anna Nagar, Chennai',
+        trustScore: backendUser.trustScore ?? 90,
+        status: backendUser.accountStatus || 'ACTIVE',
+        avatar: name
+          .trim()
+          .split(' ')
+          .map((n) => n[0])
+          .join('')
+          .substring(0, 2)
+          .toUpperCase(),
+        isLiveBackend: true,
+        authSource: 'POSTGRESQL_BACKEND'
+      };
+
+      // Also persist to local users list for synchronous offline views
+      const updatedUsers = [user, ...users];
+      saveUsers(updatedUsers);
+      authService.setCurrentUser(user);
+      return user;
+    } catch (apiError) {
+      // NEVER silently fall back on 400 or 409 duplicate errors!
+      if (apiError.status === 400 || apiError.status === 409) {
+        throw new Error(apiError.data?.message || apiError.message || 'Registration rejected by server.');
+      }
+
+      const isNetworkError =
+        apiError.message &&
+        (apiError.message.includes('Cannot connect to CivicFix backend') ||
+         apiError.message.includes('Failed to fetch') ||
+         apiError.message.includes('NetworkError') ||
+         apiError.message.includes('ECONNREFUSED'));
+
+      if (!isNetworkError) {
+        throw new Error(apiError.data?.message || apiError.message || 'Registration server error.');
+      }
+
+      console.warn('[CivicFix Auth] Backend offline. Falling back to local offline demo registration.');
+    }
+
+    // 2. Offline Demo Registration Fallback
+    // Enforce duplicate prevention before saving
     const existing = users.find((u) => {
       if (canonicalEmail && u.email && normalizeEmail(u.email) === canonicalEmail) return true;
       if (canonicalPhone && u.phone && normalizeIndianPhone(u.phone) === canonicalPhone) return true;
@@ -424,7 +574,10 @@ export const authService = {
         contactVerified: true,
         aadhaarStatus: 'DISABLED_BY_DEFAULT',
         verifiedAt: new Date().toISOString()
-      }
+      },
+      isLiveBackend: false,
+      isDemoMode: true,
+      authSource: 'LOCAL_STORAGE_DEMO'
     };
 
     // Save to stored users list
@@ -435,13 +588,6 @@ export const authService = {
     authService.setCurrentUser(newUser);
 
     return newUser;
-  },
-
-  /**
-   * Log out and clear session
-   */
-  logout: () => {
-    localStorage.removeItem(CURRENT_USER_KEY);
   }
 };
 

@@ -54,6 +54,12 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     refreshComplaints();
+    // Validate active session with Spring Boot backend on application bootstrap
+    authService.checkSession()
+      .then((liveUser) => {
+        if (liveUser) setCurrentUser(liveUser);
+      })
+      .catch(() => {});
   }, []);
 
   const switchRole = (role) => {
@@ -130,8 +136,8 @@ export const AppProvider = ({ children }) => {
     return newUser;
   };
 
-  const logout = () => {
-    authService.logout();
+  const logout = async () => {
+    await authService.logout();
     setCurrentUser(null);
     showToast('Signed out of CivicFix AI session.', 'info');
   };

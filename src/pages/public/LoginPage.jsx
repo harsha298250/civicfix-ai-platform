@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { authService } from '../../services/authService';
+import { apiClient } from '../../services/apiClient';
 import { detectContactType, formatIndianPhone, isValidIndianPhone } from '../../utils/phoneUtils';
 
 export const LoginPage = () => {
@@ -13,6 +14,19 @@ export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [backendStatus, setBackendStatus] = useState({ checked: false, online: false });
+
+  useEffect(() => {
+    let mounted = true;
+    apiClient.checkHealth()
+      .then((res) => {
+        if (mounted) setBackendStatus({ checked: true, online: true, version: res?.version || '1.0.0' });
+      })
+      .catch(() => {
+        if (mounted) setBackendStatus({ checked: true, online: false });
+      });
+    return () => { mounted = false; };
+  }, []);
 
   // Quick Demo Account Presets with Indian phone numbers
   const DEMO_PRESETS = [
@@ -53,7 +67,8 @@ export const LoginPage = () => {
     try {
       const user = await authService.login(identifier, password);
       setCurrentUser(user);
-      showToast(`Welcome back, ${user.name}!`, 'success');
+      const modeLabel = user.isLiveBackend ? ' (PostgreSQL Live)' : ' (Demo Mode)';
+      showToast(`Welcome back, ${user.name}!${modeLabel}`, 'success');
 
       if (user.role === 'CITIZEN') navigate('/citizen/dashboard');
       else if (user.role === 'OFFICER') navigate('/officer/dashboard');
@@ -80,6 +95,23 @@ export const LoginPage = () => {
             <p className="text-xs text-[#667384]">
               Unified municipal platform for residents, officers, and field personnel.
             </p>
+
+            {/* Backend Connectivity Status Pill */}
+            {backendStatus.checked && (
+              <div className="pt-2 flex items-center justify-center">
+                {backendStatus.online ? (
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                    Spring Boot & PostgreSQL Connected
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                    Backend Offline (Demo Fallback Active)
+                  </span>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Error Message */}
