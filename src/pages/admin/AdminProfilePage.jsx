@@ -17,16 +17,16 @@ const AdminProfilePage = () => {
       <div className="bg-white rounded-xl border border-[#E2E7ED] shadow-sm p-6 sm:p-8">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 pb-6 border-b border-[#E2E7ED]">
           <div className="w-20 h-20 rounded-2xl bg-purple-100 text-purple-700 font-bold text-3xl flex items-center justify-center border border-purple-200">
-            {currentPersona.name.split(' ').map((n) => n[0]).join('')}
+            {(currentPersona?.name || 'Administrator').split(' ').filter(Boolean).map((n) => n[0]).join('')}
           </div>
           <div className="flex-1 text-center sm:text-left">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-              <h1 className="text-2xl font-bold text-[#18232F]">{currentPersona.name}</h1>
+              <h1 className="text-2xl font-bold text-[#18232F]">{currentPersona?.name || 'Platform Administrator'}</h1>
               <span className="inline-block px-3 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-800">
                 Super Administrator
               </span>
             </div>
-            <p className="text-sm text-[#667384] mt-1">{currentPersona.email}</p>
+            <p className="text-sm text-[#667384] mt-1">{currentPersona?.email || 'admin@metro.gov'}</p>
             <p className="text-xs text-[#667384] mt-0.5">Role: System Architect & Platform Oversight</p>
           </div>
         </div>

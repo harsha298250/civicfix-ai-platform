@@ -28,11 +28,11 @@ export const OfficerProfilePage = () => {
       <div className="bg-surface-container-lowest rounded-2xl p-6 sm:p-8 shadow-sm border border-outline-variant/30 space-y-6">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-white text-xl font-bold shadow-md">
-            {currentUser.avatar || 'EV'}
+            {currentUser?.avatar || 'EV'}
           </div>
           <div>
-            <h2 className="font-headline-sm text-xl font-bold text-on-surface">{currentUser.name}</h2>
-            <p className="text-xs text-on-surface-variant">{currentUser.department}</p>
+            <h2 className="font-headline-sm text-xl font-bold text-on-surface">{currentUser?.name || 'Municipal Officer'}</h2>
+            <p className="text-xs text-on-surface-variant">{currentUser?.department || 'Department of Public Works'}</p>
             <div className="flex items-center gap-2 mt-1">
               <span className="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary-container text-xs font-semibold">
                 Authorized Municipal Officer
@@ -45,11 +45,11 @@ export const OfficerProfilePage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-outline-variant/30 text-xs">
           <div className="p-4 rounded-xl bg-surface-container-low space-y-1">
             <span className="text-tertiary block text-[10px] uppercase">Official Email</span>
-            <span className="font-semibold text-on-surface">{currentUser.email}</span>
+            <span className="font-semibold text-on-surface">{currentUser?.email || 'officer@metro.gov'}</span>
           </div>
           <div className="p-4 rounded-xl bg-surface-container-low space-y-1">
             <span className="text-tertiary block text-[10px] uppercase">Official Contact</span>
-            <span className="font-semibold text-on-surface">{currentUser.phone || '+91 94440 12345'}</span>
+            <span className="font-semibold text-on-surface">{currentUser?.phone || '+91 94440 12345'}</span>
           </div>
           <div className="p-4 rounded-xl bg-surface-container-low space-y-1">
             <span className="text-tertiary block text-[10px] uppercase">Assigned Command Zone</span>

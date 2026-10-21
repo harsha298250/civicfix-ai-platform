@@ -17,6 +17,8 @@ export const WorkerLayout = () => {
 
   const activeTaskCount = myAssignedTasks.filter(c => c.status === COMPLAINT_STATUS.IN_PROGRESS).length;
 
+  const activeTaskId = myAssignedTasks.find(c => c.status === COMPLAINT_STATUS.IN_PROGRESS)?.id || myAssignedTasks[0]?.id || 'CF-2026-00124';
+
   const navItems = [
     { label: 'My Dashboard', path: '/worker/dashboard', icon: 'dashboard' },
     {
@@ -27,19 +29,19 @@ export const WorkerLayout = () => {
     },
     {
       label: 'Task Details',
-      path: '/worker/tasks/CF-2026-00124',
+      path: `/worker/tasks/${activeTaskId}`,
       icon: 'manage_search'
     },
     {
       label: 'Update Progress / Blocker',
-      path: '/worker/tasks/CF-2026-00124/progress',
+      path: `/worker/tasks/${activeTaskId}/progress`,
       icon: 'pending_actions',
       badge: activeTaskCount > 0 ? `${activeTaskCount} Active` : null,
       badgeColor: 'bg-primary-container text-white'
     },
     {
       label: 'Submit Repair Evidence',
-      path: '/worker/tasks/CF-2026-00124/evidence',
+      path: `/worker/tasks/${activeTaskId}/evidence`,
       icon: 'fact_check'
     },
     { label: 'Notifications', path: '/worker/notifications', icon: 'notifications' },
@@ -194,7 +196,7 @@ export const WorkerLayout = () => {
               to="/worker/profile"
               className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold"
             >
-              {currentUser.avatar || 'MC'}
+              {currentUser?.avatar || 'MC'}
             </Link>
           </div>
         </header>

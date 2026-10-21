@@ -13,7 +13,7 @@ export const ComplaintReviewPage = () => {
   const navigate = useNavigate();
   const { complaints, refreshComplaints, addAuditLog, showToast, currentUser } = useApp();
 
-  const complaint = complaints.find(c => c.id.toLowerCase() === (complaintId || '').toLowerCase()) || complaints[0];
+  const complaint = complaints.find(c => c.id.toLowerCase() === (complaintId || '').toLowerCase());
 
   const [selectedWorkerId, setSelectedWorkerId] = useState('usr-003'); // Marcus Chen default
   const [dispatchNotes, setDispatchNotes] = useState('Immediate hydraulic roller compaction required due to transit bus lane traffic.');
@@ -25,9 +25,27 @@ export const ComplaintReviewPage = () => {
 
   if (!complaint) {
     return (
-      <div className="text-center py-12">
-        <p>Complaint not found.</p>
-        <Link to="/officer/complaints" className="text-primary underline">Return to Queue</Link>
+      <div className="w-full flex flex-col gap-6">
+        <Breadcrumb
+          items={[
+            { label: 'Operations Command', path: '/officer/dashboard', icon: 'account_balance' },
+            { label: 'Triage Queue', path: '/officer/complaints' },
+            { label: 'Ticket Not Found' }
+          ]}
+        />
+        <div className="text-center py-16 bg-surface-container-lowest rounded-2xl p-8 max-w-lg mx-auto shadow-sm border border-outline-variant/30 space-y-4">
+          <span className="material-symbols-outlined text-[48px] text-tertiary">search_off</span>
+          <h2 className="text-xl font-bold text-on-surface">Complaint Record Not Found</h2>
+          <p className="text-xs text-on-surface-variant leading-relaxed">
+            Ticket ID #{complaintId} could not be located in the municipal review queue.
+          </p>
+          <Link
+            to="/officer/complaints"
+            className="inline-block px-5 py-2.5 bg-primary-container text-white text-xs font-semibold rounded-xl hover:bg-primary shadow-sm transition-colors"
+          >
+            Return to Complaint Queue
+          </Link>
+        </div>
       </div>
     );
   }
@@ -228,11 +246,11 @@ export const ComplaintReviewPage = () => {
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-sm">
-                      {complaint.assignedWorker.name.split(' ').map(n => n[0]).join('')}
+                      {(complaint.assignedWorker?.name || 'Worker').split(' ').filter(Boolean).map(n => n[0]).join('')}
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm text-on-surface">{complaint.assignedWorker.name}</h4>
-                      <p className="text-xs text-tertiary">{complaint.assignedWorker.unit || 'Rapid Response Maintenance'}</p>
+                      <h4 className="font-bold text-sm text-on-surface">{complaint.assignedWorker?.name || 'Assigned Field Crew'}</h4>
+                      <p className="text-xs text-tertiary">{complaint.assignedWorker?.unit || 'Rapid Response Maintenance'}</p>
                     </div>
                   </div>
                   <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold uppercase tracking-wider">

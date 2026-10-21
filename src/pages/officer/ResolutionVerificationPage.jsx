@@ -11,10 +11,8 @@ export const ResolutionVerificationPage = () => {
   const navigate = useNavigate();
   const { complaints, refreshComplaints, addAuditLog, showToast, currentUser } = useApp();
 
-  // Find ticket or fallback to the anchor ticket
-  const complaint = complaints.find(c => c.id.toLowerCase() === (complaintId || '').toLowerCase()) ||
-    complaints.find(c => c.status === COMPLAINT_STATUS.RESOLUTION_SUBMITTED) ||
-    complaints[0];
+  // Find ticket matching route parameter
+  const complaint = complaints.find(c => c.id.toLowerCase() === (complaintId || '').toLowerCase());
 
   const [approvalNotes, setApprovalNotes] = useState('On-site compaction verified via dual-angle photo proof. Cast-iron seal conforms to municipal standards.');
   const [reworkNotes, setReworkNotes] = useState('');
@@ -22,6 +20,42 @@ export const ResolutionVerificationPage = () => {
   const [showReworkModal, setShowReworkModal] = useState(false);
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [approvedState, setApprovedState] = useState(complaint?.status === COMPLAINT_STATUS.RESOLVED);
+
+  const citizenPhotos = complaint?.photos || [];
+  const [activeCitizenPhotoIdx, setActiveCitizenPhotoIdx] = useState(0);
+
+  const evidencePhotos = complaint?.resolutionEvidence?.photos || [];
+  const [activeAfterPhotoIdx, setActiveAfterPhotoIdx] = useState(0);
+
+  const beforePhoto = citizenPhotos[activeCitizenPhotoIdx] || null;
+  const afterPhoto = evidencePhotos[activeAfterPhotoIdx] || null;
+
+  if (!complaint) {
+    return (
+      <div className="w-full flex flex-col gap-6">
+        <Breadcrumb
+          items={[
+            { label: 'Operations Command', path: '/officer/dashboard', icon: 'account_balance' },
+            { label: 'Verification Queue', path: '/officer/verifications' },
+            { label: 'Record Not Found' }
+          ]}
+        />
+        <div className="text-center py-16 bg-surface-container-lowest rounded-2xl p-8 max-w-lg mx-auto shadow-sm border border-outline-variant/30 space-y-4">
+          <span className="material-symbols-outlined text-[48px] text-tertiary">search_off</span>
+          <h2 className="text-xl font-bold text-on-surface">Verification Record Not Found</h2>
+          <p className="text-xs text-on-surface-variant leading-relaxed">
+            Complaint ticket #{complaintId} could not be located in the verification queue.
+          </p>
+          <Link
+            to="/officer/verifications"
+            className="inline-block px-5 py-2.5 bg-primary-container text-white text-xs font-semibold rounded-xl hover:bg-primary shadow-sm transition-colors"
+          >
+            Return to Verification Queue
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const handleApprove = async () => {
     try {
@@ -71,27 +105,6 @@ export const ResolutionVerificationPage = () => {
       showToast('Action failed.', 'error');
     }
   };
-
-  if (!complaint) {
-    return <div className="text-center py-12">No record to verify.</div>;
-  }
-
-  const citizenPhotos = (complaint.photos && complaint.photos.length > 0)
-    ? complaint.photos
-    : ['https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=600&q=80'];
-  const [activeCitizenPhotoIdx, setActiveCitizenPhotoIdx] = useState(0);
-
-  const evidencePhotos = (complaint.resolutionEvidence?.photos && complaint.resolutionEvidence.photos.length > 0)
-    ? complaint.resolutionEvidence.photos
-    : ['https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80'];
-  
-  // Set default to the latest uploaded photo if multiple exist
-  const [activeAfterPhotoIdx, setActiveAfterPhotoIdx] = useState(
-    evidencePhotos.length > 1 ? evidencePhotos.length - 1 : 0
-  );
-
-  const beforePhoto = citizenPhotos[activeCitizenPhotoIdx] || citizenPhotos[0];
-  const afterPhoto = evidencePhotos[activeAfterPhotoIdx] || evidencePhotos[0];
 
   return (
     <div className="w-full flex flex-col gap-6">
@@ -179,12 +192,20 @@ export const ResolutionVerificationPage = () => {
                 {new Date(complaint.createdAt).toLocaleDateString()}
               </span>
             </div>
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-surface-container border border-outline-variant/40 shadow-inner">
-              <img src={beforePhoto} alt="Before repair defect" className="w-full h-full object-cover" />
-              <div className="absolute bottom-3 left-3 bg-[#111c28]/80 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full">
-                Original Reported Defect {citizenPhotos.length > 1 && `(${activeCitizenPhotoIdx + 1}/${citizenPhotos.length})`}
+            {beforePhoto ? (
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-surface-container border border-outline-variant/40 shadow-inner">
+                <img src={beforePhoto} alt="Before repair defect" className="w-full h-full object-cover" />
+                <div className="absolute bottom-3 left-3 bg-[#111c28]/80 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full">
+                  Original Reported Defect {citizenPhotos.length > 1 && `(${activeCitizenPhotoIdx + 1}/${citizenPhotos.length})`}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-surface-container-low border border-dashed border-outline-variant flex flex-col items-center justify-center p-6 text-center text-tertiary">
+                <span className="material-symbols-outlined text-[40px] text-slate-400 mb-2">no_photography</span>
+                <p className="text-xs font-semibold text-on-surface">No Intake Photograph Attached</p>
+                <p className="text-[11px] text-tertiary mt-0.5">Report submitted by resident without photographic attachment.</p>
+              </div>
+            )}
 
             {citizenPhotos.length > 1 && (
               <div className="flex items-center gap-1.5 pt-1 overflow-x-auto">
@@ -218,16 +239,24 @@ export const ResolutionVerificationPage = () => {
                 <span>2. Field Crew Proof ({evidencePhotos.length} {evidencePhotos.length === 1 ? 'Photo' : 'Photos'})</span>
               </span>
               <span className="text-tertiary font-code">
-                {complaint.resolutionEvidence?.submittedDate ? new Date(complaint.resolutionEvidence.submittedDate).toLocaleDateString() : 'Just now'}
+                {complaint.resolutionEvidence?.submittedDate ? new Date(complaint.resolutionEvidence.submittedDate).toLocaleDateString() : 'Pending'}
               </span>
             </div>
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-surface-container border border-outline-variant/40 shadow-inner">
-              <img src={afterPhoto} alt="After repair proof" className="w-full h-full object-cover" />
-              <div className="absolute bottom-3 left-3 bg-emerald-950/85 backdrop-blur-md text-emerald-200 text-[10px] px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                <span className="material-symbols-outlined text-[12px]">check</span>
-                <span>Verified Repair Completed — Proof #{activeAfterPhotoIdx + 1} of {evidencePhotos.length}</span>
+            {afterPhoto ? (
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-surface-container border border-outline-variant/40 shadow-inner">
+                <img src={afterPhoto} alt="After repair proof" className="w-full h-full object-cover" />
+                <div className="absolute bottom-3 left-3 bg-emerald-950/85 backdrop-blur-md text-emerald-200 text-[10px] px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                  <span className="material-symbols-outlined text-[12px]">check</span>
+                  <span>Verified Repair Completed — Proof #{activeAfterPhotoIdx + 1} of {evidencePhotos.length}</span>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-surface-container-low border border-dashed border-outline-variant flex flex-col items-center justify-center p-6 text-center text-tertiary">
+                <span className="material-symbols-outlined text-[40px] text-slate-400 mb-2">pending_actions</span>
+                <p className="text-xs font-semibold text-on-surface">Awaiting Completion Evidence</p>
+                <p className="text-[11px] text-tertiary mt-0.5">No resolution photographs uploaded by field crew yet.</p>
+              </div>
+            )}
 
             {/* Interactive Thumbnail Gallery for all field crew evidence photos */}
             {evidencePhotos.length > 1 && (

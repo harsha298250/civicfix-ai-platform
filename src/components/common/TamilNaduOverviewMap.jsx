@@ -2,6 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 
+const escapeHtml = (str) => {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
 const getPriorityColor = (priority) => {
   switch (priority) {
     case 'CRITICAL':
@@ -156,35 +166,43 @@ export const TamilNaduOverviewMap = ({
         });
 
         // Popup HTML
+        const safeId = escapeHtml(c.id);
+        const safePriority = escapeHtml(c.priority);
+        const safeCategory = escapeHtml(c.category || 'Civic Infrastructure');
+        const safeTitle = escapeHtml(c.title);
+        const safeAddress = escapeHtml(c.location?.address || 'Tamil Nadu');
+        const safeStatus = escapeHtml(c.status);
+        const priorityColor = getPriorityColor(c.priority);
+
         const popupContent = document.createElement('div');
         popupContent.className = 'p-1 text-xs font-sans';
         popupContent.innerHTML = `
           <div style="font-family: inherit; min-width: 210px;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-              <span style="font-family: monospace; font-weight: bold; color: #137A70; font-size: 11px;">#${c.id}</span>
+              <span style="font-family: monospace; font-weight: bold; color: #137A70; font-size: 11px;">#${safeId}</span>
               <span style="
-                background: ${getPriorityColor(c.priority)}18;
-                color: ${getPriorityColor(c.priority)};
+                background: ${priorityColor}18;
+                color: ${priorityColor};
                 padding: 1px 6px;
                 border-radius: 9999px;
                 font-weight: 700;
                 font-size: 10px;
-              ">${c.priority}</span>
+              ">${safePriority}</span>
             </div>
             <div style="font-size: 10px; color: #137A70; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">
-              ${c.category || 'Civic Infrastructure'}
+              ${safeCategory}
             </div>
             <h4 style="font-weight: 700; color: #18232F; margin: 0 0 4px 0; font-size: 12px; line-height: 1.3;">
-              ${c.title}
+              ${safeTitle}
             </h4>
             <p style="color: #667384; font-size: 11px; margin: 0 0 6px 0;">
-              📍 ${c.location?.address || 'Tamil Nadu'}
+              📍 ${safeAddress}
             </p>
             <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 5px; border-top: 1px solid #E2E7ED;">
               <span style="font-size: 10px; font-weight: 600; color: #18232F;">
-                Status: ${c.status}
+                Status: ${safeStatus}
               </span>
-              <button id="inspect-btn-${c.id}" style="
+              <button id="inspect-btn-${safeId}" style="
                 background-color: #137A70;
                 color: white;
                 border: none;
@@ -285,9 +303,10 @@ export const TamilNaduOverviewMap = ({
         iconAnchor: [18, 36]
       });
 
+      const safeLabel = escapeHtml(label || `${lat.toFixed(4)}, ${lng.toFixed(4)}`);
       const marker = L.marker([lat, lng], { icon: searchIcon, zIndexOffset: 2000 })
         .addTo(map)
-        .bindPopup(`<b>Searched Location:</b><br/>${label || `${lat.toFixed(4)}, ${lng.toFixed(4)}`}`)
+        .bindPopup(`<b>Searched Location:</b><br/>${safeLabel}`)
         .openPopup();
 
       searchMarkerRef.current = marker;

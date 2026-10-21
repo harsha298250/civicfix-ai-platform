@@ -8,18 +8,28 @@ const UserDetailsPage = () => {
   const navigate = useNavigate();
   const { users, approveStaff, showToast, auditLogs } = useApp();
 
-  const user = users.find((u) => u.id === userId) || users[0];
+  const user = users.find((u) => u.id === userId);
 
   const [activeTab, setActiveTab] = useState('overview');
 
   if (!user) {
     return (
-      <div className="bg-white p-8 rounded-xl border border-[#E2E7ED] text-center">
-        <h2 className="text-xl font-bold text-[#18232F]">User Not Found</h2>
-        <p className="text-sm text-[#667384] mt-2">The requested user ID {userId} does not exist in the directory.</p>
-        <Link to="/admin/users" className="mt-4 inline-block px-4 py-2 bg-[#137A70] text-white rounded-lg text-sm font-semibold">
-          Back to User Directory
-        </Link>
+      <div className="space-y-6">
+        <Breadcrumb
+          items={[
+            { label: 'Admin Console', to: '/admin/dashboard' },
+            { label: 'User Directory', to: '/admin/users' },
+            { label: 'User Not Found' }
+          ]}
+        />
+        <div className="bg-white p-12 rounded-xl border border-[#E2E7ED] text-center max-w-lg mx-auto shadow-sm space-y-4">
+          <span className="material-symbols-outlined text-[48px] text-slate-400">person_off</span>
+          <h2 className="text-xl font-bold text-[#18232F]">User Not Found</h2>
+          <p className="text-sm text-[#667384]">The requested user account #{userId} does not exist in the municipal directory.</p>
+          <Link to="/admin/users" className="inline-block px-5 py-2.5 bg-[#137A70] hover:bg-[#0F625B] text-white rounded-lg text-sm font-semibold transition-colors">
+            Back to User Directory
+          </Link>
+        </div>
       </div>
     );
   }
@@ -43,7 +53,7 @@ const UserDetailsPage = () => {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
             <div className="w-16 h-16 rounded-2xl bg-[#E8F4F1] text-[#137A70] font-bold text-2xl flex items-center justify-center border-2 border-[#137A70]/20 shadow-sm">
-              {user.name.split(' ').map((n) => n[0]).join('')}
+              {(user.name || 'User').split(' ').filter(Boolean).map((n) => n[0]).join('')}
             </div>
             <div>
               <div className="flex items-center gap-3">

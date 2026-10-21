@@ -14,7 +14,7 @@ export const WorkerDashboard = () => {
     c => c.assignedWorker?.id === currentUser.id || c.status === COMPLAINT_STATUS.ASSIGNED || c.status === COMPLAINT_STATUS.IN_PROGRESS
   );
 
-  const activeTask = myTasks.find(c => c.status === COMPLAINT_STATUS.IN_PROGRESS) || myTasks[0] || complaints[0];
+  const activeTask = myTasks.find(c => c.status === COMPLAINT_STATUS.IN_PROGRESS) || myTasks[0] || null;
 
   const inProgressCount = myTasks.filter(c => c.status === COMPLAINT_STATUS.IN_PROGRESS).length;
   const submittedCount = complaints.filter(c => c.status === COMPLAINT_STATUS.RESOLUTION_SUBMITTED).length;
@@ -103,7 +103,7 @@ export const WorkerDashboard = () => {
       </div>
 
       {/* Featured Active Task Card (Direct Workflow Launchpad) */}
-      {activeTask && (
+      {activeTask ? (
         <section className="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-primary-container/40 space-y-4 relative overflow-hidden">
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div className="space-y-1.5">
@@ -189,6 +189,20 @@ export const WorkerDashboard = () => {
               <span>Task Location & Route</span>
             </Link>
           </div>
+        </section>
+      ) : (
+        <section className="bg-surface-container-lowest rounded-2xl p-8 shadow-sm border border-outline-variant/30 text-center space-y-3">
+          <span className="material-symbols-outlined text-[40px] text-tertiary">assignment_turned_in</span>
+          <h2 className="text-base font-bold text-on-surface">No Active Work Orders</h2>
+          <p className="text-xs text-on-surface-variant max-w-sm mx-auto leading-relaxed">
+            You currently have no tasks in progress. View the assigned tasks queue to inspect new work orders.
+          </p>
+          <Link
+            to="/worker/tasks"
+            className="inline-block px-4 py-2 bg-primary-container text-white text-xs font-semibold rounded-xl hover:bg-primary transition-colors"
+          >
+            View Assigned Tasks
+          </Link>
         </section>
       )}
 

@@ -218,7 +218,7 @@ export const RegisterPage = () => {
       const newUser = await authService.registerCitizen({
         name: formData.name,
         email: contactMethod === 'EMAIL' ? formData.email : `${formData.name.toLowerCase().replace(/\s+/g, '')}@citizen.org`,
-        phone: contactMethod === 'MOBILE' ? formData.phone : '+91 98401 23456',
+        phone: contactMethod === 'MOBILE' ? formData.phone : (formData.phone || ''),
         ward: formData.ward,
         password: formData.password
       });

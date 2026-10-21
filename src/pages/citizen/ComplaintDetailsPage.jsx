@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
-import { complaintService } from '../../services/complaintService';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { PriorityBadge } from '../../components/common/PriorityBadge';
 import { Breadcrumb } from '../../components/common/Breadcrumb';
@@ -10,14 +9,12 @@ import { COMPLAINT_STATUS } from '../../constants/statusConstants';
 export const ComplaintDetailsPage = () => {
   const { complaintId } = useParams();
   const navigate = useNavigate();
-  const { complaints, refreshComplaints, showToast, currentUser, isComplaintOwner } = useApp();
+  const { complaints, showToast, currentUser, isComplaintOwner } = useApp();
 
   const complaint = complaints.find(c => c.id.toLowerCase() === (complaintId || '').toLowerCase());
   const isAuthorized = complaint && (isComplaintOwner ? isComplaintOwner(complaint, currentUser) : (
     complaint.citizen?.id === currentUser?.id || (currentUser?.email && complaint.citizen?.email?.toLowerCase() === currentUser?.email.toLowerCase())
   ));
-
-  const [simStatus, setSimStatus] = useState(complaint?.status || COMPLAINT_STATUS.IN_PROGRESS);
 
   if (!complaint) {
     return (
@@ -49,14 +46,6 @@ export const ComplaintDetailsPage = () => {
       </div>
     );
   }
-
-  // Handle demo state switching for evaluator convenience
-  const handleSimState = async (newStatus) => {
-    setSimStatus(newStatus);
-    await complaintService.updateStatus(complaint.id, newStatus);
-    await refreshComplaints();
-    showToast(`Simulation: Ticket #${complaint.id} transitioned to ${newStatus}`, 'info');
-  };
 
   const copyReference = () => {
     navigator.clipboard?.writeText(complaint.id);
@@ -101,53 +90,6 @@ export const ComplaintDetailsPage = () => {
           { label: `#${complaint.id}` }
         ]}
       />
-
-      {/* Interactive State Simulator Controller Banner matching Stitch Design */}
-      <aside
-        aria-label="Interactive State Preview Switcher"
-        className="w-full bg-surface-container-low rounded-2xl p-4 shadow-sm border border-outline-variant/40"
-      >
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
-              <span className="material-symbols-outlined text-[18px]">tune</span>
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-label-sm text-[10px] uppercase font-bold text-secondary">Demo Mode</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
-                <span className="font-title text-xs font-bold text-on-surface">Lifecycle State Simulator</span>
-              </div>
-              <span className="text-[11px] text-on-surface-variant">
-                Cycle through municipal inspection states for this live ticket:
-              </span>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-1.5">
-            {[
-              { id: COMPLAINT_STATUS.IN_PROGRESS, label: '1. In Progress' },
-              { id: COMPLAINT_STATUS.RESOLUTION_SUBMITTED, label: '2. Resolution Submitted' },
-              { id: COMPLAINT_STATUS.RESOLVED, label: '3. Verified Resolved' },
-              { id: COMPLAINT_STATUS.REWORK_REQUESTED, label: '4. Rework Requested' },
-              { id: COMPLAINT_STATUS.REOPENED, label: '5. Reopened' }
-            ].map((btn) => (
-              <button
-                key={btn.id}
-                type="button"
-                onClick={() => handleSimState(btn.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                  currentEffectiveStatus === btn.id
-                    ? 'bg-primary-container text-white shadow-sm'
-                    : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container border border-outline-variant/40'
-                }`}
-              >
-                {btn.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </aside>
 
       {/* Main Ticket Header Card */}
       <section className="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 space-y-4">

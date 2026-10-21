@@ -12,7 +12,7 @@ export const TaskProgressPage = () => {
   const navigate = useNavigate();
   const { complaints, refreshComplaints, addAuditLog, showToast, currentUser } = useApp();
 
-  const task = complaints.find(c => c.id.toLowerCase() === (taskId || '').toLowerCase()) || complaints[0];
+  const task = complaints.find(c => c.id.toLowerCase() === (taskId || '').toLowerCase());
 
   const [progressPercent, setProgressPercent] = useState(task?.progressPercent || 50);
   const [progressNote, setProgressNote] = useState('');
@@ -21,7 +21,30 @@ export const TaskProgressPage = () => {
   const [saving, setSaving] = useState(false);
 
   if (!task) {
-    return <div className="text-center py-12">Task not found.</div>;
+    return (
+      <div className="w-full max-w-4xl mx-auto flex flex-col gap-6">
+        <Breadcrumb
+          items={[
+            { label: 'Field Ops', path: '/worker/dashboard', icon: 'engineering' },
+            { label: 'Tasks', path: '/worker/tasks' },
+            { label: 'Task Not Found' }
+          ]}
+        />
+        <div className="text-center py-16 bg-surface-container-lowest rounded-2xl p-8 max-w-lg mx-auto shadow-sm border border-outline-variant/30 space-y-4">
+          <span className="material-symbols-outlined text-[48px] text-tertiary">search_off</span>
+          <h2 className="text-xl font-bold text-on-surface">Work Order Not Found</h2>
+          <p className="text-xs text-on-surface-variant leading-relaxed">
+            Task ID #{taskId} could not be located in assigned work orders.
+          </p>
+          <Link
+            to="/worker/tasks"
+            className="inline-block px-5 py-2.5 bg-primary-container text-white text-xs font-semibold rounded-xl hover:bg-primary shadow-sm transition-colors"
+          >
+            Return to Work Queue
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   const handleStartWork = async () => {

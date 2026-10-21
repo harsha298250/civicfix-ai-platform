@@ -1,4 +1,4 @@
-import { COMPLAINT_STATUS } from '../constants/statusConstants';
+import { COMPLAINT_STATUS } from '../constants/statusConstants.js';
 
 export const INITIAL_USERS = [
   {

@@ -1,4 +1,4 @@
-import { INITIAL_USERS } from './mockData';
+import { INITIAL_USERS } from './mockData.js';
 import {
   canonicalizeContact,
   detectContactType,
@@ -6,7 +6,7 @@ import {
   normalizeIndianPhone,
   normalizeEmail,
   isValidIndianPhone
-} from '../utils/phoneUtils';
+} from '../utils/phoneUtils.js';
 
 const CURRENT_USER_KEY = 'civicfix_current_user_v1';
 const USERS_STORAGE_KEY = 'civicfix_users_v1';
@@ -113,7 +113,7 @@ const clearFailedLogin = (identifier) => {
 
 export const authService = {
   /**
-   * Get active user session from localStorage or fallback to default citizen.
+   * Get active user session from localStorage or return null if unauthenticated.
    */
   getCurrentUser: () => {
     try {
@@ -122,19 +122,34 @@ export const authService = {
     } catch (e) {
       console.warn('LocalStorage unavailable', e);
     }
-    return INITIAL_USERS[0];
+    return null;
   },
 
   /**
-   * Set active user session
+   * Set active user session (or clear if null)
    */
   setCurrentUser: (user) => {
     try {
-      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+      if (user) {
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+      } else {
+        localStorage.removeItem(CURRENT_USER_KEY);
+      }
     } catch (e) {
       console.warn('LocalStorage save failed', e);
     }
     return user;
+  },
+
+  /**
+   * Terminate active user session
+   */
+  logout: () => {
+    try {
+      localStorage.removeItem(CURRENT_USER_KEY);
+    } catch (e) {
+      console.warn('LocalStorage logout failed', e);
+    }
   },
 
   /**
@@ -202,22 +217,21 @@ export const authService = {
       );
     }
 
-    // Password verification
-    // Demo accounts accept the universal demo password 'CivicSecure#2026!'
-    // Registered accounts accept their hashed or stored password
-    const isDemoPassword = password === 'CivicSecure#2026!';
+    // Password verification:
+    // 1. If user has a registered passwordHash or explicit password, authenticate ONLY against that credential.
+    // 2. Initial seed demo accounts (without custom passwords) accept the demo preset 'CivicSecure#2026!'.
+    // 3. Prevent arbitrary users with custom passwords from being bypassed by 'CivicSecure#2026!'.
+    const isSeedUser = INITIAL_USERS.some((u) => u.id === user.id);
     let passwordMatches = false;
 
-    if (isDemoPassword) {
-      passwordMatches = true;
-    } else if (user.passwordHash) {
+    if (user.passwordHash) {
       const computedHash = await hashSecret(password, user.id);
       passwordMatches = computedHash === user.passwordHash || user.password === password;
     } else if (user.password) {
       passwordMatches = user.password === password;
-    } else {
-      // Fallback for default initial mock users without explicit password
-      passwordMatches = isDemoPassword;
+    } else if (isSeedUser) {
+      // Uncustomized seed demo accounts accept the documented demo password
+      passwordMatches = password === 'CivicSecure#2026!';
     }
 
     if (!passwordMatches) {
@@ -366,7 +380,7 @@ export const authService = {
       throw new Error('Full legal name is required.');
     }
 
-    const formattedPhone = phone ? formatIndianPhone(phone) : '+91 98401 23456';
+    const formattedPhone = phone ? formatIndianPhone(phone) : '';
     const canonicalPhone = phone ? normalizeIndianPhone(phone) : '';
     const canonicalEmail = email ? normalizeEmail(email) : '';
 
@@ -404,8 +418,7 @@ export const authService = {
       department: 'Resident Community Member',
       joinedDate: 'Just now',
       passwordHash,
-      // Pass raw password in dev mock for demo preset testing
-      password: password || 'CivicSecure#2026!',
+      password: password || null,
       identityVerification: {
         status: 'NOT_REQUIRED',
         contactVerified: true,

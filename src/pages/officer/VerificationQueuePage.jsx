@@ -60,12 +60,19 @@ export const VerificationQueuePage = () => {
             >
               <div className="flex items-start gap-4 flex-1 min-w-0">
                 {/* Proof Thumbnail */}
-                <div className="w-24 h-24 rounded-xl overflow-hidden bg-surface-container shrink-0 border border-outline-variant/40">
-                  <img
-                    src={(c.resolutionEvidence?.photos && c.resolutionEvidence.photos[0]) || (c.photos && c.photos[0]) || 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=400&q=80'}
-                    alt="Repair thumbnail"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="w-24 h-24 rounded-xl overflow-hidden bg-surface-container shrink-0 border border-outline-variant/40 flex items-center justify-center">
+                  {(c.resolutionEvidence?.photos && c.resolutionEvidence.photos[0]) || (c.photos && c.photos[0]) ? (
+                    <img
+                      src={(c.resolutionEvidence?.photos && c.resolutionEvidence.photos[0]) || (c.photos && c.photos[0])}
+                      alt="Repair thumbnail"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center justify-center text-tertiary p-2 text-center">
+                      <span className="material-symbols-outlined text-[24px]">no_photography</span>
+                      <span className="text-[9px] mt-0.5 font-medium">No Photo</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-1.5 min-w-0 flex-1">
