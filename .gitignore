@@ -37,4 +37,12 @@ yarn-error.log*
 
 # OS metadata
 .DS_Store
+# OS metadata
 Thumbs.db
+
+# Java & Maven build artifacts
+backend/target/
+target/
+*.class
+*.jar
+*.war
