@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { adminService } from '../../services/adminService';
 import Breadcrumb from '../../components/common/Breadcrumb';
 
 const CreateStaffPage = () => {
   const navigate = useNavigate();
-  const { addStaffUser, showToast } = useApp();
+  const { showToast } = useApp();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -13,11 +14,12 @@ const CreateStaffPage = () => {
     phone: '',
     role: 'OFFICER',
     department: 'Roads & Public Infrastructure',
-    badgeId: '',
+    temporaryPassword: '',
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,15 +27,36 @@ const CreateStaffPage = () => {
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: null }));
     }
+    if (serverError) {
+      setServerError(null);
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleGeneratePassword = () => {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%';
+    let pwd = '';
+    for (let i = 0; i < 12; i++) {
+      pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setFormData((prev) => ({ ...prev, temporaryPassword: pwd }));
+    if (errors.temporaryPassword) {
+      setErrors((prev) => ({ ...prev, temporaryPassword: null }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
     if (!formData.name.trim()) newErrors.name = 'Full legal name is required';
     if (!formData.email.trim() || !formData.email.includes('@')) newErrors.email = 'Valid municipal email is required';
     if (!formData.department.trim()) newErrors.department = 'Department selection is required';
+    if (!formData.temporaryPassword || formData.temporaryPassword.length < 8) {
+      newErrors.temporaryPassword = 'Temporary password must be at least 8 characters';
+    }
+    if (formData.role !== 'OFFICER' && formData.role !== 'WORKER') {
+      newErrors.role = 'Authorized staff role must be OFFICER or WORKER';
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -41,21 +64,26 @@ const CreateStaffPage = () => {
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      const newUser = addStaffUser({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone || '+91 94440 00000',
+    setServerError(null);
+
+    try {
+      const newUser = await adminService.createStaff({
+        name: formData.name.trim(),
+        email: formData.email.trim().toLowerCase(),
+        phone: formData.phone.trim() || undefined,
         role: formData.role,
         department: formData.department,
-        badgeId: formData.badgeId || `STF-${Math.floor(1000 + Math.random() * 9000)}`,
-        status: 'Active',
+        temporaryPassword: formData.temporaryPassword
       });
 
-      showToast(`Provisioned new staff account for ${newUser.name} (${newUser.role})`);
-      setIsSubmitting(false);
+      showToast(`Provisioned new staff account for ${newUser.name} (${newUser.role}) in PostgreSQL`, 'success');
       navigate(`/admin/users/${newUser.id}`);
-    }, 600);
+    } catch (err) {
+      console.error('Failed to create staff account:', err);
+      setServerError(err?.message || 'Failed to provision staff account. Please verify input.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -75,9 +103,16 @@ const CreateStaffPage = () => {
             Provision Official Staff Account
           </h1>
           <p className="text-sm text-[#667384] mt-1">
-            Create verified municipal credentials for Officers, Field Workers, or System Administrators.
+            Create verified municipal credentials for Officers or Field Workers with a validated temporary password.
           </p>
         </div>
+
+        {serverError && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3 text-red-700 text-xs font-semibold">
+            <span className="material-symbols-outlined text-[20px]">error</span>
+            <span>{serverError}</span>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -117,7 +152,7 @@ const CreateStaffPage = () => {
 
             <div>
               <label className="block text-xs font-semibold text-[#18232F] uppercase mb-1.5">
-                Authorized Role *
+                Authorized Staff Role *
               </label>
               <select
                 name="role"
@@ -127,8 +162,8 @@ const CreateStaffPage = () => {
               >
                 <option value="OFFICER">Municipal Officer (Review & Dispatch)</option>
                 <option value="WORKER">Field Worker (Repairs & Evidence)</option>
-                <option value="ADMIN">System Administrator (Full Oversight)</option>
               </select>
+              {errors.role && <p className="text-xs text-[#C63F48] mt-1">{errors.role}</p>}
             </div>
 
             <div>
@@ -146,28 +181,43 @@ const CreateStaffPage = () => {
                 <option value="Water Supply & Sewage Management">Water Supply & Sewage Management</option>
                 <option value="Municipal Traffic & Electrical">Municipal Traffic & Electrical</option>
                 <option value="Parks & Urban Environment">Parks & Urban Environment</option>
-                <option value="Municipal IT & Platform Administration">Municipal IT & Platform Administration</option>
+                <option value="Health & Vector Control">Health & Vector Control</option>
               </select>
+              {errors.department && <p className="text-xs text-[#C63F48] mt-1">{errors.department}</p>}
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-[#18232F] uppercase mb-1.5">
-                Badge / Personnel ID (Optional)
-              </label>
+            <div className="sm:col-span-2">
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-semibold text-[#18232F] uppercase">
+                  Temporary Activation Password * (min. 8 characters)
+                </label>
+                <button
+                  type="button"
+                  onClick={handleGeneratePassword}
+                  className="text-xs text-[#137A70] hover:underline font-semibold flex items-center gap-1"
+                >
+                  <span className="material-symbols-outlined text-[14px]">auto_fix_high</span>
+                  Generate Strong Password
+                </button>
+              </div>
               <input
                 type="text"
-                name="badgeId"
-                value={formData.badgeId}
+                name="temporaryPassword"
+                value={formData.temporaryPassword}
                 onChange={handleChange}
-                placeholder="e.g. PW-8821"
-                className="w-full px-3.5 py-2.5 text-sm border border-[#E2E7ED] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#137A70]"
-              >
-              </input>
+                placeholder="Temporary secure password (e.g. SecureStaff@2026)"
+                className={`w-full px-3.5 py-2.5 text-sm font-mono border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#137A70] ${
+                  errors.temporaryPassword ? 'border-[#C63F48]' : 'border-[#E2E7ED]'
+                }`}
+              />
+              {errors.temporaryPassword && (
+                <p className="text-xs text-[#C63F48] mt-1">{errors.temporaryPassword}</p>
+              )}
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-[#18232F] uppercase mb-1.5">
-                Contact Phone
+                Contact Phone (Optional)
               </label>
               <input
                 type="text"
@@ -183,9 +233,9 @@ const CreateStaffPage = () => {
           <div className="bg-[#E8F4F1] border border-[#137A70]/30 rounded-lg p-4 text-xs text-[#137A70]">
             <p className="font-semibold flex items-center gap-1.5 mb-1">
               <span className="material-symbols-outlined text-[18px]">verified_user</span>
-              Automated Temporary Password & Credential Handshake
+              PostgreSQL Credential Hashing & Audit Record
             </p>
-            When submitted, a secure temporary activation token will be generated. The staff member will receive an activation email with mandatory 2FA TOTP setup upon their first sign-in.
+            When submitted, credentials are encrypted via BCrypt and securely stored in the PostgreSQL database. An immutable security audit log event is recorded with the administrator's ID.
           </div>
 
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#E2E7ED]">
@@ -203,7 +253,7 @@ const CreateStaffPage = () => {
               {isSubmitting ? (
                 <>
                   <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
-                  Provisioning...
+                  Provisioning in PostgreSQL...
                 </>
               ) : (
                 <>

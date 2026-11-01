@@ -1,0 +1,28 @@
+# Version control
+.git
+.gitignore
+
+# Frontend build & dependencies
+node_modules/
+dist/
+dist-ssr/
+
+# Environment files & secrets
+.env
+.env.*
+!.env.example
+
+# Backend source & artifacts (built independently in backend/Dockerfile)
+backend/
+uploads/
+*.log
+
+# Tests, artifacts & documentation
+tests/
+docs/
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

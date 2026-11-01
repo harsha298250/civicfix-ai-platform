@@ -1,6 +1,9 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useApp } from './context/AppContext';
 import DemoRoleSwitcher from './components/common/DemoRoleSwitcher';
+import OfflineScreen from './components/common/OfflineScreen';
+import ReloadPrompt from './components/common/ReloadPrompt';
 
 // Layouts
 import { PublicLayout } from './components/layout/PublicLayout';
@@ -8,6 +11,7 @@ import { CitizenLayout } from './components/layout/CitizenLayout';
 import { OfficerLayout } from './components/layout/OfficerLayout';
 import { WorkerLayout } from './components/layout/WorkerLayout';
 import { AdminLayout } from './components/layout/AdminLayout';
+import { SupervisorLayout } from './components/layout/SupervisorLayout';
 
 // Public Pages
 import { LandingPage } from './pages/public/LandingPage';
@@ -58,6 +62,9 @@ import SystemSettingsPage from './pages/admin/SystemSettingsPage';
 import AdminNotificationsPage from './pages/admin/AdminNotificationsPage';
 import AdminProfilePage from './pages/admin/AdminProfilePage';
 
+// Supervisor Pages
+import { SupervisorEscalationsPage } from './pages/supervisor/SupervisorEscalationsPage';
+
 // Legal & Public Utilities
 import { TermsOfServicePage } from './pages/public/TermsOfServicePage';
 import { PrivacyPolicyPage } from './pages/public/PrivacyPolicyPage';
@@ -68,8 +75,20 @@ import { RoleRoute } from './components/common/RoleRoute';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
+  const { serverUnreachable } = useApp();
+
   return (
     <>
+      {serverUnreachable && (
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="bg-[#C63F48] text-white px-4 py-2 text-center text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 sticky top-0 z-50 shadow-md"
+        >
+          <span className="material-symbols-outlined text-[18px]">cloud_off</span>
+          <span>Cannot reach the server. The platform is currently unreachable. Nothing was saved.</span>
+        </div>
+      )}
       <Routes>
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
@@ -97,8 +116,8 @@ function App() {
           <Route path="complaints" element={<MyComplaintsPage />} />
           <Route path="complaints/new" element={<ReportComplaintPage />} />
           <Route path="complaints/:complaintId" element={<ComplaintDetailsPage />} />
-          {/* Phase 2: Citizen complaint-map browsing is permanently disabled and redirected */}
-          <Route path="map" element={<Navigate to="/citizen/dashboard" replace />} />
+          {/* Phase 3: Citizen community map browsing enabled via sanitized public feed */}
+          <Route path="map" element={<CitizenIssueMapPage />} />
           <Route path="notifications" element={<CitizenNotificationsPage />} />
           <Route path="profile" element={<CitizenProfilePage />} />
         </Route>
@@ -144,6 +163,19 @@ function App() {
           <Route path="profile" element={<WorkerProfilePage />} />
         </Route>
 
+        {/* Supervisor Routes — Protected for SLA & Escalation Management */}
+        <Route
+          path="/supervisor"
+          element={
+            <RoleRoute allowedRoles={['SUPERVISOR', 'ADMIN']}>
+              <SupervisorLayout />
+            </RoleRoute>
+          }
+        >
+          <Route index element={<Navigate to="/supervisor/escalations" replace />} />
+          <Route path="escalations" element={<SupervisorEscalationsPage />} />
+        </Route>
+
         {/* Administrator Routes — Protected for Tier-0 platform governance */}
         <Route
           path="/admin"
@@ -169,6 +201,10 @@ function App() {
         {/* Catch-all 404 Route */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+
+      {/* PWA Update Prompt and Offline Protection */}
+      <ReloadPrompt />
+      <OfflineScreen />
 
       {/* Floating Interactive Persona Role Switcher for seamless capstone presentation */}
       <DemoRoleSwitcher />

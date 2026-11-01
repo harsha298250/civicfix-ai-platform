@@ -3,7 +3,7 @@ import { useApp } from '../../context/AppContext';
 import Breadcrumb from '../../components/common/Breadcrumb';
 
 const AdminProfilePage = () => {
-  const { currentPersona, showToast } = useApp();
+  const { currentPersona } = useApp();
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -45,13 +45,10 @@ const AdminProfilePage = () => {
           </div>
 
           <div className="pt-4 flex items-center justify-between border-t border-[#E2E7ED]">
-            <span className="text-xs text-[#667384]">Session expires in 4 hours 12 minutes</span>
-            <button
-              onClick={() => showToast('Refreshed security tokens')}
-              className="px-4 py-2 text-sm font-semibold text-white bg-[#137A70] hover:bg-[#0F625B] rounded-lg transition-colors"
-            >
-              Rotate Key Tokens
-            </button>
+            <span className="text-xs text-[#667384]">Session managed via Spring Security HTTP-only cookie</span>
+            <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              Authenticated Session Active
+            </span>
           </div>
         </div>
       </div>

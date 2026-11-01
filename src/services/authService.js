@@ -1,152 +1,51 @@
 import { INITIAL_USERS } from './mockData.js';
 import { apiClient } from './apiClient.js';
 import {
-  canonicalizeContact,
-  detectContactType,
   formatIndianPhone,
   normalizeIndianPhone,
-  normalizeEmail,
-  isValidIndianPhone
+  normalizeEmail
 } from '../utils/phoneUtils.js';
 
-const CURRENT_USER_KEY = 'civicfix_current_user_v1';
-const USERS_STORAGE_KEY = 'civicfix_users_v1';
-const OTP_STORAGE_KEY = 'civicfix_pending_otp_v1';
-const ATTEMPTS_STORAGE_KEY = 'civicfix_auth_attempts_v1';
-
-// Maximum failed login attempts before lockout
-const MAX_LOGIN_ATTEMPTS = 5;
-const LOCKOUT_MINUTES = 15;
+// In-memory active session user state (no persistent credentials or sessions stored in localStorage)
+let activeSessionUser = null;
 
 /**
- * Simple client-side cryptographic hashing for password & OTP verification
- * Uses Web Crypto API SHA-256 with salt.
+ * Helper to check whether demo mode is actively enabled via environment variable
  */
-const hashSecret = async (secret, salt = 'civicfix_salt_2026') => {
-  const enc = new TextEncoder();
-  const data = enc.encode(`${salt}:${secret}`);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
-};
-
-/**
- * Retrieve all registered users from storage, merged with INITIAL_USERS
- */
-const getStoredUsers = () => {
-  try {
-    const raw = localStorage.getItem(USERS_STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      const initialMap = new Map(INITIAL_USERS.map((u) => [u.id, u]));
-      const merged = parsed.map((u) => {
-        if (initialMap.has(u.id)) {
-          const sys = initialMap.get(u.id);
-          return { ...u, phone: sys.phone, email: sys.email, role: sys.role };
-        }
-        return u;
-      });
-      // Also ensure any initial users missing from parsed are present
-      const presentIds = new Set(merged.map((u) => u.id));
-      const missing = INITIAL_USERS.filter((u) => !presentIds.has(u.id));
-      return [...merged, ...missing];
-    }
-  } catch (e) {
-    console.warn('LocalStorage error reading users', e);
+export const isDemoModeEnabled = () => {
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_DEMO_MODE) {
+    return import.meta.env.VITE_DEMO_MODE === 'true';
   }
-  return [...INITIAL_USERS];
-};
-
-/**
- * Save updated user list into storage
- */
-const saveUsers = (users) => {
-  try {
-    localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
-  } catch (e) {
-    console.warn('LocalStorage error saving users', e);
+  if (typeof process !== 'undefined' && process.env && process.env.VITE_DEMO_MODE) {
+    return process.env.VITE_DEMO_MODE === 'true';
   }
-};
-
-/**
- * Manage login attempt rate limiting
- */
-const getLoginAttempts = (identifier) => {
-  try {
-    const raw = localStorage.getItem(ATTEMPTS_STORAGE_KEY);
-    const records = raw ? JSON.parse(raw) : {};
-    return records[identifier] || { count: 0, lockedUntil: null };
-  } catch (e) {
-    return { count: 0, lockedUntil: null };
-  }
-};
-
-const recordFailedLogin = (identifier) => {
-  try {
-    const raw = localStorage.getItem(ATTEMPTS_STORAGE_KEY);
-    const records = raw ? JSON.parse(raw) : {};
-    const current = records[identifier] || { count: 0, lockedUntil: null };
-    const newCount = current.count + 1;
-    let lockedUntil = null;
-
-    if (newCount >= MAX_LOGIN_ATTEMPTS) {
-      lockedUntil = Date.now() + LOCKOUT_MINUTES * 60 * 1000;
-    }
-
-    records[identifier] = { count: newCount, lockedUntil };
-    localStorage.setItem(ATTEMPTS_STORAGE_KEY, JSON.stringify(records));
-    return { count: newCount, lockedUntil };
-  } catch (e) {
-    return { count: 1, lockedUntil: null };
-  }
-};
-
-const clearFailedLogin = (identifier) => {
-  try {
-    const raw = localStorage.getItem(ATTEMPTS_STORAGE_KEY);
-    if (raw) {
-      const records = JSON.parse(raw);
-      delete records[identifier];
-      localStorage.setItem(ATTEMPTS_STORAGE_KEY, JSON.stringify(records));
-    }
-  } catch (e) {}
+  return false;
 };
 
 export const authService = {
   /**
-   * Get active user session from localStorage or return null if unauthenticated.
+   * Get active user session in memory or return null if unauthenticated.
    */
   getCurrentUser: () => {
-    try {
-      const raw = localStorage.getItem(CURRENT_USER_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch (e) {
-      console.warn('LocalStorage unavailable', e);
-    }
-    return null;
+    return activeSessionUser;
   },
 
   /**
    * Set active user session (or clear if null)
    */
   setCurrentUser: (user) => {
-    try {
-      if (user) {
-        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
-      } else {
-        localStorage.removeItem(CURRENT_USER_KEY);
-      }
-    } catch (e) {
-      console.warn('LocalStorage save failed', e);
-    }
-    return user;
+    activeSessionUser = user || null;
+    return activeSessionUser;
   },
 
   /**
    * Terminate active user session
    */
   logout: async () => {
-    localStorage.removeItem(CURRENT_USER_KEY);
+    activeSessionUser = null;
+    try {
+      localStorage.removeItem('civicfix_current_user_v1');
+    } catch (e) {}
     try {
       await apiClient.auth.logout();
     } catch (e) {
@@ -179,21 +78,29 @@ export const authService = {
         authService.setCurrentUser(liveUser);
         return liveUser;
       }
+      authService.setCurrentUser(null);
+      return null;
     } catch (err) {
+      authService.setCurrentUser(null);
       if (err.status === 401 || err.status === 403) {
-        authService.setCurrentUser(null);
         return null;
       }
+      const unreachableError = new Error('Cannot reach the server. Nothing was saved.');
+      unreachableError.isServerUnreachable = true;
+      unreachableError.status = err.status || 0;
+      throw unreachableError;
     }
-    return authService.getCurrentUser();
   },
 
   /**
-   * Switch role for demo & rapid testing (explicitly non-authoritative client persona switch)
+   * Switch role for demo & rapid testing (explicitly non-authoritative client persona switch).
+   * Gated strictly behind VITE_DEMO_MODE === 'true'.
    */
   switchRole: (role) => {
-    const users = getStoredUsers();
-    const targetUser = users.find((u) => u.role === role) || INITIAL_USERS.find((u) => u.role === role) || INITIAL_USERS[0];
+    if (!isDemoModeEnabled()) {
+      throw new Error('Demo mode is disabled. Role switching is not permitted.');
+    }
+    const targetUser = INITIAL_USERS.find((u) => u.role === role) || INITIAL_USERS[0];
     const demoPersona = {
       ...targetUser,
       isLiveBackend: false,
@@ -217,7 +124,6 @@ export const authService = {
 
     const trimmed = identifier.trim();
 
-    // 1. Attempt Real Backend Authentication against PostgreSQL Spring Boot API
     try {
       const response = await apiClient.auth.login(trimmed, password);
       const backendUser = response?.data || response;
@@ -246,223 +152,19 @@ export const authService = {
       };
 
       authService.setCurrentUser(user);
-      clearFailedLogin(canonicalizeContact(trimmed));
       return user;
     } catch (apiError) {
-      // MANDATORY SECURITY SAFEGUARD:
-      // Never silently fall back to mock data after an authentication or authorization failure (401/403/400).
-      if (apiError.status === 401 || apiError.status === 403 || apiError.status === 400) {
+      if (apiError.status === 401 || apiError.status === 403 || apiError.status === 400 || apiError.status === 429) {
         const errorMsg = apiError.data?.message || apiError.message || 'Invalid credentials. Please verify your email or mobile number and password.';
         throw new Error(errorMsg);
       }
 
-      // Check if it is a genuine network connection failure (backend unreachable)
-      const isNetworkError =
-        apiError.message &&
-        (apiError.message.includes('Cannot connect to CivicFix backend') ||
-         apiError.message.includes('Failed to fetch') ||
-         apiError.message.includes('NetworkError') ||
-         apiError.message.includes('ECONNREFUSED'));
-
-      if (!isNetworkError) {
-        // Real server error (e.g. 500) must be shown directly
-        throw new Error(apiError.data?.message || apiError.message || 'Backend authentication service error. Please try again.');
-      }
-
-      console.warn('[CivicFix Auth] Backend server unreachable. Falling back to local offline demo mode.');
+      throw new Error('Cannot reach the server. Nothing was saved.');
     }
-
-    // 2. Offline Demo Fallback (Only executed when backend is unreachable)
-    const canonical = canonicalizeContact(trimmed);
-
-    // Check rate limit lockout
-    const attemptInfo = getLoginAttempts(canonical);
-    if (attemptInfo.lockedUntil && attemptInfo.lockedUntil > Date.now()) {
-      const remainingMinutes = Math.ceil((attemptInfo.lockedUntil - Date.now()) / (60 * 1000));
-      throw new Error(
-        `Too many failed attempts. Security protocol active: account access is locked for ${remainingMinutes} more minute(s).`
-      );
-    }
-
-    const allUsers = getStoredUsers();
-
-    // Match by email or Indian phone number
-    const user = allUsers.find((u) => {
-      if (u.email && normalizeEmail(u.email) === canonical) return true;
-      if (u.phone && normalizeIndianPhone(u.phone) === canonical) return true;
-      if (u.phone && u.phone.replace(/\D/g, '') === trimmed.replace(/\D/g, '')) return true;
-      return false;
-    });
-
-    if (!user) {
-      recordFailedLogin(canonical);
-      throw new Error(
-        'Invalid credentials. Please verify your email or 10-digit mobile number and password.'
-      );
-    }
-
-    if (user.status === 'PENDING_APPROVAL') {
-      throw new Error(
-        'Your staff account is currently pending administrative vetting. Please contact your municipal supervisor.'
-      );
-    }
-
-    const isSeedUser = INITIAL_USERS.some((u) => u.id === user.id);
-    let passwordMatches = false;
-
-    if (user.passwordHash) {
-      const computedHash = await hashSecret(password, user.id);
-      passwordMatches = computedHash === user.passwordHash || user.password === password;
-    } else if (user.password) {
-      passwordMatches = user.password === password;
-    } else if (isSeedUser) {
-      passwordMatches = password === 'CivicSecure#2026!';
-    }
-
-    if (!passwordMatches) {
-      const { count } = recordFailedLogin(canonical);
-      const remaining = MAX_LOGIN_ATTEMPTS - count;
-      if (remaining > 0) {
-        throw new Error(`Incorrect password. You have ${remaining} attempt(s) remaining before temporary lockout.`);
-      } else {
-        throw new Error(`Account access locked for ${LOCKOUT_MINUTES} minutes due to repeated incorrect password entries.`);
-      }
-    }
-
-    // Clear failed attempts on success
-    clearFailedLogin(canonical);
-
-    // Save demo session
-    const demoUser = {
-      ...user,
-      isLiveBackend: false,
-      isDemoMode: true,
-      authSource: 'LOCAL_STORAGE_DEMO'
-    };
-    return authService.setCurrentUser(demoUser);
   },
 
   /**
-   * Check if a contact (email or phone) is already registered
-   */
-  checkContactAvailability: async (contact) => {
-    const canonical = canonicalizeContact(contact);
-    const users = getStoredUsers();
-
-    const existing = users.find((u) => {
-      if (u.email && normalizeEmail(u.email) === canonical) return true;
-      if (u.phone && normalizeIndianPhone(u.phone) === canonical) return true;
-      return false;
-    });
-
-    if (existing) {
-      return {
-        available: false,
-        exists: true,
-        userRole: existing.role,
-        message: 'An account is already registered with this contact. Please sign in or use password recovery.'
-      };
-    }
-
-    return { available: true, exists: false };
-  },
-
-  /**
-   * Request Cryptographic OTP for Citizen Registration
-   */
-  requestRegistrationOtp: async (contact, contactType = 'MOBILE') => {
-    const canonical = canonicalizeContact(contact);
-
-    // Check duplicate
-    const avail = await authService.checkContactAvailability(contact);
-    if (!avail.available) {
-      throw new Error(avail.message);
-    }
-
-    // Generate 6-digit cryptographic OTP
-    const array = new Uint32Array(1);
-    window.crypto.getRandomValues(array);
-    const otp = String(100000 + (array[0] % 900000));
-
-    const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes validity
-    const otpHash = await hashSecret(otp, canonical);
-
-    const pending = {
-      contact: canonical,
-      displayContact: contactType === 'MOBILE' ? formatIndianPhone(contact) : contact,
-      contactType,
-      otpHash,
-      // For development simulation (never exposed in production)
-      simulatedCode: otp,
-      expiresAt,
-      attempts: 0,
-      createdAt: Date.now()
-    };
-
-    try {
-      localStorage.setItem(OTP_STORAGE_KEY, JSON.stringify(pending));
-    } catch (e) {}
-
-    return {
-      success: true,
-      expiresInSeconds: 300,
-      cooldownSeconds: 60,
-      simulatedCode: otp,
-      deliveryMode: 'DEVELOPMENT_SIMULATED',
-      displayContact: pending.displayContact
-    };
-  },
-
-  /**
-   * Verify single-use OTP
-   */
-  verifyRegistrationOtp: async (contact, enteredOtp) => {
-    if (!enteredOtp || enteredOtp.trim().length !== 6) {
-      throw new Error('Please enter the complete 6-digit verification code.');
-    }
-
-    const canonical = canonicalizeContact(contact);
-    let pending = null;
-    try {
-      const raw = localStorage.getItem(OTP_STORAGE_KEY);
-      if (raw) pending = JSON.parse(raw);
-    } catch (e) {}
-
-    if (!pending || pending.contact !== canonical) {
-      throw new Error('No active verification session found. Please request a new OTP.');
-    }
-
-    if (Date.now() > pending.expiresAt) {
-      localStorage.removeItem(OTP_STORAGE_KEY);
-      throw new Error('Verification code has expired. Please click "Resend Code" to generate a fresh OTP.');
-    }
-
-    if (pending.attempts >= 5) {
-      localStorage.removeItem(OTP_STORAGE_KEY);
-      throw new Error('Maximum verification attempts exceeded. Please request a new code.');
-    }
-
-    // Hash entered code and compare
-    const enteredHash = await hashSecret(enteredOtp.trim(), canonical);
-    if (enteredHash !== pending.otpHash && enteredOtp.trim() !== pending.simulatedCode) {
-      pending.attempts += 1;
-      localStorage.setItem(OTP_STORAGE_KEY, JSON.stringify(pending));
-      const remaining = 5 - pending.attempts;
-      throw new Error(`Incorrect verification code. ${remaining} attempt(s) remaining.`);
-    }
-
-    // Invalidate OTP immediately upon successful verification (replay protection)
-    localStorage.removeItem(OTP_STORAGE_KEY);
-
-    return {
-      verified: true,
-      contact: canonical,
-      timestamp: Date.now()
-    };
-  },
-
-  /**
-   * Complete Citizen Registration and transactionally persist to localStorage
+   * Complete Citizen Registration against Spring Boot PostgreSQL Backend
    */
   registerCitizen: async (formData) => {
     const { name, email, phone, ward, password } = formData;
@@ -474,9 +176,7 @@ export const authService = {
     const formattedPhone = phone ? formatIndianPhone(phone) : '';
     const canonicalPhone = phone ? normalizeIndianPhone(phone) : '';
     const canonicalEmail = email ? normalizeEmail(email) : '';
-    const users = getStoredUsers();
 
-    // 1. Attempt Real Backend Registration against PostgreSQL Spring Boot API
     try {
       const res = await apiClient.auth.register({
         name: name.trim(),
@@ -488,7 +188,7 @@ export const authService = {
 
       const backendUser = res?.data || res;
       const user = {
-        id: backendUser.id ? String(backendUser.id) : `usr-backend`,
+        id: backendUser.id ? String(backendUser.id) : 'usr-backend',
         name: backendUser.name || name.trim(),
         email: backendUser.email || canonicalEmail,
         phone: backendUser.phone || formattedPhone,
@@ -509,85 +209,14 @@ export const authService = {
         authSource: 'POSTGRESQL_BACKEND'
       };
 
-      // Also persist to local users list for synchronous offline views
-      const updatedUsers = [user, ...users];
-      saveUsers(updatedUsers);
       authService.setCurrentUser(user);
       return user;
     } catch (apiError) {
-      // NEVER silently fall back on 400 or 409 duplicate errors!
       if (apiError.status === 400 || apiError.status === 409) {
         throw new Error(apiError.data?.message || apiError.message || 'Registration rejected by server.');
       }
-
-      const isNetworkError =
-        apiError.message &&
-        (apiError.message.includes('Cannot connect to CivicFix backend') ||
-         apiError.message.includes('Failed to fetch') ||
-         apiError.message.includes('NetworkError') ||
-         apiError.message.includes('ECONNREFUSED'));
-
-      if (!isNetworkError) {
-        throw new Error(apiError.data?.message || apiError.message || 'Registration server error.');
-      }
-
-      console.warn('[CivicFix Auth] Backend offline. Falling back to local offline demo registration.');
+      throw new Error('Cannot reach the server. Nothing was saved.');
     }
-
-    // 2. Offline Demo Registration Fallback
-    // Enforce duplicate prevention before saving
-    const existing = users.find((u) => {
-      if (canonicalEmail && u.email && normalizeEmail(u.email) === canonicalEmail) return true;
-      if (canonicalPhone && u.phone && normalizeIndianPhone(u.phone) === canonicalPhone) return true;
-      return false;
-    });
-
-    if (existing) {
-      throw new Error('An account already exists with these contact details. Please sign in instead.');
-    }
-
-    const newId = `usr-${String(Math.floor(100 + Math.random() * 900))}`;
-    const passwordHash = password ? await hashSecret(password, newId) : null;
-
-    const newUser = {
-      id: newId,
-      name: name.trim(),
-      email: canonicalEmail || `${name.toLowerCase().replace(/\s+/g, '')}@citizen.org`,
-      phone: formattedPhone,
-      role: 'CITIZEN',
-      ward: ward || 'Ward 08, Anna Nagar, Chennai',
-      status: 'ACTIVE',
-      trustScore: 90,
-      avatar: name
-        .trim()
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-        .substring(0, 2)
-        .toUpperCase(),
-      department: 'Resident Community Member',
-      joinedDate: 'Just now',
-      passwordHash,
-      password: password || null,
-      identityVerification: {
-        status: 'NOT_REQUIRED',
-        contactVerified: true,
-        aadhaarStatus: 'DISABLED_BY_DEFAULT',
-        verifiedAt: new Date().toISOString()
-      },
-      isLiveBackend: false,
-      isDemoMode: true,
-      authSource: 'LOCAL_STORAGE_DEMO'
-    };
-
-    // Save to stored users list
-    const updatedUsers = [newUser, ...users];
-    saveUsers(updatedUsers);
-
-    // Save active session
-    authService.setCurrentUser(newUser);
-
-    return newUser;
   }
 };
 

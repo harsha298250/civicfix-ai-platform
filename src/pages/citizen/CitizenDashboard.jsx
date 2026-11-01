@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useTranslation } from '../../context/LanguageContext';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { PriorityBadge } from '../../components/common/PriorityBadge';
 import { COMPLAINT_STATUS } from '../../constants/statusConstants';
 
 export const CitizenDashboard = () => {
-  const { currentUser, complaints, getCitizenComplaints } = useApp();
+  const { currentUser, complaints, getCitizenComplaints, complaintsError, refreshComplaints, loading } = useApp();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('ALL');
   const [searchTerm, setSearchTerm] = useState('');
@@ -45,7 +47,7 @@ export const CitizenDashboard = () => {
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-2">
               <h1 className="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface">
-                Good morning, {currentUser?.name ? currentUser.name.split(' ')[0] : 'Resident'}
+                {t('citizenDashboard.welcome', { name: currentUser?.name ? currentUser.name.split(' ')[0] : 'Resident' })}
               </h1>
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-low text-primary-container text-xs font-semibold">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-container" />
@@ -53,7 +55,7 @@ export const CitizenDashboard = () => {
               </span>
             </div>
             <p className="text-body-md text-sm text-on-surface-variant">
-              Here is an overview of your civic reports and their latest autonomous resolution milestones.
+              {t('citizenDashboard.subtitle')}
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-tertiary">
               <span className="flex items-center gap-1">
@@ -76,7 +78,7 @@ export const CitizenDashboard = () => {
           {/* Primary Action Callout */}
           <div className="flex items-center bg-surface-container-low p-4 rounded-xl gap-4 border border-outline-variant/30 shrink-0">
             <div className="flex flex-col text-left">
-              <span className="font-title text-sm font-bold text-on-surface">Report an Incident</span>
+              <span className="font-title text-sm font-bold text-on-surface">{t('citizenDashboard.reportNewDefect')}</span>
               <span className="text-xs text-tertiary max-w-[200px]">
                 Spotted a pothole, leak, or electrical hazard?
               </span>
@@ -86,11 +88,27 @@ export const CitizenDashboard = () => {
               className="px-4 py-2.5 rounded-xl bg-primary-container hover:bg-primary text-white font-semibold text-xs transition-all shadow-sm flex items-center gap-2 whitespace-nowrap active:scale-98"
             >
               <span className="material-symbols-outlined text-[18px]">add_circle</span>
-              <span>File Report</span>
+              <span>{t('citizenDashboard.reportNewDefect')}</span>
             </Link>
           </div>
         </div>
       </section>
+
+      {complaintsError && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center justify-between text-red-800 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-red-600 text-[20px]">error</span>
+            <span>{complaintsError}</span>
+          </div>
+          <button
+            onClick={refreshComplaints}
+            className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shrink-0 transition-colors flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-[16px]">refresh</span>
+            <span>Retry</span>
+          </button>
+        </div>
+      )}
 
       {/* 4 Summary Metric Cards matching Stitch */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -226,7 +244,23 @@ export const CitizenDashboard = () => {
 
           {/* Complaints Table/Cards */}
           <div className="space-y-3">
-            {filteredComplaints.length === 0 ? (
+            {complaintsError ? (
+              <div className="text-center py-12 bg-surface-container-low rounded-xl p-6 space-y-3 border border-red-200">
+                <span className="material-symbols-outlined text-red-600 text-[36px]">cloud_off</span>
+                <p className="font-semibold text-sm text-on-surface">Unable to load complaints</p>
+                <p className="text-xs text-on-surface-variant max-w-sm mx-auto">
+                  {complaintsError}
+                </p>
+                <button
+                  type="button"
+                  onClick={refreshComplaints}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary-container text-white text-xs font-semibold shadow-sm hover:bg-primary transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[16px]">refresh</span>
+                  <span>Retry</span>
+                </button>
+              </div>
+            ) : filteredComplaints.length === 0 ? (
               <div className="text-center py-12 bg-surface-container-low rounded-xl p-6 space-y-3">
                 <span className="material-symbols-outlined text-tertiary text-[36px]">inbox</span>
                 <p className="font-semibold text-sm text-on-surface">No complaints match your criteria</p>

@@ -6,7 +6,7 @@ import { PriorityBadge } from '../../components/common/PriorityBadge';
 import { Breadcrumb } from '../../components/common/Breadcrumb';
 
 export const AssignmentsPage = () => {
-  const { complaints } = useApp();
+  const { complaints, complaintsError, refreshComplaints } = useApp();
 
   const assignedComplaints = complaints.filter(c => c.assignedWorker);
 
@@ -63,7 +63,20 @@ export const AssignmentsPage = () => {
         <h2 className="font-title text-base font-bold text-on-surface">Active Dispatched Tickets</h2>
 
         <div className="space-y-3">
-          {assignedComplaints.length === 0 ? (
+          {complaintsError ? (
+            <div className="p-8 text-center text-xs space-y-3">
+              <span className="material-symbols-outlined text-3xl text-red-600">cloud_off</span>
+              <p className="font-semibold text-on-surface">Unable to load assigned tickets</p>
+              <p className="text-on-surface-variant max-w-xs mx-auto">{complaintsError}</p>
+              <button
+                onClick={refreshComplaints}
+                className="px-3 py-1.5 bg-primary-container text-white rounded-lg font-semibold hover:bg-primary transition-colors inline-flex items-center gap-1"
+              >
+                <span className="material-symbols-outlined text-[14px]">refresh</span>
+                <span>Retry</span>
+              </button>
+            </div>
+          ) : assignedComplaints.length === 0 ? (
             <p className="text-xs text-tertiary text-center py-8">No tickets currently dispatched.</p>
           ) : (
             assignedComplaints.map(c => (

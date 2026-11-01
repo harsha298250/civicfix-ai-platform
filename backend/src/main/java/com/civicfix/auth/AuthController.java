@@ -5,6 +5,7 @@ import com.civicfix.auth.dto.LoginRequest;
 import com.civicfix.auth.dto.RegisterCitizenRequest;
 import com.civicfix.common.ApiResponse;
 import com.civicfix.security.UserPrincipal;
+import com.civicfix.security.ratelimit.ClientIpResolver;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -18,16 +19,19 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final ClientIpResolver clientIpResolver;
 
-    public AuthController(AuthService authService) {
+    @org.springframework.beans.factory.annotation.Autowired
+    public AuthController(AuthService authService, ClientIpResolver clientIpResolver) {
         this.authService = authService;
+        this.clientIpResolver = clientIpResolver;
     }
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<AuthUserResponse>> register(
             @Valid @RequestBody RegisterCitizenRequest request,
             HttpServletRequest httpRequest) {
-        AuthUserResponse response = authService.registerCitizen(request, httpRequest.getRemoteAddr());
+        AuthUserResponse response = authService.registerCitizen(request, clientIpResolver.resolveClientIp(httpRequest));
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.success("Citizen account registered successfully.", response));
     }

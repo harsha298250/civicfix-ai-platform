@@ -1,0 +1,27 @@
+# Version control
+.git
+.gitignore
+
+# Java & Maven build artifacts
+target/
+*.class
+*.jar
+*.war
+.flattened-pom.xml
+.mvn/timing.properties
+
+# Local evidence uploads & storage
+uploads/
+*.log
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+

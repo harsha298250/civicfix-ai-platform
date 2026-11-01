@@ -32,6 +32,8 @@ export const RoleRoute = ({ children, allowedRoles }) => {
         return <Navigate to="/worker/dashboard" replace />;
       case 'ADMIN':
         return <Navigate to="/admin/dashboard" replace />;
+      case 'SUPERVISOR':
+        return <Navigate to="/supervisor/escalations" replace />;
       default:
         return <Navigate to="/login" replace />;
     }

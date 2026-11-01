@@ -1,0 +1,160 @@
+import csv
+import os
+
+os.makedirs('docs/evaluation', exist_ok=True)
+
+# 100 synthetic complaint entries
+# Fields: id, title, description, expected_category, expected_priority, latitude, longitude, ward, duplicate_group, case_type, notes
+data = [
+    # --- 10 DUPLICATE PAIRS (20 items: DUP_01 to DUP_10) ---
+    # Pair 1: ROADS (Pothole at Anna Salai)
+    (1, "Deep dangerous crater on Anna Salai", "Massive pothole near Thousand Lights junction on Anna Salai arterial road causing two-wheeler spillover", "ROADS", "HIGH", 13.0560, 80.2520, "Ward 112", "DUP_01", "DUPLICATE", "Pair 1A: Anna Salai deep crater"),
+    (2, "Hazardous pothole Thousand Lights Anna Salai", "Very deep crater on Anna Salai near Thousand Lights mosque two-wheeler accidents happening", "ROADS", "HIGH", 13.0562, 80.2522, "Ward 112", "DUP_01", "DUPLICATE", "Pair 1B: Anna Salai deep crater duplicate"),
+    
+    # Pair 2: WATER_SEWERAGE (Water main rupture)
+    (3, "Drinking water main burst 4th Cross", "Major pipeline burst on 4th Cross Street clean drinking water flooding entire road", "WATER_SEWERAGE", "HIGH", 13.0825, 80.2100, "Ward 74", "DUP_02", "DUPLICATE", "Pair 2A: 4th Cross water main rupture"),
+    (4, "Severe water leak 4th Cross Street", "Drinking water pipe burst and flooding 4th Cross street road water supply cut off", "WATER_SEWERAGE", "HIGH", 13.0823, 80.2104, "Ward 74", "DUP_02", "DUPLICATE", "Pair 2B: 4th Cross water leak duplicate"),
+
+    # Pair 3: STREET_LIGHT (Continuous blackout)
+    (5, "Multiple streetlights not working on Gandhi Road", "All lampposts dark road from gate 1 to 4 on Gandhi Road complete blackout stretch", "STREET_LIGHT", "MEDIUM", 12.9810, 80.2200, "Ward 178", "DUP_03", "DUPLICATE", "Pair 3A: Gandhi Road dark lampposts"),
+    (6, "Dark street lights on Gandhi Road", "Street light out on Gandhi Road near gate 2 dark stretch very unsafe for pedestrians", "STREET_LIGHT", "MEDIUM", 12.9813, 80.2203, "Ward 178", "DUP_03", "DUPLICATE", "Pair 3B: Gandhi Road dark lampposts duplicate"),
+
+    # Pair 4: GARBAGE (Market waste pile)
+    (7, "Uncollected vegetable market garbage dump", "Huge pile of rotting garbage waste opposite daily market foul smell and animal carcass", "GARBAGE", "MEDIUM", 13.0400, 80.2000, "Ward 95", "DUP_04", "DUPLICATE", "Pair 4A: Market garbage pile"),
+    (8, "Rotting trash and debris near vegetable bazaar", "Garbage and solid waste dumping on main market corner stench spreading everywhere", "GARBAGE", "MEDIUM", 13.0402, 80.2002, "Ward 95", "DUP_04", "DUPLICATE", "Pair 4B: Market garbage pile duplicate"),
+
+    # Pair 5: DRAINAGE (Open manhole hazard)
+    (9, "Open manhole on Nelson Manickam Road", "Missing manhole cover on busy road near signal open shaft life safety risk", "DRAINAGE", "CRITICAL", 13.0720, 80.2250, "Ward 105", "DUP_05", "DUPLICATE", "Pair 5A: Open manhole on Nelson Manickam Road"),
+    (10, "Dangerous uncovered manhole Nelson Manickam Rd", "Open drain shaft with no lid on Nelson Manickam road open manhole very dangerous at night", "DRAINAGE", "CRITICAL", 13.0722, 80.2248, "Ward 105", "DUP_05", "DUPLICATE", "Pair 5B: Open manhole Nelson Manickam duplicate"),
+
+    # Pair 6: PUBLIC_TRANSPORT (Bus shelter damage)
+    (11, "Vandalized bus shelter seating at Central Station", "Broken roof and smashed benches at MTC bus stop passenger shelter near railway entrance", "PUBLIC_TRANSPORT", "MEDIUM", 13.0830, 80.2750, "Ward 58", "DUP_06", "DUPLICATE", "Pair 6A: Central bus shelter vandalized"),
+    (12, "Damaged bus stop seats Central railway station", "Commuter shelter at MTC bus shelter broken chairs and shattered glass panels", "PUBLIC_TRANSPORT", "MEDIUM", 13.0828, 80.2754, "Ward 58", "DUP_06", "DUPLICATE", "Pair 6B: Central bus shelter duplicate"),
+
+    # Pair 7: PARKS (Uprooted tree blocking jogging track)
+    (13, "Fallen tree blocking Nehru Park jogging track", "Large branch and fallen tree across pathway in Nehru park playground area", "PARKS", "MEDIUM", 13.0780, 80.2400, "Ward 88", "DUP_07", "DUPLICATE", "Pair 7A: Nehru park fallen tree"),
+    (14, "Big tree fallen on pathway in Nehru Park", "Fallen tree in public garden and park walking track broken root blocking track", "PARKS", "MEDIUM", 13.0782, 80.2403, "Ward 88", "DUP_07", "DUPLICATE", "Pair 7B: Nehru park fallen tree duplicate"),
+
+    # Pair 8: ROADS (Road cave-in / sinkhole)
+    (15, "Catastrophic road cave in near Adyar flyover", "Massive road collapse and sinkhole opening up under flyover arterial road blocked", "ROADS", "CRITICAL", 13.0060, 80.2570, "Ward 171", "DUP_08", "DUPLICATE", "Pair 8A: Adyar flyover road collapse"),
+    (16, "Severe road collapse near Adyar bridge", "Deep cave in on tarmac road next to flyover underpass sinkhole risk", "ROADS", "CRITICAL", 13.0062, 80.2573, "Ward 171", "DUP_08", "DUPLICATE", "Pair 8B: Adyar flyover road collapse duplicate"),
+
+    # Pair 9: STREET_LIGHT (Transformer sparking - English vs Tamil pair)
+    (17, "Transformer sparking and exposed wire on Bazaar Street", "Street light transformer fire risk sparking heavily and live wire hanging down", "STREET_LIGHT", "CRITICAL", 13.0350, 80.2150, "Ward 130", "DUP_09", "DUPLICATE", "Pair 9A: Bazaar St transformer sparking (English)"),
+    (18, "பஜார் தெருவில் மின்மாற்றி தீப்பொறி மின்கசிவு", "மின்மாற்றி தீப்பொறி பறக்கிறது தெருவிளக்கு கம்பத்தில் அறுந்த மின்கம்பி தொங்குகிறது", "STREET_LIGHT", "CRITICAL", 13.0352, 80.2152, "Ward 130", "DUP_09", "DUPLICATE", "Pair 9B: Bazaar St transformer sparking (Tamil duplicate)"),
+
+    # Pair 10: WATER_SEWERAGE (Sewage contamination in drinking water)
+    (19, "Toxic sewage entering drinking water pipeline", "Severe sewage line mixing with drinking water supply contamination foul smell in tap water", "WATER_SEWERAGE", "CRITICAL", 13.1100, 80.2800, "Ward 34", "DUP_10", "DUPLICATE", "Pair 10A: Sewage water contamination"),
+    (20, "Drinking water contamination with drainage sewage", "Black foul sewage leaking into fresh drinking water pipe health hazard", "WATER_SEWERAGE", "CRITICAL", 13.1102, 80.2804, "Ward 34", "DUP_10", "DUPLICATE", "Pair 10B: Sewage water contamination duplicate"),
+
+    # --- AMBIGUOUS & MULTI-DOMAIN CASES (15 items) ---
+    (21, "Water pipe burst washing away asphalt on main road", "Heavy drinking water leak from broken pipe caused asphalt to erode forming crater", "WATER_SEWERAGE", "HIGH", 13.0650, 80.2400, "Ward 110", "", "AMBIGUOUS", "Water pipe causes road damage: root cause WATER_SEWERAGE"),
+    (22, "Garbage dumping blocking the storm drain canal", "Massive uncollected garbage waste thrown into open drain canal causing water stagnation", "GARBAGE", "MEDIUM", 13.0500, 80.2200, "Ward 115", "", "AMBIGUOUS", "Garbage dumped inside drain: primary GARBAGE disposal issue"),
+    (23, "Fallen tree branch smashed streetlight pole", "Heavy tree branch broke and bent lamppost bulb broken dark street at night", "STREET_LIGHT", "MEDIUM", 13.0900, 80.2600, "Ward 60", "", "AMBIGUOUS", "Tree damaged lamppost: primary repair needed is STREET_LIGHT"),
+    (24, "Sewage overflow pooling across pedestrian bus stop", "Gutter overflow and smelly sewage flooding pavement right in front of commuter bus shelter", "WATER_SEWERAGE", "HIGH", 13.0700, 80.2300, "Ward 102", "", "AMBIGUOUS", "Sewage at bus stop: health hazard WATER_SEWERAGE"),
+    (25, "Open manhole uncovered inside public park playground", "Uncovered manhole shaft hidden in lawn of municipal garden children at high risk", "DRAINAGE", "CRITICAL", 13.0200, 80.2100, "Ward 140", "", "AMBIGUOUS", "Open shaft inside park: safety hazard DRAINAGE"),
+    (26, "Stormwater drain silt overflow eroding road shoulder", "Clogged drain during heavy rainwater overflowing silt and destroying road asphalt curb", "DRAINAGE", "HIGH", 13.0800, 80.2000, "Ward 85", "", "AMBIGUOUS", "Drain overflow destroying road: primary DRAINAGE silt clearance"),
+    (27, "Speed breaker damaged near school bus bay", "Broken asphalt speedbreaker causing accidents right at school zone bus route entrance", "ROADS", "HIGH", 13.0450, 80.2500, "Ward 120", "", "AMBIGUOUS", "Speedbreaker at bus bay: ROADS priority HIGH due to school zone"),
+    (28, "Stagnant flood water attracting mosquitoes around dump bin", "Rainwater stagnation around overflowing municipal dustbin creating severe foul stench", "DRAINAGE", "MEDIUM", 13.0600, 80.2700, "Ward 77", "", "AMBIGUOUS", "Water stagnation around garbage bin: DRAINAGE runoff issue"),
+    (29, "Live wire hanging over bus shelter roof", "Snapped power line touching metallic bus stop commuter shelter electric shock risk", "STREET_LIGHT", "CRITICAL", 13.0950, 80.2850, "Ward 45", "", "AMBIGUOUS", "Live wire on bus stop: electrical hazard STREET_LIGHT"),
+    (30, "Overgrown park tree roots cracking the walking pavement", "Huge tree roots uplifted concrete footpath and curb making sidewalk impossible to walk", "PARKS", "LOW", 13.0300, 80.2450, "Ward 155", "", "AMBIGUOUS", "Horticulture roots breaking sidewalk: PARKS"),
+    (31, "Culvert collapse under arterial transit road", "Major structural slab failure of drainage culvert causing arterial road to crack", "DRAINAGE", "CRITICAL", 13.0750, 80.1950, "Ward 92", "", "AMBIGUOUS", "Culvert slab failure under road: DRAINAGE collapse"),
+    (32, "Leaking valve in municipal park botanical garden", "Drinking water pipe leak wasting fresh water inside public park lawn area", "WATER_SEWERAGE", "MEDIUM", 13.0850, 80.2350, "Ward 70", "", "AMBIGUOUS", "Water pipe inside park: WATER_SEWERAGE"),
+    (33, "Dark road stretch near transit bus terminal", "All sodium light fixtures dark road outside metro station commuter exit", "STREET_LIGHT", "MEDIUM", 13.0810, 80.2710, "Ward 55", "", "AMBIGUOUS", "Streetlights outside transit hub: STREET_LIGHT"),
+    (34, "Animal carcass dumped inside open storm drain", "Rotting carcass causing severe foul smell and clogging rainwater culvert", "GARBAGE", "MEDIUM", 13.0480, 80.2120, "Ward 118", "", "AMBIGUOUS", "Carcass inside storm drain: GARBAGE removal"),
+    (35, "Underpass subway flooded with drainage backflow", "Vehicle underpass completely waterlogged after rain storm drain backflow major arterial route blocked", "DRAINAGE", "HIGH", 13.0620, 80.2320, "Ward 108", "", "AMBIGUOUS", "Flooded underpass: DRAINAGE arterial blockage"),
+
+    # --- SPELLING ERRORS & COLLOQUIAL PHONETIC TEXT (15 items) ---
+    (36, "pot hole crator on main rd pls fix", "dep pot hole on rd vehicle tire damaged deep crator kindly repair assp", "ROADS", "MEDIUM", 13.0550, 80.2500, "Ward 112", "", "SPELLING_ERROR", "Typos: pot hole, crator, rd, dep"),
+    (37, "stret ligt pole dark strech no lite", "stretlight out for 5 days lamppost not wrking very dark stret in evng", "STREET_LIGHT", "MEDIUM", 12.9850, 80.2250, "Ward 178", "", "SPELLING_ERROR", "Typos: stret ligt, wrking, stret"),
+    (38, "pipline bursted watr leak", "driking water pipline leeking heavly on street pipe burst wastag of watter", "WATER_SEWERAGE", "HIGH", 13.0840, 80.2120, "Ward 74", "", "SPELLING_ERROR", "Typos: pipline, watr, driking, leeking"),
+    (39, "garbeg dumb not cleand bad smel", "garbeg bin overflwing waste on road side stinky foul smel please clen dustbin", "GARBAGE", "MEDIUM", 13.0420, 80.2020, "Ward 95", "", "SPELLING_ERROR", "Typos: garbeg dumb, overflwing, clen"),
+    (40, "drange choke rainwtr stagnat", "cloged drain silt choke up stormdrain runoff flooding road waterlog", "DRAINAGE", "MEDIUM", 13.0730, 80.2260, "Ward 105", "", "SPELLING_ERROR", "Typos: drange, rainwtr, cloged"),
+    (41, "buss shelter brok roof passanger wait", "mtc bus stop commuter shleter chair brok passangers standing under sun", "PUBLIC_TRANSPORT", "MEDIUM", 13.0820, 80.2740, "Ward 58", "", "SPELLING_ERROR", "Typos: buss, commuter shleter, brok"),
+    (42, "overgrowen bushess and fell tree branch", "big branch fell down in pak walkpath park gardn shrub unkept", "PARKS", "MEDIUM", 13.0770, 80.2390, "Ward 88", "", "SPELLING_ERROR", "Typos: overgrowen, bushess, pak walkpath"),
+    (43, "sinkhol formd on pavemnt dangrus", "road cave in cavein near school pavement fissur deep hole", "ROADS", "CRITICAL", 13.0070, 80.2580, "Ward 171", "", "SPELLING_ERROR", "Typos: sinkhol, dangrus, fissur"),
+    (44, "elctric wire sparkin from pol", "transformer sparking and live wire hang down dangrous shock risk", "STREET_LIGHT", "CRITICAL", 13.0360, 80.2160, "Ward 130", "", "SPELLING_ERROR", "Typos: elctric, sparkin, pol"),
+    (45, "manhol lid brok drain open", "open manhole cover missin on cross st uncovered manhole shaft deep", "DRAINAGE", "CRITICAL", 13.0710, 80.2230, "Ward 105", "", "SPELLING_ERROR", "Typos: manhol, missin"),
+    (46, "sewge mixing in borewel watr", "drinking water contamination sewage smell coming in tap water pipe", "WATER_SEWERAGE", "CRITICAL", 13.1110, 80.2810, "Ward 34", "", "SPELLING_ERROR", "Typos: sewge, borewel"),
+    (47, "dustbin brokn rabish scatterd", "plasic waste and rubbish garbage litter near colony corner", "GARBAGE", "MEDIUM", 13.0440, 80.2040, "Ward 95", "", "SPELLING_ERROR", "Typos: brokn, rabish, plasic"),
+    (48, "spid breker unmarkd accident spot", "asphalt speed breaker not paint no white strip road hump car hitting", "ROADS", "MEDIUM", 13.0570, 80.2530, "Ward 112", "", "SPELLING_ERROR", "Typos: spid breker, unmarkd"),
+    (49, "faln tree acros rd", "big tree fall on asphalt road blocking hospital route arterial road", "PARKS", "HIGH", 13.0080, 80.2590, "Ward 171", "", "SPELLING_ERROR", "Typos: faln, acros, rd"),
+    (50, "lampos led bulb flikering blackout", "led light on street light driver unit burn blinking continuously dark stretch", "STREET_LIGHT", "MEDIUM", 12.9830, 80.2220, "Ward 178", "", "SPELLING_ERROR", "Typos: lampos, flikering"),
+
+    # --- MIXED TAMIL AND ENGLISH (TANGLISH) CASES (15 items) ---
+    (51, "Big குழி on the arterial road near signal", "A very deep குழி has formed on the road near signal two-wheeler spillover risk", "ROADS", "HIGH", 13.0540, 80.2510, "Ward 112", "", "MIXED_TAMIL_ENGLISH", "Mixed: குழி with arterial road"),
+    (52, "Underground குடிநீர் pipeline leak near temple", "Clean குடிநீர் gushing out from pipe burst onto asphalt road drinking water waste", "WATER_SEWERAGE", "HIGH", 13.0835, 80.2115, "Ward 74", "", "MIXED_TAMIL_ENGLISH", "Mixed: குடிநீர் with pipeline leak"),
+    (53, "Street விளக்கு not burning for one week", "The தெருவிளக்கு bulb fused dark street at night please repair lamppost", "STREET_LIGHT", "MEDIUM", 12.9825, 80.2215, "Ward 178", "", "MIXED_TAMIL_ENGLISH", "Mixed: விளக்கு with street light"),
+    (54, "Commercial குப்பை dumped near residential corner", "Solid waste and குப்பை not cleared for 4 days foul smell dogs scattering trash", "GARBAGE", "MEDIUM", 13.0415, 80.2015, "Ward 95", "", "MIXED_TAMIL_ENGLISH", "Mixed: குப்பை with garbage dump"),
+    (55, "Heavy மழைநீர் stagnation due to clogged drain", "Road is completely flooded with மழைநீர் because storm drain canal is choked with silt", "DRAINAGE", "HIGH", 13.0725, 80.2255, "Ward 105", "", "MIXED_TAMIL_ENGLISH", "Mixed: மழைநீர் with storm drain"),
+    (56, "MTC பேருந்து shelter glass shattered by vandals", "Commuters standing on road because பேருந்து நிறுத்தம் roof and seats are broken", "PUBLIC_TRANSPORT", "MEDIUM", 13.0825, 80.2745, "Ward 58", "", "MIXED_TAMIL_ENGLISH", "Mixed: பேருந்து with bus shelter"),
+    (57, "Large மரக்கிளை broken and dangling dangerously", "A heavy மரக்கிளை is hanging over the road ready to snap on pedestrians in the park", "PARKS", "HIGH", 13.0775, 80.2395, "Ward 88", "", "MIXED_TAMIL_ENGLISH", "Mixed: மரக்கிளை dangling branch"),
+    (58, "Severe சாலை சேதம் near flyover underpass", "Asphalt surface completely washed out சாலை சேதம் causing major traffic bottleneck", "ROADS", "HIGH", 13.0065, 80.2575, "Ward 171", "", "MIXED_TAMIL_ENGLISH", "Mixed: சாலை சேதம் with flyover underpass"),
+    (59, "கழிவுநீர் overflow into drinking water pipe", "Sewage line broken and கழிவுநீர் entering domestic water line health emergency", "WATER_SEWERAGE", "CRITICAL", 13.1105, 80.2805, "Ward 34", "", "MIXED_TAMIL_ENGLISH", "Mixed: கழிவுநீர் with drinking water contamination"),
+    (60, "தெரு விளக்கு switch burnt and dark street", "Entire stretch has no illumination தெரு விளக்கு disconnected since yesterday", "STREET_LIGHT", "MEDIUM", 13.0355, 80.2155, "Ward 130", "", "MIXED_TAMIL_ENGLISH", "Mixed: தெரு விளக்கு with dark stretch"),
+    (61, "திறந்த மேன்ஹோல் on main road near junction", "Dangerous open manhole uncovered shaft on road motorists can fall in", "DRAINAGE", "CRITICAL", 13.0715, 80.2235, "Ward 105", "", "MIXED_TAMIL_ENGLISH", "Mixed: திறந்த மேன்ஹோல் with open shaft"),
+    (62, "துர்நாற்றம் coming from overflowing dustbin", "Garbage collection truck did not come துர்நாற்றம் unbearable near school gate", "GARBAGE", "MEDIUM", 13.0435, 80.2035, "Ward 95", "", "MIXED_TAMIL_ENGLISH", "Mixed: துர்நாற்றம் with garbage dustbin"),
+    (63, "அறுந்த மின்கம்பி hanging near public bus bay", "Live wire snapped and sparking அறுந்த மின்கம்பி touching transit shelter roof", "STREET_LIGHT", "CRITICAL", 13.0955, 80.2855, "Ward 45", "", "MIXED_TAMIL_ENGLISH", "Mixed: அறுந்த மின்கம்பி with live wire"),
+    (64, "சாலையின் குறுக்கே விழுந்த மரம் blocking school zone", "Heavy tree uprooted and fallen tree across road school bus traffic blocked", "PARKS", "HIGH", 13.0075, 80.2585, "Ward 171", "", "MIXED_TAMIL_ENGLISH", "Mixed: சாலையின் குறுக்கே விழுந்த மரம் with road blockage"),
+    (65, "நடைபாதை damaged with open potholes", "Sidewalk pavement curb broken and நடைபாதை unusable for elderly citizens", "ROADS", "MEDIUM", 13.0565, 80.2525, "Ward 112", "", "MIXED_TAMIL_ENGLISH", "Mixed: நடைபாதை with pavement curb"),
+
+    # --- PURE TAMIL CASES (15 items) ---
+    (66, "முக்கிய சாலையில் மிகப்பெரிய பள்ளம் விபத்து அபாயம்", "சாலையில் ஆழமான குழி உள்ளது இருசக்கர வாகனங்கள் விழுந்து விபத்து ஏற்படுகிறது தார் சாலை சேதமடைந்துள்ளது", "ROADS", "HIGH", 13.0530, 80.2505, "Ward 112", "", "PURE_TAMIL", "Tamil: பள்ளம், ஆழமான குழி, தார் சாலை"),
+    (67, "குடிநீர் குழாய் உடைந்து சாலை முழுவதும் தண்ணீர் வீணாகிறது", "குடிநீர் விநியோக குழாய் உடைப்பு ஏற்பட்டு தண்ணீர் சாலையில் பெருக்கெடுத்து ஓடுகிறது", "WATER_SEWERAGE", "HIGH", 13.0830, 80.2110, "Ward 74", "", "PURE_TAMIL", "Tamil: குடிநீர் குழாய் உடைப்பு, தண்ணீர் விநியோகம்"),
+    (68, "தெருவிளக்கு பல நாட்களாக எரியவில்லை பகுதி இருட்டாக உள்ளது", "தெருவிளக்கு கம்பத்தில் விளக்கு எரியவில்லை இரவு நேரத்தில் பகுதி முழுவதும் இருட்டாக உள்ளது", "STREET_LIGHT", "MEDIUM", 12.9820, 80.2210, "Ward 178", "", "PURE_TAMIL", "Tamil: தெருவிளக்கு, விளக்கு எரியவில்லை, இருட்டாக உள்ளது"),
+    (69, "தெரு முனையில் குப்பைக் கூளம் துர்நாற்றம் வீசுகிறது", "குப்பை தொட்டி நிரம்பி வழிந்து பிளாஸ்டிக் கழிவு சிதறி கிடக்கிறது கடுமையான துர்நாற்றம்", "GARBAGE", "MEDIUM", 13.0410, 80.2010, "Ward 95", "", "PURE_TAMIL", "Tamil: குப்பை தொட்டி, துர்நாற்றம், பிளாஸ்டிக் கழிவு"),
+    (70, "மழைநீர் வடிகால் அடைத்து சாக்கடை நீர் பெருக்கெடுத்து ஓடுகிறது", "வடிகால் அடைப்பு ஏற்பட்டு மழைநீர் செல்ல வழியின்றி சாலையில் தேங்கிய நீர் நிற்கிறது", "DRAINAGE", "HIGH", 13.0720, 80.2250, "Ward 105", "", "PURE_TAMIL", "Tamil: வடிகால் அடைப்பு, மழைநீர், தேங்கிய நீர்"),
+    (71, "பேருந்து நிறுத்தம் மேற்கூரை சேதமடைந்துள்ளது", "அரசு பேருந்து நிறுத்தம் நிழற்குடை உடைந்து பயணிகள் மழையில் நனைகின்றனர்", "PUBLIC_TRANSPORT", "MEDIUM", 13.0820, 80.2740, "Ward 58", "", "PURE_TAMIL", "Tamil: பேருந்து நிறுத்தம், நிழற்குடை"),
+    (72, "பூங்காவில் மரம் முறிந்து நடைபாதையில் விழுந்துள்ளது", "நகராட்சி பூங்கா நடைபாதையில் மரக்கிளை முறிந்து விழுந்து நடைபயிற்சி செய்வோர் செல்ல முடியவில்லை", "PARKS", "MEDIUM", 13.0770, 80.2390, "Ward 88", "", "PURE_TAMIL", "Tamil: பூங்கா, மரக்கிளை, நடைபாதை"),
+    (73, "திறந்த மேன்ஹோல் உயிருக்கு ஆபத்து உடனடியாக மூடவும்", "மூடப்படாத சாக்கடை திறந்த மேன்ஹோல் சாலையில் உள்ளது குழந்தைகள் விழுந்துவிடும் அபாயம்", "DRAINAGE", "CRITICAL", 13.0710, 80.2230, "Ward 105", "", "PURE_TAMIL", "Tamil: திறந்த மேன்ஹோல், மூடப்படாத சாக்கடை"),
+    (74, "அறுந்த மின்கம்பி சாலையில் கிடக்கிறது தீப்பொறி பறக்கிறது", "மின் கம்பி அறுந்து விழுந்து தீப்பொறி பறக்கிறது மின்கசிவு ஆபத்து உள்ளது", "STREET_LIGHT", "CRITICAL", 13.0350, 80.2150, "Ward 130", "", "PURE_TAMIL", "Tamil: அறுந்த மின்கம்பி, தீப்பொறி, மின்கசிவு"),
+    (75, "சாலையின் குறுக்கே விழுந்த மரம் போக்குவரத்து பாதிப்பு", "சாலையில் மரம் விழுந்தது முக்கிய சாலையில் போக்குவரத்து முற்றிலும் தடைபட்டுள்ளது", "PARKS", "HIGH", 13.0070, 80.2580, "Ward 171", "", "PURE_TAMIL", "Tamil: சாலையில் மரம் விழுந்தது, போக்குவரத்து பாதிப்பு"),
+    (76, "கழிவுநீர் குழாய் உடைந்து துர்நாற்றம் வீசுகிறது", "பாதாள சாக்கடை அடைப்பு ஏற்பட்டு கழிவுநீர் சாலையில் பாய்கிறது சுகாதார சீர்கேடு", "WATER_SEWERAGE", "MEDIUM", 13.1100, 80.2800, "Ward 34", "", "PURE_TAMIL", "Tamil: கழிவுநீர், பாதாள சாக்கடை"),
+    (77, "மின்மாற்றி வெடித்து தீ விபத்து அபாயம்", "தெருவில் உள்ள மின்மாற்றி பழுதாகி தீப்பொறி பறக்கிறது மின்தடை ஏற்பட்டுள்ளது", "STREET_LIGHT", "CRITICAL", 13.0360, 80.2160, "Ward 130", "", "PURE_TAMIL", "Tamil: மின்மாற்றி, தீப்பொறி"),
+    (78, "சாலை இடிவு ஏற்பட்டு பெரிய பள்ளம் உருவாகியுள்ளது", "மழையினால் சாலை இடிவு ஏற்பட்டு ஆழமான பள்ளம் ஏற்பட்டுள்ளது வாகனங்கள் செல்ல முடியாது", "ROADS", "CRITICAL", 13.0060, 80.2570, "Ward 171", "", "PURE_TAMIL", "Tamil: சாலை இடிவு, ஆழமான பள்ளம்"),
+    (79, "சாக்கடை கால்வாய் தூர்வாரப்படவில்லை கொசு தொல்லை", "கழிவுநீர் கால்வாய் அடைத்து நீர் தேக்கம் ஏற்பட்டுள்ளது துப்புரவு பணியாளர்கள் வரவில்லை", "DRAINAGE", "MEDIUM", 13.0610, 80.2710, "Ward 77", "", "PURE_TAMIL", "Tamil: கழிவுநீர் கால்வாய், நீர் தேக்கம்"),
+    (80, "குடிநீர் மாசடைந்தது கருப்பு நிறத்தில் தண்ணீர் வருகிறது", "குடிநீர் விநியோகத்தில் கழிவுநீர் கலந்து நச்சுத்தன்மை ஏற்பட்டுள்ளது குடிக்க முடியவில்லை", "WATER_SEWERAGE", "CRITICAL", 13.1110, 80.2810, "Ward 34", "", "PURE_TAMIL", "Tamil: குடிநீர் மாசடைந்தது, நச்சு"),
+
+    # --- STANDARD / CANONICAL BENCHMARK CASES (20 items) ---
+    (81, "Pothole on 1st Avenue asphalt road", "Vehicle hitting small pothole and damaged bitumen surface on 1st avenue", "ROADS", "MEDIUM", 13.0580, 80.2540, "Ward 112", "", "STANDARD", "Standard ROADS pothole"),
+    (82, "Broken curbstone and pavement fissured", "Concrete curb damaged and cobblestone dislodged near residential gate", "ROADS", "LOW", 13.0590, 80.2550, "Ward 112", "", "STANDARD", "Standard ROADS pavement"),
+    (83, "Flyover expansion joint fissure", "Asphalt fissure widening on flyover lane causing vibration to motorists", "ROADS", "HIGH", 13.0050, 80.2560, "Ward 171", "", "STANDARD", "Standard ROADS flyover fissure"),
+    (84, "Underground water valve leak wasting fresh water", "Continuous water leak from water main flange near pump house", "WATER_SEWERAGE", "MEDIUM", 13.0845, 80.2125, "Ward 74", "", "STANDARD", "Standard WATER valve leak"),
+    (85, "Overhead water tank leakage", "Municipal overhead tank pipe leak losing water pressure across locality", "WATER_SEWERAGE", "MEDIUM", 13.0855, 80.2135, "Ward 74", "", "STANDARD", "Standard WATER overhead tank"),
+    (86, "Sewage gushing from manhole cover", "Gutter overflow and black sewage flooding lane causing health hazard", "WATER_SEWERAGE", "HIGH", 13.1115, 80.2815, "Ward 34", "", "STANDARD", "Standard WATER sewage overflow"),
+    (87, "Sodium streetlight bulb non-functional", "Lamppost bulb fused single street light out in front of house number 23", "STREET_LIGHT", "LOW", 12.9835, 80.2225, "Ward 178", "", "STANDARD", "Standard STREET_LIGHT single lamp"),
+    (88, "Illumination poor on sub-collector road", "LED light flickering and illumination dim on street light pole", "STREET_LIGHT", "MEDIUM", 12.9845, 80.2235, "Ward 178", "", "STANDARD", "Standard STREET_LIGHT LED dim"),
+    (89, "Snapped overhead wire hanging at eye level", "Cable and exposed wire sagging across road electric shock hazard", "STREET_LIGHT", "CRITICAL", 13.0365, 80.2165, "Ward 130", "", "STANDARD", "Standard STREET_LIGHT live wire"),
+    (90, "Overflowing community dustbin in residential ward", "Solid waste and plastic litter spilled out around public dustbin", "GARBAGE", "MEDIUM", 13.0425, 80.2025, "Ward 95", "", "STANDARD", "Standard GARBAGE bin"),
+    (91, "Commercial construction debris dumped on corner", "Dump of demolition rubble and uncollected waste blocking side street", "GARBAGE", "MEDIUM", 13.0430, 80.2030, "Ward 95", "", "STANDARD", "Standard GARBAGE debris"),
+    (92, "Decomposed animal carcass near park wall", "Animal carcass creating extreme stench and sanitary issue", "GARBAGE", "MEDIUM", 13.0445, 80.2045, "Ward 95", "", "STANDARD", "Standard GARBAGE carcass"),
+    (93, "Monsoon storm drain clogged with plastic silt", "Culvert inlet blocked stormdrain overflow causing street waterlogging", "DRAINAGE", "HIGH", 13.0735, 80.2265, "Ward 105", "", "STANDARD", "Standard DRAINAGE storm drain"),
+    (94, "Open drainage canal lacking guardrail", "Open drain canal running beside street with missing slab safety hazard", "DRAINAGE", "HIGH", 13.0745, 80.2275, "Ward 105", "", "STANDARD", "Standard DRAINAGE canal"),
+    (95, "Missing manhole cover on pedestrian sidewalk", "Uncovered manhole shaft opening directly on footpath missing manhole cover", "DRAINAGE", "CRITICAL", 13.0705, 80.2225, "Ward 105", "", "STANDARD", "Standard DRAINAGE manhole"),
+    (96, "Bus shelter damaged glass panel", "MTC bus stop commuter shelter window smashed shards lying on pavement", "PUBLIC_TRANSPORT", "MEDIUM", 13.0815, 80.2735, "Ward 58", "", "STANDARD", "Standard PUBLIC_TRANSPORT shelter"),
+    (97, "Transit bus route missing schedule board and bench", "Bus bay shelter has no seating for senior citizens bus route 21G", "PUBLIC_TRANSPORT", "LOW", 13.0805, 80.2725, "Ward 58", "", "STANDARD", "Standard PUBLIC_TRANSPORT bus bay"),
+    (98, "Metro station feeder bus stop pole damaged", "Bus stop sign post uprooted by truck transit passengers confused", "PUBLIC_TRANSPORT", "LOW", 13.0835, 80.2755, "Ward 58", "", "STANDARD", "Standard PUBLIC_TRANSPORT bus stop"),
+    (99, "Overhanging tree branch ready to fall", "Dangling branch on huge banyan tree in public park horticulture section", "PARKS", "HIGH", 13.0765, 80.2385, "Ward 88", "", "STANDARD", "Standard PARKS overhanging branch"),
+    (100, "Unkempt municipal children playground lawn", "Overgrown grass and weeds in park playground children cannot play", "PARKS", "LOW", 13.0755, 80.2375, "Ward 88", "", "STANDARD", "Standard PARKS overgrown lawn"),
+]
+
+# Write out CSV with explicit synthetic notice
+output_path = 'docs/evaluation/test_set.csv'
+with open(output_path, 'w', encoding='utf-8', newline='') as f:
+    f.write("# =============================================================================\n")
+    f.write("# SYNTHETIC DATASET NOTICE:\n")
+    f.write("# All 100 complaint titles, descriptions, and metadata rows in this benchmark\n")
+    f.write("# are entirely SYNTHETIC, generated by the development team and AI assistant\n")
+    f.write("# for empirical evaluation of the deterministic triage and duplicate detection engines.\n")
+    f.write("# They DO NOT represent real citizen submissions, live tickets, or actual residents.\n")
+    f.write("# =============================================================================\n")
+    writer = csv.writer(f)
+    writer.writerow([
+        "id", "title", "description", "expected_category", "expected_priority",
+        "latitude", "longitude", "ward", "duplicate_group", "case_type", "notes"
+    ])
+    for row in data:
+        writer.writerow(row)
+
+print(f"Generated {len(data)} test entries in {output_path}")
+

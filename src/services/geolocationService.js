@@ -1,7 +1,4 @@
-/**
- * Geolocation & Reverse Geocoding Service for CivicFix AI
- * Interacts with browser navigator.geolocation and OpenStreetMap Nominatim reverse geocoder.
- */
+import { apiClient } from './apiClient.js';
 
 export const geolocationService = {
   /**
@@ -54,9 +51,32 @@ export const geolocationService = {
 
   /**
    * Reverse geocode coordinates into a human-readable address.
-   * Uses OpenStreetMap Nominatim with a 5s timeout and fallback.
+   * Prioritizes backend cached proxy with OSM Nominatim User-Agent compliance.
+   * Falls back to direct browser fetch and coordinate string formatting.
    */
   reverseGeocode: async (lat, lng) => {
+    // 1. Try backend reverse-geocode proxy first
+    try {
+      const backendRes = await apiClient.gis.reverseGeocode(lat, lng);
+      const data = backendRes?.data || backendRes;
+      if (data && data.success) {
+        return {
+          success: true,
+          displayName: data.displayName,
+          streetAddress: data.streetAddress,
+          cityDistrict: data.cityDistrict,
+          city: data.city,
+          state: data.state,
+          postcode: data.postcode,
+          raw: data
+        };
+      }
+    } catch (backendErr) {
+      // Backend proxy unavailable or failed, fall through to browser direct fetch
+      console.warn('[CivicFix Geocoding] Backend proxy unavailable, using direct fallback:', backendErr.message);
+    }
+
+    // 2. Direct browser fetch fallback
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
 

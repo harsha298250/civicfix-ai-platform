@@ -4,6 +4,7 @@ public enum RoleName {
     CITIZEN,
     OFFICER,
     WORKER,
+    SUPERVISOR,
     ADMIN;
 
     public String toSecurityRole() {

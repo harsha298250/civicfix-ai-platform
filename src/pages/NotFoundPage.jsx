@@ -14,6 +14,8 @@ const NotFoundPage = () => {
         return '/worker/dashboard';
       case 'ADMIN':
         return '/admin/dashboard';
+      case 'SUPERVISOR':
+        return '/supervisor/escalations';
       default:
         return '/citizen/dashboard';
     }

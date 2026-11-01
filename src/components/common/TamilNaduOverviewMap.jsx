@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
+import { hasValidCoordinates } from '../../services/complaintService';
 
 const escapeHtml = (str) => {
   if (str === null || str === undefined) return '';
@@ -158,75 +159,37 @@ export const TamilNaduOverviewMap = ({
       const lat = Number(c.location?.coordinates?.lat);
       const lng = Number(c.location?.coordinates?.lng);
 
-      if (!isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) {
+      if (hasValidCoordinates(c.location?.coordinates)) {
         const isSelected = selectedComplaintId === c.id;
         const marker = L.marker([lat, lng], {
           icon: createComplaintMarkerIcon(c.priority, isSelected),
           zIndexOffset: isSelected ? 1000 : 100
         });
 
-        // Popup HTML
-        const safeId = escapeHtml(c.id);
-        const safePriority = escapeHtml(c.priority);
+        // Popup HTML: Strictly non-sensitive, shows category, status and ward only
         const safeCategory = escapeHtml(c.category || 'Civic Infrastructure');
-        const safeTitle = escapeHtml(c.title);
-        const safeAddress = escapeHtml(c.location?.address || 'Tamil Nadu');
-        const safeStatus = escapeHtml(c.status);
-        const priorityColor = getPriorityColor(c.priority);
+        const safeWard = escapeHtml(c.ward || c.location?.ward || 'Tamil Nadu');
+        const safeStatus = escapeHtml(c.status || 'SUBMITTED');
 
         const popupContent = document.createElement('div');
         popupContent.className = 'p-1 text-xs font-sans';
         popupContent.innerHTML = `
-          <div style="font-family: inherit; min-width: 210px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-              <span style="font-family: monospace; font-weight: bold; color: #137A70; font-size: 11px;">#${safeId}</span>
-              <span style="
-                background: ${priorityColor}18;
-                color: ${priorityColor};
-                padding: 1px 6px;
-                border-radius: 9999px;
-                font-weight: 700;
-                font-size: 10px;
-              ">${safePriority}</span>
-            </div>
-            <div style="font-size: 10px; color: #137A70; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">
+          <div style="font-family: inherit; min-width: 170px;">
+            <div style="font-size: 11px; color: #137A70; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">
               ${safeCategory}
             </div>
-            <h4 style="font-weight: 700; color: #18232F; margin: 0 0 4px 0; font-size: 12px; line-height: 1.3;">
-              ${safeTitle}
-            </h4>
-            <p style="color: #667384; font-size: 11px; margin: 0 0 6px 0;">
-              📍 ${safeAddress}
-            </p>
-            <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 5px; border-top: 1px solid #E2E7ED;">
-              <span style="font-size: 10px; font-weight: 600; color: #18232F;">
-                Status: ${safeStatus}
-              </span>
-              <button id="inspect-btn-${safeId}" style="
-                background-color: #137A70;
-                color: white;
-                border: none;
-                border-radius: 6px;
-                padding: 3px 8px;
-                font-size: 10px;
-                font-weight: 600;
-                cursor: pointer;
-              ">View Details →</button>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; font-size: 11px;">
+              <span style="color: #667384;">Status:</span>
+              <span style="font-weight: 600; color: #18232F;">${safeStatus}</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; font-size: 11px;">
+              <span style="color: #667384;">Ward:</span>
+              <span style="font-weight: 600; color: #18232F;">${safeWard}</span>
             </div>
           </div>
         `;
 
-        // Wire button event
-        marker.bindPopup(popupContent, { maxWidth: 300 });
-        marker.on('popupopen', () => {
-          const btn = document.getElementById(`inspect-btn-${c.id}`);
-          if (btn) {
-            btn.onclick = () => {
-              const target = getDetailUrl ? getDetailUrl(c) : `${detailRoutePrefix}/${c.id}`;
-              navigate(target);
-            };
-          }
-        });
+        marker.bindPopup(popupContent, { maxWidth: 260 });
 
         marker.on('click', () => {
           if (onSelectComplaint) {

@@ -34,6 +34,19 @@ public class ResolutionEvidence {
     @Column(precision = 10, scale = 7)
     private BigDecimal longitude;
 
+    @Column(name = "distance_meters", precision = 10, scale = 1)
+    private BigDecimal distanceMeters;
+
+    @Column(name = "accuracy_meters", precision = 8, scale = 1)
+    private BigDecimal accuracyMeters;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "location_check", length = 20, nullable = false)
+    private LocationCheck locationCheck = LocationCheck.NOT_CHECKABLE;
+
+    @Column(name = "location_note", columnDefinition = "TEXT")
+    private String locationNote;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private OffsetDateTime createdAt = OffsetDateTime.now();
 
@@ -106,5 +119,37 @@ public class ResolutionEvidence {
 
     public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public BigDecimal getDistanceMeters() {
+        return distanceMeters;
+    }
+
+    public void setDistanceMeters(BigDecimal distanceMeters) {
+        this.distanceMeters = distanceMeters;
+    }
+
+    public BigDecimal getAccuracyMeters() {
+        return accuracyMeters;
+    }
+
+    public void setAccuracyMeters(BigDecimal accuracyMeters) {
+        this.accuracyMeters = accuracyMeters;
+    }
+
+    public LocationCheck getLocationCheck() {
+        return locationCheck;
+    }
+
+    public void setLocationCheck(LocationCheck locationCheck) {
+        this.locationCheck = locationCheck != null ? locationCheck : LocationCheck.NOT_CHECKABLE;
+    }
+
+    public String getLocationNote() {
+        return locationNote;
+    }
+
+    public void setLocationNote(String locationNote) {
+        this.locationNote = locationNote;
     }
 }

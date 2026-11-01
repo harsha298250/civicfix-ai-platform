@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useTranslation } from '../../context/LanguageContext';
+import LanguageToggle from '../common/LanguageToggle';
+import InstallPwaButton from '../common/InstallPwaButton';
 import { DemoRoleSwitcher } from '../common/DemoRoleSwitcher';
 
 export const CitizenLayout = () => {
-  const { currentUser, notifications, toast, logout } = useApp();
+  const { currentUser, unreadCount, toast, logout } = useApp();
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
-  const unreadNotifs = notifications.filter(n => n.role === 'CITIZEN' && !n.read).length;
-
   const navLinks = [
-    { label: 'Dashboard', path: '/citizen/dashboard', icon: 'dashboard' },
-    { label: 'My Complaints', path: '/citizen/complaints', icon: 'list_alt' },
+    { label: t('nav.dashboard'), path: '/citizen/dashboard', icon: 'dashboard' },
+    { label: t('nav.myComplaints'), path: '/citizen/complaints', icon: 'list_alt' },
     {
-      label: 'Notifications',
+      label: t('nav.notifications'),
       path: '/citizen/notifications',
       icon: 'notifications',
-      badge: unreadNotifs > 0 ? unreadNotifs : null
+      badge: unreadCount > 0 ? unreadCount : null
     }
   ];
 
@@ -89,14 +91,17 @@ export const CitizenLayout = () => {
           </nav>
 
           {/* Action CTAs & Profile */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <InstallPwaButton />
+            <LanguageToggle />
+
             <Link
               to="/citizen/complaints/new"
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary-container text-white hover:bg-primary font-label-md text-label-md transition-all shadow-sm active:scale-98"
             >
               <span className="material-symbols-outlined text-[18px]">add_circle</span>
-              <span className="hidden sm:inline">Report a Civic Issue</span>
-              <span className="sm:hidden">Report</span>
+              <span className="hidden sm:inline">{t('nav.reportComplaint')}</span>
+              <span className="sm:hidden">{t('common.submit')}</span>
             </Link>
 
             {/* Profile Dropdown */}

@@ -6,8 +6,13 @@ public enum ComplaintStatus {
     ASSIGNED,
     IN_PROGRESS,
     RESOLUTION_SUBMITTED,
+    PENDING_CITIZEN_CONFIRMATION,
     RESOLVED,
     REWORK_REQUESTED,
     REOPENED,
-    REJECTED
+    REJECTED;
+
+    public boolean isTerminal() {
+        return this == RESOLVED || this == REJECTED;
+    }
 }

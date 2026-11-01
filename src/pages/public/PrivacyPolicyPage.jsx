@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 /**
  * CivicFix AI — Citizen Data Privacy Policy Page
- * Outlines resident privacy rights, data isolation, complaint ownership, and storage disclosures.
- * Complies with CivicFix AI Master Prompt Phase 4 specifications (20 structured sections).
+ * Outlines resident privacy rights, role-based access boundaries, server-side data persistence,
+ * image EXIF stripping, public map coordinate rounding, and capstone demonstration disclosures.
  */
 export const PrivacyPolicyPage = () => {
   const navigate = useNavigate();
@@ -14,26 +14,26 @@ export const PrivacyPolicyPage = () => {
   }, []);
 
   const sections = [
-    { id: 'sec-1', title: '1. Title, Version & Effective Dates' },
-    { id: 'sec-2', title: '2. Operator & Data Controller Information' },
+    { id: 'sec-1', title: '1. Title, Version & Capstone Project Scope' },
+    { id: 'sec-2', title: '2. Project Operator & Research Context' },
     { id: 'sec-3', title: '3. Information Collected During Registration' },
-    { id: 'sec-4', title: '4. Complaint Details, Photos, GPS & History' },
-    { id: 'sec-5', title: '5. Information Collected Automatically' },
+    { id: 'sec-4', title: '4. Complaint Details, Photos, GPS & Lifecycle' },
+    { id: 'sec-5', title: '5. Information Collected Automatically (Server Logs)' },
     { id: 'sec-6', title: '6. Purpose & Lawful Basis for Processing' },
-    { id: 'sec-7', title: '7. Complaint Ownership & Access Controls' },
-    { id: 'sec-8', title: '8. How Data is Used for Operations' },
-    { id: 'sec-9', title: '9. AI Processing, Computer Vision & Human Review' },
-    { id: 'sec-10', title: '10. Data Sharing & Recipient Categories' },
-    { id: 'sec-11', title: '11. Third-Party Service Providers (Maps, Storage)' },
-    { id: 'sec-12', title: '12. Storage Locations & Retention Schedules' },
-    { id: 'sec-13', title: '13. Security Safeguards & Known Limitations' },
-    { id: 'sec-14', title: '14. Cookies, LocalStorage & Prototype Disclosures' },
+    { id: 'sec-7', title: '7. Complaint Ownership & Citizen Data Isolation' },
+    { id: 'sec-8', title: '8. Role-Based Access Controls & Visibility Boundaries' },
+    { id: 'sec-9', title: '9. AI Computer Vision, Triage & Human Review' },
+    { id: 'sec-10', title: '10. Public Transparency Map & Coordinate Rounding' },
+    { id: 'sec-11', title: '11. Media Uploads & Server-Side EXIF Metadata Stripping' },
+    { id: 'sec-12', title: '12. Storage Infrastructure & Data Retention Policy' },
+    { id: 'sec-13', title: '13. Security Safeguards & Rate Limiting Controls' },
+    { id: 'sec-14', title: '14. Cookies, Session State & Local Preferences' },
     { id: 'sec-15', title: '15. Citizen Data Rights & Access Requests' },
-    { id: 'sec-16', title: '16. Account Deletion & Anonymization' },
-    { id: 'sec-17', title: '17. Children’s Privacy & Age Policy' },
-    { id: 'sec-18', title: '18. Incident Notification & Breach Protocols' },
+    { id: 'sec-16', title: '16. Account Deactivation & Ledger Retention' },
+    { id: 'sec-17', title: '17. Children’s Privacy Policy' },
+    { id: 'sec-18', title: '18. Security Incident Notification Protocols' },
     { id: 'sec-19', title: '19. Amendments to Privacy Policy' },
-    { id: 'sec-20', title: '20. Privacy Grievance Officer & Contact' }
+    { id: 'sec-20', title: '20. Privacy Inquiries & Project Contact' }
   ];
 
   const scrollTo = (id) => {
@@ -60,13 +60,7 @@ export const PrivacyPolicyPage = () => {
             <span className="text-xs font-semibold text-primary-container">Resident Privacy Protections</span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link
-              to="/register"
-              className="px-3.5 py-1.5 bg-primary-container hover:bg-primary text-white text-xs font-semibold rounded-xl shadow-xs transition-all"
-            >
-              Return to Registration
-            </Link>
+          <div className="flex items-center gap-2">
             <Link
               to="/legal/terms"
               className="px-3.5 py-1.5 bg-surface-container-low hover:bg-surface-container text-primary-container text-xs font-semibold rounded-xl border border-outline-variant/40 transition-colors"
@@ -76,9 +70,22 @@ export const PrivacyPolicyPage = () => {
           </div>
         </div>
 
+        {/* Academic Capstone Project Notice Banner */}
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 mb-6 text-xs text-amber-900 flex items-start gap-3 shadow-xs">
+          <span className="material-symbols-outlined text-amber-600 text-xl shrink-0 mt-0.5">school</span>
+          <div className="space-y-1">
+            <p className="font-bold text-amber-950 uppercase tracking-wide">
+              Academic Capstone Project & Engineering Demonstration
+            </p>
+            <p className="leading-relaxed">
+              CivicFix AI is an academic engineering capstone demonstration platform developed to evaluate automated triage, geospatial duplicate detection, and photographic resolution verification for municipal public works. <strong>CivicFix AI is not an official government service</strong> of the Greater Chennai Corporation, the Government of Tamil Nadu, or the Government of India, and possesses no constitutional or administrative executive authority.
+            </p>
+          </div>
+        </div>
+
         {/* Title & Metadata Banner */}
         <div className="bg-surface-container-lowest rounded-2xl p-6 sm:p-8 shadow-sm border border-outline-variant/30 mb-8 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-800 text-xs font-semibold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary-container text-xs font-semibold">
             <span className="material-symbols-outlined text-[16px]">shield_person</span>
             <span>Citizen Data Privacy & Isolation Assurance</span>
           </div>
@@ -86,17 +93,17 @@ export const PrivacyPolicyPage = () => {
             Citizen Data Privacy Policy
           </h1>
           <p className="text-on-surface-variant text-sm max-w-3xl leading-relaxed">
-            This Privacy Policy articulates how CivicFix AI collects, isolates, handles, and safeguards citizen personal information and civic issue reports. We operate under a strict privacy-first principle: <strong>citizens can never browse or inspect complaints submitted by other citizens.</strong>
+            This policy discloses how resident information is collected, processed, and safeguarded across the CivicFix platform. The architecture is engineered around the principle of strict role-based data isolation, cryptographic credential security, and server-side privacy preservation.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-tertiary border-t border-outline-variant/30">
-            <span><strong>Document Version:</strong> 2.0-PROTOTYPE</span>
+            <span><strong>Document Version:</strong> 3.0-CAPSTONE</span>
             <span>•</span>
-            <span><strong>Effective Date:</strong> October 20, 2026</span>
+            <span><strong>Effective Date:</strong> November 1, 2026</span>
             <span>•</span>
-            <span><strong>Demonstration Jurisdiction:</strong> Tamil Nadu, India</span>
+            <span><strong>Backend Architecture:</strong> Spring Boot & PostgreSQL</span>
             <span>•</span>
-            <span className="text-emerald-700 font-semibold">Aadhaar-Free Architecture: No biometric or real Aadhaar numbers collected</span>
+            <span><strong>Jurisdiction Focus:</strong> Greater Chennai Corporation (GCC), Tamil Nadu</span>
           </div>
         </div>
 
@@ -126,25 +133,29 @@ export const PrivacyPolicyPage = () => {
             {/* Section 1 */}
             <section id="sec-1" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                1. Title, Version & Effective Dates
+                1. Title, Version & Capstone Project Scope
               </h2>
               <p>
-                This document is the <strong>CivicFix AI Citizen Data Privacy Policy (Version 2.0-PROTOTYPE)</strong>, effective as of <strong>October 20, 2026</strong>.
+                This document is the <strong>CivicFix AI Citizen Data Privacy Policy (Version 3.0-CAPSTONE)</strong>, effective as of <strong>November 1, 2026</strong>.
+              </p>
+              <p>
+                CivicFix AI is designed and maintained exclusively as an academic research and engineering capstone project. It serves as a proof-of-concept system demonstrating automated incident classification, duplicate detection, and photo evidence verification. It is neither commissioned nor operated by any municipal corporation or government entity.
               </p>
             </section>
 
             {/* Section 2 */}
             <section id="sec-2" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                2. Operator & Data Controller Information
+                2. Project Operator & Research Context
               </h2>
               <p>
-                The prototype service is maintained by the project development and engineering group:
+                The platform is maintained by the project research and engineering group:
               </p>
               <div className="bg-surface-container-low p-4 rounded-xl text-xs font-mono space-y-1">
-                <p><strong>Operator:</strong> [CIVICFIX_OPERATOR_LEGAL_ENTITY]</p>
-                <p><strong>Point of Contact:</strong> privacy@civicfix.prototype</p>
-                <p><strong>Primary Demonstration Region:</strong> Tamil Nadu Municipal Wards, India</p>
+                <p><strong>Project:</strong> CivicFix AI Engineering Capstone</p>
+                <p><strong>Primary Demonstration Focus:</strong> Greater Chennai Corporation Wards, Tamil Nadu, India</p>
+                <p><strong>Technical Stack:</strong> Java 21 / Spring Boot 3.3 REST Backend & PostgreSQL 16 (PostGIS)</p>
+                <p><strong>Research Inquiries:</strong> research@civicfix.prototype</p>
               </div>
             </section>
 
@@ -154,37 +165,47 @@ export const PrivacyPolicyPage = () => {
                 3. Information Collected During Registration
               </h2>
               <p>
-                During onboarding, CivicFix collects only the minimum necessary contact and jurisdictional data:
+                During account onboarding, CivicFix collects only the minimum necessary contact and jurisdictional data:
               </p>
-              <ul className="list-disc pl-5 space-y-1 text-xs">
-                <li><strong>Full Legal Name:</strong> Used for account identity and resident attribution.</li>
-                <li><strong>Normalized Mobile Phone or Email:</strong> Standard 10-digit Indian phone (+91) or email address used strictly for dispatch notices and one-time verification passkeys (OTP).</li>
-                <li><strong>Primary Municipal Ward:</strong> Used to localize default dispatch jurisdictions.</li>
-                <li><strong>Password Hash Verifier:</strong> Encrypted authorization token.</li>
+              <ul className="list-disc pl-5 space-y-1.5 text-xs">
+                <li><strong>Full Name:</strong> Used for account identification and report attribution within municipal officer workflows.</li>
+                <li><strong>Normalized Email or Indian Mobile Phone (+91):</strong> Used as the unique login account identifier and for service-related transactional notices.</li>
+                <li><strong>Municipal Ward / Jurisdiction:</strong> Used to associate citizen profiles with relevant local administrative sectors.</li>
+                <li><strong>Password Verifier:</strong> Stored on the server exclusively as a salted cryptographic hash generated via BCrypt (work factor 10). Plaintext passwords are never stored, logged, or accessible to system administrators.</li>
               </ul>
               <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900">
-                <strong>Aadhaar Transparency Notice:</strong> CivicFix AI does NOT collect, store, or process 12-digit Aadhaar numbers or biometric telemetry. Reporting civic issues is never conditioned upon Aadhaar verification.
+                <strong>Aadhaar Transparency Notice:</strong> CivicFix AI does NOT collect, store, or process 12-digit Aadhaar numbers, biometric telemetry, or government identity cards. Reporting community hazards is never conditioned upon Aadhaar verification.
               </div>
             </section>
 
             {/* Section 4 */}
             <section id="sec-4" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                4. Complaint Details, Photos, GPS & History
+                4. Complaint Details, Photos, GPS & Lifecycle
               </h2>
               <p>
-                When you report an incident, we record: (a) issue title and description; (b) defect category (roads, water, lighting, waste, parks); (c) photographic evidence of the public defect; (d) physical street address and GPS coordinates; and (e) submission timestamp and status lifecycle events.
+                When submitting a civic complaint, the following records are generated and stored in PostgreSQL:
               </p>
+              <ul className="list-disc pl-5 space-y-1 text-xs">
+                <li><strong>Issue Metadata:</strong> Title, defect category (Roads, Water & Sewerage, Street Lighting, Garbage, Drainage, Public Transport, Parks), and written description.</li>
+                <li><strong>Geographic Location:</strong> Street landmark/address, GPS latitude and longitude, and assigned municipal ward ID (determined via PostGIS boundary polygons or manual entry).</li>
+                <li><strong>Intake Photographs:</strong> Photographic proof captured on-site, stored on the server filesystem.</li>
+                <li><strong>Lifecycle Status Trail:</strong> Chronological status transitions, timestamps, assignment records, and confirmation notes recorded in an immutable status history table.</li>
+              </ul>
             </section>
 
             {/* Section 5 */}
             <section id="sec-5" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                5. Information Collected Automatically
+                5. Information Collected Automatically (Server Logs)
               </h2>
               <p>
-                In the current client-side prototype, the platform records local authentication attempt counters (to enforce 15-minute brute-force lockout protection) and browser session tokens in the browser's persistent storage. No third-party commercial marketing cookies or invasive telemetry trackers are utilized.
+                When communicating with the Spring Boot backend, the server automatically records operational telemetry in PostgreSQL:
               </p>
+              <ul className="list-disc pl-5 space-y-1 text-xs">
+                <li><strong>System Audit Trail:</strong> Administrative, dispatch, and lifecycle mutations are logged with the actor ID, actor role, action name, target entity, timestamp, remote IP address, and execution status.</li>
+                <li><strong>Rate Limiting Counters:</strong> Server-side in-memory token buckets (Bucket4j) track recent authentication attempts and submission frequencies by client IP address and account identifier to prevent automated brute-force attacks and denial-of-service abuse.</li>
+              </ul>
             </section>
 
             {/* Section 6 */}
@@ -193,95 +214,168 @@ export const PrivacyPolicyPage = () => {
                 6. Purpose & Lawful Basis for Processing
               </h2>
               <p>
-                Resident information is processed based on: (1) <strong>User Consent</strong> provided during registration; and (2) <strong>Legitimate Public Interest</strong> in the identification, dispatch, and physical remediation of municipal infrastructure hazards.
+                Resident data is processed based on: (1) <strong>User Consent</strong> provided when registering an account and filing an issue; and (2) <strong>Legitimate Public Interest</strong> in detecting, prioritizing, dispatching, and verifying physical repairs for municipal hazards.
               </p>
             </section>
 
             {/* Section 7 */}
             <section id="sec-7" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                7. Complaint Ownership & Access Controls (Data Isolation)
+                7. Complaint Ownership & Citizen Data Isolation
               </h2>
               <p>
-                <strong>Privacy by Design:</strong> CivicFix enforces strict citizen data isolation. Every complaint record is bound to the submitting citizen's permanent ID (`citizen.id`).
+                <strong>Privacy by Design:</strong> CivicFix enforces strict citizen data isolation at both the API gateway and database query layers:
               </p>
-              <ul className="list-disc pl-5 space-y-1 text-xs">
-                <li>Citizens can view, search, and track <strong>only</strong> their own filed reports.</li>
-                <li>Directly attempting to open another citizen's complaint ticket ID via URL parameter returns a privacy-preserving Access Restricted response.</li>
-                <li>Complaint maps and cross-resident browsing are entirely disabled in the citizen portal to prevent neighborhood profiling or surveillance.</li>
+              <ul className="list-disc pl-5 space-y-1.5 text-xs">
+                <li>Every complaint record is permanently bound to the submitting resident's internal UUID (<code className="font-mono text-primary-container">complaints.citizen_id</code>).</li>
+                <li>Citizens can view, search, and track <strong>only</strong> their own filed reports. Database queries for citizen lists filter strictly by the authenticated session ID.</li>
+                <li>Directly attempting to query or inspect another resident's complaint ID returns an immediate <code className="font-mono">403 Forbidden</code> access-denied error.</li>
+                <li>Complaint maps and cross-resident browsing are entirely disabled in the citizen dashboard to prevent neighborhood profiling, snooping, or surveillance.</li>
               </ul>
             </section>
 
             {/* Section 8 */}
             <section id="sec-8" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                8. How Data is Used for Operations
+                8. Role-Based Access Controls & Visibility Boundaries
               </h2>
               <p>
-                Submitted reports are routed to: (a) <strong>Municipal Officers</strong> for review, departmental routing, and evidence verification; and (b) <strong>Assigned Field Crews</strong> to view work location, defect description, and repair evidence requirements.
+                Information visibility is governed strictly by authenticated platform persona roles enforced by Spring Security:
               </p>
+              <div className="overflow-x-auto pt-1">
+                <table className="w-full text-left text-xs border border-outline-variant/30 rounded-xl overflow-hidden">
+                  <thead className="bg-surface-container text-on-surface-variant font-semibold">
+                    <tr>
+                      <th className="p-3">Role</th>
+                      <th className="p-3">Data Visibility Scope</th>
+                      <th className="p-3">Restrictions & Safeguards</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-outline-variant/20 bg-surface-container-lowest">
+                    <tr>
+                      <td className="p-3 font-semibold text-blue-700">CITIZEN</td>
+                      <td className="p-3">Own submitted tickets, resolution timeline, and photo evidence.</td>
+                      <td className="p-3">Zero visibility into reports submitted by other citizens.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-semibold text-teal-700">OFFICER</td>
+                      <td className="p-3">All public complaints within assigned municipal wards, triage results, and crew evidence.</td>
+                      <td className="p-3">Cannot access root administrative settings or user password hashes.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-semibold text-amber-700">WORKER</td>
+                      <td className="p-3">Assigned work orders: defect title, description, category, location coordinates, and intake photos.</td>
+                      <td className="p-3">
+                        <strong>Field worker UI does not display citizen phone numbers or email addresses.</strong> Worker GPS location is sampled <em>only once</em> upon resolution evidence submission.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-semibold text-purple-700">SUPERVISOR</td>
+                      <td className="p-3">Department-wide queue, SLA countdowns, and escalation telemetry.</td>
+                      <td className="p-3">Operational oversight; no direct access to modify system security policies.</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-semibold text-red-700">ADMIN</td>
+                      <td className="p-3">User account statuses, immutable system audit logs, and SLA policy matrices.</td>
+                      <td className="p-3">Plaintext passwords are inaccessible (stored as irreversible BCrypt hashes).</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </section>
 
             {/* Section 9 */}
             <section id="sec-9" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                9. AI Processing, Computer Vision & Human Review
+                9. AI Computer Vision, Triage & Human Review
               </h2>
               <p>
-                CivicFix utilizes vision and language models to analyze uploaded photos, predict defect categories, compute duplicate similarity scores, and suggest hazard levels (P1 to P4). <strong>AI suggestions are non-binding. Municipal officers review recommendations before work orders are finalized.</strong>
+                CivicFix utilizes multimodal vision and language analysis (Google Gemini 1.5 Pro) alongside deterministic keyword classifiers to evaluate uploaded defect imagery and text:
               </p>
+              <ul className="list-disc pl-5 space-y-1 text-xs">
+                <li><strong>Advisory Predictions:</strong> AI recommendations generate predicted defect categories, priority estimates, hazard tags, and spatial duplicate clustering suggestions.</li>
+                <li><strong>Mandatory Human Oversight:</strong> AI inferences are strictly non-binding. Municipal officers review triage recommendations before work orders are assigned to field crews.</li>
+                <li><strong>No Biometric Facial Recognition:</strong> Vision processing focuses strictly on physical civic infrastructure (asphalt, pipes, fixtures, debris). The pipeline does not perform biometric facial recognition or identity tracking.</li>
+              </ul>
             </section>
 
             {/* Section 10 */}
             <section id="sec-10" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                10. Data Sharing & Recipient Categories
+                10. Public Transparency Map & Coordinate Rounding
               </h2>
               <p>
-                Citizen data is never sold, leased, or monetized for commercial advertising. Data is shared exclusively with authorized municipal public works personnel and dispatched contractors directly involved in repair operations.
+                To support civic transparency without compromising resident safety, the public map endpoint (<code className="font-mono text-xs">/api/complaints/public/map</code>) applies strict differential privacy protections:
               </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-xs">
+                <li><strong>Coordinate Fuzzing & Rounding:</strong> Latitude and longitude coordinates are rounded to at most 3 decimal places (~110 meters precision), preventing reverse-identification of individual residential doorways.</li>
+                <li><strong>Identity Stripping:</strong> Citizen names, phone numbers, email addresses, detailed free-text descriptions, and exact house numbers are completely excluded from public payloads.</li>
+                <li><strong>Internal ID Masking:</strong> Internal complaint UUIDs and reference IDs are replaced with anonymized sequential indices on the public map feed.</li>
+              </ul>
             </section>
 
             {/* Section 11 */}
             <section id="sec-11" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                11. Third-Party Service Providers (Maps, Storage)
+                11. Media Uploads & Server-Side EXIF Metadata Stripping
               </h2>
               <p>
-                The platform utilizes: (a) <strong>OpenStreetMap & Leaflet</strong> for tile rendering and geographic coordinates; and (b) standard web infrastructure for client-side execution.
+                Photographic evidence submitted by citizens and field crews is processed through a defense-in-depth media pipeline on the server:
               </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-xs">
+                <li><strong>Automatic EXIF Stripping:</strong> Uploaded JPEG and PNG images are decoded into raw pixel rasters and re-encoded using server-side graphics processing (<code className="font-mono">javax.imageio.ImageIO</code>). This process completely strips all embedded EXIF metadata, camera serial numbers, device model tags, and embedded device GPS coordinates before writing the image to disk.</li>
+                <li><strong>Magic Byte Validation:</strong> The server inspects file magic bytes (JPEG <code className="font-mono">FF D8 FF</code>, PNG <code className="font-mono">89 50 4E 47</code>, WebP <code className="font-mono">RIFF...WEBP</code>) to ensure non-image payloads and executable scripts disguised as photos are rejected.</li>
+                <li><strong>Unguessable Storage Paths:</strong> Stored photos are saved in secure server directories with random UUID filenames, preventing directory traversal and enumeration attacks.</li>
+              </ul>
             </section>
 
             {/* Section 12 */}
             <section id="sec-12" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                12. Storage Locations & Retention Schedules
+                12. Storage Infrastructure & Data Retention Policy
               </h2>
               <p>
-                In the current demonstration prototype, user and complaint records are stored in browser localStorage. In the planned Spring Boot and MySQL production architecture, records will be persisted in regional data centers within India in compliance with the Digital Personal Data Protection Act (DPDPA).
+                <strong>Storage Architecture:</strong> All relational platform data (accounts, complaints, status histories, audit logs, SLA rules) is persisted in a PostgreSQL 16 database. Media binaries are stored in designated server filesystem upload directories (<code className="font-mono">uploads/complaints/</code> and <code className="font-mono">uploads/evidence/</code>).
               </p>
+              <div className="p-3 bg-surface-container-low border border-outline-variant/30 rounded-xl text-xs space-y-1">
+                <p><strong>Retention Policy:</strong> Data retention policy to be defined by the operating municipality.</p>
+                <p className="text-on-surface-variant">
+                  In the current capstone implementation, records persist in the PostgreSQL database for the duration of the demonstration and civic auditing lifecycle. The platform does not currently execute automated scheduled purging of historical defect records.
+                </p>
+              </div>
             </section>
 
             {/* Section 13 */}
             <section id="sec-13" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                13. Security Safeguards & Known Limitations
+                13. Security Safeguards & Rate Limiting Controls
               </h2>
               <p>
-                The client platform implements: (1) cryptographic random OTP generation via `window.crypto.getRandomValues`; (2) 15-minute brute-force lockout after 5 failed authentication attempts; and (3) role-based client routing guards.
+                The platform implements industry-standard technical safeguards:
               </p>
-              <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900">
-                <strong>Prototype Disclosure:</strong> Client-side storage and filtering represent engineering demonstration controls. Full production security requires the planned Java Spring Boot REST backend with BCrypt password hashing and HttpOnly session cookies.
-              </div>
+              <ul className="list-disc pl-5 space-y-1 text-xs">
+                <li><strong>Server-Side Brute-Force Lockout:</strong> Enforced via server-side services (<code className="font-mono">LoginLockoutService</code>). Accounts are locked after repeated failed authentication attempts, with rate limits applied per IP address and per account identifier.</li>
+                <li><strong>Token Bucket Rate Limiting:</strong> Enforced via Bucket4j interceptors across all public authentication, registration, complaint creation, and media upload endpoints.</li>
+                <li><strong>Zero Plaintext Passwords:</strong> Passwords are hashed using BCrypt before database persistence.</li>
+                <li><strong>Role-Based Security Guards:</strong> Spring Security method security annotations (<code className="font-mono">@PreAuthorize</code>) protect administrative, officer triage, and evidence signoff operations.</li>
+              </ul>
             </section>
 
             {/* Section 14 */}
             <section id="sec-14" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                14. Cookies, LocalStorage & Prototype Disclosures
+                14. Cookies, Session State & Local Preferences
               </h2>
               <p>
-                The prototype uses browser `localStorage` keys: `civicfix_users_v1`, `civicfix_complaints_v2`, `civicfix_notifs_v1`, and `civicfix_auth_attempts_v1`. You may clear your browser cache at any time to purge local demo session state.
+                CivicFix AI uses only functional, non-advertising cookies and browser storage keys:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-xs">
+                <li><code className="font-mono font-bold">CIVICFIX_SESSION</code> (Cookie): An encrypted, HTTP-only session cookie issued by Spring Boot to maintain authenticated user sessions. Cannot be read by client-side JavaScript.</li>
+                <li><code className="font-mono font-bold">XSRF-TOKEN</code> (Cookie): A cookie providing Cross-Site Request Forgery (CSRF) protection; echoed by the SPA in the <code className="font-mono">X-XSRF-TOKEN</code> header on state-modifying requests.</li>
+                <li><code className="font-mono font-bold">civicfix_language</code> (Browser LocalStorage): Stores client language preference (<code className="font-mono">en</code> for English, <code className="font-mono">ta</code> for Tamil).</li>
+              </ul>
+              <p className="text-xs text-on-surface-variant">
+                The platform contains zero third-party commercial marketing cookies, advertising pixels, or analytics trackers.
               </p>
             </section>
 
@@ -291,37 +385,42 @@ export const PrivacyPolicyPage = () => {
                 15. Citizen Data Rights & Access Requests
               </h2>
               <p>
-                Residents have the right to: (a) view their personal profile; (b) review historical complaints reported under their identity; (c) rectify outdated mobile or ward preferences; and (d) request deletion of personal accounts.
+                Registered residents maintain rights regarding their personal information:
               </p>
+              <ul className="list-disc pl-5 space-y-1 text-xs">
+                <li><strong>Right to Access:</strong> View all filed complaints, uploaded photographs, and status progress notes through the authenticated citizen portal.</li>
+                <li><strong>Right to Rectification:</strong> Request correction of inaccurate contact or ward profile information.</li>
+                <li><strong>Right to Confirmation:</strong> Accept or reject field repair resolutions within the citizen confirmation window, submitting feedback if rework is required.</li>
+              </ul>
             </section>
 
             {/* Section 16 */}
             <section id="sec-16" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                16. Account Deletion & Anonymization
+                16. Account Deactivation & Ledger Retention
               </h2>
               <p>
-                Upon resident account deletion, personal identity markers (phone, email, name) are permanently disassociated. Anonymized defect records (defect type, road name, date resolved) may be retained in municipal ledgers for civic auditing.
+                If a citizen account is deactivated, direct authentication is revoked. In accordance with municipal accountability standards, defect reports (defect type, road name, resolution evidence, and officer approval audit trail) may remain preserved in municipal ledgers for public works accountability and financial verification.
               </p>
             </section>
 
             {/* Section 17 */}
             <section id="sec-17" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                17. Children’s Privacy & Age Policy
+                17. Children’s Privacy Policy
               </h2>
               <p>
-                CivicFix AI is designed for adult residents (18+). The platform does not intentionally collect personally identifiable information from children under 18 years of age without parental guidance.
+                CivicFix AI is intended for adult residents (aged 18 and older). The platform does not knowingly collect personally identifiable information from minors. If personal data of a minor is identified as improperly submitted, it will be promptly removed upon notification.
               </p>
             </section>
 
             {/* Section 18 */}
             <section id="sec-18" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                18. Incident Notification & Breach Protocols
+                18. Security Incident Notification Protocols
               </h2>
               <p>
-                In the event of a verified security incident affecting citizen contact information, registered users will be notified via email/SMS alongside guidance on protective measures.
+                In the event of a verified security incident resulting in unauthorized access to personal contact details, registered users will be notified via email or registered phone alongside remediation recommendations.
               </p>
             </section>
 
@@ -331,23 +430,22 @@ export const PrivacyPolicyPage = () => {
                 19. Amendments to Privacy Policy
               </h2>
               <p>
-                We may revise this Citizen Data Privacy Policy to incorporate new statutory mandates or infrastructure upgrades. The revised document will be published with an updated version number.
+                This privacy policy may be updated as system capabilities evolve. Revisions will be published on this page with an updated version number and effective timestamp.
               </p>
             </section>
 
             {/* Section 20 */}
             <section id="sec-20" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                20. Privacy Grievance Officer & Contact
+                20. Privacy Inquiries & Project Contact
               </h2>
               <p>
-                For questions regarding personal data privacy, data correction, or grievance redressal, contact:
+                For questions regarding personal data privacy, system research, or data protection practices:
               </p>
               <div className="bg-surface-container-low p-4 rounded-xl space-y-1.5 text-xs font-mono">
-                <p><strong>Privacy Officer:</strong> [GRIEVANCE_OFFICER_NAME]</p>
-                <p><strong>Designation:</strong> Data Protection & Resident Grievance Officer</p>
-                <p><strong>Email:</strong> privacy-grievance@civicfix.prototype</p>
-                <p><strong>Location:</strong> Chennai, Tamil Nadu, India</p>
+                <p><strong>Project:</strong> CivicFix AI Engineering Capstone</p>
+                <p><strong>Focus Region:</strong> Chennai, Tamil Nadu, India</p>
+                <p><strong>Email:</strong> privacy@civicfix.prototype</p>
               </div>
             </section>
           </div>

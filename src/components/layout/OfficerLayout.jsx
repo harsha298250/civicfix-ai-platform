@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import LanguageToggle from '../common/LanguageToggle';
 import { DemoRoleSwitcher } from '../common/DemoRoleSwitcher';
 import { COMPLAINT_STATUS } from '../../constants/statusConstants';
 
 export const OfficerLayout = () => {
-  const { currentUser, complaints, notifications, toast, logout } = useApp();
+  const { currentUser, complaints, unreadCount, toast, logout } = useApp();
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -17,10 +18,6 @@ export const OfficerLayout = () => {
 
   const verificationQueueCount = complaints.filter(
     c => c.status === COMPLAINT_STATUS.RESOLUTION_SUBMITTED
-  ).length;
-
-  const unreadOfficerNotifs = (notifications || []).filter(
-    n => (n.role === 'OFFICER' || n.role === 'ALL') && !n.read
   ).length;
 
   const navItems = [
@@ -50,7 +47,7 @@ export const OfficerLayout = () => {
       label: 'Notifications',
       path: '/officer/notifications',
       icon: 'notifications',
-      badge: unreadOfficerNotifs > 0 ? unreadOfficerNotifs : null,
+      badge: unreadCount > 0 ? unreadCount : null,
       badgeColor: 'bg-error text-white'
     },
     { label: 'Profile & Settings', path: '/officer/profile', icon: 'badge' }
@@ -203,7 +200,9 @@ export const OfficerLayout = () => {
             </form>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <LanguageToggle />
+
             <Link
               to="/officer/notifications"
               className="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors"

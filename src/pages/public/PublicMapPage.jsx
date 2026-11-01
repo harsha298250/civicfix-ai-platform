@@ -1,48 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
+import { complaintService } from '../../services/complaintService';
+import { officerService } from '../../services/officerService';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { PriorityBadge } from '../../components/common/PriorityBadge';
 import { TamilNaduOverviewMap } from '../../components/common/TamilNaduOverviewMap';
+import ClosureTrustBadge from '../../components/common/ClosureTrustBadge';
 import { CATEGORIES } from '../../constants/statusConstants';
 
 /**
  * PublicMapPage — Sanitized Macro-Level Public GIS Defect Map
  * Displays public defect markers without exposing citizen names, phone numbers,
  * email addresses, private evidence, or internal officer notes.
+ * Directly backed by GET /api/complaints/public/map
  */
 export const PublicMapPage = () => {
-  const { complaints } = useApp();
-  const [selectedComplaint, setSelectedComplaint] = useState(complaints[0] || null);
+  const [complaints, setComplaints] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [activeCategory, setActiveCategory] = useState('ALL');
   const [activeStatus, setActiveStatus] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
+  const [trustData, setTrustData] = useState(null);
 
-  // Sanitized complaints: Strips any personally identifiable citizen markers
-  const sanitizedComplaints = complaints.map((c) => ({
-    id: c.id,
-    title: c.title,
-    category: c.category,
-    categoryId: c.categoryId,
-    status: c.status,
-    priority: c.priority,
-    location: c.location,
-    createdAt: c.createdAt,
-    // Note: citizen name, phone, email, worker private notes, and internal notes are strictly omitted
-    citizen: {
-      name: 'Verified Citizen Resident',
-      ward: c.location?.ward || 'Local Ward'
-    }
-  }));
+  useEffect(() => {
+    let isMounted = true;
+    officerService.getPublicClosureTrustScores()
+      .then((data) => {
+        if (isMounted && data) {
+          setTrustData(data);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load public ward trust scores:', err);
+      });
+    return () => { isMounted = false; };
+  }, []);
 
-  const filtered = sanitizedComplaints.filter((c) => {
+  const fetchComplaints = useCallback(() => {
+    setLoading(true);
+    setError(null);
+    const params = {};
+    if (activeStatus !== 'ALL') params.status = activeStatus;
+    if (activeCategory !== 'ALL') params.category = activeCategory;
+
+    complaintService.getPublicMapComplaints(params)
+      .then((data) => {
+        setComplaints(data);
+        if (data.length > 0) {
+          setSelectedComplaint((prev) => prev ? (data.find(c => c.id === prev.id) || data[0]) : data[0]);
+        } else {
+          setSelectedComplaint(null);
+        }
+      })
+      .catch((err) => {
+        setError(err.message || 'Failed to load public map feed.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [activeStatus, activeCategory]);
+
+  useEffect(() => {
+    fetchComplaints();
+  }, [fetchComplaints]);
+
+  const filtered = complaints.filter((c) => {
+    const q = searchQuery.toLowerCase();
     const matchesSearch =
-      c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.location?.address?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.location?.ward?.toLowerCase().includes(searchQuery.toLowerCase());
+      (c.category && c.category.toLowerCase().includes(q)) ||
+      (c.ward && c.ward.toLowerCase().includes(q)) ||
+      (c.id && String(c.id).toLowerCase().includes(q));
 
-    const matchesCategory = activeCategory === 'ALL' || c.categoryId === activeCategory;
+    const matchesCategory = activeCategory === 'ALL' || c.category === activeCategory || c.categoryId === activeCategory;
     const matchesStatus = activeStatus === 'ALL' || c.status === activeStatus;
 
     return matchesSearch && matchesCategory && matchesStatus;
@@ -50,6 +81,21 @@ export const PublicMapPage = () => {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center justify-between text-red-800 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-red-600 text-[20px]">error</span>
+            <span>{error}</span>
+          </div>
+          <button
+            onClick={fetchComplaints}
+            className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shrink-0 transition-colors flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-[16px]">refresh</span>
+            <span>Retry</span>
+          </button>
+        </div>
+      )}
       {/* Header Banner */}
       <div className="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -139,7 +185,25 @@ export const PublicMapPage = () => {
             <span className="text-[10px] font-code text-tertiary">Anonymized</span>
           </div>
 
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12 text-tertiary text-xs space-y-2">
+              <span className="material-symbols-outlined text-2xl animate-spin text-primary">progress_activity</span>
+              <p>Loading public work orders...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12 text-xs space-y-3">
+              <span className="material-symbols-outlined text-3xl text-red-600">cloud_off</span>
+              <p className="font-semibold text-on-surface">Unable to load map data</p>
+              <p className="text-on-surface-variant max-w-xs mx-auto">{error}</p>
+              <button
+                onClick={fetchComplaints}
+                className="px-3 py-1.5 bg-primary-container text-white rounded-lg font-semibold hover:bg-primary transition-colors inline-flex items-center gap-1"
+              >
+                <span className="material-symbols-outlined text-[14px]">refresh</span>
+                <span>Retry</span>
+              </button>
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="text-center py-12 text-tertiary text-xs">
               <span className="material-symbols-outlined text-[32px] text-slate-300">search_off</span>
               <p className="mt-1 font-semibold">No issues match filters</p>
@@ -156,17 +220,17 @@ export const PublicMapPage = () => {
                 }`}
               >
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-mono font-bold text-on-surface">#{c.id}</span>
+                  <span className="font-mono font-bold text-on-surface">Issue #{c.id}</span>
                   <PriorityBadge priority={c.priority} />
                 </div>
-                <h4 className="font-title text-xs font-bold text-on-surface line-clamp-1">{c.title}</h4>
+                <h4 className="font-title text-xs font-bold text-on-surface line-clamp-1">{c.category}</h4>
                 <p className="text-[11px] text-on-surface-variant flex items-center gap-1">
                   <span className="material-symbols-outlined text-[13px] text-tertiary">location_on</span>
-                  <span className="truncate">{c.location?.address}</span>
+                  <span className="truncate">{c.ward || 'Tamil Nadu'}</span>
                 </p>
                 <div className="flex items-center justify-between pt-1.5 border-t border-outline-variant/20 text-[10px]">
                   <StatusBadge status={c.status} size="sm" showIcon={false} />
-                  <span className="text-tertiary">{c.location?.ward || 'Tamil Nadu'}</span>
+                  <span className="text-tertiary">{c.ward || 'Tamil Nadu'}</span>
                 </div>
               </div>
             ))
@@ -183,6 +247,101 @@ export const PublicMapPage = () => {
           />
         </div>
       </div>
+
+      {/* Public Ward Closure Trust Transparency Panel */}
+      {trustData?.overall && (
+        <div className="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[24px]">verified</span>
+                <h3 className="font-title text-lg font-bold text-on-surface">Municipal Ward Closure Trust Transparency</h3>
+              </div>
+              <p className="text-xs text-on-surface-variant mt-1 max-w-2xl">
+                Public accountability index quantifying citizen repair confirmations across municipal wards.
+                Formula: confirmed closures / (confirmed closures + citizen rejections + reopened after resolution).
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 bg-surface-container-low px-4 py-2.5 rounded-2xl border border-outline-variant/20 self-start sm:self-auto">
+              <div className="text-right">
+                <span className="text-[10px] font-bold text-tertiary uppercase tracking-wider block">Citywide Trust</span>
+                <span className="text-xs text-on-surface-variant font-mono">
+                  n = {trustData.overall.totalClosures || 0} closures
+                </span>
+              </div>
+              <ClosureTrustBadge
+                score={trustData.overall.trustScore}
+                total={trustData.overall.totalClosures}
+                confirmed={trustData.overall.confirmedClosures}
+                rejected={trustData.overall.citizenRejections}
+                reopened={trustData.overall.reopenedAfterResolution}
+                statusMessage={trustData.overall.statusMessage}
+                size="md"
+              />
+            </div>
+          </div>
+
+          {/* Ward Cards Grid */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-tertiary mb-3 flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[16px]">location_city</span>
+              <span>Per-Ward Closure Verification Quality (No Individual Data)</span>
+            </h4>
+
+            {(!trustData.byWard || trustData.byWard.length === 0) ? (
+              <div className="p-8 text-center text-xs text-tertiary bg-surface-container-low rounded-xl">
+                No ward closure data recorded yet.
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5">
+                {trustData.byWard.map((w) => (
+                  <div
+                    key={w.ward}
+                    className="p-4 rounded-xl border border-outline-variant/30 bg-surface-container-low/40 hover:bg-surface-container-low transition-all space-y-2.5"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="font-title text-xs font-bold text-on-surface truncate" title={w.ward}>
+                        {w.ward}
+                      </span>
+                      <ClosureTrustBadge
+                        score={w.trustScore}
+                        total={w.totalClosures}
+                        confirmed={w.confirmedClosures}
+                        rejected={w.citizenRejections}
+                        reopened={w.reopenedAfterResolution}
+                        statusMessage={w.statusMessage}
+                        size="sm"
+                        showLabel={false}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-1 py-1.5 px-2 bg-surface-container-lowest rounded-lg text-center text-[11px] border border-outline-variant/20">
+                      <div>
+                        <span className="text-[10px] text-tertiary block">Conf.</span>
+                        <span className="font-mono font-semibold text-emerald-600">{w.confirmedClosures}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-tertiary block">Rej.</span>
+                        <span className="font-mono font-semibold text-rose-600">{w.citizenRejections}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-tertiary block">Reop.</span>
+                        <span className="font-mono font-semibold text-amber-600">{w.reopenedAfterResolution}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[10px] text-tertiary pt-1">
+                      <span>Total sample:</span>
+                      <span className="font-mono font-medium text-on-surface">{w.totalClosures} closures</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

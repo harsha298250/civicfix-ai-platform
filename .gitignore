@@ -46,3 +46,9 @@ target/
 *.class
 *.jar
 *.war
+backend/.mvn/timing.properties
+backend/.flattened-pom.xml
+
+# Uploads & local evidence storage
+backend/uploads/
+uploads/

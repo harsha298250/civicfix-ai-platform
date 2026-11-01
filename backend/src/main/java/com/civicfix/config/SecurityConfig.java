@@ -97,11 +97,19 @@ public class SecurityConfig {
 
                 // Role-Specific Workspaces
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/officer/analytics/trust").hasAnyRole("OFFICER", "SUPERVISOR", "ADMIN")
                 .requestMatchers("/api/officer/**").hasAnyRole("OFFICER", "ADMIN")
-                .requestMatchers("/api/worker/**").hasAnyRole("WORKER", "ADMIN")
+                .requestMatchers("/api/supervisor/**").hasAnyRole("SUPERVISOR", "ADMIN")
+                // Public Sanitized Complaint GIS Map Feed & GIS Services & Public Transparency Trust Scores
+                .requestMatchers(HttpMethod.GET, "/api/complaints/public/map").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/complaints/public/trust").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/gis/**").permitAll()
 
                 // Complaints: accessible by authenticated users with fine-grained service-layer ownership checks
                 .requestMatchers("/api/complaints/**").authenticated()
+
+                // In-App Notifications: strictly accessible by authenticated users with tenant-isolated ownership
+                .requestMatchers("/api/notifications/**").authenticated()
 
                 .anyRequest().authenticated()
             );
@@ -116,7 +124,7 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(allowedOrigins.split(",")));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-XSRF-TOKEN", "X-Requested-With", "Accept"));
-        config.setExposedHeaders(List.of("X-XSRF-TOKEN", "Set-Cookie"));
+        config.setExposedHeaders(List.of("X-XSRF-TOKEN", "Set-Cookie", "Retry-After"));
         config.setAllowCredentials(true);
         config.setMaxAge(3600L);
 

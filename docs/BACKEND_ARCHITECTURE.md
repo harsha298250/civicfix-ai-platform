@@ -1,115 +1,129 @@
 # CivicFix AI — Backend & Production Architecture Specification
 
-> **Target Stack**: Java 21 + Spring Boot 3.3.x + Spring Security 6 + Spring Data JPA + MySQL 8.0 + Bucket4j
+> **Implemented Stack**: Java 21 + Spring Boot 3.3.x + Spring Security 6 + Spring Data JPA + PostgreSQL 16 (PostGIS) + Flyway + Bucket4j
 
 ---
 
 ## 1. Architectural Boundary & Data Flow
 
 ```
-┌──────────────────────────────────────┐
-│  CivicFix AI React + Vite Frontend   │
-│  (Leaflet + Camera API + HTML5 GPS)  │
-└──────────────────┬───────────────────┘
-                   │ HTTPS JSON / Multipart Form-Data
-                   ▼
+┌────────────────────────────────────────────────────────┐
+│         CivicFix AI React 18 + Vite Frontend           │
+│    (Leaflet GIS + Camera Uploads + Local Fonts PWA)    │
+└───────────────────────────┬────────────────────────────┘
+                            │ HTTPS JSON / Multipart Form-Data
+                            ▼
 ┌────────────────────────────────────────────────────────┐
 │             Spring Boot API Gateway Layer              │
-│  - Spring Security (JWT / Statefull Session Cookies)   │
-│  - Bucket4j Token Bucket Rate Limiting Filter          │
-│  - Input Validation (@Valid / JSR-380)                 │
+│  - Spring Security (HTTP-Only Session Cookie)          │
+│  - XSRF-TOKEN Cookie + X-XSRF-TOKEN Header             │
+│  - Bucket4j Token Bucket Rate Limiting Interceptor     │
+│  - ClientIpResolver (Trusted-Proxy-Aware X-Forwarded)  │
+│  - Input Validation (@Valid / JSR-380 Constraints)     │
 └──────────┬───────────────────────────────┬─────────────┘
            │                               │
            ▼                               ▼
-┌──────────────────────┐       ┌──────────────────────┐
-│ Business Core        │       │ External Integrations│
-│ Services & Workflows │       │ - Google Gemini API  │
-│ - ComplaintService   │       │ - SMS / OTP Gateway  │
-│ - TriageService      │       │ - OpenStreetMap GIS  │
-│ - VerificationService│       └──────────────────────┘
-└──────────┬───────────┘
+┌──────────────────────────┐   ┌─────────────────────────┐
+│ Business Core Services   │   │ External Integrations   │
+│ - ComplaintService       │   │ - Google Gemini AI API  │
+│ - DeterministicTriage    │   │ - OpenStreetMap Leaflet │
+│ - DuplicateDetection     │   └─────────────────────────┘
+│ - SlaEscalationService   │
+│ - OfficerAnalyticsService│
+│ - SupervisorService      │
+│ - AdminService           │
+│ - LocalStorageService    │
+└──────────┬───────────────┘
            │
-           ▼
-┌──────────────────────────────────────┐
-│ MySQL 8.0 Relational Storage         │
-│ - complaints (InnoDB, spatial index) │
-│ - users, roles, authorities          │
-│ - audit_logs (immutable ledger)      │
-│ - photo_metadata (S3 / disk pointers)│
-└──────────────────────────────────────┘
+           ├───────────────────────────────┐
+           ▼                               ▼
+┌────────────────────────────────┐ ┌─────────────────────────────┐
+│ PostgreSQL 16 + PostGIS        │ │ Server Local Filesystem     │
+│ - complaints (spatial index)   │ │ - uploads/complaints/       │
+│ - complaint_photos             │ │ - uploads/evidence/         │
+│ - resolution_evidence          │ │ - EXIF & GPS stripped on    │
+│ - status_history & audit_logs  │ │   ImageIO decode/re-encode  │
+│ - users, roles, user_roles     │ └─────────────────────────────┘
+│ - sla_policies & notifications │
+└────────────────────────────────┘
 ```
 
 ---
 
 ## 2. Service Interfaces Contract
 
-### 2.1 Authentication & Registration (`/api/v1/auth`)
-- `POST /api/v1/auth/login`: Validates credentials (`email`/`phone` + `password`). Issues HTTP-only session cookie or JWT.
-- `POST /api/v1/auth/register-citizen`: Creates citizen profile in `UNVERIFIED` status. Generates secure 6-digit cryptographic OTP.
-- `POST /api/v1/auth/verify-otp`: Validates single-use OTP against hash, checks expiry (5 min), transitions contact to `VERIFIED`.
-- `POST /api/v1/auth/resend-otp`: Enforces 60-second cooldown and hourly contact throttles.
+### 2.1 Authentication & Session (`/api/auth`)
+- `POST /api/auth/login`: Authenticates with identifier (email or phone) and password. Issues secure `CIVICFIX_SESSION` HTTP-only session cookie. Protected by dual rate limit (identifier + IP and global account lockout).
+- `POST /api/auth/register`: One-step citizen onboarding with server-side validation and BCrypt password hashing (cost factor 10). Direct registration against PostgreSQL without client-side simulated OTP.
+- `POST /api/auth/logout`: Invalidates session and clears `CIVICFIX_SESSION` cookie.
+- `GET /api/auth/me`: Returns sanitized authenticated session user profile and granted authorities.
 
-### 2.2 Complaint Management (`/api/v1/complaints`)
-- `POST /api/v1/complaints`: Multipart request with JSON metadata (`title`, `category`, `description`, `lat`, `lng`, `address`) and optional binary `MultipartFile[]`.
-- `GET /api/v1/complaints`: Paginated list supporting filters (`status`, `priority`, `categoryId`, `ward`).
-- `GET /api/v1/complaints/{id}`: Full defect details, timeline, and photo URLs.
-- `PUT /api/v1/complaints/{id}/assign`: Officer dispatches field crew lead (`status -> ASSIGNED`).
-- `PUT /api/v1/complaints/{id}/progress`: Field worker records progress notes or blockers (`status -> IN_PROGRESS`).
-- `POST /api/v1/complaints/{id}/evidence`: Field worker submits completion photos (`status -> RESOLUTION_SUBMITTED`).
-- `PUT /api/v1/complaints/{id}/verify`: Authorized officer signoff (`status -> RESOLVED` or `REWORK_REQUESTED`).
+### 2.2 Complaint Management (`/api/complaints`)
+- `POST /api/complaints`: Multipart request with defect metadata (`title`, `category`, `description`, `lat`, `lng`, `address`, `ward`) and binary images. Performs automated deterministic + Gemini AI triage and Haversine duplicate detection.
+- `GET /api/complaints`: Paginated citizen or staff complaint list with role-based isolation (citizens view only their own records; staff view jurisdictional records).
+- `GET /api/complaints/{id}`: Detailed defect record with status timeline and photo URLs.
+- `GET /api/complaints/{id}/history`: Immutable chronological status history trail.
+- `POST /api/complaints/{id}/assign`: Officer dispatches field crew lead (`status -> ASSIGNED`).
+- `POST /api/complaints/{id}/status`: Transitions status (`ASSIGNED -> IN_PROGRESS` by worker; notes or operational updates).
+- `POST /api/complaints/{id}/notes`: Appends operational progress notes without state change.
+- `POST /api/complaints/{id}/evidence`: Field worker submits completion photos, repair notes, and device GPS telemetry. Server validates distance against defect coordinates within 100 meters (`status -> RESOLUTION_SUBMITTED`).
+- `POST /api/complaints/{id}/confirm-resolution`: Citizen confirms resolution (`status -> RESOLVED`).
+- `POST /api/complaints/{id}/reject-resolution`: Citizen rejects resolution with mandatory reason and optional photographic proof (`status -> REOPENED`).
+- `GET /api/complaints/public/map`: Privacy-preserving public feed with coordinates fuzzed/rounded to 3 decimal places (~110m) and personal data excluded.
+- `GET /api/complaints/public/trust`: Public aggregate closure trust score per municipal ward.
+
+### 2.3 Supervisor & SLA Escalations (`/api/supervisor`)
+- `GET /api/supervisor/escalations`: Paged view of tickets approaching or exceeding SLA thresholds.
+- `POST /api/supervisor/complaints/{id}/reassign`: Reassigns overdue complaints across field workers.
+- `GET /api/supervisor/workers`: Directory of municipal field crew specialists.
+
+### 2.4 Officer Analytics (`/api/officer/analytics`)
+- `GET /api/officer/analytics/summary`: Aggregate counts, SLA compliance ratios, and throughput telemetry.
+- `GET /api/officer/analytics/trust`: Closure trust scores per ward and per officer.
+
+### 2.5 Administration (`/api/admin`)
+- `GET /api/admin/users`: Directory of platform accounts with role and status filtering.
+- `POST /api/admin/users`: Provisions verified staff accounts (`OFFICER`, `WORKER`).
+- `PATCH /api/admin/users/{id}/status`: Activates or suspends user accounts.
+- `GET /api/admin/audit-logs`: Paged, immutable system audit trail with RFC 4180 CSV export capability.
+- `GET /api/admin/dashboard/summary`: Live database metrics and role distribution.
+- `GET /api/admin/sla-policies`: Reads live resolution windows from `sla_policies` table.
+- `GET /api/admin/demo/status`: Queries whether the server is operating under the `dev` profile.
+- `POST /api/admin/demo/reset`: Reseeds deterministic 40-ticket Chennai dataset (active under `dev` profile only).
 
 ---
 
-## 3. Photograph Storage Architecture
+## 3. Photograph Storage & Media Privacy Architecture
 
-- **No binary BLOBs in MySQL**: Raw image binaries are stored in S3-compatible object storage or local filesystem with hashed paths (`/uploads/{year}/{month}/{uuid}.webp`).
-- **MySQL `complaint_photos` Table**:
-  ```sql
-  CREATE TABLE complaint_photos (
-    id VARCHAR(36) PRIMARY KEY,
-    complaint_id VARCHAR(36) NOT NULL,
-    storage_path VARCHAR(255) NOT NULL,
-    mime_type VARCHAR(50) NOT NULL,
-    file_size_bytes BIGINT NOT NULL,
-    photo_type ENUM('INITIAL_REPORT', 'RESOLUTION_EVIDENCE') NOT NULL,
-    uploaded_by VARCHAR(36) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (complaint_id) REFERENCES complaints(id) ON DELETE CASCADE
-  );
-  ```
+- **Server Filesystem Storage**: Uploaded files are persisted in local directories (`uploads/complaints/` and `uploads/evidence/`) with unguessable UUID-prefixed filenames.
+- **PostgreSQL Tracking**: Relative storage paths, MIME types, and timestamps are tracked in `complaint_photos` and `resolution_evidence` tables.
+- **EXIF Metadata Stripping**: Uploaded JPEG and PNG images undergo server-side decoding and re-encoding (`javax.imageio.ImageIO`), stripping all embedded EXIF camera metadata, device identifiers, and GPS coordinates prior to disk persistence.
+- **Integrity Validation**: Magic byte inspection verifies genuine image headers (JPEG `FF D8 FF`, PNG `89 50 4E 47`, WebP `RIFF....WEBP`), and maximum pixel dimension guards prevent decompression bomb attacks.
 
 ---
 
-## 4. Rate Limiting & Abuse Prevention Plan (Bucket4j)
+## 4. Rate Limiting & Abuse Prevention (Bucket4j)
 
-All endpoints enforce server-side rate limits using a **Token Bucket** algorithm (via Bucket4j + Redis or in-memory cache):
+All sensitive endpoints enforce server-side rate limits using the **Token Bucket** algorithm (Bucket4j):
 
-| Endpoint / Operation | Bucket Capacity | Refill Rate | Throttling Key | Exceeded Response |
+| Endpoint / Operation | Bucket Capacity | Refill Duration | Throttling Key | Response on Limit |
 |---|---|---|---|---|
-| `POST /api/v1/auth/login` | 5 attempts | 1 token / 10 min | IP + Normalized Username | HTTP 429 Too Many Requests |
-| `POST /api/v1/auth/register-citizen` | 3 requests | 1 token / hour | IP + Contact Identifier | HTTP 429 Too Many Requests |
-| `POST /api/v1/auth/verify-otp` | 5 attempts | Lock for 15 min | Contact Identifier | HTTP 429 Account Locked |
-| `POST /api/v1/complaints` | 10 complaints | 2 tokens / hour | Authenticated Citizen ID + IP | HTTP 429 Rate Limit Exceeded |
-| `POST /api/v1/complaints/{id}/evidence` | 6 uploads | 5 tokens / hour | Worker ID | HTTP 429 Rate Limit Exceeded |
-| Geocoding / Search Proxy | 30 requests | 10 tokens / min | Session ID / IP | HTTP 429 Service Throttled |
+| `POST /api/auth/login` (Standard) | 5 attempts | 15 minutes | Client IP + Identifier | HTTP 429 Too Many Requests |
+| `POST /api/auth/login` (Account Lockout) | 20 attempts | 1 hour | Account Identifier | HTTP 429 Account Temporarily Locked |
+| `POST /api/auth/register` | 10 requests | 1 hour | Client IP | HTTP 429 Too Many Requests |
+| `POST /api/complaints` | 10 complaints | 1 minute | Client IP | HTTP 429 Rate Limit Exceeded |
+| `/evidence` Uploads | 10 uploads | 1 minute | Client IP | HTTP 429 Rate Limit Exceeded |
+| Reverse-Geocode Proxy | 30 requests | 1 minute | Client IP | HTTP 429 Service Throttled |
 
-### HTTP 429 Standard Error Payload
-```json
-{
-  "status": 429,
-  "error": "Too Many Requests",
-  "message": "Rate limit exceeded. Please wait 180 seconds before attempting again.",
-  "retryAfterSeconds": 180,
-  "timestamp": "2026-10-13T15:20:00Z"
-}
-```
+- **Trusted Proxy Resolution**: Controlled via `civicfix.security.trusted-proxy-enabled`. When `true`, `ClientIpResolver` reads the client IP from the last entry of `X-Forwarded-For`; when `false`, `request.getRemoteAddr()` is strictly used.
 
 ---
 
 ## 5. Security & RBAC Enforcement
 
-- **Spring Security Method Security**: `@PreAuthorize("hasRole('OFFICER')")` on verification signoff and dispatch endpoints.
-- **Strict Role Boundary**: Public users cannot self-assign `OFFICER`, `WORKER`, or `ADMIN` roles. Staff accounts remain in `PENDING_APPROVAL` until an administrator approves them.
-- **Workflow State Machine**: Java backend validates allowable status transitions:
-  - `SUBMITTED -> UNDER_REVIEW -> ASSIGNED -> IN_PROGRESS -> RESOLUTION_SUBMITTED -> RESOLVED`.
-  - Field workers attempting to transition directly to `RESOLVED` will receive `403 Forbidden`.
+- **Spring Security Method Security**: `@PreAuthorize("hasRole('ADMIN')")`, `@PreAuthorize("hasRole('OFFICER')")`, and `@PreAuthorize("hasAnyRole('OFFICER','SUPERVISOR','ADMIN')")` enforce least-privilege boundaries at the service and controller layers.
+- **Stateful Session Isolation**: Spring Security manages sessions with HTTP-only cookies (`CIVICFIX_SESSION`).
+- **CSRF Defense**: Cookie-based CSRF protection with `XSRF-TOKEN` cookie validated against incoming `X-XSRF-TOKEN` headers.
+- **Workflow State Machine**: Strictly validated transitions:
+  - `SUBMITTED -> UNDER_REVIEW -> ASSIGNED -> IN_PROGRESS -> RESOLUTION_SUBMITTED -> PENDING_CITIZEN_CONFIRMATION -> RESOLVED`.
+  - Reopen flow: `PENDING_CITIZEN_CONFIRMATION -> REOPENED` (or auto-confirm transition to `RESOLVED` after configurable window).

@@ -1,3 +1,5 @@
+> Historical document: written when the project used an earlier design. For the current architecture see README.md.
+
 # CivicFix AI — Privacy Fixes, Citizen Data Isolation, Navigation & Legal Policy Audit
 
 **Document Version:** 2.0  

@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { adminService } from '../../services/adminService';
+import LanguageToggle from '../common/LanguageToggle';
 import { DemoRoleSwitcher } from '../common/DemoRoleSwitcher';
 
 export const AdminLayout = () => {
-  const { currentUser, toast, users, logout } = useApp();
+  const { currentUser, unreadCount, toast, logout } = useApp();
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [pendingCount, setPendingCount] = useState(0);
 
-  const pendingCount = (users || []).filter(
-    u => u.status === 'PENDING_APPROVAL' || u.status === 'Pending Approval'
-  ).length;
+  useEffect(() => {
+    let isMounted = true;
+    adminService.getDashboardSummary()
+      .then(summary => {
+        if (isMounted && typeof summary?.pendingApprovalCount === 'number') {
+          setPendingCount(summary.pendingApprovalCount);
+        }
+      })
+      .catch(() => {
+        // Fall back gracefully if server is unreachable
+      });
+    return () => { isMounted = false; };
+  }, [location.pathname]);
 
   const navItems = [
     { label: 'Overview', path: '/admin/dashboard', icon: 'dashboard' },
@@ -26,7 +39,13 @@ export const AdminLayout = () => {
     { label: 'Platform Analytics', path: '/admin/activity', icon: 'analytics' },
     { label: 'Audit Event Ledger', path: '/admin/audit-logs', icon: 'receipt_long' },
     { label: 'System Settings', path: '/admin/settings', icon: 'settings' },
-    { label: 'Notifications & Alerts', path: '/admin/notifications', icon: 'notifications_active' },
+    {
+      label: 'Notifications & Alerts',
+      path: '/admin/notifications',
+      icon: 'notifications_active',
+      badge: unreadCount > 0 ? unreadCount : null,
+      badgeColor: 'bg-error text-white'
+    },
     { label: 'My Profile', path: '/admin/profile', icon: 'account_circle' }
   ];
 
@@ -169,7 +188,9 @@ export const AdminLayout = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <LanguageToggle />
+
             <Link
               to="/admin/users/new"
               className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-container text-white text-xs font-semibold shadow-sm hover:bg-primary transition-all"

@@ -74,12 +74,12 @@ export default {
         "space-xl": "2rem",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        display: ["Inter", "sans-serif"],
-        headline: ["Inter", "sans-serif"],
-        title: ["Inter", "sans-serif"],
-        body: ["Inter", "sans-serif"],
-        label: ["Inter", "sans-serif"],
+        sans: ["Inter", "'Noto Sans Tamil'", "sans-serif"],
+        display: ["Inter", "'Noto Sans Tamil'", "sans-serif"],
+        headline: ["Inter", "'Noto Sans Tamil'", "sans-serif"],
+        title: ["Inter", "'Noto Sans Tamil'", "sans-serif"],
+        body: ["Inter", "'Noto Sans Tamil'", "sans-serif"],
+        label: ["Inter", "'Noto Sans Tamil'", "sans-serif"],
         code: ["'JetBrains Mono'", "monospace"],
       },
       fontSize: {

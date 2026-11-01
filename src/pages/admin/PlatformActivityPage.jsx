@@ -1,13 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { adminService } from '../../services/adminService';
+import { downloadAuditLogsCsv } from '../../utils/csvExport';
 import Breadcrumb from '../../components/common/Breadcrumb';
 
 const PlatformActivityPage = () => {
   const { complaints, showToast } = useApp();
+  const [exporting, setExporting] = useState(false);
 
-  const handleExport = () => {
-    showToast('Platform telemetry report exported as CSV');
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      // Fetch all audit log records from PostgreSQL backend through paginated queries
+      const firstPage = await adminService.getAuditLogs({ page: 0, size: 100 });
+      const allLogs = [...(firstPage?.content || [])];
+      const totalPages = firstPage?.totalPages || 1;
+
+      for (let p = 1; p < totalPages; p++) {
+        const nextPage = await adminService.getAuditLogs({ page: p, size: 100 });
+        if (nextPage?.content) {
+          allLogs.push(...nextPage.content);
+        }
+      }
+
+      if (allLogs.length === 0) {
+        showToast('No audit logs available to export', 'info');
+        return;
+      }
+
+      downloadAuditLogsCsv(allLogs);
+      showToast(`Exported ${allLogs.length} audit records to CSV`, 'success');
+    } catch (err) {
+      console.error('Failed to export audit logs:', err);
+      showToast(err?.message || 'Failed to export audit logs from database', 'error');
+    } finally {
+      setExporting(false);
+    }
   };
 
   return (
@@ -29,10 +58,13 @@ const PlatformActivityPage = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={handleExport}
-            className="px-4 py-2 text-sm font-semibold text-[#18232F] bg-white border border-[#E2E7ED] rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 shadow-sm"
+            disabled={exporting}
+            className="px-4 py-2 text-sm font-semibold text-[#18232F] bg-white border border-[#E2E7ED] rounded-lg hover:bg-slate-50 disabled:opacity-50 transition-colors flex items-center gap-1.5 shadow-sm"
           >
-            <span className="material-symbols-outlined text-[18px] text-[#667384]">download</span>
-            Export Audit Dump
+            <span className={`material-symbols-outlined text-[18px] text-[#667384] ${exporting ? 'animate-spin' : ''}`}>
+              {exporting ? 'progress_activity' : 'download'}
+            </span>
+            {exporting ? 'Exporting...' : 'Export Audit Dump'}
           </button>
           <Link
             to="/admin/audit-logs"

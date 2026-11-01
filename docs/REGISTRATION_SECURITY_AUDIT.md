@@ -1,3 +1,5 @@
+> Historical document: written when the project used an earlier design. For the current architecture see README.md.
+
 # CivicFix AI — Registration Security, Mobile-First & Identity Verification Audit
 
 **Document Version:** 1.0  

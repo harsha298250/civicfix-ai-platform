@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { StatusBadge } from '../../components/common/StatusBadge';
@@ -7,10 +7,14 @@ import { Breadcrumb } from '../../components/common/Breadcrumb';
 import { TamilNaduOverviewMap } from '../../components/common/TamilNaduOverviewMap';
 import { CATEGORIES } from '../../constants/statusConstants';
 import { geolocationService } from '../../services/geolocationService';
+import { complaintService, hasValidCoordinates } from '../../services/complaintService';
 
 export const CivicIssueMapPage = () => {
-  const { complaints, showToast } = useApp();
-  const [selectedComplaint, setSelectedComplaint] = useState(complaints[0] || null);
+  const { showToast } = useApp();
+  const [complaints, setComplaints] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [viewMode, setViewMode] = useState('split'); // 'map', 'split'
   const [activeCategory, setActiveCategory] = useState('ALL');
   const [activePriority, setActivePriority] = useState('ALL');
@@ -19,12 +23,40 @@ export const CivicIssueMapPage = () => {
   const [searchedLocation, setSearchedLocation] = useState(null);
   const [searchingLocation, setSearchingLocation] = useState(false);
 
+  const fetchComplaints = useCallback(() => {
+    setLoading(true);
+    setError(null);
+    const params = { size: 250 };
+    if (activeStatus !== 'ALL') params.status = activeStatus;
+    if (activeCategory !== 'ALL') params.category = activeCategory;
+
+    complaintService.getOfficerMapComplaints(params)
+      .then((data) => {
+        setComplaints(data);
+        if (data.length > 0) {
+          setSelectedComplaint((prev) => prev ? (data.find(c => c.id === prev.id) || data[0]) : data[0]);
+        } else {
+          setSelectedComplaint(null);
+        }
+      })
+      .catch((err) => {
+        setError(err.message || 'Failed to load officer map complaints.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [activeStatus, activeCategory]);
+
+  useEffect(() => {
+    fetchComplaints();
+  }, [fetchComplaints]);
+
   const filtered = complaints.filter((c) => {
     const matchesSearch =
       c.title.toLowerCase().includes(searchGis.toLowerCase()) ||
       c.id.toLowerCase().includes(searchGis.toLowerCase()) ||
-      c.location?.address?.toLowerCase().includes(searchGis.toLowerCase()) ||
-      c.location?.ward?.toLowerCase().includes(searchGis.toLowerCase());
+      (c.location?.address && c.location.address.toLowerCase().includes(searchGis.toLowerCase())) ||
+      (c.ward && c.ward.toLowerCase().includes(searchGis.toLowerCase()));
 
     const matchesCategory = activeCategory === 'ALL' || c.categoryId === activeCategory;
     const matchesPriority = activePriority === 'ALL' || c.priority === activePriority;
@@ -65,21 +97,37 @@ export const CivicIssueMapPage = () => {
   };
 
   const handleExportGeoJson = () => {
+    // Stage 5: Remove fabricated fallback coordinates.
+    // Exclude complaints without valid coordinates and format with RFC 7946 [lng, lat]
+    const validFeatures = filtered.filter((c) => hasValidCoordinates(c.location?.coordinates));
+    const omittedCount = filtered.length - validFeatures.length;
+
+    if (validFeatures.length === 0) {
+      showToast('No complaints with valid geographic coordinates available for export.', 'warning');
+      return;
+    }
+
     const geoJson = {
       type: 'FeatureCollection',
-      features: filtered.map((c) => ({
+      features: validFeatures.map((c) => ({
         type: 'Feature',
         properties: {
           id: c.id,
+          referenceId: c.referenceId || c.id,
           title: c.title,
           status: c.status,
           priority: c.priority,
           category: c.category,
-          address: c.location?.address
+          address: c.location?.address || 'Tamil Nadu',
+          ward: c.location?.ward || c.ward || null
         },
         geometry: {
           type: 'Point',
-          coordinates: [c.location?.coordinates?.lng || 80.21, c.location?.coordinates?.lat || 13.085]
+          // RFC 7946 standard: coordinates must be [longitude, latitude]
+          coordinates: [
+            Number(c.location.coordinates.lng),
+            Number(c.location.coordinates.lat)
+          ]
         }
       }))
     };
@@ -89,7 +137,9 @@ export const CivicIssueMapPage = () => {
     a.href = url;
     a.download = `civicfix-tamilnadu-gis-${Date.now()}.geojson`;
     a.click();
-    showToast('Exported active GIS layers as GeoJSON!', 'success');
+
+    const note = omittedCount > 0 ? ` (${omittedCount} tickets without GPS coordinates omitted)` : '';
+    showToast(`Exported ${validFeatures.length} verified GIS points as GeoJSON!${note}`, 'success');
   };
 
   return (
@@ -101,6 +151,21 @@ export const CivicIssueMapPage = () => {
         ]}
       />
 
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center justify-between text-red-800 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-red-600 text-[20px]">error</span>
+            <span>{error}</span>
+          </div>
+          <button
+            onClick={fetchComplaints}
+            className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shrink-0 transition-colors flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-[16px]">refresh</span>
+            <span>Retry</span>
+          </button>
+        </div>
+      )}
       {/* Top Map Control Bar */}
       <div className="bg-surface-container-lowest rounded-2xl p-4 shadow-sm border border-outline-variant/30 space-y-3">
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-3">
@@ -235,7 +300,25 @@ export const CivicIssueMapPage = () => {
             </div>
 
             <div className="flex-1 overflow-y-auto space-y-2.5 pr-1 mt-3">
-              {filtered.length > 0 ? (
+              {loading ? (
+                <div className="p-8 text-center text-xs text-tertiary space-y-2">
+                  <span className="material-symbols-outlined text-2xl animate-spin text-primary">progress_activity</span>
+                  <p>Loading officer map complaints...</p>
+                </div>
+              ) : error ? (
+                <div className="p-8 text-center text-xs space-y-3">
+                  <span className="material-symbols-outlined text-3xl text-red-600">cloud_off</span>
+                  <p className="font-semibold text-on-surface">Unable to load map data</p>
+                  <p className="text-on-surface-variant max-w-xs mx-auto">{error}</p>
+                  <button
+                    onClick={fetchComplaints}
+                    className="px-3 py-1.5 bg-primary-container text-white rounded-lg font-semibold hover:bg-primary transition-colors inline-flex items-center gap-1"
+                  >
+                    <span className="material-symbols-outlined text-[14px]">refresh</span>
+                    <span>Retry</span>
+                  </button>
+                </div>
+              ) : filtered.length > 0 ? (
                 filtered.map((c) => {
                   const isSelected = selectedComplaint?.id === c.id;
                   return (

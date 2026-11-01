@@ -1,3 +1,5 @@
+> Historical document: written when the project used an earlier design. For the current architecture see README.md.
+
 # CivicFix AI — Phase 0: Verified Baseline & Safe Implementation Plan
 
 **Document Version:** 1.0.0  

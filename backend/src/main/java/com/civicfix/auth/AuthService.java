@@ -8,13 +8,17 @@ import com.civicfix.common.exception.BadRequestException;
 import com.civicfix.common.exception.ConflictException;
 import com.civicfix.common.exception.ResourceNotFoundException;
 import com.civicfix.security.UserPrincipal;
+import com.civicfix.security.ratelimit.ClientIpResolver;
+import com.civicfix.security.ratelimit.LoginLockoutService;
 import com.civicfix.user.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
@@ -35,19 +39,26 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final AuditService auditService;
+    private final LoginLockoutService loginLockoutService;
+    private final ClientIpResolver clientIpResolver;
     private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
     private final SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
 
+    @org.springframework.beans.factory.annotation.Autowired
     public AuthService(UserRepository userRepository,
                        RoleRepository roleRepository,
                        PasswordEncoder passwordEncoder,
                        AuthenticationManager authenticationManager,
-                       AuditService auditService) {
+                       AuditService auditService,
+                       LoginLockoutService loginLockoutService,
+                       ClientIpResolver clientIpResolver) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.auditService = auditService;
+        this.loginLockoutService = loginLockoutService;
+        this.clientIpResolver = clientIpResolver;
     }
 
     @Transactional
@@ -102,10 +113,23 @@ public class AuthService {
 
     public AuthUserResponse login(LoginRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         String identifier = request.getIdentifier().trim();
+        String ipAddress = clientIpResolver.resolveClientIp(httpRequest);
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(identifier, request.getPassword())
-        );
+        // Enforce account / IP lockout before attempting authentication
+        loginLockoutService.checkLockout(identifier, ipAddress);
+
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(identifier, request.getPassword())
+            );
+        } catch (AuthenticationException ex) {
+            loginLockoutService.recordFailedAttempt(identifier, ipAddress);
+            throw new BadCredentialsException("Invalid credentials. Please verify your email or phone and password.");
+        }
+
+        // On successful authentication, clear failed login attempts for this identifier + IP
+        loginLockoutService.recordSuccessfulLogin(identifier, ipAddress);
 
         SecurityContext context = securityContextHolderStrategy.createEmptyContext();
         context.setAuthentication(authentication);
@@ -124,7 +148,7 @@ public class AuthService {
                 "SESSION",
                 httpRequest.getSession().getId(),
                 "Successful user authentication.",
-                httpRequest.getRemoteAddr(),
+                ipAddress,
                 "SUCCESS"
         );
 

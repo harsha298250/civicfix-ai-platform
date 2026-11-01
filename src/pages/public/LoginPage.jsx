@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useTranslation } from '../../context/LanguageContext';
+import LanguageToggle from '../../components/common/LanguageToggle';
+import InstallPwaButton from '../../components/common/InstallPwaButton';
 import { authService } from '../../services/authService';
 import { apiClient } from '../../services/apiClient';
 import { detectContactType, formatIndianPhone, isValidIndianPhone } from '../../utils/phoneUtils';
@@ -8,6 +11,7 @@ import { detectContactType, formatIndianPhone, isValidIndianPhone } from '../../
 export const LoginPage = () => {
   const navigate = useNavigate();
   const { setCurrentUser, showToast } = useApp();
+  const { t } = useTranslation();
 
   const [identifier, setIdentifier] = useState('alex.m@citizen.org');
   const [password, setPassword] = useState('CivicSecure#2026!');
@@ -32,6 +36,7 @@ export const LoginPage = () => {
   const DEMO_PRESETS = [
     { label: 'Citizen', name: 'Alex Morgan', identifier: 'alex.m@citizen.org', phone: '+91 98401 23456', role: 'CITIZEN' },
     { label: 'Municipal Officer', name: 'Elena Vance', identifier: 'elena.vance@metro.gov', phone: '+91 94440 12345', role: 'OFFICER' },
+    { label: 'Supervisor', name: 'Sarah Jenkins', identifier: 'sarah.jenkins@metro.gov', phone: '+91 98405 67890', role: 'SUPERVISOR' },
     { label: 'Field Worker', name: 'Marcus Chen', identifier: 'marcus.chen@fieldops.gov', phone: '+91 91760 98765', role: 'WORKER' },
     { label: 'System Admin', name: 'Priya Sharma', identifier: 'priya.sharma@admin.metro.gov', phone: '+91 98410 87654', role: 'ADMIN' }
   ];
@@ -72,6 +77,7 @@ export const LoginPage = () => {
 
       if (user.role === 'CITIZEN') navigate('/citizen/dashboard');
       else if (user.role === 'OFFICER') navigate('/officer/dashboard');
+      else if (user.role === 'SUPERVISOR') navigate('/supervisor/escalations');
       else if (user.role === 'WORKER') navigate('/worker/dashboard');
       else if (user.role === 'ADMIN') navigate('/admin/dashboard');
       else navigate('/citizen/dashboard');
@@ -86,14 +92,22 @@ export const LoginPage = () => {
     <div className="w-full min-h-[calc(100vh-64px)] flex flex-col items-center justify-center p-4 sm:p-6 bg-[#F5F7FA]">
       <div className="w-full max-w-md mx-auto">
         <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-[#E2E7ED] space-y-6">
-          {/* Header */}
+          {/* Header & Language Toggle */}
+          <div className="flex items-center justify-between pb-2 border-b border-[#E2E7ED]">
+            <InstallPwaButton />
+            <div className="flex items-center gap-2 ml-auto">
+              <span className="text-[11px] font-bold text-tertiary uppercase tracking-wider">{t('common.language')}</span>
+              <LanguageToggle />
+            </div>
+          </div>
+
           <div className="text-center space-y-1">
             <div className="w-12 h-12 rounded-2xl bg-[#E8F4F1] text-[#137A70] flex items-center justify-center mx-auto mb-3 shadow-xs">
               <span className="material-symbols-outlined text-2xl">account_circle</span>
             </div>
-            <h1 className="text-2xl font-bold text-[#18232F]">Sign In to CivicFix AI</h1>
+            <h1 className="text-2xl font-bold text-[#18232F]">{t('auth.loginTitle')}</h1>
             <p className="text-xs text-[#667384]">
-              Unified municipal platform for residents, officers, and field personnel.
+              {t('auth.loginSubtitle')}
             </p>
 
             {/* Backend Connectivity Status Pill */}
@@ -127,7 +141,7 @@ export const LoginPage = () => {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-semibold text-[#18232F] uppercase tracking-wider">
-                  Email or Indian Mobile Number *
+                  {t('auth.emailLabel')} *
                 </label>
                 {contactType === 'PHONE' && (
                   <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-mono font-semibold flex items-center gap-1 border border-emerald-200">
@@ -147,7 +161,7 @@ export const LoginPage = () => {
                 <input
                   type={contactType === 'PHONE' ? 'tel' : 'text'}
                   required
-                  placeholder="name@example.com or 98401 23456"
+                  placeholder={t('auth.emailPlaceholder')}
                   value={identifier}
                   onChange={(e) => {
                     setIdentifier(e.target.value);
@@ -164,13 +178,13 @@ export const LoginPage = () => {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-semibold text-[#18232F] uppercase tracking-wider">
-                  Password *
+                  {t('auth.passwordLabel')} *
                 </label>
                 <Link
                   to="/forgot-password"
                   className="text-xs font-medium text-[#137A70] hover:underline"
                 >
-                  Forgot password?
+                  {t('auth.forgotPassword')}
                 </Link>
               </div>
               <div className="relative">
@@ -180,7 +194,7 @@ export const LoginPage = () => {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
-                  placeholder="Enter your password"
+                  placeholder={t('auth.passwordPlaceholder')}
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
@@ -209,10 +223,10 @@ export const LoginPage = () => {
               {loading ? (
                 <>
                   <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
-                  <span>Authenticating...</span>
+                  <span>{t('auth.signingIn')}</span>
                 </>
               ) : (
-                <span>Sign In</span>
+                <span>{t('auth.signInButton')}</span>
               )}
             </button>
           </form>
@@ -221,7 +235,7 @@ export const LoginPage = () => {
           <div className="pt-2 border-t border-[#E2E7ED] space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-[#667384] uppercase tracking-wider">
-                Demo Quick Sign-In
+                {t('auth.demoAccountsTitle')}
               </span>
               <span className="text-[10px] text-tertiary font-mono">CivicSecure#2026!</span>
             </div>
@@ -259,9 +273,9 @@ export const LoginPage = () => {
 
           {/* Registration link */}
           <div className="text-center text-xs text-[#667384] pt-2 border-t border-[#E2E7ED]">
-            Don't have a citizen account?{' '}
+            {t('auth.dontHaveAccount')}{' '}
             <Link to="/register" className="font-semibold text-[#137A70] hover:underline">
-              Enroll as Citizen
+              {t('auth.registerLink')}
             </Link>
           </div>
         </div>

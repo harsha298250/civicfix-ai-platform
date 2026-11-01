@@ -68,11 +68,66 @@ public class Complaint {
     @OrderBy("createdAt DESC")
     private List<ResolutionEvidence> evidenceList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "complaint", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("createdAt ASC")
+    private List<ComplaintPhoto> photos = new ArrayList<>();
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private OffsetDateTime createdAt = OffsetDateTime.now();
 
     @Column(name = "updated_at", nullable = false)
     private OffsetDateTime updatedAt = OffsetDateTime.now();
+
+    @Version
+    @Column(name = "version", nullable = false)
+    private Long version = 0L;
+
+    @Column(name = "ai_detected_category", length = 100)
+    private String aiDetectedCategory;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ai_recommended_priority", length = 20)
+    private ComplaintPriority aiRecommendedPriority;
+
+    @Column(name = "ai_confidence", precision = 5, scale = 2)
+    private BigDecimal aiConfidence;
+
+    @Column(name = "ai_hazard_score", length = 100)
+    private String aiHazardScore;
+
+    @Column(name = "ai_explanation", columnDefinition = "TEXT")
+    private String aiExplanation;
+
+    @Column(name = "ai_adjudication_status", length = 50, nullable = false)
+    private String aiAdjudicationStatus = "PENDING";
+
+    @Column(name = "ai_triaged_at")
+    private OffsetDateTime aiTriagedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "duplicate_of_id")
+    private Complaint duplicateOf;
+
+    @Column(name = "is_demo", nullable = false)
+    private boolean isDemo = false;
+
+    @Column(name = "sla_due_at")
+    private OffsetDateTime slaDueAt;
+
+    @Column(name = "escalated_at")
+    private OffsetDateTime escalatedAt;
+
+    @Column(name = "confirmed_at")
+    private OffsetDateTime confirmedAt;
+
+    @Column(name = "pending_confirmation_at")
+    private OffsetDateTime pendingConfirmationAt;
+
+    @Column(name = "confirmation_source", length = 20)
+    private String confirmationSource;
+
+    @Column(name = "reopen_count", nullable = false)
+    private Integer reopenCount = 0;
 
     @PrePersist
     protected void onCreate() {
@@ -240,5 +295,141 @@ public class Complaint {
         history.setChangedByName(actor != null ? actor.getFullName() : "System Automated Dispatch");
         history.setNotes(notes);
         this.statusHistory.add(history);
+    }
+
+    public List<ComplaintPhoto> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<ComplaintPhoto> photos) {
+        this.photos = photos;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public String getAiDetectedCategory() {
+        return aiDetectedCategory;
+    }
+
+    public void setAiDetectedCategory(String aiDetectedCategory) {
+        this.aiDetectedCategory = aiDetectedCategory;
+    }
+
+    public ComplaintPriority getAiRecommendedPriority() {
+        return aiRecommendedPriority;
+    }
+
+    public void setAiRecommendedPriority(ComplaintPriority aiRecommendedPriority) {
+        this.aiRecommendedPriority = aiRecommendedPriority;
+    }
+
+    public BigDecimal getAiConfidence() {
+        return aiConfidence;
+    }
+
+    public void setAiConfidence(BigDecimal aiConfidence) {
+        this.aiConfidence = aiConfidence;
+    }
+
+    public String getAiHazardScore() {
+        return aiHazardScore;
+    }
+
+    public void setAiHazardScore(String aiHazardScore) {
+        this.aiHazardScore = aiHazardScore;
+    }
+
+    public String getAiExplanation() {
+        return aiExplanation;
+    }
+
+    public void setAiExplanation(String aiExplanation) {
+        this.aiExplanation = aiExplanation;
+    }
+
+    public String getAiAdjudicationStatus() {
+        return aiAdjudicationStatus;
+    }
+
+    public void setAiAdjudicationStatus(String aiAdjudicationStatus) {
+        this.aiAdjudicationStatus = aiAdjudicationStatus;
+    }
+
+    public OffsetDateTime getAiTriagedAt() {
+        return aiTriagedAt;
+    }
+
+    public void setAiTriagedAt(OffsetDateTime aiTriagedAt) {
+        this.aiTriagedAt = aiTriagedAt;
+    }
+
+    public Complaint getDuplicateOf() {
+        return duplicateOf;
+    }
+
+    public void setDuplicateOf(Complaint duplicateOf) {
+        this.duplicateOf = duplicateOf;
+    }
+
+    public boolean isDemo() {
+        return isDemo;
+    }
+
+    public void setDemo(boolean demo) {
+        isDemo = demo;
+    }
+
+    public OffsetDateTime getSlaDueAt() {
+        return slaDueAt;
+    }
+
+    public void setSlaDueAt(OffsetDateTime slaDueAt) {
+        this.slaDueAt = slaDueAt;
+    }
+
+    public OffsetDateTime getEscalatedAt() {
+        return escalatedAt;
+    }
+
+    public void setEscalatedAt(OffsetDateTime escalatedAt) {
+        this.escalatedAt = escalatedAt;
+    }
+
+    public OffsetDateTime getConfirmedAt() {
+        return confirmedAt;
+    }
+
+    public void setConfirmedAt(OffsetDateTime confirmedAt) {
+        this.confirmedAt = confirmedAt;
+    }
+
+    public OffsetDateTime getPendingConfirmationAt() {
+        return pendingConfirmationAt;
+    }
+
+    public void setPendingConfirmationAt(OffsetDateTime pendingConfirmationAt) {
+        this.pendingConfirmationAt = pendingConfirmationAt;
+    }
+
+    public String getConfirmationSource() {
+        return confirmationSource;
+    }
+
+    public void setConfirmationSource(String confirmationSource) {
+        this.confirmationSource = confirmationSource;
+    }
+
+    public Integer getReopenCount() {
+        return reopenCount != null ? reopenCount : 0;
+    }
+
+    public void setReopenCount(Integer reopenCount) {
+        this.reopenCount = reopenCount != null ? reopenCount : 0;
     }
 }

@@ -1,3 +1,5 @@
+> Historical document: written when the project used an earlier design. For the current architecture see README.md.
+
 # CivicFix AI — Navigation Bug Fixes & Dashboard UI Polish Report
 
 **Phase Date:** October 13, 2026  

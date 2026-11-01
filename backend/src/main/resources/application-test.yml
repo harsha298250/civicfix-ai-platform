@@ -15,3 +15,36 @@ server:
 logging:
   level:
     com.civicfix: DEBUG
+
+civicfix:
+  security:
+    trusted-proxy-enabled: false
+  sla:
+    escalation-job:
+      enabled: false
+  auto-confirm:
+    enabled: false
+  reopen:
+    window-days: 30
+  evidence:
+    max-distance-meters: 100.0
+    max-accuracy-meters: 100.0
+  rate-limit:
+    login:
+      capacity: 10000
+      duration: 15m
+    account-login:
+      capacity: 10000
+      duration: 1h
+    register:
+      capacity: 10000
+      duration: 1h
+    complaint-create:
+      capacity: 10000
+      duration: 1m
+    upload:
+      capacity: 10000
+      duration: 1m
+    reverse-geocode:
+      capacity: 10000
+      duration: 1m

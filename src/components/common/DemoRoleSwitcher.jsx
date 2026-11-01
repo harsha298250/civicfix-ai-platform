@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { isDemoModeEnabled } from '../../services/authService';
 
 export const DemoRoleSwitcher = () => {
+  if (!isDemoModeEnabled()) {
+    return null;
+  }
+
   const { currentUser, switchRole, resetAllData } = useApp();
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,6 +23,7 @@ export const DemoRoleSwitcher = () => {
   const roles = [
     { id: 'CITIZEN', label: 'Citizen', user: 'Alex M.', path: '/citizen/dashboard', icon: 'person' },
     { id: 'OFFICER', label: 'Municipal Officer', user: 'Elena V.', path: '/officer/dashboard', icon: 'account_balance' },
+    { id: 'SUPERVISOR', label: 'Supervisor', user: 'Sarah J.', path: '/supervisor/escalations', icon: 'shield_person' },
     { id: 'WORKER', label: 'Field Worker', user: 'Marcus C.', path: '/worker/dashboard', icon: 'engineering' },
     { id: 'ADMIN', label: 'Administrator', user: 'Priya S.', path: '/admin/dashboard', icon: 'admin_panel_settings' }
   ];
@@ -55,14 +61,6 @@ export const DemoRoleSwitcher = () => {
             </div>
             <div className="flex items-center gap-1">
               <button
-                onClick={resetAllData}
-                className="text-[11px] text-gray-400 hover:text-white px-2 py-0.5 rounded hover:bg-white/10 transition-colors flex items-center gap-1"
-                title="Reset demo complaints and statuses to defaults"
-              >
-                <span className="material-symbols-outlined text-[13px]">restart_alt</span>
-                <span>Reset Demo State</span>
-              </button>
-              <button
                 onClick={() => setCollapsed(true)}
                 className="text-gray-400 hover:text-white p-1 rounded hover:bg-white/10 transition-colors"
                 title="Minimize simulator"
@@ -92,6 +90,21 @@ export const DemoRoleSwitcher = () => {
               );
             })}
           </div>
+
+          {currentUser?.role === 'ADMIN' && (
+            <div className="mt-2 pt-2 border-t border-[#2D3748]/60 flex items-center justify-between">
+              <span className="text-[10px] text-gray-400">PostgreSQL Demo Data:</span>
+              <button
+                type="button"
+                onClick={resetAllData}
+                className="px-2 py-1 text-[10px] font-bold bg-red-900/60 hover:bg-red-800 text-red-200 border border-red-700/50 rounded-lg transition-colors flex items-center gap-1"
+                title="Reset PostgreSQL demo dataset"
+              >
+                <span className="material-symbols-outlined text-[13px]">restart_alt</span>
+                <span>Reset Demo Data</span>
+              </button>
+            </div>
+          )}
 
           <div className="mt-2.5 pt-2 border-t border-[#2D3748]/60 flex items-center justify-between text-[10px] text-gray-400 px-1">
             <span>

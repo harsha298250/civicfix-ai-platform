@@ -1,14 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useTranslation } from '../../context/LanguageContext';
+import { complaintService } from '../../services/complaintService';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { PriorityBadge } from '../../components/common/PriorityBadge';
 import { Breadcrumb } from '../../components/common/Breadcrumb';
 import { CATEGORIES } from '../../constants/statusConstants';
 
 export const MyComplaintsPage = () => {
-  const { complaints, currentUser, getCitizenComplaints } = useApp();
+  const { currentUser } = useApp();
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const [userComplaints, setUserComplaints] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [unauthorized, setUnauthorized] = useState(false);
+  const [isLiveBackend, setIsLiveBackend] = useState(false);
+
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
   const [statusFilter, setStatusFilter] = useState(() => searchParams.get('status') || 'ALL');
@@ -20,17 +29,43 @@ export const MyComplaintsPage = () => {
     }
   }, [searchParams]);
 
-  // Strictly isolated to current authenticated citizen
-  const userComplaints = getCitizenComplaints
-    ? getCitizenComplaints(currentUser)
-    : complaints.filter(c => c.citizen?.id === currentUser?.id || (currentUser?.email && c.citizen?.email?.toLowerCase() === currentUser?.email.toLowerCase()));
+  const loadComplaints = useCallback(async () => {
+    setLoading(true);
+    setErrorMsg('');
+    setUnauthorized(false);
+    try {
+      const data = await complaintService.getByCitizen(currentUser?.id, currentUser?.email);
+      setUserComplaints(Array.isArray(data) ? data : []);
+      if (data && data.length > 0 && data[0].isLiveBackend) {
+        setIsLiveBackend(true);
+      }
+    } catch (err) {
+      console.error('Failed to load citizen complaints:', err);
+      if (err.status === 401 || err.status === 403) {
+        setUnauthorized(true);
+        setErrorMsg('Unauthorized: Active resident session required to access your municipal complaints.');
+      } else {
+        setErrorMsg(err.message || 'Unable to load complaints from backend. Please retry.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    loadComplaints();
+  }, [loadComplaints]);
 
   // Search & filter ONLY within authorized citizen records
   const filtered = userComplaints.filter(item => {
+    const title = item.title || '';
+    const id = item.referenceId || item.id || '';
+    const addr = item.location?.address || item.address || '';
+
     const matchesSearch =
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.location?.address?.toLowerCase().includes(searchTerm.toLowerCase());
+      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      addr.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesCategory = categoryFilter === 'ALL' || item.categoryId === categoryFilter;
     const matchesStatus = statusFilter === 'ALL' || item.status === statusFilter;
@@ -49,11 +84,24 @@ export const MyComplaintsPage = () => {
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
-            My Registered Complaints
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
+              {t('complaints.pageTitle')}
+            </h1>
+            {isLiveBackend ? (
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                PostgreSQL Live
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                Offline Mode
+              </span>
+            )}
+          </div>
           <p className="text-body-md text-sm text-on-surface-variant mt-1">
-            Historical log of all civic issues reported under your resident identity.
+            {t('complaints.subtitle')}
           </p>
         </div>
 
@@ -62,9 +110,44 @@ export const MyComplaintsPage = () => {
           className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-primary-container hover:bg-primary text-white font-semibold text-xs shadow-sm transition-all"
         >
           <span className="material-symbols-outlined text-[18px]">add_circle</span>
-          <span>Report New Defect</span>
+          <span>{t('complaints.reportNewButton')}</span>
         </Link>
       </div>
+
+      {/* Error / Unauthorized Alert */}
+      {unauthorized ? (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center space-y-3">
+          <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center mx-auto">
+            <span className="material-symbols-outlined text-[28px]">lock</span>
+          </div>
+          <h2 className="text-base font-bold text-amber-900">Resident Authentication Required</h2>
+          <p className="text-xs text-amber-800 max-w-md mx-auto">
+            {errorMsg || 'Your active resident session could not be authenticated. Please sign in to inspect your registered tickets.'}
+          </p>
+          <div className="pt-1">
+            <Link
+              to="/login"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-700 text-white text-xs font-semibold shadow-sm hover:bg-amber-800 transition-colors"
+            >
+              <span className="material-symbols-outlined text-[16px]">login</span>
+              <span>Sign In to CivicFix</span>
+            </Link>
+          </div>
+        </div>
+      ) : errorMsg ? (
+        <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-center justify-between gap-3 text-xs text-red-800">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-red-600 text-[20px]">error</span>
+            <span>{errorMsg}</span>
+          </div>
+          <button
+            onClick={loadComplaints}
+            className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shrink-0 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      ) : null}
 
       {/* Filter and Search Bar */}
       <div className="bg-surface-container-lowest p-4 rounded-2xl shadow-sm border border-outline-variant/30 flex flex-col md:flex-row gap-3 items-center justify-between">
@@ -112,7 +195,43 @@ export const MyComplaintsPage = () => {
 
       {/* Complaint List */}
       <div className="space-y-3">
-        {userComplaints.length === 0 ? (
+        {loading ? (
+          <div className="space-y-3">
+            {[1, 2, 3].map((n) => (
+              <div
+                key={n}
+                className="bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-outline-variant/30 animate-pulse space-y-3"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="h-5 w-24 bg-surface-container rounded" />
+                  <div className="h-5 w-20 bg-surface-container rounded-full" />
+                  <div className="h-5 w-16 bg-surface-container rounded-full" />
+                </div>
+                <div className="h-5 w-3/4 bg-surface-container rounded" />
+                <div className="h-4 w-1/2 bg-surface-container-low rounded" />
+              </div>
+            ))}
+          </div>
+        ) : errorMsg ? (
+          <div className="text-center py-16 bg-surface-container-lowest rounded-2xl p-8 border border-red-200 space-y-4 max-w-lg mx-auto">
+            <div className="w-16 h-16 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center mx-auto">
+              <span className="material-symbols-outlined text-[32px]">cloud_off</span>
+            </div>
+            <div className="space-y-1">
+              <h3 className="font-title text-base font-bold text-on-surface">Unable to Load Complaints</h3>
+              <p className="text-xs text-on-surface-variant max-w-md mx-auto leading-relaxed">
+                {errorMsg}
+              </p>
+            </div>
+            <button
+              onClick={loadComplaints}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-primary-container hover:bg-primary text-white font-semibold text-xs transition-all shadow-sm"
+            >
+              <span className="material-symbols-outlined text-[18px]">refresh</span>
+              <span>Retry</span>
+            </button>
+          </div>
+        ) : userComplaints.length === 0 ? (
           <div className="text-center py-16 bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/30 space-y-4 max-w-lg mx-auto">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary-container flex items-center justify-center mx-auto">
               <span className="material-symbols-outlined text-[32px]">folder_open</span>

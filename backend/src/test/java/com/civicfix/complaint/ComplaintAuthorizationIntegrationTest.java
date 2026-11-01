@@ -1,7 +1,9 @@
 package com.civicfix.complaint;
 
 import com.civicfix.auth.dto.LoginRequest;
+import com.civicfix.auth.dto.RegisterCitizenRequest;
 import com.civicfix.complaint.dto.AssignComplaintRequest;
+import com.civicfix.complaint.dto.ConfirmResolutionRequest;
 import com.civicfix.complaint.dto.CreateComplaintRequest;
 import com.civicfix.complaint.dto.UpdateStatusRequest;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -90,7 +92,7 @@ class ComplaintAuthorizationIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.referenceId", is(refId)));
 
-        // 4. Citizen attempts unauthorized status change to RESOLVED -> MUST BE FORBIDDEN (Rule #9)
+        // 4. Citizen attempts unauthorized status change to RESOLVED -> MUST BE FORBIDDEN (A2 Rule)
         UpdateStatusRequest unauthorizedResolve = new UpdateStatusRequest();
         unauthorizedResolve.setStatus(ComplaintStatus.RESOLVED);
         unauthorizedResolve.setNotes("Citizen attempting to resolve own ticket");
@@ -102,7 +104,21 @@ class ComplaintAuthorizationIntegrationTest {
                         .content(objectMapper.writeValueAsString(unauthorizedResolve)))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.error", is("Forbidden")))
-                .andExpect(jsonPath("$.message", containsString("Only municipal officers and administrators")));
+                .andExpect(jsonPath("$.message", containsString("Complaints cannot be directly marked RESOLVED. Citizen confirmation or auto-confirmation is required.")));
+
+        // Citizen attempts unauthorized status change to IN_PROGRESS -> MUST BE FORBIDDEN (Role boundary rule)
+        UpdateStatusRequest unauthorizedInProgress = new UpdateStatusRequest();
+        unauthorizedInProgress.setStatus(ComplaintStatus.IN_PROGRESS);
+        unauthorizedInProgress.setNotes("Citizen attempting to transition to in-progress");
+
+        mockMvc.perform(post("/api/complaints/" + complaintId + "/status")
+                        .with(csrf())
+                        .session(citizenSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(unauthorizedInProgress)))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.error", is("Forbidden")))
+                .andExpect(jsonPath("$.message", containsString("Only the assigned field worker or an officer")));
 
         // 5. Municipal Officer Elena Vance logs in
         MockHttpSession officerSession = loginAs("elena.vance@metro.gov", "CivicSecure#2026!");
@@ -142,23 +158,29 @@ class ComplaintAuthorizationIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.status", is("IN_PROGRESS")));
 
-        // 10. Worker submits resolution evidence
-        UpdateStatusRequest submitEvidenceReq = new UpdateStatusRequest();
-        submitEvidenceReq.setStatus(ComplaintStatus.RESOLUTION_SUBMITTED);
-        submitEvidenceReq.setNotes("Cold asphalt mix compacted. Surface leveled with road grade.");
-        submitEvidenceReq.setEvidencePhotoUrl("https://storage.civicfix.gov/evidence/repair-2026-00124.jpg");
-        submitEvidenceReq.setLatitude(new BigDecimal("13.0850200"));
-        submitEvidenceReq.setLongitude(new BigDecimal("80.2150300"));
+        // 10. Worker submits resolution evidence using shared evidence helper with real image and in-range GPS coordinates
+        mockMvc.perform(EvidenceTestSupport.validEvidenceRequest(
+                        complaintId,
+                        new BigDecimal("13.0850000"),
+                        new BigDecimal("80.2150000"),
+                        "Cold asphalt mix compacted. Surface leveled with road grade.")
+                        .session(workerSession))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.status", is("RESOLUTION_SUBMITTED")));
+
+        // 11. Worker cannot approve task (neither PENDING_CITIZEN_CONFIRMATION nor RESOLVED)
+        UpdateStatusRequest workerApproveReq = new UpdateStatusRequest();
+        workerApproveReq.setStatus(ComplaintStatus.PENDING_CITIZEN_CONFIRMATION);
+        workerApproveReq.setNotes("Worker attempting to self-approve");
 
         mockMvc.perform(post("/api/complaints/" + complaintId + "/status")
                         .with(csrf())
                         .session(workerSession)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(submitEvidenceReq)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.status", is("RESOLUTION_SUBMITTED")));
+                        .content(objectMapper.writeValueAsString(workerApproveReq)))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message", containsString("Only municipal officers and administrators")));
 
-        // 11. Worker cannot mark task RESOLVED (must be inspected by Officer)
         UpdateStatusRequest workerResolveReq = new UpdateStatusRequest();
         workerResolveReq.setStatus(ComplaintStatus.RESOLVED);
 
@@ -167,27 +189,92 @@ class ComplaintAuthorizationIntegrationTest {
                         .session(workerSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(workerResolveReq)))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message", containsString("Complaints cannot be directly marked RESOLVED. Citizen confirmation or auto-confirmation is required.")));
 
-        // 12. Officer Elena inspects evidence and verifies resolution
-        UpdateStatusRequest officerResolveReq = new UpdateStatusRequest();
-        officerResolveReq.setStatus(ComplaintStatus.RESOLVED);
-        officerResolveReq.setNotes("Inspection verified: compaction quality meets municipal standards.");
+        // 12. Officer cannot directly set RESOLVED (A2 rule: must transition to PENDING_CITIZEN_CONFIRMATION)
+        UpdateStatusRequest officerDirectResolveReq = new UpdateStatusRequest();
+        officerDirectResolveReq.setStatus(ComplaintStatus.RESOLVED);
+        officerDirectResolveReq.setNotes("Officer attempting direct resolution");
 
         mockMvc.perform(post("/api/complaints/" + complaintId + "/status")
                         .with(csrf())
                         .session(officerSession)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(officerResolveReq)))
+                        .content(objectMapper.writeValueAsString(officerDirectResolveReq)))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message", containsString("Complaints cannot be directly marked RESOLVED. Citizen confirmation or auto-confirmation is required.")));
+
+        // Officer Elena inspects evidence and verifies resolution (transitions to PENDING_CITIZEN_CONFIRMATION)
+        UpdateStatusRequest officerApproveReq = new UpdateStatusRequest();
+        officerApproveReq.setStatus(ComplaintStatus.PENDING_CITIZEN_CONFIRMATION);
+        officerApproveReq.setNotes("Inspection verified: compaction quality meets municipal standards.");
+
+        mockMvc.perform(post("/api/complaints/" + complaintId + "/status")
+                        .with(csrf())
+                        .session(officerSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(officerApproveReq)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.status", is("PENDING_CITIZEN_CONFIRMATION")));
+
+        // 13. Admin cannot confirm on citizen's behalf -> Forbidden
+        ConfirmResolutionRequest confirmReq = new ConfirmResolutionRequest();
+        confirmReq.setNotes("Inspection verified; defect repaired.");
+
+        MockHttpSession adminSession = loginAs("priya.sharma@admin.metro.gov", "CivicSecure#2026!");
+        mockMvc.perform(post("/api/complaints/" + complaintId + "/confirm-resolution")
+                        .with(csrf())
+                        .session(adminSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(confirmReq)))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message", containsString("Only the reporting citizen who filed this complaint can confirm or reject resolution.")));
+
+        // Different citizen cannot confirm -> Forbidden
+        String uniqueSuffix = UUID.randomUUID().toString().substring(0, 8);
+        RegisterCitizenRequest otherCitizen = new RegisterCitizenRequest();
+        otherCitizen.setName("Other Citizen");
+        otherCitizen.setEmail("other-" + uniqueSuffix + "@citizen.org");
+        otherCitizen.setPassword("CivicSecure#2026!");
+        otherCitizen.setPhone("+91 95" + (10000000 + (int)(Math.random() * 89999999)));
+
+        mockMvc.perform(post("/api/auth/register")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(otherCitizen)))
+                .andExpect(status().isCreated());
+
+        MockHttpSession otherCitizenSession = loginAs("other-" + uniqueSuffix + "@citizen.org", "CivicSecure#2026!");
+        mockMvc.perform(post("/api/complaints/" + complaintId + "/confirm-resolution")
+                        .with(csrf())
+                        .session(otherCitizenSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(confirmReq)))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message", containsString("Only the reporting citizen who filed this complaint can confirm or reject resolution.")));
+
+        // Owning citizen Alex confirms resolution -> transitions to RESOLVED
+        mockMvc.perform(post("/api/complaints/" + complaintId + "/confirm-resolution")
+                        .with(csrf())
+                        .session(citizenSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(confirmReq)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.status", is("RESOLVED")));
 
-        // 13. Audit history contains immutable chronological record
+        // 14. Audit history contains immutable chronological record in order
         mockMvc.perform(get("/api/complaints/" + complaintId + "/history")
                         .session(officerSession))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data", hasSize(greaterThanOrEqualTo(5))))
+                .andExpect(jsonPath("$.data", hasSize(greaterThanOrEqualTo(6))))
                 .andExpect(jsonPath("$.data[0].newStatus", is("SUBMITTED")))
-                .andExpect(jsonPath("$.data[?(@.newStatus == 'RESOLVED')]", not(empty())));
+                .andExpect(jsonPath("$.data[1].newStatus", is("ASSIGNED")))
+                .andExpect(jsonPath("$.data[2].newStatus", is("IN_PROGRESS")))
+                .andExpect(jsonPath("$.data[3].newStatus", is("RESOLUTION_SUBMITTED")))
+                .andExpect(jsonPath("$.data[4].newStatus", is("PENDING_CITIZEN_CONFIRMATION")))
+                .andExpect(jsonPath("$.data[5].newStatus", is("RESOLVED")))
+                .andExpect(jsonPath("$.data[4].changedByName", is("Elena Vance")))
+                .andExpect(jsonPath("$.data[5].changedByName", is("Alex Morgan")));
     }
 }

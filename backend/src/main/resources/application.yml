@@ -15,9 +15,14 @@ spring:
     name: civicfix-backend
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 25MB
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/${DB_NAME:civicfix_db}
-    username: ${DB_USERNAME:civicfix_user}
+    username: ${DB_USER:${DB_USERNAME:civicfix_user}}
     password: ${DB_PASSWORD:civicfix_dev_password_only}
     driver-class-name: org.postgresql.Driver
     hikari:
@@ -56,5 +61,47 @@ management:
 
 # App Custom Properties
 civicfix:
+  seed-demo: ${CIVICFIX_SEED_DEMO:false}
+  security:
+    allow-seed-accounts: ${ALLOW_SEED_ACCOUNTS:true}
+    trusted-proxy-enabled: ${TRUSTED_PROXY_ENABLED:false}
+  sla:
+    escalation-job:
+      enabled: ${SLA_ESCALATION_ENABLED:true}
+      interval-ms: ${SLA_ESCALATION_INTERVAL:300000}
+      batch-size: ${SLA_ESCALATION_BATCH_SIZE:50}
+  auto-confirm:
+    enabled: ${AUTO_CONFIRM_ENABLED:true}
+    days: ${AUTO_CONFIRM_DAYS:7}
+    interval-ms: ${AUTO_CONFIRM_INTERVAL:300000}
+    batch-size: ${AUTO_CONFIRM_BATCH_SIZE:50}
+  reopen:
+    window-days: ${REOPEN_WINDOW_DAYS:30}
+  evidence:
+    max-distance-meters: ${EVIDENCE_MAX_DISTANCE:100.0}
+    max-accuracy-meters: ${EVIDENCE_MAX_ACCURACY:100.0}
   cors:
     allowed-origins: ${FRONTEND_ORIGIN:http://localhost:5173}
+  storage:
+    provider: ${STORAGE_PROVIDER:local} # Safe local filesystem storage abstraction. S3/Blob storage can be configured when cloud credentials are provided.
+    upload-dir: ${STORAGE_UPLOAD_DIR:uploads/evidence}
+    max-file-size-mb: 10
+  rate-limit:
+    login:
+      capacity: ${RATE_LIMIT_LOGIN_CAPACITY:5}
+      duration: ${RATE_LIMIT_LOGIN_DURATION:15m}
+    account-login:
+      capacity: ${RATE_LIMIT_ACCOUNT_LOGIN_CAPACITY:20}
+      duration: ${RATE_LIMIT_ACCOUNT_LOGIN_DURATION:1h}
+    register:
+      capacity: ${RATE_LIMIT_REGISTER_CAPACITY:5}
+      duration: ${RATE_LIMIT_REGISTER_DURATION:1h}
+    complaint-create:
+      capacity: ${RATE_LIMIT_COMPLAINT_CAPACITY:10}
+      duration: ${RATE_LIMIT_COMPLAINT_DURATION:1m}
+    upload:
+      capacity: ${RATE_LIMIT_UPLOAD_CAPACITY:10}
+      duration: ${RATE_LIMIT_UPLOAD_DURATION:1m}
+    reverse-geocode:
+      capacity: ${RATE_LIMIT_GEOCODE_CAPACITY:30}
+      duration: ${RATE_LIMIT_GEOCODE_DURATION:1m}

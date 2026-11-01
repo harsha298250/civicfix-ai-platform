@@ -10,6 +10,8 @@ public class AssignComplaintRequest {
 
     private String notes;
 
+    private Long version;
+
     public AssignComplaintRequest() {}
 
     public UUID getWorkerId() {
@@ -26,5 +28,13 @@ public class AssignComplaintRequest {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useTranslation } from '../../context/LanguageContext';
 import { complaintService } from '../../services/complaintService';
 import { CATEGORIES } from '../../constants/statusConstants';
 import { Breadcrumb } from '../../components/common/Breadcrumb';
 import { ImageUploadManager } from '../../components/common/ImageUploadManager';
 import { TamilNaduLocationPicker } from '../../components/common/TamilNaduLocationPicker';
 import { geolocationService } from '../../services/geolocationService';
+import VoiceInputButton from '../../components/common/VoiceInputButton';
+import { suggestCategoryFromText } from '../../utils/triageUtils';
 
 export const ReportComplaintPage = () => {
   const navigate = useNavigate();
   const { currentUser, refreshComplaints, showToast } = useApp();
+  const { t } = useTranslation();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -165,6 +169,8 @@ export const ReportComplaintPage = () => {
           ? formData.photos.map((p) => p.url)
           : ['https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=600&q=80'];
 
+      const realFiles = formData.photos.filter((p) => p && p.file).map((p) => p.file);
+
       const created = await complaintService.create({
         title: formData.title,
         category: selectedCat.name,
@@ -177,6 +183,7 @@ export const ReportComplaintPage = () => {
         coordinates: formData.coordinates,
         accuracyMeters: formData.accuracyMeters,
         photos: photoUrls,
+        files: realFiles,
         citizenId: currentUser.id,
         citizenName: currentUser.name,
         citizenEmail: currentUser.email
@@ -192,6 +199,14 @@ export const ReportComplaintPage = () => {
       setSubmitting(false);
     }
   };
+
+  const suggestedCategory = useMemo(() => {
+    return suggestCategoryFromText(formData.title + ' ' + formData.description);
+  }, [formData.title, formData.description]);
+
+  const suggestedCategoryObj = useMemo(() => {
+    return CATEGORIES.find((c) => c.id === suggestedCategory) || null;
+  }, [suggestedCategory]);
 
   const selectedCategoryObj = CATEGORIES.find((c) => c.id === formData.categoryId) || CATEGORIES[0];
 
@@ -230,35 +245,35 @@ export const ReportComplaintPage = () => {
               )}
             </div>
             <h2 className="font-headline-sm text-2xl font-bold text-on-surface">
-              Complaint Successfully Registered
+              {t('reportComplaint.successTitle')}
             </h2>
             <p className="text-body-sm text-on-surface-variant max-w-md mx-auto">
-              Your report has been logged and queued for municipal officer triage and field inspection.
+              {t('reportComplaint.successMessage')}
             </p>
           </div>
 
           <div className="bg-surface-container-low p-4 rounded-xl text-left text-xs space-y-2 border border-outline-variant/30">
             <div className="flex justify-between py-1 border-b border-outline-variant/30">
-              <span className="text-tertiary">Category</span>
-              <span className="font-semibold text-on-surface">{submittedComplaint.category}</span>
+              <span className="text-tertiary">{t('common.category')}</span>
+              <span className="font-semibold text-on-surface">{t(`categories.${submittedComplaint.categoryId}`) || submittedComplaint.category}</span>
             </div>
             <div className="flex justify-between py-1 border-b border-outline-variant/30">
-              <span className="text-tertiary">Location</span>
+              <span className="text-tertiary">{t('reportComplaint.locationPinningTitle')}</span>
               <span className="font-semibold text-on-surface text-right max-w-xs truncate">
                 {submittedComplaint.location?.address}
               </span>
             </div>
             <div className="flex justify-between py-1 border-b border-outline-variant/30">
-              <span className="text-tertiary">Coordinates</span>
+              <span className="text-tertiary">{t('reportComplaint.gpsCoordsLabel')}</span>
               <span className="font-code text-on-surface">
                 {submittedComplaint.location?.coordinates?.lat.toFixed(5)}° N,{' '}
                 {submittedComplaint.location?.coordinates?.lng.toFixed(5)}° E
               </span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="text-tertiary">Initial Status</span>
+              <span className="text-tertiary">{t('common.status')}</span>
               <span className="px-2 py-0.5 rounded-full bg-surface-container font-semibold text-primary-container">
-                {submittedComplaint.status}
+                {t(`status.${submittedComplaint.status}`) || submittedComplaint.status}
               </span>
             </div>
           </div>
@@ -269,7 +284,7 @@ export const ReportComplaintPage = () => {
               className="w-full sm:w-auto px-6 py-2.5 bg-primary-container hover:bg-primary text-white text-xs font-semibold rounded-xl shadow-sm transition-all flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined text-[18px]">track_changes</span>
-              <span>Track Resolution Timeline</span>
+              <span>{t('reportComplaint.viewComplaintButton')}</span>
             </Link>
             <button
               type="button"
@@ -292,7 +307,7 @@ export const ReportComplaintPage = () => {
               }}
               className="w-full sm:w-auto px-5 py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-semibold rounded-xl transition-all"
             >
-              File Another Report
+              {t('reportComplaint.reportAnotherButton')}
             </button>
           </div>
         </div>
@@ -301,9 +316,11 @@ export const ReportComplaintPage = () => {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h1 className="font-headline-sm text-2xl font-bold text-on-surface">Report a Civic Issue</h1>
+              <h1 className="font-headline-sm text-2xl font-bold text-on-surface">
+                {t('reportComplaint.pageTitle')}
+              </h1>
               <p className="text-body-sm text-on-surface-variant">
-                Submit an infrastructure defect with authentic photographs, GPS, and detailed narrative.
+                {t('reportComplaint.subtitle')}
               </p>
             </div>
           </div>
@@ -312,10 +329,10 @@ export const ReportComplaintPage = () => {
           <div className="bg-surface-container-lowest rounded-2xl p-4 shadow-sm border border-outline-variant/30">
             <div className="grid grid-cols-4 gap-2">
               {[
-                { num: 1, label: 'Defect Details' },
-                { num: 2, label: 'Photographs' },
-                { num: 3, label: 'Location & Map' },
-                { num: 4, label: 'Review & File' }
+                { num: 1, label: t('reportComplaint.step1Title') },
+                { num: 2, label: t('reportComplaint.step2Title') },
+                { num: 3, label: t('reportComplaint.step3Title') },
+                { num: 4, label: t('reportComplaint.step4Title') }
               ].map((s) => {
                 const isActive = currentStep === s.num;
                 const isPassed = currentStep > s.num;
@@ -373,13 +390,13 @@ export const ReportComplaintPage = () => {
                   {/* Title */}
                   <div className="space-y-1">
                     <label className="block text-xs font-semibold text-on-surface" htmlFor="complaint-title">
-                      Issue Summary Title *
+                      {t('reportComplaint.issueTitleLabel')}
                     </label>
                     <input
                       id="complaint-title"
                       type="text"
                       required
-                      placeholder="e.g. Deep asphalt pothole near bus stop"
+                      placeholder={t('reportComplaint.issueTitlePlaceholder')}
                       value={formData.title}
                       onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                       className="w-full px-3.5 py-2.5 bg-surface-container-low rounded-xl text-sm text-on-surface placeholder:text-outline border border-transparent focus:border-primary-container focus:bg-surface-container-lowest focus:outline-none transition-all"
@@ -389,9 +406,35 @@ export const ReportComplaintPage = () => {
 
                   {/* Category Selector */}
                   <div className="space-y-2">
-                    <label className="block text-xs font-semibold text-on-surface">
-                      Defect Category
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label className="block text-xs font-semibold text-on-surface">
+                        {t('reportComplaint.categoryLabel')}
+                      </label>
+                    </div>
+
+                    {/* AI / Lexicon Live Suggestion Banner */}
+                    {suggestedCategoryObj && suggestedCategoryObj.id !== formData.categoryId && (
+                      <div
+                        data-testid="suggested-category-banner"
+                        className="flex items-center justify-between p-2.5 rounded-xl bg-primary/10 border border-primary/20 text-xs text-primary-container animate-fade-in"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="material-symbols-outlined text-[18px]">auto_fix_high</span>
+                          <span>
+                            {t('reportComplaint.suggestedCategoryPill')}{' '}
+                            <strong className="underline">{t(`categories.${suggestedCategoryObj.id}`) || suggestedCategoryObj.name}</strong>
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setFormData((prev) => ({ ...prev, categoryId: suggestedCategoryObj.id }))}
+                          className="px-2.5 py-1 rounded-lg bg-primary-container text-white font-semibold text-[11px] hover:bg-primary transition-all shadow-xs"
+                        >
+                          {t('reportComplaint.applySuggestion')}
+                        </button>
+                      </div>
+                    )}
+
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {CATEGORIES.map((cat) => (
                         <button
@@ -405,22 +448,34 @@ export const ReportComplaintPage = () => {
                           }`}
                         >
                           <span className="material-symbols-outlined text-[20px]">{cat.icon}</span>
-                          <span className="text-xs font-semibold leading-tight">{cat.name}</span>
+                          <span className="text-xs font-semibold leading-tight">
+                            {t(`categories.${cat.id}`) || cat.name}
+                          </span>
                         </button>
                       ))}
                     </div>
                   </div>
 
-                  {/* Description */}
-                  <div className="space-y-1">
-                    <label className="block text-xs font-semibold text-on-surface" htmlFor="complaint-desc">
-                      Detailed Narrative & Hazard Description *
-                    </label>
+                  {/* Description & Web Speech API Voice Input */}
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <label className="block text-xs font-semibold text-on-surface" htmlFor="complaint-desc">
+                        {t('reportComplaint.narrativeLabel')}
+                      </label>
+                      <VoiceInputButton
+                        onTranscript={(spokenText) => {
+                          setFormData((prev) => ({
+                            ...prev,
+                            description: prev.description ? `${prev.description} ${spokenText}` : spokenText
+                          }));
+                        }}
+                      />
+                    </div>
                     <textarea
                       id="complaint-desc"
                       rows={4}
                       required
-                      placeholder="Describe the severity, damage to vehicles, traffic impact, or risk to pedestrians..."
+                      placeholder={t('reportComplaint.narrativePlaceholder')}
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       className="w-full px-3.5 py-2.5 bg-surface-container-low rounded-xl text-sm text-on-surface placeholder:text-outline border border-transparent focus:border-primary-container focus:bg-surface-container-lowest focus:outline-none transition-all"
@@ -431,17 +486,17 @@ export const ReportComplaintPage = () => {
                   {/* Priority */}
                   <div className="space-y-1">
                     <label className="block text-xs font-semibold text-on-surface">
-                      Perceived Urgency
+                      {t('reportComplaint.priorityLabel')}
                     </label>
                     <select
                       value={formData.priority}
                       onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
                       className="w-full px-3.5 py-2.5 bg-surface-container-low rounded-xl text-sm text-on-surface border border-transparent focus:border-primary-container focus:bg-surface-container-lowest focus:outline-none transition-all"
                     >
-                      <option value="CRITICAL">P1 - Critical Safety Hazard (Immediate)</option>
-                      <option value="HIGH">P2 - High Priority (Significant Impediment)</option>
-                      <option value="MEDIUM">P3 - Medium (Standard Repair Window)</option>
-                      <option value="LOW">P4 - Low (Aesthetic / Routine Maintenance)</option>
+                      <option value="CRITICAL">{t('reportComplaint.priorityCritical')}</option>
+                      <option value="HIGH">{t('reportComplaint.priorityHigh')}</option>
+                      <option value="MEDIUM">{t('reportComplaint.priorityMedium')}</option>
+                      <option value="LOW">{t('reportComplaint.priorityLow')}</option>
                     </select>
                   </div>
                 </div>
@@ -768,7 +823,7 @@ export const ReportComplaintPage = () => {
                     onClick={handlePrevStep}
                     className="px-4 py-2 text-xs font-semibold text-on-surface hover:bg-surface-container rounded-xl transition-colors"
                   >
-                    ← Back
+                    ← {t('common.back')}
                   </button>
                 ) : (
                   <div />
@@ -780,7 +835,7 @@ export const ReportComplaintPage = () => {
                     onClick={handleNextStep}
                     className="px-5 py-2.5 bg-primary-container hover:bg-primary text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 shadow-sm transition-all"
                   >
-                    <span>Continue to Step {currentStep + 1}</span>
+                    <span>{t('reportComplaint.continueButton', { step: currentStep + 1 })}</span>
                     <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                   </button>
                 ) : (
@@ -792,12 +847,12 @@ export const ReportComplaintPage = () => {
                     {submitting ? (
                       <>
                         <span className="material-symbols-outlined animate-spin text-[16px]">progress_activity</span>
-                        <span>Registering Ticket...</span>
+                        <span>{t('reportComplaint.submittingButton')}</span>
                       </>
                     ) : (
                       <>
                         <span className="material-symbols-outlined text-[18px]">send</span>
-                        <span>Submit & Queue Complaint</span>
+                        <span>{t('reportComplaint.submitButton')}</span>
                       </>
                     )}
                   </button>
@@ -805,39 +860,38 @@ export const ReportComplaintPage = () => {
               </div>
             </div>
 
-            {/* Right Side: AI Triage Simulation & Preview (5 cols) */}
+            {/* Right Side: Automated Intake & Verification Advisory (5 cols) */}
             <div className="lg:col-span-5 bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 space-y-5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-secondary text-[22px]">neurology</span>
-                  <h3 className="font-title text-sm font-bold text-on-surface">CivicFix AI Vision Insight</h3>
+                  <span className="material-symbols-outlined text-primary-container text-[22px]">info</span>
+                  <h3 className="font-title text-sm font-bold text-on-surface">Intake & Verification Notice</h3>
                 </div>
-                <span className="text-[10px] font-bold text-secondary bg-secondary/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  Gemini Ready
+                <span className="text-[10px] font-bold text-primary-container bg-primary/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                  Automated Screening
                 </span>
               </div>
 
               <div className="p-3.5 rounded-xl bg-surface-container-low space-y-2 border border-outline-variant/30 text-xs">
-                <span className="text-tertiary block text-[10px] uppercase font-bold">Category Detection</span>
+                <span className="text-tertiary block text-[10px] uppercase font-bold">Selected Category</span>
                 <p className="font-bold text-on-surface flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-[16px] text-primary-container">
                     {selectedCategoryObj.icon}
                   </span>
                   <span>{selectedCategoryObj.name}</span>
                 </p>
-                <div className="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-primary-container h-full rounded-full w-[94%]" />
-                </div>
-                <span className="text-[10px] text-tertiary block text-right font-mono">94% Confidence</span>
+                <p className="text-[11px] text-on-surface-variant">
+                  Your report will be registered under <strong>{selectedCategoryObj.name}</strong> for departmental routing.
+                </p>
               </div>
 
               <div className="space-y-3 text-xs text-on-surface-variant">
                 <div className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-secondary text-[16px] shrink-0 mt-0.5">
-                    filter_center_focus
+                  <span className="material-symbols-outlined text-primary text-[16px] shrink-0 mt-0.5">
+                    rule
                   </span>
                   <p>
-                    <strong className="text-on-surface">Damage Severity:</strong> Automated visual classification flags structural severity based on uploaded images.
+                    <strong className="text-on-surface">Automated Triage:</strong> Upon submission, rule-based screening analyzes title and description keywords to determine hazard priority and route the report to field personnel.
                   </p>
                 </div>
 
@@ -846,14 +900,23 @@ export const ReportComplaintPage = () => {
                     share_location
                   </span>
                   <p>
-                    <strong className="text-on-surface">Tamil Nadu Geospatial:</strong> Checks duplicate tickets within a 50m radius of your selected coordinates.
+                    <strong className="text-on-surface">Spatial Duplicate Screening:</strong> Checks for active reports within spatial proximity of your coordinates to prevent redundant crew dispatch.
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <span className="material-symbols-outlined text-emerald-600 text-[16px] shrink-0 mt-0.5">
+                    verified_user
+                  </span>
+                  <p>
+                    <strong className="text-on-surface">Officer Adjudication:</strong> All automated recommendations are verified by a municipal operations officer before work order assignment.
                   </p>
                 </div>
               </div>
 
               <div className="pt-2 border-t border-outline-variant/30">
                 <span className="text-[11px] text-tertiary font-mono block">
-                  Simulated Session Mode · CivicFix AI v2.8
+                  Deterministic Civic Triage Engine · CivicFix Official Portal
                 </span>
               </div>
             </div>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import LanguageToggle from '../common/LanguageToggle';
+import InstallPwaButton from '../common/InstallPwaButton';
 
 export const PublicLayout = () => {
   const navigate = useNavigate();
@@ -80,7 +82,10 @@ export const PublicLayout = () => {
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <InstallPwaButton />
+            <LanguageToggle />
+
             <Link
               to="/login"
               className="hidden sm:inline-flex items-center justify-center h-9 px-4 rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container transition-colors"

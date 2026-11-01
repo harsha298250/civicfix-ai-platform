@@ -4,6 +4,7 @@ export const COMPLAINT_STATUS = {
   ASSIGNED: 'ASSIGNED',
   IN_PROGRESS: 'IN_PROGRESS',
   RESOLUTION_SUBMITTED: 'RESOLUTION_SUBMITTED',
+  PENDING_CITIZEN_CONFIRMATION: 'PENDING_CITIZEN_CONFIRMATION',
   RESOLVED: 'RESOLVED',
   REWORK_REQUESTED: 'REWORK_REQUESTED',
   REOPENED: 'REOPENED',
@@ -45,6 +46,13 @@ export const STATUS_META = {
     dotClass: 'bg-secondary-container',
     icon: 'fact_check',
     description: 'Repair work complete; awaiting Municipal Officer inspection & verification.'
+  },
+  PENDING_CITIZEN_CONFIRMATION: {
+    label: 'Awaiting Citizen Confirmation',
+    badgeClass: 'bg-indigo-500/10 text-indigo-700 border border-indigo-500/20',
+    dotClass: 'bg-indigo-600',
+    icon: 'mark_email_unread',
+    description: 'Repair work verified by officer; awaiting resident site confirmation or closure dispute.'
   },
   RESOLVED: {
     label: 'Verified Resolved',

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
+import { complaintService } from '../../services/complaintService';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { PriorityBadge } from '../../components/common/PriorityBadge';
 import { Breadcrumb } from '../../components/common/Breadcrumb';
@@ -8,22 +8,52 @@ import { TamilNaduOverviewMap } from '../../components/common/TamilNaduOverviewM
 import { CATEGORIES } from '../../constants/statusConstants';
 
 export const CitizenIssueMapPage = () => {
-  const { complaints, loading } = useApp();
-  const [selectedComplaint, setSelectedComplaint] = useState(complaints[0] || null);
+  const [complaints, setComplaints] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [viewMode, setViewMode] = useState('split'); // 'split', 'map'
   const [activeCategory, setActiveCategory] = useState('ALL');
   const [activeStatus, setActiveStatus] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Filter complaints based on public criteria only
-  const filtered = complaints.filter((c) => {
-    const matchesSearch =
-      c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.location?.address?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.location?.ward?.toLowerCase().includes(searchQuery.toLowerCase());
+  const fetchComplaints = useCallback(() => {
+    setLoading(true);
+    setError(null);
+    const params = {};
+    if (activeStatus !== 'ALL') params.status = activeStatus;
+    if (activeCategory !== 'ALL') params.category = activeCategory;
 
-    const matchesCategory = activeCategory === 'ALL' || c.categoryId === activeCategory;
+    complaintService.getPublicMapComplaints(params)
+      .then((data) => {
+        setComplaints(data);
+        if (data.length > 0) {
+          setSelectedComplaint((prev) => prev ? (data.find(c => c.id === prev.id) || data[0]) : data[0]);
+        } else {
+          setSelectedComplaint(null);
+        }
+      })
+      .catch((err) => {
+        setError(err.message || 'Failed to load community map feed.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [activeStatus, activeCategory]);
+
+  useEffect(() => {
+    fetchComplaints();
+  }, [fetchComplaints]);
+
+  // Filter complaints based on search and public criteria
+  const filtered = complaints.filter((c) => {
+    const q = searchQuery.toLowerCase();
+    const matchesSearch =
+      (c.category && c.category.toLowerCase().includes(q)) ||
+      (c.ward && c.ward.toLowerCase().includes(q)) ||
+      (c.id && String(c.id).toLowerCase().includes(q));
+
+    const matchesCategory = activeCategory === 'ALL' || c.category === activeCategory || c.categoryId === activeCategory;
     const matchesStatus = activeStatus === 'ALL' || c.status === activeStatus;
 
     return matchesSearch && matchesCategory && matchesStatus;
@@ -44,6 +74,21 @@ export const CitizenIssueMapPage = () => {
       />
 
       {/* Top Header & Public Controls */}
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center justify-between text-red-800 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-red-600 text-[20px]">error</span>
+            <span>{error}</span>
+          </div>
+          <button
+            onClick={fetchComplaints}
+            className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shrink-0 transition-colors flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-[16px]">refresh</span>
+            <span>Retry</span>
+          </button>
+        </div>
+      )}
       <div className="bg-surface-container-lowest rounded-2xl p-4 sm:p-5 shadow-sm border border-outline-variant/30 space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           <div>
@@ -165,6 +210,19 @@ export const CitizenIssueMapPage = () => {
                   <span className="material-symbols-outlined text-2xl animate-spin text-primary">progress_activity</span>
                   <p>Loading community reports...</p>
                 </div>
+              ) : error ? (
+                <div className="p-8 text-center text-xs space-y-3">
+                  <span className="material-symbols-outlined text-3xl text-red-600">cloud_off</span>
+                  <p className="font-semibold text-on-surface">Unable to load map data</p>
+                  <p className="text-on-surface-variant">{error}</p>
+                  <button
+                    onClick={fetchComplaints}
+                    className="px-3 py-1.5 bg-primary-container text-white rounded-lg font-semibold hover:bg-primary transition-colors inline-flex items-center gap-1"
+                  >
+                    <span className="material-symbols-outlined text-[14px]">refresh</span>
+                    <span>Retry</span>
+                  </button>
+                </div>
               ) : filtered.length > 0 ? (
                 filtered.map((c) => {
                   const isSelected = selectedComplaint?.id === c.id;
@@ -181,24 +239,17 @@ export const CitizenIssueMapPage = () => {
                       }`}
                     >
                       <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="font-mono font-bold text-on-surface">#{c.id}</span>
+                        <span className="font-mono font-bold text-on-surface">Issue #{c.id}</span>
                         <PriorityBadge priority={c.priority} />
                       </div>
-                      <h4 className="font-title text-xs font-bold text-on-surface line-clamp-1">{c.title}</h4>
+                      <h4 className="font-title text-xs font-bold text-on-surface line-clamp-1">{c.category}</h4>
                       <p className="text-[11px] text-on-surface-variant flex items-center gap-1 mt-1 truncate">
                         <span className="material-symbols-outlined text-[13px] text-tertiary">location_on</span>
-                        <span>{c.location?.address}</span>
+                        <span>{c.ward || 'Tamil Nadu'}</span>
                       </p>
                       <div className="flex items-center justify-between pt-2 mt-1 border-t border-outline-variant/20 text-[10px]">
                         <StatusBadge status={c.status} size="sm" showIcon={false} />
-                        <Link
-                          to={`/citizen/complaints/${c.id}`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="font-semibold text-primary hover:underline flex items-center gap-0.5"
-                        >
-                          <span>Track</span>
-                          <span className="material-symbols-outlined text-[12px]">arrow_forward</span>
-                        </Link>
+                        <span className="text-tertiary font-medium">{c.ward || 'Tamil Nadu'}</span>
                       </div>
 
                       {!hasCoordinates && (
@@ -249,7 +300,6 @@ export const CitizenIssueMapPage = () => {
               selectedComplaintId={selectedComplaint?.id}
               onSelectComplaint={(c) => setSelectedComplaint(c)}
               height="100%"
-              getDetailUrl={(c) => `/citizen/complaints/${c.id}`}
             />
           )}
         </div>

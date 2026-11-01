@@ -18,7 +18,27 @@ public class UpdateStatusRequest {
 
     private BigDecimal longitude;
 
+    private Long version;
+
+    private String locationAcknowledgement;
+
     public UpdateStatusRequest() {}
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public String getLocationAcknowledgement() {
+        return locationAcknowledgement;
+    }
+
+    public void setLocationAcknowledgement(String locationAcknowledgement) {
+        this.locationAcknowledgement = locationAcknowledgement;
+    }
 
     public ComplaintStatus getStatus() {
         return status;

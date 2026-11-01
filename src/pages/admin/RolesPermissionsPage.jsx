@@ -1,15 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { adminService } from '../../services/adminService';
 import Breadcrumb from '../../components/common/Breadcrumb';
 
 const RolesPermissionsPage = () => {
+  const [summary, setSummary] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchTelemetry = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await adminService.getDashboardSummary();
+        if (isMounted) {
+          setSummary(data);
+        }
+      } catch (err) {
+        console.error('Failed to load role telemetry from server:', err);
+        if (isMounted) {
+          setError(err?.message || 'Failed to load live role metrics.');
+        }
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    fetchTelemetry();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const roles = [
     {
       id: 'CITIZEN',
       name: 'Registered Citizen',
       badgeClass: 'bg-blue-100 text-blue-800',
       description: 'Public community member who files reports, tracks ticket resolution, and provides community feedback.',
-      userCount: 1420,
+      userCount: summary?.usersByRole?.CITIZEN ?? 0,
       permissions: {
         fileComplaint: true,
         viewPublicFeed: true,
@@ -25,7 +56,7 @@ const RolesPermissionsPage = () => {
       name: 'Municipal Officer',
       badgeClass: 'bg-teal-100 text-teal-800',
       description: 'Departmental triage officer responsible for reviewing citizen reports, assessing priority, dispatching field crews, and approving repair verifications.',
-      userCount: 42,
+      userCount: summary?.usersByRole?.OFFICER ?? 0,
       permissions: {
         fileComplaint: true,
         viewPublicFeed: true,
@@ -41,7 +72,7 @@ const RolesPermissionsPage = () => {
       name: 'Field Crew Specialist',
       badgeClass: 'bg-amber-100 text-amber-800',
       description: 'On-site municipal operations specialist tasked with executing repairs, logging field blockers, and capturing verifiable photo evidence.',
-      userCount: 88,
+      userCount: summary?.usersByRole?.WORKER ?? 0,
       permissions: {
         fileComplaint: false,
         viewPublicFeed: true,
@@ -59,7 +90,7 @@ const RolesPermissionsPage = () => {
       name: 'System Administrator',
       badgeClass: 'bg-purple-100 text-purple-800',
       description: 'Platform administrator possessing full authority over system parameters, staff account approval, audit ledger access, and SLA rules.',
-      userCount: 6,
+      userCount: summary?.usersByRole?.ADMIN ?? 0,
       permissions: {
         fileComplaint: true,
         viewPublicFeed: true,
@@ -99,6 +130,15 @@ const RolesPermissionsPage = () => {
         </Link>
       </div>
 
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between text-red-700 text-xs font-semibold">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-[20px]">error</span>
+            <span>{error}</span>
+          </div>
+        </div>
+      )}
+
       {/* Role Cards Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {roles.map((r) => (
@@ -107,7 +147,9 @@ const RolesPermissionsPage = () => {
               <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${r.badgeClass}`}>
                 {r.id}
               </span>
-              <span className="text-xs text-[#667384] font-medium">{r.userCount} Accounts</span>
+              <span className="text-xs text-[#667384] font-medium font-mono">
+                {loading ? '...' : `${r.userCount} Accounts`}
+              </span>
             </div>
             <h3 className="font-bold text-base text-[#18232F]">{r.name}</h3>
             <p className="text-xs text-[#667384] line-clamp-3 leading-relaxed">{r.description}</p>

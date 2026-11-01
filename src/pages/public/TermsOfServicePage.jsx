@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 /**
- * CivicFix AI — Official Terms of Service Page
- * Outlines rights, citizen responsibilities, AI triage limitations, and service guidelines.
- * Complies with CivicFix AI Master Prompt Phase 4 specifications (20 structured sections).
+ * CivicFix AI — Resident Terms of Service Page
+ * Outlines resident rights, code of conduct, workflow rules, AI advisory disclaimers,
+ * and academic capstone project disclosures.
  */
 export const TermsOfServicePage = () => {
   const navigate = useNavigate();
@@ -14,26 +14,26 @@ export const TermsOfServicePage = () => {
   }, []);
 
   const sections = [
-    { id: 'sec-1', title: '1. Title, Version & Effective Dates' },
-    { id: 'sec-2', title: '2. About CivicFix AI & Purpose' },
+    { id: 'sec-1', title: '1. Title, Version & Capstone Scope' },
+    { id: 'sec-2', title: '2. About CivicFix AI & Academic Purpose' },
     { id: 'sec-3', title: '3. Eligibility & Account Registration' },
-    { id: 'sec-4', title: '4. Accurate Information & Account Security' },
-    { id: 'sec-5', title: '5. Citizen Responsibilities' },
-    { id: 'sec-6', title: '6. Permitted & Prohibited Use' },
+    { id: 'sec-4', title: '4. Account Credentials & Security' },
+    { id: 'sec-5', title: '5. Resident Responsibilities' },
+    { id: 'sec-6', title: '6. Permitted & Prohibited Conduct' },
     { id: 'sec-7', title: '7. Submitting Reports, Photos & Location Data' },
-    { id: 'sec-8', title: '8. False, Malicious, Abusive & Duplicate Reports' },
+    { id: 'sec-8', title: '8. Abuse Prevention & Server-Side Rate Limiting' },
     { id: 'sec-9', title: '9. Complaint Review, Prioritization & Assignment' },
-    { id: 'sec-10', title: '10. Repair Evidence & Resolution Verification' },
-    { id: 'sec-11', title: '11. Notifications & Service Communications' },
+    { id: 'sec-10', title: '10. Repair Evidence, Citizen Confirmation & Resolution' },
+    { id: 'sec-11', title: '11. Notifications & System Communications' },
     { id: 'sec-12', title: '12. Availability, Maintenance & Service Limitations' },
-    { id: 'sec-13', title: '13. AI-Assisted Analysis & Decision-Support Limits' },
-    { id: 'sec-14', title: '14. User-Generated Content & Processing License' },
-    { id: 'sec-15', title: '15. Privacy & Data Handling' },
-    { id: 'sec-16', title: '16. Third-Party Services & Map Providers' },
-    { id: 'sec-17', title: '17. Account Suspension & Termination' },
+    { id: 'sec-13', title: '13. AI Advisory Triage & Decision-Support Limits' },
+    { id: 'sec-14', title: '14. User-Submitted Content & Processing License' },
+    { id: 'sec-15', title: '15. Privacy & Data Handling Reference' },
+    { id: 'sec-16', title: '16. Third-Party Mapping & Geocoding Services' },
+    { id: 'sec-17', title: '17. Account Suspension & Administrative Sanctions' },
     { id: 'sec-18', title: '18. Disclaimers & Limitations of Liability' },
     { id: 'sec-19', title: '19. Modifications to These Terms' },
-    { id: 'sec-20', title: '20. Grievance Redressal & Contact' }
+    { id: 'sec-20', title: '20. Project Contact & Feedback' }
   ];
 
   const scrollTo = (id) => {
@@ -57,22 +57,29 @@ export const TermsOfServicePage = () => {
               <span>Back</span>
             </button>
             <span className="text-tertiary text-xs">/</span>
-            <span className="text-xs font-semibold text-primary-container">Legal Documentation</span>
+            <span className="text-xs font-semibold text-primary-container">Legal Terms & Usage Policies</span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link
-              to="/register"
-              className="px-3.5 py-1.5 bg-primary-container hover:bg-primary text-white text-xs font-semibold rounded-xl shadow-xs transition-all"
-            >
-              Return to Registration
-            </Link>
+          <div className="flex items-center gap-2">
             <Link
               to="/legal/privacy"
               className="px-3.5 py-1.5 bg-surface-container-low hover:bg-surface-container text-primary-container text-xs font-semibold rounded-xl border border-outline-variant/40 transition-colors"
             >
               Privacy Policy
             </Link>
+          </div>
+        </div>
+
+        {/* Academic Capstone Project Notice Banner */}
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 mb-6 text-xs text-amber-900 flex items-start gap-3 shadow-xs">
+          <span className="material-symbols-outlined text-amber-600 text-xl shrink-0 mt-0.5">school</span>
+          <div className="space-y-1">
+            <p className="font-bold text-amber-950 uppercase tracking-wide">
+              Academic Capstone Project & Engineering Demonstration
+            </p>
+            <p className="leading-relaxed">
+              CivicFix AI is an academic engineering capstone demonstration platform developed to evaluate automated triage, geospatial duplicate detection, and photographic resolution verification. <strong>CivicFix AI is not an official government platform</strong> of the Greater Chennai Corporation, Government of Tamil Nadu, or Government of India. It possesses no statutory authority to mandate repairs or execute municipal contracts.
+            </p>
           </div>
         </div>
 
@@ -86,17 +93,17 @@ export const TermsOfServicePage = () => {
             Terms of Service
           </h1>
           <p className="text-on-surface-variant text-sm max-w-3xl leading-relaxed">
-            These Terms of Service govern resident access and use of the CivicFix AI civic defect reporting prototype platform in the Tamil Nadu demonstration jurisdiction. Please review these terms carefully before creating an account or filing civic issue reports.
+            These Terms of Service govern access to and use of the CivicFix AI civic issue intake, AI triage, and resolution verification system. Please review these terms carefully before creating an account or filing civic incident reports.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-tertiary border-t border-outline-variant/30">
-            <span><strong>Document Version:</strong> 2.0-PROTOTYPE</span>
+            <span><strong>Document Version:</strong> 3.0-CAPSTONE</span>
             <span>•</span>
-            <span><strong>Effective Date:</strong> October 20, 2026</span>
+            <span><strong>Effective Date:</strong> November 1, 2026</span>
             <span>•</span>
-            <span><strong>Last Updated:</strong> October 20, 2026</span>
+            <span><strong>Backend Architecture:</strong> Java Spring Boot & PostgreSQL</span>
             <span>•</span>
-            <span className="text-amber-800 font-medium">Notice: Prototype policies subject to municipal legal review</span>
+            <span><strong>Focus Region:</strong> Chennai GCC, Tamil Nadu</span>
           </div>
         </div>
 
@@ -126,23 +133,23 @@ export const TermsOfServicePage = () => {
             {/* Section 1 */}
             <section id="sec-1" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                1. Title, Version & Effective Dates
+                1. Title, Version & Capstone Scope
               </h2>
               <p>
-                This agreement constitutes the <strong>CivicFix AI Resident Terms of Service (Version 2.0-PROTOTYPE)</strong>. This document took effect on <strong>October 20, 2026</strong>. Continued utilization of the service represents binding agreement to these terms.
+                This agreement constitutes the <strong>CivicFix AI Resident Terms of Service (Version 3.0-CAPSTONE)</strong>, effective as of <strong>November 1, 2026</strong>. Use of the platform constitutes acceptance of these terms.
               </p>
             </section>
 
             {/* Section 2 */}
             <section id="sec-2" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                2. About CivicFix AI & Purpose
+                2. About CivicFix AI & Academic Purpose
               </h2>
               <p>
-                CivicFix AI is an autonomous civic defect intake, AI triage, dispatch coordination, and photographic resolution verification platform. The demonstration instance serves civic administrative sectors across urban jurisdictions in Tamil Nadu (including Chennai, Coimbatore, Madurai, and Tiruchirappalli).
+                CivicFix AI is an autonomous civic defect intake, AI triage, dispatch coordination, and photographic resolution verification platform. The demonstration instance serves civic administrative sectors across Chennai and municipal regions in Tamil Nadu.
               </p>
               <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900">
-                <strong>Operational Transparency:</strong> CivicFix AI operates as an engineering prototype demonstrating AI triage and field verification workflows. Unless explicitly certified through a formal memorandum of understanding (MoU), CivicFix AI does not claim official municipal ownership or constitutional executive authority.
+                <strong>Operational Transparency:</strong> CivicFix AI operates as an engineering capstone project demonstrating AI triage and field verification workflows. CivicFix AI does not possess official municipal authority and does not replace official statutory emergency helplines (such as 1913 for Greater Chennai Corporation or 112 for national emergency services).
               </div>
             </section>
 
@@ -152,37 +159,37 @@ export const TermsOfServicePage = () => {
                 3. Eligibility & Account Registration
               </h2>
               <p>
-                To create a Citizen account, you must be a resident individual at least 18 years of age (or possess verifiable parental/guardian consent where local law permits civic hazard reporting by minors). You must provide a valid legal name and an authentic Indian mobile phone number (+91) or electronic mail address capable of receiving one-time verification passkeys (OTP).
+                To create a Citizen account, you must be a resident individual at least 18 years of age. You must provide a valid full name and an authentic normalized Indian mobile phone number (+91) or electronic mail address alongside a secure password. Registration requests are validated and provisioned directly against the PostgreSQL database.
               </p>
             </section>
 
             {/* Section 4 */}
             <section id="sec-4" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                4. Accurate Information & Account Security
+                4. Account Credentials & Security
               </h2>
               <p>
-                You represent and warrant that contact details and municipal ward declarations submitted during account onboarding are accurate. You are solely responsible for maintaining the confidentiality of your authentication credentials and preventing unauthorized access to your mobile verification tokens.
+                Passwords must contain at least 8 characters. Passwords are cryptographically salted and hashed on the server using BCrypt before storage. You are responsible for maintaining the confidentiality of your login credentials and preventing unauthorized access to your account session.
               </p>
             </section>
 
             {/* Section 5 */}
             <section id="sec-5" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                5. Citizen Responsibilities
+                5. Resident Responsibilities
               </h2>
               <p>
-                Residents agree to utilize CivicFix AI in good faith to facilitate the prompt detection and remediation of physical community hazards (such as road surface cavities, broken streetlights, storm drain breaches, and water distribution failures).
+                Residents agree to utilize CivicFix AI in good faith to facilitate the detection and remediation of physical community hazards (such as road potholes, broken streetlights, water supply leaks, overflowing garbage bins, and storm drainage breaches).
               </p>
             </section>
 
             {/* Section 6 */}
             <section id="sec-6" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                6. Permitted & Prohibited Use
+                6. Permitted & Prohibited Conduct
               </h2>
               <p>
-                You may not: (a) submit automated, scripted, or robotic complaint payloads; (b) reverse engineer, decompile, or scrape the platform; (c) attempt to bypass role-based access controls to access Officer, Field Worker, or Administrator interfaces; or (d) upload non-civic media, commercial promotions, or defamatory materials.
+                You may not: (a) submit automated, scripted, or robotic complaint payloads; (b) reverse engineer, scrape, or probe platform APIs; (c) attempt to bypass role-based access controls to access Officer, Field Worker, Supervisor, or Administrator interfaces; or (d) upload non-civic media, commercial advertisements, or defamatory content.
               </p>
             </section>
 
@@ -192,17 +199,17 @@ export const TermsOfServicePage = () => {
                 7. Submitting Reports, Photos & Location Data
               </h2>
               <p>
-                When submitting an issue, you provide photographic evidence, physical street descriptions, and geographic coordinates (latitude and longitude). You warrant that uploaded imagery captures actual physical infrastructure located in public view and does not infringe upon third-party privacy.
+                When submitting an issue, you provide photographic proof, physical street descriptions, and geographic coordinates (latitude and longitude). You warrant that uploaded imagery captures actual physical infrastructure located in public view and does not infringe upon private properties or individual privacy.
               </p>
             </section>
 
             {/* Section 8 */}
             <section id="sec-8" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                8. False, Malicious, Abusive & Duplicate Reports
+                8. Abuse Prevention & Server-Side Rate Limiting
               </h2>
               <p>
-                Submitting fabricated hazard reports, malicious hoaxes, or repetitive spam submissions undermines emergency dispatch resources. CivicFix AI utilizes heuristic rate limits and duplicate clustering. Accounts associated with persistent bad-faith filings will be placed under administrative restriction.
+                Submitting fabricated hazard reports, malicious hoaxes, or repetitive spam submissions undermines platform reliability. CivicFix AI enforces server-side rate limits (Bucket4j token bucket algorithm) across authentication, registration, complaint submission, and photo upload operations. Accounts associated with excessive failed login attempts are automatically locked to prevent brute-force attacks.
               </p>
             </section>
 
@@ -212,27 +219,33 @@ export const TermsOfServicePage = () => {
                 9. Complaint Review, Prioritization & Assignment
               </h2>
               <p>
-                Municipal work-order prioritization (Critical, High, Medium, Low) is dynamically computed based on defect severity, pedestrian traffic density, and life-safety risks. Submission of a complaint does not guarantee instant dispatch or an immediate physical repair.
+                Municipal work-order prioritization (Critical, High, Medium, Low) is computed by deterministic rule sets and multimodal AI triage based on hazard severity and life-safety factors. Submission of a complaint does not guarantee immediate physical repair.
               </p>
             </section>
 
             {/* Section 10 */}
             <section id="sec-10" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                10. Repair Evidence & Resolution Verification
+                10. Repair Evidence, Citizen Confirmation & Resolution
               </h2>
               <p>
-                Under CivicFix operational policy, field crews upload on-site photographic evidence and compaction/repair notes upon work completion. <strong>A complaint cannot transition to Resolved status until an authorized Municipal Officer validates the photographic evidence against GPS telemetry.</strong>
+                Under CivicFix operational policy, field crews upload on-site photographic evidence and repair notes upon work completion. Work transitions through the verified lifecycle:
+              </p>
+              <div className="p-3 bg-surface-container-low border border-outline-variant/30 rounded-xl font-mono text-xs text-on-surface space-y-1">
+                <p>SUBMITTED → UNDER_REVIEW → ASSIGNED → IN_PROGRESS → RESOLUTION_SUBMITTED → PENDING_CITIZEN_CONFIRMATION → RESOLVED</p>
+              </div>
+              <p className="text-xs">
+                Once approved by an officer, tickets enter <strong>Pending Citizen Confirmation</strong>. The reporting citizen may confirm resolution or reject the resolution with mandatory feedback and proof, transitioning the ticket to <strong>Reopened</strong> for departmental re-investigation.
               </p>
             </section>
 
             {/* Section 11 */}
             <section id="sec-11" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                11. Notifications & Service Communications
+                11. Notifications & System Communications
               </h2>
               <p>
-                By enrolling, you consent to receive non-marketing transactional notifications regarding complaint review updates, crew assignments, and resolution milestones via SMS or email.
+                By enrolling, you consent to receive non-marketing transactional notifications regarding complaint review updates, crew assignments, and resolution milestones.
               </p>
             </section>
 
@@ -242,61 +255,61 @@ export const TermsOfServicePage = () => {
                 12. Availability, Maintenance & Service Limitations
               </h2>
               <p>
-                While the platform targets 24/7 availability, services may occasionally experience scheduled maintenance windows or degraded operation due to telecom outages or infrastructure downtime.
+                As an engineering capstone platform, services may experience intermittent maintenance, database restarts, or updates without advance notice.
               </p>
             </section>
 
             {/* Section 13 */}
             <section id="sec-13" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                13. AI-Assisted Analysis & Decision-Support Limits
+                13. AI Advisory Triage & Decision-Support Limits
               </h2>
               <p>
-                CivicFix AI employs multi-modal vision and natural language models to assist in defect categorization and duplicate detection. <strong>AI predictions are advisory decision-support tools only and do not represent final statutory government decisions.</strong>
+                CivicFix AI employs multimodal vision and natural language models (Google Gemini 1.5 Pro) to assist in defect categorization and duplicate detection. <strong>AI predictions are advisory decision-support recommendations only and do not represent final statutory government decisions.</strong>
               </p>
             </section>
 
             {/* Section 14 */}
             <section id="sec-14" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                14. User-Generated Content & Processing License
+                14. User-Submitted Content & Processing License
               </h2>
               <p>
-                You retain ownership of photos and textual descriptions submitted to the platform. By submitting, you grant the platform operator a non-exclusive, royalty-free license to store, process, display, and transmit the evidence for public works triage and resolution verification.
+                You retain ownership of photos and textual descriptions submitted to the platform. By submitting, you grant the platform a non-exclusive, royalty-free license to store, process, display, and analyze the imagery for triage, evidence verification, and academic research purposes.
               </p>
             </section>
 
             {/* Section 15 */}
             <section id="sec-15" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                15. Privacy & Data Handling
+                15. Privacy & Data Handling Reference
               </h2>
               <p>
-                Your personal contact details and individual complaint histories are handled under our dedicated{' '}
+                Personal contact details and individual complaint histories are handled under our{' '}
                 <Link to="/legal/privacy" className="text-primary-container font-semibold hover:underline">
                   Citizen Data Privacy Policy
                 </Link>
-                . CivicFix enforces strict citizen data isolation, ensuring residents cannot browse or access complaints filed by other citizens.
+                . Data is persisted in PostgreSQL with strict role-based isolation, server-side EXIF metadata stripping, and public map coordinate rounding.
               </p>
             </section>
 
             {/* Section 16 */}
             <section id="sec-16" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                16. Third-Party Services & Map Providers
+                16. Third-Party Mapping & Geocoding Services
               </h2>
               <p>
-                Geographic visualization and address geocoding are powered by OpenStreetMap contributors and public GIS infrastructure. Map data is provided "as-is" without warranty of positional perfection.
+                Geographic visualization and address geocoding are powered by OpenStreetMap contributors and Leaflet. Map data is provided "as-is" without warranty of positional perfection.
               </p>
             </section>
 
             {/* Section 17 */}
             <section id="sec-17" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                17. Account Suspension & Termination
+                17. Account Suspension & Administrative Sanctions
               </h2>
               <p>
-                The platform administration reserves the right to suspend or restrict accounts that violate permitted use rules, submit abusive content, or engage in malicious security testing against unauthorized API endpoints.
+                Platform administrators reserve the right to suspend or restrict accounts that violate permitted conduct, submit abusive content, or attempt to tamper with security boundaries.
               </p>
             </section>
 
@@ -306,7 +319,7 @@ export const TermsOfServicePage = () => {
                 18. Disclaimers & Limitations of Liability
               </h2>
               <p>
-                The platform is provided on an "as is" and "as available" basis. To the maximum extent permitted under applicable law, the operator disclaims liability for indirect, incidental, or consequential damages resulting from repair delays or municipal triage outcomes.
+                The platform is provided on an "as is" and "as available" basis for academic demonstration. The project disclaims liability for municipal repair outcomes, scheduling delays, or damages arising from reliance on demonstration platform telemetry.
               </p>
             </section>
 
@@ -316,23 +329,22 @@ export const TermsOfServicePage = () => {
                 19. Modifications to These Terms
               </h2>
               <p>
-                We reserve the right to amend these Terms of Service. Notice of substantive revisions will be posted within this portal alongside an updated effective date.
+                We reserve the right to amend these Terms of Service as project development continues. Updates will be published on this page with a revised effective timestamp.
               </p>
             </section>
 
             {/* Section 20 */}
             <section id="sec-20" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                20. Grievance Redressal & Contact
+                20. Project Contact & Feedback
               </h2>
               <p>
-                For questions, feedback, or grievance escalation regarding platform terms, please reach out through the official contact channel:
+                For questions or feedback regarding platform terms and capstone research:
               </p>
               <div className="bg-surface-container-low p-4 rounded-xl space-y-1.5 text-xs font-mono">
-                <p><strong>Entity:</strong> [CIVICFIX_OPERATOR_LEGAL_ENTITY]</p>
-                <p><strong>Grievance Officer:</strong> [GRIEVANCE_OFFICER_NAME]</p>
-                <p><strong>Email:</strong> legal-grievance@civicfix.prototype</p>
-                <p><strong>Jurisdiction:</strong> Chennai, Tamil Nadu, India</p>
+                <p><strong>Project:</strong> CivicFix AI Engineering Capstone</p>
+                <p><strong>Focus Region:</strong> Chennai, Tamil Nadu, India</p>
+                <p><strong>Email:</strong> research@civicfix.prototype</p>
               </div>
             </section>
           </div>

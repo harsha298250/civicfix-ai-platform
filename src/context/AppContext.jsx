@@ -1,37 +1,37 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { authService } from '../services/authService';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { authService, isDemoModeEnabled } from '../services/authService';
 import { complaintService } from '../services/complaintService';
-import { INITIAL_USERS, INITIAL_NOTIFICATIONS, INITIAL_AUDIT_LOGS } from '../services/mockData';
+import { notificationService } from '../services/notificationService';
+import apiClient from '../services/apiClient';
+
+// One-time cleanup of obsolete mock localStorage keys from prior versions
+try {
+  localStorage.removeItem('civicfix_users_v1');
+  localStorage.removeItem('civicfix_audit_v1');
+  localStorage.removeItem('civicfix_complaints_v2');
+} catch (e) {
+  // Ignore storage access errors in restricted contexts
+}
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(() => authService.getCurrentUser());
+  const [serverUnreachable, setServerUnreachable] = useState(false);
   const [complaints, setComplaints] = useState([]);
-  
-  const [users, setUsers] = useState(() => {
-    try {
-      const raw = localStorage.getItem('civicfix_users_v1');
-      if (raw) return JSON.parse(raw);
-    } catch (e) {}
-    return INITIAL_USERS;
-  });
+  const [complaintsError, setComplaintsError] = useState(null);
 
-  const [notifications, setNotifications] = useState(() => {
-    try {
-      const raw = localStorage.getItem('civicfix_notifs_v1');
-      if (raw) return JSON.parse(raw);
-    } catch (e) {}
-    return INITIAL_NOTIFICATIONS;
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [notificationsLoading, setNotificationsLoading] = useState(false);
+  const [notificationsPagination, setNotificationsPagination] = useState({
+    page: 0,
+    size: 15,
+    totalElements: 0,
+    totalPages: 1,
+    last: true
   });
-
-  const [auditLogs, setAuditLogs] = useState(() => {
-    try {
-      const raw = localStorage.getItem('civicfix_audit_v1');
-      if (raw) return JSON.parse(raw);
-    } catch (e) {}
-    return INITIAL_AUDIT_LOGS;
-  });
+  const isRefreshingNotifs = useRef(false);
 
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
@@ -42,14 +42,50 @@ export const AppProvider = ({ children }) => {
   };
 
   const refreshComplaints = async () => {
+    setLoading(true);
+    setComplaintsError(null);
     try {
       const data = await complaintService.getAll();
       setComplaints(data);
     } catch (e) {
       console.error('Failed to load complaints', e);
+      setComplaintsError(e.message || 'Cannot reach the server.');
+      setComplaints([]);
     } finally {
       setLoading(false);
     }
+  };
+
+  const refreshNotifications = async (params = {}) => {
+    if (isRefreshingNotifs.current) return;
+    isRefreshingNotifs.current = true;
+    setNotificationsLoading(true);
+    try {
+      const data = await notificationService.getNotifications(params);
+      setNotifications(data.content || []);
+      setNotificationsPagination({
+        page: data.page,
+        size: data.size,
+        totalElements: data.totalElements,
+        totalPages: data.totalPages,
+        last: data.last
+      });
+      // Fetch latest accurate unread count from backend
+      const count = await notificationService.getUnreadCount();
+      setUnreadCount(count);
+    } catch (e) {
+      console.error('Failed to load notifications from backend:', e);
+    } finally {
+      setNotificationsLoading(false);
+      isRefreshingNotifs.current = false;
+    }
+  };
+
+  const refreshUnreadCount = async () => {
+    try {
+      const count = await notificationService.getUnreadCount();
+      setUnreadCount(count);
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -57,83 +93,64 @@ export const AppProvider = ({ children }) => {
     // Validate active session with Spring Boot backend on application bootstrap
     authService.checkSession()
       .then((liveUser) => {
+        setServerUnreachable(false);
         if (liveUser) setCurrentUser(liveUser);
+        else setCurrentUser(null);
       })
-      .catch(() => {});
+      .catch((err) => {
+        setCurrentUser(null);
+        setServerUnreachable(true);
+      });
   }, []);
 
+  useEffect(() => {
+    if (currentUser) {
+      refreshNotifications();
+      refreshUnreadCount();
+    } else {
+      setNotifications([]);
+      setUnreadCount(0);
+    }
+  }, [currentUser?.id, currentUser?.role]);
+
   const switchRole = (role) => {
+    if (!isDemoModeEnabled()) {
+      throw new Error('Demo mode is disabled. Role switching is not permitted.');
+    }
     const updated = authService.switchRole(role);
-    setCurrentUser(updated);
-    showToast(`Switched active persona to ${role} (${updated.name})`, 'info');
-  };
-
-  const markNotificationRead = (notifId) => {
-    const updated = notifications.map(n => n.id === notifId ? { ...n, read: true } : n);
-    setNotifications(updated);
-    try {
-      localStorage.setItem('civicfix_notifs_v1', JSON.stringify(updated));
-    } catch (e) {}
-  };
-
-  const markAllNotificationsRead = () => {
-    const updated = notifications.map(n => ({ ...n, read: true }));
-    setNotifications(updated);
-    try {
-      localStorage.setItem('civicfix_notifs_v1', JSON.stringify(updated));
-    } catch (e) {}
-  };
-
-  const approveStaff = (userId) => {
-    if (currentUser?.role !== 'ADMIN') {
-      showToast('Unauthorized: Only System Administrators can approve staff credentials', 'error');
-      return;
+    if (updated) {
+      setCurrentUser(updated);
+      showToast(`Switched active persona to ${role} (${updated.name})`, 'info');
     }
-    const userToApprove = users.find(u => u.id === userId);
-    const updated = users.map(u => u.id === userId ? { ...u, status: 'ACTIVE' } : u);
-    setUsers(updated);
-    try {
-      localStorage.setItem('civicfix_users_v1', JSON.stringify(updated));
-    } catch (e) {}
-    addAuditLog('APPROVE_STAFF', `User #${userId}`, `Approved official staff credentials for ${userToApprove?.name || userId}.`);
-    showToast(`Approved credentials for ${userToApprove?.name || 'staff member'}`, 'success');
   };
 
-  const rejectStaff = (userId) => {
-    if (currentUser?.role !== 'ADMIN') {
-      showToast('Unauthorized: Only System Administrators can reject staff applications', 'error');
-      return;
+  const markNotificationRead = async (notifId) => {
+    if (!notifId) return;
+    // Optimistic UI update
+    setNotifications(prev => prev.map(n => n.id === notifId ? { ...n, read: true } : n));
+    setUnreadCount(prev => Math.max(0, prev - 1));
+
+    try {
+      await notificationService.markAsRead(notifId);
+      refreshUnreadCount();
+    } catch (e) {
+      console.error('Failed to mark notification read on backend:', e);
+      refreshNotifications();
     }
-    const userToReject = users.find(u => u.id === userId);
-    const updated = users.filter(u => u.id !== userId);
-    setUsers(updated);
-    try {
-      localStorage.setItem('civicfix_users_v1', JSON.stringify(updated));
-    } catch (e) {}
-    addAuditLog('REJECT_STAFF', `User #${userId}`, `Rejected staff application for ${userToReject?.name || userId}.`);
-    showToast(`Rejected application for ${userToReject?.name || 'staff applicant'}`, 'info');
   };
 
-  const addStaffUser = (staffData) => {
-    const newUser = {
-      id: `usr-${String(Math.floor(100 + Math.random() * 900))}`,
-      name: staffData.name,
-      email: staffData.email,
-      phone: staffData.phone || '+91 98765 00000',
-      role: staffData.role,
-      department: staffData.department || 'Municipal Operations',
-      badgeId: staffData.badgeId || `STF-${Math.floor(1000 + Math.random() * 9000)}`,
-      status: 'Active',
-      joined: 'Today',
-      lastActive: 'Just now'
-    };
-    const updated = [newUser, ...users];
-    setUsers(updated);
+  const markAllNotificationsRead = async () => {
+    // Optimistic UI update
+    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    setUnreadCount(0);
+
     try {
-      localStorage.setItem('civicfix_users_v1', JSON.stringify(updated));
-    } catch (e) {}
-    addAuditLog('PROVISION_STAFF', `User #${newUser.id}`, `Provisioned staff account for ${newUser.name}.`);
-    return newUser;
+      await notificationService.markAllAsRead();
+      refreshUnreadCount();
+    } catch (e) {
+      console.error('Failed to mark all notifications read on backend:', e);
+      refreshNotifications();
+    }
   };
 
   const logout = async () => {
@@ -142,32 +159,16 @@ export const AppProvider = ({ children }) => {
     showToast('Signed out of CivicFix AI session.', 'info');
   };
 
-  const addAuditLog = (action, target, details) => {
-    const entry = {
-      id: `aud-${Date.now()}`,
-      timestamp: new Date().toISOString(),
-      actor: currentUser ? `${currentUser.name} (${currentUser.role})` : 'Unauthenticated Session',
-      action,
-      target,
-      details,
-      ip: '127.0.0.1 (Local Session)',
-      status: 'SUCCESS'
-    };
-    const updated = [entry, ...auditLogs];
-    setAuditLogs(updated);
+  const resetAllData = async () => {
     try {
-      localStorage.setItem('civicfix_audit_v1', JSON.stringify(updated));
-    } catch (e) {}
-  };
-
-  const resetAllData = () => {
-    complaintService.resetToDefaults();
-    refreshComplaints();
-    setUsers(INITIAL_USERS);
-    try {
-      localStorage.setItem('civicfix_users_v1', JSON.stringify(INITIAL_USERS));
-    } catch (e) {}
-    showToast('All demo complaints and accounts reset to initial state', 'info');
+      const res = await apiClient.admin.resetDemoData();
+      await refreshComplaints();
+      showToast(res?.message || 'Demo dataset reset successfully in PostgreSQL', 'success');
+      return res;
+    } catch (err) {
+      showToast(err.message || 'Failed to reset demo dataset on server.', 'error');
+      throw err;
+    }
   };
 
   // Data isolation helper: Returns ONLY complaints belonging to the specified citizen
@@ -194,20 +195,22 @@ export const AppProvider = ({ children }) => {
         currentUser,
         currentPersona: currentUser, // alias for consistency
         setCurrentUser,
+        serverUnreachable,
+        setServerUnreachable,
         switchRole,
         complaints,
+        complaintsError,
         refreshComplaints,
         getCitizenComplaints,
         isComplaintOwner,
-        users,
-        approveStaff,
-        rejectStaff,
-        addStaffUser,
         notifications,
+        unreadCount,
+        notificationsLoading,
+        notificationsPagination,
+        refreshNotifications,
+        refreshUnreadCount,
         markNotificationRead,
         markAllNotificationsRead,
-        auditLogs,
-        addAuditLog,
         loading,
         toast,
         showToast,

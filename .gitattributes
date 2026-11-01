@@ -1,0 +1,16 @@
+# Set default behavior to automatically handle line endings
+* text=auto
+
+# Force LF line endings for shell scripts and Unix wrapper
+*mvnw text eol=lf
+*.sh text eol=lf
+
+# Force LF for YAML configs and SQL migrations
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sql text eol=lf
+
+# Force CRLF for Windows command scripts
+*.cmd text eol=crlf
+*.bat text eol=crlf
+

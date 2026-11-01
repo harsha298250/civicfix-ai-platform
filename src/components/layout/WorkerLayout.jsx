@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import LanguageToggle from '../common/LanguageToggle';
 import { DemoRoleSwitcher } from '../common/DemoRoleSwitcher';
 import { COMPLAINT_STATUS } from '../../constants/statusConstants';
 
 export const WorkerLayout = () => {
-  const { currentUser, complaints, toast, logout } = useApp();
+  const { currentUser, complaints, unreadCount, toast, logout } = useApp();
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  // Field worker assigned tasks
+  // Field worker assigned tasks - isolated to authenticated worker
   const myAssignedTasks = complaints.filter(
-    c => (currentUser?.id && c.assignedWorker?.id === currentUser.id) || c.status === COMPLAINT_STATUS.ASSIGNED || c.status === COMPLAINT_STATUS.IN_PROGRESS
+    c => (currentUser?.id && (c.assignedWorker?.id === currentUser.id || c.assignedWorkerId === currentUser.id)) ||
+         (currentUser?.name && c.assignedWorker?.name?.toLowerCase() === currentUser?.name?.toLowerCase()) ||
+         (currentUser?.email && c.assignedWorker?.email?.toLowerCase() === currentUser?.email?.toLowerCase())
   );
 
   const activeTaskCount = myAssignedTasks.filter(c => c.status === COMPLAINT_STATUS.IN_PROGRESS).length;
 
-  const activeTaskId = myAssignedTasks.find(c => c.status === COMPLAINT_STATUS.IN_PROGRESS)?.id || myAssignedTasks[0]?.id || 'CF-2026-00124';
+  const activeTaskId = myAssignedTasks.find(c => c.status === COMPLAINT_STATUS.IN_PROGRESS)?.id || myAssignedTasks[0]?.id || null;
 
   const navItems = [
     { label: 'My Dashboard', path: '/worker/dashboard', icon: 'dashboard' },
@@ -29,22 +32,28 @@ export const WorkerLayout = () => {
     },
     {
       label: 'Task Details',
-      path: `/worker/tasks/${activeTaskId}`,
+      path: activeTaskId ? `/worker/tasks/${activeTaskId}` : '/worker/tasks',
       icon: 'manage_search'
     },
     {
       label: 'Update Progress / Blocker',
-      path: `/worker/tasks/${activeTaskId}/progress`,
+      path: activeTaskId ? `/worker/tasks/${activeTaskId}/progress` : '/worker/tasks',
       icon: 'pending_actions',
       badge: activeTaskCount > 0 ? `${activeTaskCount} Active` : null,
       badgeColor: 'bg-primary-container text-white'
     },
     {
       label: 'Submit Repair Evidence',
-      path: `/worker/tasks/${activeTaskId}/evidence`,
+      path: activeTaskId ? `/worker/tasks/${activeTaskId}/evidence` : '/worker/tasks',
       icon: 'fact_check'
     },
-    { label: 'Notifications', path: '/worker/notifications', icon: 'notifications' },
+    {
+      label: 'Notifications',
+      path: '/worker/notifications',
+      icon: 'notifications',
+      badge: unreadCount > 0 ? unreadCount : null,
+      badgeColor: 'bg-error text-white'
+    },
     { label: 'My Profile & Equipment', path: '/worker/profile', icon: 'badge' }
   ];
 
@@ -177,7 +186,9 @@ export const WorkerLayout = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <LanguageToggle />
+
             <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-low text-primary-container text-xs font-semibold">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Device GPS Active</span>

@@ -1,4 +1,29 @@
+# ==============================================================================
+# !!! CAUTION: LOCAL DEVELOPMENT CONFIGURATION ONLY !!!
+# NEVER DEPLOY TO PRODUCTION WITH THESE DEFAULTS!
+#
+# Defaults configured in this file:
+#   - SPRING_PROFILES_ACTIVE=dev
+#   - ALLOW_SEED_ACCOUNTS=true (Default demo users with known credentials active)
+#   - POSTGRES_PASSWORD=civicfix_dev_password_only
+#
+# FOR PRODUCTION DEPLOYMENTS:
+#   - Set SPRING_PROFILES_ACTIVE=prod
+#   - Set ALLOW_SEED_ACCOUNTS=false
+#   - Set a strong, unique POSTGRES_PASSWORD (production startup will abort
+#     if 'civicfix_dev_password_only' is used)
+#   - Provide secure SECRET_KEY and CORS allowed origins
+# See README.md ("Never deploy with these defaults") for full production guidance.
+# ==============================================================================
+# CivicFix AI Platform — Unified Full-Stack Docker Compose Orchestration
+# One-command execution: docker compose up --build
+# Starts PostgreSQL 16, Spring Boot 3.3 Backend, and Nginx SPA Frontend.
+# ==============================================================================
+
 services:
+  # ----------------------------------------------------------------------------
+  # Database Tier: PostgreSQL 16 with Persistent Named Volume
+  # ----------------------------------------------------------------------------
   postgres:
     image: postgres:16.4-alpine
     container_name: civicfix_postgres
@@ -8,8 +33,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-civicfix_user}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-civicfix_dev_password_only}
     ports:
-      # Host port defaults to 5433 because host port 5432 is occupied by an existing local PostgreSQL service.
-      # Binds exclusively to 127.0.0.1 to avoid exposing the database publicly.
+      # Bound to 127.0.0.1 to prevent external exposure; default port 5433 avoids conflict with host PostgreSQL
       - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -20,6 +44,61 @@ services:
       retries: 5
       start_period: 10s
 
+  # ----------------------------------------------------------------------------
+  # Backend Tier: Java 21 Spring Boot Service with Actuator Health Monitoring
+  # ----------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: civicfix_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: ${POSTGRES_DB:-civicfix_db}
+      DB_USERNAME: ${POSTGRES_USER:-civicfix_user}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-civicfix_dev_password_only}
+      SERVER_PORT: "8080"
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost,http://localhost:80,http://localhost:5173}
+      STORAGE_UPLOAD_DIR: /app/uploads/evidence
+      ALLOW_SEED_ACCOUNTS: ${ALLOW_SEED_ACCOUNTS:-true}
+      TRUSTED_PROXY_ENABLED: ${TRUSTED_PROXY_ENABLED:-true}
+    volumes:
+      - uploads_data:/app/uploads
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # ----------------------------------------------------------------------------
+  # Frontend Tier: React SPA served via Nginx with API Reverse Proxy
+  # ----------------------------------------------------------------------------
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: civicfix_frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+
+# ------------------------------------------------------------------------------
+# Named Persistent Storage Volumes
+# ------------------------------------------------------------------------------
 volumes:
   postgres_data:
     name: civicfix_postgres_data
+  uploads_data:
+    name: civicfix_uploads_data

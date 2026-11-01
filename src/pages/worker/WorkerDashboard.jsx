@@ -6,7 +6,7 @@ import { PriorityBadge } from '../../components/common/PriorityBadge';
 import { COMPLAINT_STATUS } from '../../constants/statusConstants';
 
 export const WorkerDashboard = () => {
-  const { complaints, currentUser } = useApp();
+  const { complaints, currentUser, complaintsError, refreshComplaints } = useApp();
   const navigate = useNavigate();
 
   // Tasks assigned to this crew
@@ -22,6 +22,21 @@ export const WorkerDashboard = () => {
 
   return (
     <div className="w-full flex flex-col gap-6">
+      {complaintsError && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center justify-between text-red-800 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-red-600 text-[20px]">error</span>
+            <span>{complaintsError}</span>
+          </div>
+          <button
+            onClick={refreshComplaints}
+            className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shrink-0 transition-colors flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-[16px]">refresh</span>
+            <span>Retry</span>
+          </button>
+        </div>
+      )}
       {/* Active Crew Informational Banner matching Stitch Design */}
       <div className="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/30 p-5 space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-container-low px-4 py-3 rounded-xl">
@@ -216,7 +231,23 @@ export const WorkerDashboard = () => {
         </div>
 
         <div className="space-y-3">
-          {myTasks.map(t => (
+          {complaintsError ? (
+            <div className="p-8 text-center text-xs space-y-3">
+              <span className="material-symbols-outlined text-3xl text-red-600">cloud_off</span>
+              <p className="font-semibold text-on-surface">Unable to load assigned tasks</p>
+              <p className="text-on-surface-variant max-w-xs mx-auto">{complaintsError}</p>
+              <button
+                onClick={refreshComplaints}
+                className="px-3 py-1.5 bg-primary-container text-white rounded-lg font-semibold hover:bg-primary transition-colors inline-flex items-center gap-1"
+              >
+                <span className="material-symbols-outlined text-[14px]">refresh</span>
+                <span>Retry</span>
+              </button>
+            </div>
+          ) : myTasks.length === 0 ? (
+            <p className="text-xs text-tertiary text-center py-8">No assigned tasks found.</p>
+          ) : (
+            myTasks.map(t => (
             <div
               key={t.id}
               className="p-4 rounded-xl border border-outline-variant/40 hover:border-primary-container/40 bg-surface-container-lowest transition-all flex flex-col md:flex-row md:items-center justify-between gap-4"
@@ -251,7 +282,7 @@ export const WorkerDashboard = () => {
                 </Link>
               </div>
             </div>
-          ))}
+          )))}
         </div>
       </section>
     </div>
