@@ -236,18 +236,29 @@ CivicFix is fully installable as an app across desktop (Chrome, Edge) and mobile
 
 ## 🧪 Running the Tests
 
-Ensure tests pass locally before pushing changes to GitHub.
+Verified test suite counts as of **November 2, 2026**:
+- **Frontend**: **195 tests passing** (31 test suites, 0 failures)
+- **Backend**: **295 tests passing** (47 test classes, 0 failures)
 
 ### 1. Frontend Test Suite & Production Build
 
-The frontend test suite runs on Node.js 20+ with built-in test runner:
+The frontend test suite runs on Node.js 20+ using Node's built-in test runner:
+
+> [!IMPORTANT]
+> The frontend test suite must be run with the Docker application backend stopped:
+> ```bash
+> docker compose stop backend frontend
+> ```
+> This ensures that server-unreachable, lockout, and offline guard unit tests evaluate hermetically without hitting a live local backend container until network-dependent mock tests are fully isolated.
 
 ```bash
 # Install frontend dependencies
 npm ci
 
-# Run all 169 unit, integration & PWA tests
+# Run all 195 unit, integration & PWA tests
 npm.cmd test
+# Or on Linux/macOS:
+npm test
 
 # Verify production build & Service Worker compilation
 npm.cmd run build
@@ -255,20 +266,21 @@ npm.cmd run build
 
 ### 2. Backend Test Suite
 
-The backend integration tests connect to PostgreSQL on port 5433 (default local test container) or port 5432:
+The backend integration tests connect to PostgreSQL on port **5433** (default local container `civicfix_postgres`). It is recommended to run the suite against an isolated test database (`DB_NAME=civicfix_test`):
 
 ```bash
-# Ensure local development database container is running
+# 1. Ensure local development database container is running
 docker compose -f docker-compose.dev.yml up -d
 
-# Run all JUnit 5 tests via Maven wrapper
-cd backend
-./mvnw test
+# 2. Run all 295 backend unit and integration tests against civicfix_test:
+# On Windows PowerShell / Command Prompt:
+cmd /c "set DB_NAME=civicfix_test&& cd backend && .\mvnw.cmd test"
 
-# Or on Windows PowerShell:
-.\mvnw.cmd test
+# Or on Linux / macOS:
+cd backend
+DB_NAME=civicfix_test ./mvnw test
 ```
-*(Test reports are generated in `backend/target/surefire-reports/`)*
+*(Surefire execution reports are generated in `backend/target/surefire-reports/`)*
 
 ---
 

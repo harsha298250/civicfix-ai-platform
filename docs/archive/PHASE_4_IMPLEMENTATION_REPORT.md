@@ -10,7 +10,7 @@
 
 ## 1. Executive Summary
 
-Stages 1 and 2 of Phase 4 (AI Intelligence) have been implemented and verified in strict accordance with project safeguards and architecture approvals documented in [`docs/PHASE_4_AI_ARCHITECTURE_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/PHASE_4_AI_ARCHITECTURE_AUDIT.md).
+Stages 1 and 2 of Phase 4 (AI Intelligence) have been implemented and verified in strict accordance with project safeguards and architecture approvals documented in [`docs/archive/PHASE_4_AI_ARCHITECTURE_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/PHASE_4_AI_ARCHITECTURE_AUDIT.md).
 
 ### Stage 1 & 2 Key Achievements
 1. **Local Deterministic Triage Engine as Default**:

@@ -44,13 +44,13 @@ An independent, evidence-based manual, architectural, and security audit was con
 ### 2.2 Task 1 — Evidence Review & Document Inventory
 
 The following documents were inspected:
-- [`docs/DATABASE_SCHEMA_MIGRATION_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/DATABASE_SCHEMA_MIGRATION_AUDIT.md): Confirmed Flyway V1 and V2 match live PostgreSQL; Hibernate uses `ddl-auto: validate`.
-- [`docs/SPRINT_3_STEP_4A_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/SPRINT_3_STEP_4A_IMPLEMENTATION_REPORT.md): Worker task list and detail integration.
-- [`docs/SPRINT_3_STEP_4B_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/SPRINT_3_STEP_4B_IMPLEMENTATION_REPORT.md): Worker on-site arrival, status transitions, and operational progress notes.
-- [`docs/SPRINT_3_STEP_4C_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/SPRINT_3_STEP_4C_IMPLEMENTATION_REPORT.md): Repair evidence photo uploads, `LocalStorageService`, and disk rollback defense.
-- [`docs/SPRINT_3_STEP_4D_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/SPRINT_3_STEP_4D_IMPLEMENTATION_REPORT.md): Officer verification sign-off, approval, and mandatory rework reasons.
-- [`docs/PHASE_0_VERIFIED_BASELINE_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/PHASE_0_VERIFIED_BASELINE_REPORT.md): Initial baseline defects and stabilization backlog.
-- [`docs/PROJECT_STATUS_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/PROJECT_STATUS_AUDIT.md): Blueprint audit against 18 functional requirements.
+- [`docs/archive/DATABASE_SCHEMA_MIGRATION_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/DATABASE_SCHEMA_MIGRATION_AUDIT.md): Confirmed Flyway V1 and V2 match live PostgreSQL; Hibernate uses `ddl-auto: validate`.
+- [`docs/archive/SPRINT_3_STEP_4A_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/SPRINT_3_STEP_4A_IMPLEMENTATION_REPORT.md): Worker task list and detail integration.
+- [`docs/archive/SPRINT_3_STEP_4B_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/SPRINT_3_STEP_4B_IMPLEMENTATION_REPORT.md): Worker on-site arrival, status transitions, and operational progress notes.
+- [`docs/archive/SPRINT_3_STEP_4C_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/SPRINT_3_STEP_4C_IMPLEMENTATION_REPORT.md): Repair evidence photo uploads, `LocalStorageService`, and disk rollback defense.
+- [`docs/archive/SPRINT_3_STEP_4D_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/SPRINT_3_STEP_4D_IMPLEMENTATION_REPORT.md): Officer verification sign-off, approval, and mandatory rework reasons.
+- [`docs/archive/PHASE_0_VERIFIED_BASELINE_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/PHASE_0_VERIFIED_BASELINE_REPORT.md): Initial baseline defects and stabilization backlog.
+- [`docs/archive/PROJECT_STATUS_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/PROJECT_STATUS_AUDIT.md): Blueprint audit against 18 functional requirements.
 - `CivicFix_Project_Preparation_Document.pdf` / `.docx`: Authoritative technical blueprint.
 
 ### 2.3 Status of Claude's Original 99-Item Improvement List
@@ -58,7 +58,7 @@ An exhaustive search of all project files, Git commit history (`git log --all --
 **No document or list containing "99 proposed improvements" exists in the repository or blueprint files.**  
 In accordance with instructions:
 > *"If unavailable, explicitly report that limitation. Do not invent or reconstruct missing items."*  
-This limitation is formally recorded. In [`docs/IMPROVEMENT_PLAN_TRACEABILITY.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/IMPROVEMENT_PLAN_TRACEABILITY.md), the 99 items are classified as **Unable to assess**, while all 18 authoritative PRD requirements (FR-01 to FR-18) and Agile sprint tickets (CF-101 to CF-404) are fully traced.
+This limitation is formally recorded. In [`docs/archive/IMPROVEMENT_PLAN_TRACEABILITY.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/IMPROVEMENT_PLAN_TRACEABILITY.md), the 99 items are classified as **Unable to assess**, while all 18 authoritative PRD requirements (FR-01 to FR-18) and Agile sprint tickets (CF-101 to CF-404) are fully traced.
 
 ---
 
@@ -257,8 +257,8 @@ Detailed investigation of the four reported data-persistence items:
 ## 10. Deliverable Report Paths & Stop Condition
 
 The audit deliverables have been generated:
-1. **Audit Report:** [`docs/PHASE_2_CORE_WORKFLOW_SECURITY_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/PHASE_2_CORE_WORKFLOW_SECURITY_AUDIT.md)
-2. **Traceability Matrix:** [`docs/IMPROVEMENT_PLAN_TRACEABILITY.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/IMPROVEMENT_PLAN_TRACEABILITY.md)
+1. **Audit Report:** [`docs/archive/PHASE_2_CORE_WORKFLOW_SECURITY_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/PHASE_2_CORE_WORKFLOW_SECURITY_AUDIT.md)
+2. **Traceability Matrix:** [`docs/archive/IMPROVEMENT_PLAN_TRACEABILITY.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/IMPROVEMENT_PLAN_TRACEABILITY.md)
 
 In strict accordance with the stop condition:
 > *"This is an AUDIT ONLY. Do not implement fixes, add features, modify the schema, or begin GIS/AI development. When finished, summarize the most important findings, list any tests that could not run, provide the two report paths, and wait for my review before making changes."*

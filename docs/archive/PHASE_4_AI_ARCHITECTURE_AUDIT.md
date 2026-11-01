@@ -396,4 +396,4 @@ Implementation must proceed in four safe, non-destructive stages:
 ---
 
 *End of Architecture Audit Report.*  
-*Report Location:* [`docs/PHASE_4_AI_ARCHITECTURE_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/PHASE_4_AI_ARCHITECTURE_AUDIT.md)
+*Report Location:* [`docs/archive/PHASE_4_AI_ARCHITECTURE_AUDIT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/PHASE_4_AI_ARCHITECTURE_AUDIT.md)

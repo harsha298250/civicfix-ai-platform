@@ -214,7 +214,7 @@ An API client adapter has been established at [`src/services/apiClient.js`](file
 - [`docs/POSTGRESQL_SETUP.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/POSTGRESQL_SETUP.md)
 - [`docs/BACKEND_API.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/BACKEND_API.md)
 - [`docs/BACKEND_SECURITY.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/BACKEND_SECURITY.md)
-- [`docs/SPRINT_2_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/SPRINT_2_IMPLEMENTATION_REPORT.md)
+- [`docs/archive/SPRINT_2_IMPLEMENTATION_REPORT.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/archive/SPRINT_2_IMPLEMENTATION_REPORT.md)
 
 ---
 
