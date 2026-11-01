@@ -1,5 +1,5 @@
 # ==============================================================================
-# CivicFix AI Platform — Backend Multi-Stage Dockerfile
+# CivicFix Platform — Backend Multi-Stage Dockerfile
 # Stage 1: Build & package Spring Boot application with Maven and Eclipse Temurin JDK 21
 # Stage 2: Minimal, hardened JRE 21 production runtime with non-root user
 # ==============================================================================

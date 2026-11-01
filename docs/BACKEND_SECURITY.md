@@ -1,6 +1,6 @@
-# CivicFix AI — Backend Security Architecture
+# CivicFix — Backend Security Architecture
 
-This document specifies the security model, authentication flows, authorization controls, session management, and audit mechanisms implemented in CivicFix AI Sprint 2.
+This document specifies the security model, authentication flows, authorization controls, session management, and audit mechanisms implemented in CivicFix.
 
 ---
 

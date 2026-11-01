@@ -17,7 +17,7 @@ public class HealthController {
     public ResponseEntity<Map<String, Object>> getHealth() {
         Map<String, Object> health = new HashMap<>();
         health.put("status", "UP");
-        health.put("service", "CivicFix AI Platform Backend");
+        health.put("service", "CivicFix Platform Backend");
         health.put("version", "1.0.0");
         health.put("timestamp", OffsetDateTime.now().toString());
         health.put("environment", "active");

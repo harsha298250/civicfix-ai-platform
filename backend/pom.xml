@@ -14,7 +14,7 @@
     <groupId>com.civicfix</groupId>
     <artifactId>civicfix-backend</artifactId>
     <version>1.0.0</version>
-    <name>CivicFix AI Platform Backend</name>
+    <name>CivicFix Platform Backend</name>
     <description>Enterprise Civic Issue Remediation Platform — Spring Boot 3.3.4 + PostgreSQL 16</description>
 
     <properties>

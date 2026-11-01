@@ -82,7 +82,7 @@ export const WorkerLayout = () => {
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1">
-                  <span className="font-title text-title text-white tracking-tight font-bold">CivicFix AI</span>
+                  <span className="font-title text-title text-white tracking-tight font-bold">CivicFix</span>
                 </div>
                 <span className="text-[10px] text-gray-400 uppercase tracking-wider">Field Ops Suite</span>
               </div>

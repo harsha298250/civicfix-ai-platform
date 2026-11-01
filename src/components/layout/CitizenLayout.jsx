@@ -48,7 +48,7 @@ export const CitizenLayout = () => {
               </div>
               <div className="flex flex-col">
                 <span className="font-title text-title tracking-tight text-on-surface leading-tight font-bold">
-                  CivicFix<span className="text-secondary ml-0.5">AI</span>
+                  CivicFix
                 </span>
                 <span className="font-label-sm text-label-sm text-tertiary uppercase tracking-wider text-[10px]">
                   Citizen Portal

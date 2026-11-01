@@ -182,7 +182,7 @@ export const AdminLayout = () => {
             </button>
             <div className="flex flex-col">
               <span className="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">
-                CivicFix AI
+                CivicFix
               </span>
               <span className="text-[11px] text-on-surface-variant">Platform Governance & Administration</span>
             </div>

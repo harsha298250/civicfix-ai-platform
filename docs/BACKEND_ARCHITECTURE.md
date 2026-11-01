@@ -1,4 +1,4 @@
-# CivicFix AI — Backend & Production Architecture Specification
+# CivicFix — Backend & Production Architecture Specification
 
 > **Implemented Stack**: Java 21 + Spring Boot 3.3.x + Spring Security 6 + Spring Data JPA + PostgreSQL 16 (PostGIS) + Flyway + Bucket4j
 
@@ -8,7 +8,7 @@
 
 ```
 ┌────────────────────────────────────────────────────────┐
-│         CivicFix AI React 18 + Vite Frontend           │
+│         CivicFix React 18 + Vite Frontend              │
 │    (Leaflet GIS + Camera Uploads + Local Fonts PWA)    │
 └───────────────────────────┬────────────────────────────┘
                             │ HTTPS JSON / Multipart Form-Data
@@ -25,8 +25,8 @@
            ▼                               ▼
 ┌──────────────────────────┐   ┌─────────────────────────┐
 │ Business Core Services   │   │ External Integrations   │
-│ - ComplaintService       │   │ - Google Gemini AI API  │
-│ - DeterministicTriage    │   │ - OpenStreetMap Leaflet │
+│ - ComplaintService       │   │ - OpenStreetMap Leaflet │
+│ - DeterministicTriage    │   │                         │
 │ - DuplicateDetection     │   └─────────────────────────┘
 │ - SlaEscalationService   │
 │ - OfficerAnalyticsService│
@@ -59,7 +59,7 @@
 - `GET /api/auth/me`: Returns sanitized authenticated session user profile and granted authorities.
 
 ### 2.2 Complaint Management (`/api/complaints`)
-- `POST /api/complaints`: Multipart request with defect metadata (`title`, `category`, `description`, `lat`, `lng`, `address`, `ward`) and binary images. Performs automated deterministic + Gemini AI triage and Haversine duplicate detection.
+- `POST /api/complaints`: Multipart request with defect metadata (`title`, `category`, `description`, `lat`, `lng`, `address`, `ward`) and binary images. Performs automated deterministic triage and Haversine duplicate detection.
 - `GET /api/complaints`: Paginated citizen or staff complaint list with role-based isolation (citizens view only their own records; staff view jurisdictional records).
 - `GET /api/complaints/{id}`: Detailed defect record with status timeline and photo URLs.
 - `GET /api/complaints/{id}/history`: Immutable chronological status history trail.

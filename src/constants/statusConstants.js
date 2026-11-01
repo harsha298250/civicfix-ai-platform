@@ -24,7 +24,7 @@ export const STATUS_META = {
     badgeClass: 'bg-amber-500/10 text-amber-700 border border-amber-500/20',
     dotClass: 'bg-amber-500',
     icon: 'rate_review',
-    description: 'Municipal Officer is assessing severity, department routing, and AI triage data.'
+    description: 'Municipal Officer is assessing severity, department routing, and rule triage suggestions.'
   },
   ASSIGNED: {
     label: 'Assigned',

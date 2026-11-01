@@ -1,4 +1,4 @@
-# CivicFix AI — Municipal Infrastructure Platform
+# CivicFix: An Explainable, Rule-Assisted Civic Complaint Platform with GIS Mapping and Citizen-Verified Resolution
 
 [![CI](https://github.com/<your-username>/civicfix-ai-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/<your-username>/civicfix-ai-platform/actions/workflows/ci.yml)
 
@@ -9,7 +9,19 @@
 
 ## 🏛️ Platform Overview
 
-**CivicFix AI** is an intelligent, full-lifecycle municipal infrastructure triage and field resolution system. The frontend empowers citizens to report urban defects (potholes, water leaks, traffic hazards, electrical faults), utilizes AI-driven damage assessment and duplicate detection, enables municipal officers to review and dispatch specialized crews, coordinates field worker telemetry and photographic evidence capture, and provides administrators with tamper-evident audit ledgers and RBAC governance.
+**CivicFix** is an explainable, rule-assisted civic complaint platform with GIS mapping and citizen-verified resolution. The platform empowers citizens to report urban defects (potholes, water leaks, traffic hazards, electrical faults), utilizes deterministic keyword-based triage and geospatial duplicate detection, enables municipal officers to review suggestions and dispatch specialized crews, coordinates field worker telemetry and photographic evidence capture, and provides administrators with tamper-evident audit ledgers and RBAC governance.
+
+---
+
+## 🔍 What the Intelligence Actually Is
+
+CivicFix uses a transparent, deterministic triage engine (`DeterministicTriageEngine`) rather than an opaque neural network or generative AI model:
+- **Rule-Based Keyword Triage**: Complaints are categorized and assigned priority based on curated keyword dictionaries and heuristic rules (emergency safety terms, infrastructure defect indicators).
+- **Text-Only Processing**: The engine processes defect titles and written descriptions only. It **does not** analyze photos, does not assess structural infrastructure from images, and does not predict future failures.
+- **Bilingual Dictionaries**: Operates on English text plus a dedicated Tamil keyword vocabulary for bilingual municipal defect reporting.
+- **Duplicate Detection**: Identified using geographic proximity (Haversine distance within a configured radius, typically 50m) combined with text similarity scoring (Jaccard similarity on normalized token sets).
+- **Evaluation & Benchmark**: Measured against a benchmark test set of 100 cases. Full evaluation results, per-class recall, and 95% Wilson confidence intervals are documented in [docs/evaluation/results.md](docs/evaluation/results.md).
+- **Known Limitations**: The 100 benchmark test cases are synthetic and were developed by the same engineering team that built the engine, meaning results are not an independent real-world accuracy measure; the duplicate test sample includes only 10 true pairs; and triage relies entirely on textual descriptions without computer vision or photo analysis.
 
 ---
 
@@ -26,7 +38,7 @@ The platform preserves the **Civic Precision** design identity from Google Stitc
 | **Sidebar / Chrome** | `#151D26` | Deep navy municipal navigation rail |
 | **Primary Teal** | `#137A70` | Primary action buttons, brand accents |
 | **Light Teal** | `#E8F4F1` | Active badges, highlight containers |
-| **AI Accent** | `#7C6CF2` | Multimodal AI confidence, vision insights |
+| **System Accent** | `#7C6CF2` | Suggestion confidence, system insights |
 | **Warning / Caution** | `#D97706` | Medium priority, rework notices |
 | **Error / Critical** | `#C63F48` | High hazards, blockers, alerts |
 | **Success / Verified** | `#198754` | Resolved status, valid verification signoffs |
@@ -39,7 +51,7 @@ The platform preserves the **Civic Precision** design identity from Google Stitc
 The platform uses client-side routing powered by `react-router-dom`:
 
 ### 1. Public & Authentication Portal
-- `/` — Public Landing Page (Citizen statistics, AI pipeline demo, how-it-works)
+- `/` — Public Landing Page (Citizen statistics, rule triage demo, how-it-works)
 - `/login` — Unified Municipal & Citizen Sign-In Portal
 - `/register` — Citizen Account Enrollment
 - `/forgot-password` — Credential Recovery
@@ -82,7 +94,7 @@ The platform uses client-side routing powered by `react-router-dom`:
 - `/admin/roles` — Role-Based Access Control (RBAC) Permission Matrix
 - `/admin/activity` — 24-Hour Municipal Load & Telemetry
 - `/admin/audit-logs` — Tamper-Evident Immutable Audit Ledger
-- `/admin/settings` — AI Confidence, SLA Windows, & GIS Bounds
+- `/admin/settings` — Rule Confidence Thresholds, SLA Windows, & GIS Bounds
 - `/admin/notifications` — Security Feeds & System Warnings
 - `/admin/profile` — Super Administrator Security Profile
 
@@ -208,7 +220,7 @@ Frontend runs on [http://localhost:5173](http://localhost:5173) with automatic p
 
 ## 📱 Progressive Web App (PWA) & Offline Capabilities
 
-CivicFix AI is fully installable as an app across desktop (Chrome, Edge) and mobile (Android, iOS) via `vite-plugin-pwa` and Service Worker precaching.
+CivicFix is fully installable as an app across desktop (Chrome, Edge) and mobile (Android, iOS) via `vite-plugin-pwa` and Service Worker precaching.
 
 ### Key Architecture & Governance Standards
 - **Web App Manifest**: Configured with name `CivicFix`, standalone display, theme color `#137A70`, and background color `#f8f9ff`, paired with 192x192, 512x512, and maskable SVG/PNG icons.

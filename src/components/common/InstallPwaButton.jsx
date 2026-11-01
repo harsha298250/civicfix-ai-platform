@@ -60,7 +60,7 @@ export default function InstallPwaButton({ className = '' }) {
       type="button"
       onClick={handleInstallClick}
       data-testid="pwa-install-button"
-      aria-label="Install CivicFix AI as a standalone application"
+      aria-label="Install CivicFix as a standalone application"
       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-secondary-container hover:bg-secondary text-white text-xs font-semibold shadow-sm transition-all active:scale-98 animate-fade-in ${className}`}
     >
       <span className="material-symbols-outlined text-[16px]">install_mobile</span>

@@ -156,7 +156,7 @@ export const AppProvider = ({ children }) => {
   const logout = async () => {
     await authService.logout();
     setCurrentUser(null);
-    showToast('Signed out of CivicFix AI session.', 'info');
+    showToast('Signed out of CivicFix session.', 'info');
   };
 
   const resetAllData = async () => {

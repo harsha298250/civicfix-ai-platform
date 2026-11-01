@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 /**
- * CivicFix AI — Resident Terms of Service Page
- * Outlines resident rights, code of conduct, workflow rules, AI advisory disclaimers,
+ * CivicFix — Resident Terms of Service Page
+ * Outlines resident rights, code of conduct, workflow rules, rule-based triage disclaimers,
  * and academic capstone project disclosures.
  */
 export const TermsOfServicePage = () => {
@@ -15,7 +15,7 @@ export const TermsOfServicePage = () => {
 
   const sections = [
     { id: 'sec-1', title: '1. Title, Version & Capstone Scope' },
-    { id: 'sec-2', title: '2. About CivicFix AI & Academic Purpose' },
+    { id: 'sec-2', title: '2. About CivicFix & Academic Purpose' },
     { id: 'sec-3', title: '3. Eligibility & Account Registration' },
     { id: 'sec-4', title: '4. Account Credentials & Security' },
     { id: 'sec-5', title: '5. Resident Responsibilities' },
@@ -26,7 +26,7 @@ export const TermsOfServicePage = () => {
     { id: 'sec-10', title: '10. Repair Evidence, Citizen Confirmation & Resolution' },
     { id: 'sec-11', title: '11. Notifications & System Communications' },
     { id: 'sec-12', title: '12. Availability, Maintenance & Service Limitations' },
-    { id: 'sec-13', title: '13. AI Advisory Triage & Decision-Support Limits' },
+    { id: 'sec-13', title: '13. Rule-Based Advisory Triage & Decision-Support Limits' },
     { id: 'sec-14', title: '14. User-Submitted Content & Processing License' },
     { id: 'sec-15', title: '15. Privacy & Data Handling Reference' },
     { id: 'sec-16', title: '16. Third-Party Mapping & Geocoding Services' },
@@ -78,7 +78,7 @@ export const TermsOfServicePage = () => {
               Academic Capstone Project & Engineering Demonstration
             </p>
             <p className="leading-relaxed">
-              CivicFix AI is an academic engineering capstone demonstration platform developed to evaluate automated triage, geospatial duplicate detection, and photographic resolution verification. <strong>CivicFix AI is not an official government platform</strong> of the Greater Chennai Corporation, Government of Tamil Nadu, or Government of India. It possesses no statutory authority to mandate repairs or execute municipal contracts.
+              CivicFix is an academic engineering capstone demonstration platform developed to evaluate rule-based keyword triage, geospatial duplicate detection, and photographic resolution verification. <strong>CivicFix is not an official government platform</strong> of the Greater Chennai Corporation, Government of Tamil Nadu, or Government of India. It possesses no statutory authority to mandate repairs or execute municipal contracts.
             </p>
           </div>
         </div>
@@ -93,7 +93,7 @@ export const TermsOfServicePage = () => {
             Terms of Service
           </h1>
           <p className="text-on-surface-variant text-sm max-w-3xl leading-relaxed">
-            These Terms of Service govern access to and use of the CivicFix AI civic issue intake, AI triage, and resolution verification system. Please review these terms carefully before creating an account or filing civic incident reports.
+            These Terms of Service govern access to and use of the CivicFix civic issue intake, rule-assisted triage, and resolution verification system. Please review these terms carefully before creating an account or filing civic incident reports.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-tertiary border-t border-outline-variant/30">
@@ -136,20 +136,20 @@ export const TermsOfServicePage = () => {
                 1. Title, Version & Capstone Scope
               </h2>
               <p>
-                This agreement constitutes the <strong>CivicFix AI Resident Terms of Service (Version 3.0-CAPSTONE)</strong>, effective as of <strong>November 1, 2026</strong>. Use of the platform constitutes acceptance of these terms.
+                This agreement constitutes the <strong>CivicFix Resident Terms of Service (Version 3.0-CAPSTONE)</strong>, effective as of <strong>November 1, 2026</strong>. Use of the platform constitutes acceptance of these terms.
               </p>
             </section>
 
             {/* Section 2 */}
             <section id="sec-2" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                2. About CivicFix AI & Academic Purpose
+                2. About CivicFix & Academic Purpose
               </h2>
               <p>
-                CivicFix AI is an autonomous civic defect intake, AI triage, dispatch coordination, and photographic resolution verification platform. The demonstration instance serves civic administrative sectors across Chennai and municipal regions in Tamil Nadu.
+                CivicFix is an explainable civic defect intake, rule-based triage, dispatch coordination, and photographic resolution verification platform. The demonstration instance serves civic administrative sectors across Chennai and municipal regions in Tamil Nadu.
               </p>
               <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900">
-                <strong>Operational Transparency:</strong> CivicFix AI operates as an engineering capstone project demonstrating AI triage and field verification workflows. CivicFix AI does not possess official municipal authority and does not replace official statutory emergency helplines (such as 1913 for Greater Chennai Corporation or 112 for national emergency services).
+                <strong>Operational Transparency:</strong> CivicFix operates as an engineering capstone project demonstrating rule-assisted triage and field verification workflows. CivicFix does not possess official municipal authority and does not replace official statutory emergency helplines (such as 1913 for Greater Chennai Corporation or 112 for national emergency services).
               </div>
             </section>
 
@@ -179,7 +179,7 @@ export const TermsOfServicePage = () => {
                 5. Resident Responsibilities
               </h2>
               <p>
-                Residents agree to utilize CivicFix AI in good faith to facilitate the detection and remediation of physical community hazards (such as road potholes, broken streetlights, water supply leaks, overflowing garbage bins, and storm drainage breaches).
+                Residents agree to utilize CivicFix in good faith to facilitate the detection and remediation of physical community hazards (such as road potholes, broken streetlights, water supply leaks, overflowing garbage bins, and storm drainage breaches).
               </p>
             </section>
 
@@ -209,7 +209,7 @@ export const TermsOfServicePage = () => {
                 8. Abuse Prevention & Server-Side Rate Limiting
               </h2>
               <p>
-                Submitting fabricated hazard reports, malicious hoaxes, or repetitive spam submissions undermines platform reliability. CivicFix AI enforces server-side rate limits (Bucket4j token bucket algorithm) across authentication, registration, complaint submission, and photo upload operations. Accounts associated with excessive failed login attempts are automatically locked to prevent brute-force attacks.
+                Submitting fabricated hazard reports, malicious hoaxes, or repetitive spam submissions undermines platform reliability. CivicFix enforces server-side rate limits (Bucket4j token bucket algorithm) across authentication, registration, complaint submission, and photo upload operations. Accounts associated with excessive failed login attempts are automatically locked to prevent brute-force attacks.
               </p>
             </section>
 
@@ -219,7 +219,7 @@ export const TermsOfServicePage = () => {
                 9. Complaint Review, Prioritization & Assignment
               </h2>
               <p>
-                Municipal work-order prioritization (Critical, High, Medium, Low) is computed by deterministic rule sets and multimodal AI triage based on hazard severity and life-safety factors. Submission of a complaint does not guarantee immediate physical repair.
+                Municipal work-order prioritization (Critical, High, Medium, Low) is computed by deterministic keyword rules based on hazard severity and life-safety factors. Submission of a complaint does not guarantee immediate physical repair.
               </p>
             </section>
 
@@ -262,10 +262,10 @@ export const TermsOfServicePage = () => {
             {/* Section 13 */}
             <section id="sec-13" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                13. AI Advisory Triage & Decision-Support Limits
+                13. Rule-Based Advisory Triage & Decision-Support Limits
               </h2>
               <p>
-                CivicFix AI employs multimodal vision and natural language models (Google Gemini 1.5 Pro) to assist in defect categorization and duplicate detection. <strong>AI predictions are advisory decision-support recommendations only and do not represent final statutory government decisions.</strong>
+                CivicFix employs deterministic keyword matching and geographic proximity rules to assist in defect categorization and duplicate detection. <strong>Rule suggestions are advisory decision-support recommendations only and do not represent final statutory government decisions.</strong>
               </p>
             </section>
 
@@ -342,7 +342,7 @@ export const TermsOfServicePage = () => {
                 For questions or feedback regarding platform terms and capstone research:
               </p>
               <div className="bg-surface-container-low p-4 rounded-xl space-y-1.5 text-xs font-mono">
-                <p><strong>Project:</strong> CivicFix AI Engineering Capstone</p>
+                <p><strong>Project:</strong> CivicFix Engineering Capstone</p>
                 <p><strong>Focus Region:</strong> Chennai, Tamil Nadu, India</p>
                 <p><strong>Email:</strong> research@civicfix.prototype</p>
               </div>

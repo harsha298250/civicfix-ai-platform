@@ -1,6 +1,6 @@
-# CivicFix AI — PostgreSQL Database Setup Guide
+# CivicFix — PostgreSQL Database Setup Guide
 
-This document specifies the PostgreSQL configuration, operational procedures, backup/restore workflows, and persistence guarantees for CivicFix AI.
+This document specifies the PostgreSQL configuration, operational procedures, backup/restore workflows, and persistence guarantees for CivicFix.
 
 ---
 

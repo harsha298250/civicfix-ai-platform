@@ -19,9 +19,9 @@ export default defineConfig({
         'offline.html',
       ],
       manifest: {
-        name: 'CivicFix',
+        name: 'CivicFix: An Explainable, Rule-Assisted Civic Complaint Platform with GIS Mapping and Citizen-Verified Resolution',
         short_name: 'CivicFix',
-        description: 'Municipal Infrastructure Triage & Resolution Platform',
+        description: 'CivicFix: An Explainable, Rule-Assisted Civic Complaint Platform with GIS Mapping and Citizen-Verified Resolution',
         theme_color: '#137A70',
         background_color: '#f8f9ff',
         display: 'standalone',

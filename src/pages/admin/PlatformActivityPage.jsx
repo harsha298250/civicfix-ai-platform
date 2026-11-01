@@ -89,8 +89,8 @@ const PlatformActivityPage = () => {
 
         <div className="bg-white p-5 rounded-xl border border-[#E2E7ED] shadow-sm">
           <div className="flex items-center justify-between text-xs text-[#667384] font-medium">
-            <span>AI Automated Triage</span>
-            <span className="text-purple-700 bg-purple-50 px-2 py-0.5 rounded text-[11px] font-semibold">Gemini 1.5</span>
+            <span>Rule-Based Triage</span>
+            <span className="text-purple-700 bg-purple-50 px-2 py-0.5 rounded text-[11px] font-semibold">Rule-Based</span>
           </div>
           <div className="text-2xl font-bold text-[#18232F] mt-2">98.4% Confidence</div>
           <p className="text-xs text-[#667384] mt-1">14,290 classifications run</p>

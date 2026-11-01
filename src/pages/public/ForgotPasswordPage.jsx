@@ -19,7 +19,7 @@ export const ForgotPasswordPage = () => {
           <p className="text-body-md text-sm text-on-surface-variant mt-2 leading-relaxed">
             {t(
               'auth.forgotPasswordNotice',
-              'Password reset via automated email is not available in this version. In this release of the CivicFix AI platform, outbound mail services are not configured.'
+              'Password reset via automated email is not available in this version. In this release of CivicFix, outbound mail services are not configured.'
             )}
           </p>
         </div>

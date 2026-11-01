@@ -49,7 +49,7 @@ const getAdjudicationBadge = (status) => {
       return (
         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-500/10 text-gray-700 border border-gray-500/20">
           <span className="material-symbols-outlined text-[14px]">block</span>
-          AI Advice Dismissed
+          Rule Advice Dismissed
         </span>
       );
     case 'PENDING':
@@ -84,7 +84,7 @@ export const ComplaintReviewPage = () => {
   const [rejectReason, setRejectReason] = useState('');
   const [rejecting, setRejecting] = useState(false);
 
-  // Phase 4: AI Triage & Duplicate State
+  // Phase 4: Rule Triage & Duplicate State
   const [duplicateCandidates, setDuplicateCandidates] = useState([]);
   const [loadingDuplicates, setLoadingDuplicates] = useState(false);
   const [adjudicating, setAdjudicating] = useState(false);
@@ -171,17 +171,17 @@ export const ComplaintReviewPage = () => {
         version: complaint.version
       });
       setComplaint(updated);
-      showToast('AI Triage recommendation accepted successfully.', 'success');
+      showToast('Suggested triage recommendation accepted successfully.', 'success');
       if (refreshComplaints) refreshComplaints();
     } catch (err) {
-      console.error('Accept AI Triage failed:', err);
+      console.error('Accept suggested triage failed:', err);
       if (err.status === 409 || String(err.message).includes('409') || String(err.message).toLowerCase().includes('conflict')) {
         setConflictError(true);
         showToast('Conflict: This complaint was modified by another user. Please reload.', 'error');
       } else if (err.status === 401 || err.status === 403) {
         showToast('Authorization denied. Officer privileges required.', 'error');
       } else {
-        showToast(err.message || 'Failed to accept AI recommendation.', 'error');
+        showToast(err.message || 'Failed to accept suggested recommendation.', 'error');
       }
     } finally {
       setAdjudicating(false);
@@ -198,22 +198,22 @@ export const ComplaintReviewPage = () => {
         action: 'OVERRIDE',
         category: overrideCategory,
         priority: overridePriority,
-        notes: overrideNotes || 'Officer override of AI recommendation.',
+        notes: overrideNotes || 'Officer override of suggested rule recommendation.',
         version: complaint.version
       });
       setComplaint(updated);
       setShowOverrideModal(false);
-      showToast('AI recommendation overridden with officer selections.', 'success');
+      showToast('Suggested recommendation overridden with officer selections.', 'success');
       if (refreshComplaints) refreshComplaints();
     } catch (err) {
-      console.error('Override AI Triage failed:', err);
+      console.error('Override suggested triage failed:', err);
       if (err.status === 409 || String(err.message).includes('409') || String(err.message).toLowerCase().includes('conflict')) {
         setConflictError(true);
         showToast('Conflict: This complaint was modified by another user. Please reload.', 'error');
       } else if (err.status === 401 || err.status === 403) {
         showToast('Authorization denied. Officer privileges required.', 'error');
       } else {
-        showToast(err.message || 'Failed to override AI recommendation.', 'error');
+        showToast(err.message || 'Failed to override suggested recommendation.', 'error');
       }
     } finally {
       setAdjudicating(false);
@@ -228,22 +228,22 @@ export const ComplaintReviewPage = () => {
     try {
       const updated = await officerService.adjudicateAiTriage(complaint.backendId || complaint.id, {
         action: 'DISMISS',
-        notes: dismissNotes || 'AI triage advice dismissed by reviewing officer.',
+        notes: dismissNotes || 'Rule triage advice dismissed by reviewing officer.',
         version: complaint.version
       });
       setComplaint(updated);
       setShowDismissModal(false);
-      showToast('AI triage advice dismissed.', 'info');
+      showToast('Rule triage advice dismissed.', 'info');
       if (refreshComplaints) refreshComplaints();
     } catch (err) {
-      console.error('Dismiss AI advice failed:', err);
+      console.error('Dismiss rule advice failed:', err);
       if (err.status === 409 || String(err.message).includes('409') || String(err.message).toLowerCase().includes('conflict')) {
         setConflictError(true);
         showToast('Conflict: This complaint was modified by another user. Please reload.', 'error');
       } else if (err.status === 401 || err.status === 403) {
         showToast('Authorization denied. Officer privileges required.', 'error');
       } else {
-        showToast(err.message || 'Failed to dismiss AI advice.', 'error');
+        showToast(err.message || 'Failed to dismiss rule advice.', 'error');
       }
     } finally {
       setAdjudicating(false);
@@ -563,7 +563,7 @@ export const ComplaintReviewPage = () => {
 
       {/* Main Review Grid: Left Investigation (7 cols) + Right Worker Assignment (5 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column: Complaint Details & AI Diagnostics (7 cols) */}
+        {/* Left Column: Complaint Details & Rule Triage Diagnostics (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Section A: Reported Issue Overview Card matching Stitch */}
           <section className="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 space-y-4">
@@ -639,22 +639,22 @@ export const ComplaintReviewPage = () => {
             </div>
           </section>
 
-          {/* Section B: Automated AI Triage & Advisory Card */}
+          {/* Section B: Smart Triage (Rule-Based) Card */}
           <section className="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-outline-variant/30">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-primary-container text-white flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[18px]">psychology</span>
+                  <span className="material-symbols-outlined text-[18px]">rule</span>
                 </div>
                 <div>
-                  <h3 className="font-title text-sm font-bold text-on-surface">Automated Triage & Assessment</h3>
+                  <h3 className="font-title text-sm font-bold text-on-surface">Smart Triage (Rule-Based)</h3>
                   <span className="text-[10px] text-tertiary font-semibold">Rule-Based Deterministic Engine</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
                 {complaint.aiTriage ? getAdjudicationBadge(complaint.aiTriage.adjudicationStatus) : (
                   <span className="text-[10px] bg-surface-container text-tertiary font-bold px-2 py-0.5 rounded-full">
-                    AI triage pending
+                    Triage pending
                   </span>
                 )}
                 <span className="font-code text-xs text-primary-container font-bold bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20">
@@ -753,15 +753,15 @@ export const ComplaintReviewPage = () => {
                     className="px-3.5 py-2 bg-surface-container hover:bg-surface-container-high disabled:opacity-50 text-on-surface rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-outline-variant/40 transition-all"
                   >
                     <span className="material-symbols-outlined text-[16px]">close</span>
-                    <span>Dismiss AI Advice</span>
+                    <span>Dismiss Rule Advice</span>
                   </button>
                 </div>
               </div>
             ) : (
               <div className="p-4 rounded-xl bg-surface-container-low text-center text-xs text-on-surface-variant space-y-1">
                 <span className="material-symbols-outlined text-[24px] text-tertiary">hourglass_empty</span>
-                <p className="font-semibold text-on-surface">AI triage pending</p>
-                <p>This complaint has not been processed through automated triage or triage is pending. Proceed with manual officer dispatch.</p>
+                <p className="font-semibold text-on-surface">Triage pending</p>
+                <p>This complaint has not been processed through rule-based triage or triage is pending. Proceed with manual officer dispatch.</p>
               </div>
             )}
           </section>
@@ -1273,7 +1273,7 @@ export const ComplaintReviewPage = () => {
           </form>
         </div>
       )}
-      {/* Phase 4: Override AI Recommendation Modal */}
+      {/* Override Rule Recommendation Modal */}
       {showOverrideModal && (
         <div className="fixed inset-0 z-50 bg-[#111c28]/70 backdrop-blur-sm flex items-center justify-center p-4">
           <form
@@ -1282,7 +1282,7 @@ export const ComplaintReviewPage = () => {
           >
             <div className="flex items-center gap-2 text-primary-container">
               <span className="material-symbols-outlined text-[24px]">tune</span>
-              <h3 className="font-bold text-base text-on-surface">Override AI Triage Recommendation</h3>
+              <h3 className="font-bold text-base text-on-surface">Override Rule Recommendation</h3>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
               Manually set the operational category and priority for Ticket #{complaint.referenceId || complaint.id}. The officer decision and reasoning will be recorded in the audit history.
@@ -1359,7 +1359,7 @@ export const ComplaintReviewPage = () => {
         </div>
       )}
 
-      {/* Phase 4: Dismiss AI Advice Modal */}
+      {/* Dismiss Rule Advice Modal */}
       {showDismissModal && (
         <div className="fixed inset-0 z-50 bg-[#111c28]/70 backdrop-blur-sm flex items-center justify-center p-4">
           <form
@@ -1368,7 +1368,7 @@ export const ComplaintReviewPage = () => {
           >
             <div className="flex items-center gap-2 text-tertiary">
               <span className="material-symbols-outlined text-[24px]">block</span>
-              <h3 className="font-bold text-base text-on-surface">Dismiss AI Triage Advice</h3>
+              <h3 className="font-bold text-base text-on-surface">Dismiss Rule Advice</h3>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
               Dismiss automated triage advice for Ticket #{complaint.referenceId || complaint.id}. The complaint will be processed manually without automated recommendations.

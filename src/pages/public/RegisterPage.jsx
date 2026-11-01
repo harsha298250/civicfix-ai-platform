@@ -468,7 +468,7 @@ export const RegisterPage = () => {
               shield_person
             </span>
             <p>
-              <strong>Privacy Assurance:</strong> CivicFix AI does not mandate Aadhaar or biometric documents to report civic defects. Direct registration preserves resident privacy while maintaining authentic municipal accountability.
+              <strong>Privacy Assurance:</strong> CivicFix does not mandate Aadhaar or biometric documents to report civic defects. Direct registration preserves resident privacy while maintaining authentic municipal accountability.
             </p>
           </div>
 

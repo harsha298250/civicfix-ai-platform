@@ -49,12 +49,12 @@ describe('Bilingual i18n & Tamil Language Support Tests', () => {
     const dicts = {
       en: enTranslations,
       ta: {
-        common: { appName: 'CivicFix AI' } // Incomplete Tamil dict
+        common: { appName: 'CivicFix' } // Incomplete Tamil dict
       }
     };
 
     // Key exists in Tamil
-    assert.strictEqual(translate('common.appName', 'ta', dicts), 'CivicFix AI');
+    assert.strictEqual(translate('common.appName', 'ta', dicts), 'CivicFix');
 
     // Key missing in Tamil -> Falls back to English
     assert.strictEqual(translate('common.submit', 'ta', dicts), 'Submit');

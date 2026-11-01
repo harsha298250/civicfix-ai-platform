@@ -1,4 +1,4 @@
-# CivicFix AI — Backend REST API Specification
+# CivicFix — Backend REST API Specification
 
 This document details the REST API endpoints implemented in Sprint 2, along with request/response schemas, security expectations, and error handling.
 
@@ -49,7 +49,7 @@ Exposes safe, non-sensitive application health information.
 {
   "timestamp": "2026-10-21T14:15:30.123Z",
   "status": 200,
-  "message": "CivicFix AI Backend is running",
+  "message": "CivicFix Backend is running",
   "data": {
     "status": "UP",
     "database": "CONNECTED",

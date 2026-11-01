@@ -27,7 +27,7 @@ export const LandingPage = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-high w-fit shadow-sm">
               <span className="w-2 h-2 rounded-full bg-primary-container animate-pulse" />
               <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">
-                Verified Municipal Infrastructure Intelligence
+                Rule-Assisted Civic Complaint Platform
               </span>
             </div>
 
@@ -76,8 +76,8 @@ export const LandingPage = () => {
                 <span>Real-time Public Auditing</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-secondary text-[18px]">psychology</span>
-                <span>Gemini AI Triage Pipeline</span>
+                <span className="material-symbols-outlined text-secondary text-[18px]">rule</span>
+                <span>Rule-Based Triage Pipeline</span>
               </div>
             </div>
           </div>
@@ -142,10 +142,10 @@ export const LandingPage = () => {
               Transparent Operations
             </span>
             <h2 className="font-headline-lg text-3xl font-bold text-on-surface mt-1">
-              How CivicFix AI Resolves Urban Defects
+              How CivicFix Resolves Urban Defects
             </h2>
             <p className="text-on-surface-variant text-sm mt-2">
-              From citizen camera to field crew dispatch and verified resolution in 4 streamlined stages.
+              From citizen report to field crew dispatch and verified resolution in 4 streamlined stages.
             </p>
           </div>
 
@@ -160,15 +160,15 @@ export const LandingPage = () => {
               },
               {
                 step: '02',
-                title: 'AI Triage & Clustering',
-                desc: 'Computer vision identifies defects, detects duplicates, assigns priority, and routes to departments.',
-                icon: 'psychology',
+                title: 'Smart Triage (Rule-Based)',
+                desc: 'Deterministic keyword matching classifies category, detects duplicates by proximity, and suggests priority.',
+                icon: 'rule',
                 color: 'bg-secondary text-white'
               },
               {
                 step: '03',
                 title: 'Verified Crew Dispatch',
-                desc: 'Municipal officers review AI recommendations and deploy closest field units with mobile telemetry.',
+                desc: 'Municipal officers review suggested recommendations and deploy closest field units with mobile telemetry.',
                 icon: 'send_and_archive',
                 color: 'bg-amber-600 text-white'
               },
@@ -237,7 +237,7 @@ export const LandingPage = () => {
                 role: 'Municipal Officer',
                 path: '/officer/dashboard',
                 icon: 'account_balance',
-                desc: 'Assess AI recommendations, assign field crews, review repair evidence, and inspect the GIS issue map.',
+                desc: 'Assess rule-suggested recommendations, assign field crews, review repair evidence, and inspect the GIS issue map.',
                 badge: 'District Ops'
               },
               {
@@ -308,7 +308,7 @@ export const LandingPage = () => {
             </div>
             <div className="p-6 bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/40">
               <p className="text-4xl font-extrabold text-secondary font-display">&lt; 14m</p>
-              <p className="text-sm font-semibold text-on-surface mt-1">AI Triage Speed</p>
+              <p className="text-sm font-semibold text-on-surface mt-1">Rule Triage Speed</p>
               <p className="text-xs text-tertiary mt-0.5">Automated Categorization</p>
             </div>
             <div className="p-6 bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/40">

@@ -15,7 +15,7 @@
 #   - Provide secure SECRET_KEY and CORS allowed origins
 # See README.md ("Never deploy with these defaults") for full production guidance.
 # ==============================================================================
-# CivicFix AI Platform — Unified Full-Stack Docker Compose Orchestration
+# CivicFix Platform — Unified Full-Stack Docker Compose Orchestration
 # One-command execution: docker compose up --build
 # Starts PostgreSQL 16, Spring Boot 3.3 Backend, and Nginx SPA Frontend.
 # ==============================================================================

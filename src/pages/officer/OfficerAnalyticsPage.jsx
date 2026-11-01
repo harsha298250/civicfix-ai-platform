@@ -204,10 +204,10 @@ export const OfficerAnalyticsPage = () => {
               </span>
             </div>
 
-            {/* AI Adjudication & Duplicates */}
+            {/* Rule Adjudication & Duplicates */}
             <div className="bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold text-tertiary uppercase">AI Multi-Modal Adjudication</span>
+                <span className="text-xs font-bold text-tertiary uppercase">Rule-Based Triage & Screening</span>
                 <p className="font-display text-3xl font-bold text-emerald-700 mt-2">
                   {summary?.aiAdjudicationCounts?.accepted ?? 0} Accepted
                 </p>

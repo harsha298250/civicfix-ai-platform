@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 /**
- * CivicFix AI — Citizen Data Privacy Policy Page
+ * CivicFix — Citizen Data Privacy Policy Page
  * Outlines resident privacy rights, role-based access boundaries, server-side data persistence,
  * image EXIF stripping, public map coordinate rounding, and capstone demonstration disclosures.
  */
@@ -22,7 +22,7 @@ export const PrivacyPolicyPage = () => {
     { id: 'sec-6', title: '6. Purpose & Lawful Basis for Processing' },
     { id: 'sec-7', title: '7. Complaint Ownership & Citizen Data Isolation' },
     { id: 'sec-8', title: '8. Role-Based Access Controls & Visibility Boundaries' },
-    { id: 'sec-9', title: '9. AI Computer Vision, Triage & Human Review' },
+    { id: 'sec-9', title: '9. Rule-Based Triage, Duplicate Screening & Human Review' },
     { id: 'sec-10', title: '10. Public Transparency Map & Coordinate Rounding' },
     { id: 'sec-11', title: '11. Media Uploads & Server-Side EXIF Metadata Stripping' },
     { id: 'sec-12', title: '12. Storage Infrastructure & Data Retention Policy' },
@@ -78,7 +78,7 @@ export const PrivacyPolicyPage = () => {
               Academic Capstone Project & Engineering Demonstration
             </p>
             <p className="leading-relaxed">
-              CivicFix AI is an academic engineering capstone demonstration platform developed to evaluate automated triage, geospatial duplicate detection, and photographic resolution verification for municipal public works. <strong>CivicFix AI is not an official government service</strong> of the Greater Chennai Corporation, the Government of Tamil Nadu, or the Government of India, and possesses no constitutional or administrative executive authority.
+              CivicFix is an academic engineering capstone demonstration platform developed to evaluate rule-based keyword triage, geospatial duplicate detection, and photographic resolution verification for municipal public works. <strong>CivicFix is not an official government service</strong> of the Greater Chennai Corporation, the Government of Tamil Nadu, or the Government of India, and possesses no constitutional or administrative executive authority.
             </p>
           </div>
         </div>
@@ -136,10 +136,10 @@ export const PrivacyPolicyPage = () => {
                 1. Title, Version & Capstone Project Scope
               </h2>
               <p>
-                This document is the <strong>CivicFix AI Citizen Data Privacy Policy (Version 3.0-CAPSTONE)</strong>, effective as of <strong>November 1, 2026</strong>.
+                This document is the <strong>CivicFix Citizen Data Privacy Policy (Version 3.0-CAPSTONE)</strong>, effective as of <strong>November 1, 2026</strong>.
               </p>
               <p>
-                CivicFix AI is designed and maintained exclusively as an academic research and engineering capstone project. It serves as a proof-of-concept system demonstrating automated incident classification, duplicate detection, and photo evidence verification. It is neither commissioned nor operated by any municipal corporation or government entity.
+                CivicFix is designed and maintained exclusively as an academic research and engineering capstone project. It serves as a proof-of-concept system demonstrating rule-assisted incident classification, duplicate detection, and photo evidence verification. It is neither commissioned nor operated by any municipal corporation or government entity.
               </p>
             </section>
 
@@ -152,7 +152,7 @@ export const PrivacyPolicyPage = () => {
                 The platform is maintained by the project research and engineering group:
               </p>
               <div className="bg-surface-container-low p-4 rounded-xl text-xs font-mono space-y-1">
-                <p><strong>Project:</strong> CivicFix AI Engineering Capstone</p>
+                <p><strong>Project:</strong> CivicFix Engineering Capstone</p>
                 <p><strong>Primary Demonstration Focus:</strong> Greater Chennai Corporation Wards, Tamil Nadu, India</p>
                 <p><strong>Technical Stack:</strong> Java 21 / Spring Boot 3.3 REST Backend & PostgreSQL 16 (PostGIS)</p>
                 <p><strong>Research Inquiries:</strong> research@civicfix.prototype</p>
@@ -174,7 +174,7 @@ export const PrivacyPolicyPage = () => {
                 <li><strong>Password Verifier:</strong> Stored on the server exclusively as a salted cryptographic hash generated via BCrypt (work factor 10). Plaintext passwords are never stored, logged, or accessible to system administrators.</li>
               </ul>
               <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900">
-                <strong>Aadhaar Transparency Notice:</strong> CivicFix AI does NOT collect, store, or process 12-digit Aadhaar numbers, biometric telemetry, or government identity cards. Reporting community hazards is never conditioned upon Aadhaar verification.
+                <strong>Aadhaar Transparency Notice:</strong> CivicFix does NOT collect, store, or process 12-digit Aadhaar numbers, biometric telemetry, or government identity cards. Reporting community hazards is never conditioned upon Aadhaar verification.
               </div>
             </section>
 
@@ -287,15 +287,15 @@ export const PrivacyPolicyPage = () => {
             {/* Section 9 */}
             <section id="sec-9" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                9. AI Computer Vision, Triage & Human Review
+                9. Rule-Based Triage, Duplicate Screening & Human Review
               </h2>
               <p>
-                CivicFix utilizes multimodal vision and language analysis (Google Gemini 1.5 Pro) alongside deterministic keyword classifiers to evaluate uploaded defect imagery and text:
+                CivicFix utilizes deterministic keyword classifiers and spatial distance screening on uploaded defect descriptions and location coordinates:
               </p>
               <ul className="list-disc pl-5 space-y-1 text-xs">
-                <li><strong>Advisory Predictions:</strong> AI recommendations generate predicted defect categories, priority estimates, hazard tags, and spatial duplicate clustering suggestions.</li>
-                <li><strong>Mandatory Human Oversight:</strong> AI inferences are strictly non-binding. Municipal officers review triage recommendations before work orders are assigned to field crews.</li>
-                <li><strong>No Biometric Facial Recognition:</strong> Vision processing focuses strictly on physical civic infrastructure (asphalt, pipes, fixtures, debris). The pipeline does not perform biometric facial recognition or identity tracking.</li>
+                <li><strong>Advisory Suggestions:</strong> Rule-based triage suggests defect categories, priority estimates, hazard tags, and spatial duplicate clustering suggestions based on text keywords and geographic proximity.</li>
+                <li><strong>Mandatory Human Oversight:</strong> Rule-based inferences are strictly non-binding and advisory. Municipal officers review triage recommendations before work orders are assigned to field crews.</li>
+                <li><strong>No Photo Analysis or Biometrics:</strong> The triage engine operates strictly on text and coordinates. It does not perform computer vision, photo analysis, or biometric facial recognition.</li>
               </ul>
             </section>
 
@@ -367,7 +367,7 @@ export const PrivacyPolicyPage = () => {
                 14. Cookies, Session State & Local Preferences
               </h2>
               <p>
-                CivicFix AI uses only functional, non-advertising cookies and browser storage keys:
+                CivicFix uses only functional, non-advertising cookies and browser storage keys:
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs">
                 <li><code className="font-mono font-bold">CIVICFIX_SESSION</code> (Cookie): An encrypted, HTTP-only session cookie issued by Spring Boot to maintain authenticated user sessions. Cannot be read by client-side JavaScript.</li>
@@ -410,7 +410,7 @@ export const PrivacyPolicyPage = () => {
                 17. Children’s Privacy Policy
               </h2>
               <p>
-                CivicFix AI is intended for adult residents (aged 18 and older). The platform does not knowingly collect personally identifiable information from minors. If personal data of a minor is identified as improperly submitted, it will be promptly removed upon notification.
+                CivicFix is intended for adult residents (aged 18 and older). The platform does not knowingly collect personally identifiable information from minors. If personal data of a minor is identified as improperly submitted, it will be promptly removed upon notification.
               </p>
             </section>
 
@@ -443,7 +443,7 @@ export const PrivacyPolicyPage = () => {
                 For questions regarding personal data privacy, system research, or data protection practices:
               </p>
               <div className="bg-surface-container-low p-4 rounded-xl space-y-1.5 text-xs font-mono">
-                <p><strong>Project:</strong> CivicFix AI Engineering Capstone</p>
+                <p><strong>Project:</strong> CivicFix Engineering Capstone</p>
                 <p><strong>Focus Region:</strong> Chennai, Tamil Nadu, India</p>
                 <p><strong>Email:</strong> privacy@civicfix.prototype</p>
               </div>

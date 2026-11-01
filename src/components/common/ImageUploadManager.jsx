@@ -220,7 +220,7 @@ export const ImageUploadManager = ({
       ctx.fillRect(0, 0, width, height);
       ctx.fillStyle = '#38bdf8';
       ctx.font = 'bold 24px sans-serif';
-      ctx.fillText('CivicFix AI — Field Inspection Capture', 40, 70);
+      ctx.fillText('CivicFix — Field Inspection Capture', 40, 70);
       ctx.fillStyle = '#94a3b8';
       ctx.font = '16px monospace';
       ctx.fillText(`Timestamp: ${new Date().toISOString()}`, 40, 115);

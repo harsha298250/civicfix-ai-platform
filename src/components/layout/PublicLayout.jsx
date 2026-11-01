@@ -46,9 +46,6 @@ export const PublicLayout = () => {
             </div>
             <div className="flex items-center gap-1.5">
               <span className="font-title text-title text-on-surface tracking-tight font-bold text-lg">CivicFix</span>
-              <span className="bg-secondary text-white font-label-sm text-[10px] px-1.5 py-0.5 rounded-full uppercase tracking-wider font-bold">
-                AI
-              </span>
             </div>
           </Link>
 
@@ -163,10 +160,10 @@ export const PublicLayout = () => {
               <div className="w-7 h-7 rounded-lg bg-primary-container flex items-center justify-center text-white">
                 <span className="material-symbols-outlined text-[16px]">domain</span>
               </div>
-              <span className="font-bold text-lg">CivicFix AI</span>
+              <span className="font-bold text-lg">CivicFix</span>
             </div>
             <p className="text-sm text-gray-400">
-              Autonomous verified civic work-orders and AI infrastructure triage for modern metropolitan centers.
+              An Explainable, Rule-Assisted Civic Complaint Platform with GIS Mapping and Citizen-Verified Resolution.
             </p>
             <div className="flex items-center gap-2 text-xs text-emerald-400">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -205,7 +202,7 @@ export const PublicLayout = () => {
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 mt-8 border-t border-gray-800 text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span>© 2026 CivicFix AI — Municipal Infrastructure Platform.</span>
+          <span>© 2026 CivicFix — An Explainable, Rule-Assisted Civic Complaint Platform with GIS Mapping and Citizen-Verified Resolution.</span>
           <span>Designed with Google Stitch Architecture</span>
         </div>
       </footer>

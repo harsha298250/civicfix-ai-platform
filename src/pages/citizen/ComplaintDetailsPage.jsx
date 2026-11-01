@@ -689,7 +689,7 @@ export const ComplaintDetailsPage = () => {
                 </span>
               ) : (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-surface-container text-tertiary">
-                  AI triage pending
+                  Triage pending
                 </span>
               )}
             </div>
@@ -747,7 +747,7 @@ export const ComplaintDetailsPage = () => {
               </div>
             ) : (
               <div className="p-3 rounded-xl bg-surface-container-low text-xs text-on-surface-variant space-y-1">
-                <p className="font-semibold text-on-surface">AI triage pending</p>
+                <p className="font-semibold text-on-surface">Triage pending</p>
                 <p className="text-[11px] text-tertiary">
                   Ticket #{complaint.referenceId || complaint.id} has been registered and is pending rule-based automated triage and officer review.
                 </p>

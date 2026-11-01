@@ -1,7 +1,7 @@
 {
   "common": {
-    "appName": "CivicFix AI",
-    "tagline": "Municipal Infrastructure Triage & Resolution Platform",
+    "appName": "CivicFix",
+    "tagline": "An Explainable, Rule-Assisted Civic Complaint Platform with GIS Mapping and Citizen-Verified Resolution",
     "english": "English",
     "tamil": "தமிழ்",
     "language": "Language",
@@ -51,7 +51,7 @@
     "demoAccountsHint": "For evaluation, click any demo account to auto-fill credentials:",
     "forgotPassword": "Forgot Password?",
     "forgotPasswordTitle": "Password Assistance",
-    "forgotPasswordNotice": "Password reset via automated email is not available in this version. In this release of the CivicFix AI platform, outbound mail services are not configured.",
+    "forgotPasswordNotice": "Password reset via automated email is not available in this version. In this release of CivicFix, outbound mail services are not configured.",
     "forgotPasswordContact": "To recover or reset your account credentials, please contact the system administrator or your municipal administrative authority.",
     "forgotPasswordCitizenNote": "Residents: Contact your municipal office or administrator with your registered email address.",
     "forgotPasswordStaffNote": "Staff & Technicians: Contact your IT administrator or department supervisor for credential assistance.",
@@ -59,7 +59,7 @@
     "errorInvalid": "Invalid email or password. Please verify your credentials.",
     "errorUnreachable": "Server is unreachable. Please ensure the municipal backend is active.",
     "registerTitle": "Citizen Account Enrollment",
-    "registerSubtitle": "Join CivicFix AI to submit civic hazards, receive direct status updates, and verify local repairs.",
+    "registerSubtitle": "Join CivicFix to submit civic hazards, receive direct status updates, and verify local repairs.",
     "fullNameLabel": "Full Legal Name",
     "fullNamePlaceholder": "Alex Morgan",
     "phoneLabel": "Primary Mobile Number (+91)",

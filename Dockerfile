@@ -1,5 +1,5 @@
 # ==============================================================================
-# CivicFix AI Platform — Frontend Multi-Stage Dockerfile
+# CivicFix Platform — Frontend Multi-Stage Dockerfile
 # Stage 1: Build React SPA bundle with Vite & Node.js 20 Alpine
 # Stage 2: High-performance Nginx production web server with API reverse proxy
 # ==============================================================================

@@ -378,7 +378,7 @@ export const ReportComplaintPage = () => {
             </div>
           </div>
 
-          {/* Form Workspace Grid: Left Form (7 cols) + Right AI Live Triage (5 cols) */}
+          {/* Form Workspace Grid: Left Form (7 cols) + Right Rule Live Triage (5 cols) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             {/* Main Form (7 cols) */}
             <div className="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 space-y-6">
@@ -412,7 +412,7 @@ export const ReportComplaintPage = () => {
                       </label>
                     </div>
 
-                    {/* AI / Lexicon Live Suggestion Banner */}
+                    {/* Rule / Lexicon Live Suggestion Banner */}
                     {suggestedCategoryObj && suggestedCategoryObj.id !== formData.categoryId && (
                       <div
                         data-testid="suggested-category-banner"
@@ -547,7 +547,7 @@ export const ReportComplaintPage = () => {
                         <div className="space-y-1">
                           <h4 className="text-xs font-bold text-teal-900">Requesting Device Geolocation</h4>
                           <p className="text-xs text-teal-800 leading-relaxed">
-                            CivicFix AI uses your browser's location services to automatically pinpoint the coordinates of this defect and resolve the nearest street address. No background tracking occurs.
+                            CivicFix uses your browser's location services to automatically pinpoint the coordinates of this defect and resolve the nearest street address. No background tracking occurs.
                           </p>
                         </div>
                       </div>

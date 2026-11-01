@@ -53,7 +53,7 @@ export default function OfflineScreen() {
           <p className="text-xs text-on-surface-variant leading-relaxed">
             {isTamil
               ? 'நகராட்சி சேவையகங்களுடன் பாதுகாப்பாக இணைக்கவும், குறைபாடுகளை பதிவு செய்யவும், அதிகாரிகளின் தீர்வு சான்றுகளை ஆய்வு செய்யவும் நேரடி இணைய இணைப்பு தேவைப்படுகிறது.'
-              : 'CivicFix AI requires an active internet connection to communicate securely with municipal servers, submit new defect reports, and verify resolution evidence.'}
+              : 'CivicFix requires an active internet connection to communicate securely with municipal servers, submit new defect reports, and verify resolution evidence.'}
           </p>
         </div>
 

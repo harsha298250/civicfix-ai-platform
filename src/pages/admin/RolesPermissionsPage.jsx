@@ -236,7 +236,7 @@ const RolesPermissionsPage = () => {
               <tr>
                 <td className="px-6 py-4">
                   <div className="font-semibold text-xs text-[#18232F]">Audit Logs & System Settings</div>
-                  <div className="text-[11px] text-[#667384]">Access immutable audit log, tune SLA triggers, configure AI</div>
+                  <div className="text-[11px] text-[#667384]">Access immutable audit log, tune SLA triggers, configure triage</div>
                 </td>
                 <td className="px-6 py-4 text-center"><span className="material-symbols-outlined text-slate-300 text-lg">cancel</span></td>
                 <td className="px-6 py-4 text-center"><span className="material-symbols-outlined text-slate-300 text-lg">cancel</span></td>

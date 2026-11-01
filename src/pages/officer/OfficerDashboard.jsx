@@ -63,7 +63,7 @@ export const OfficerDashboard = () => {
             Operations Command Overview
           </h1>
           <p className="text-body-md text-sm text-on-surface-variant">
-            Metropolitan District 4 · Real-time Civic Dispatch, AI Triage & Verification
+            Metropolitan District 4 · Real-time Civic Dispatch, Rule Triage & Verification
           </p>
         </div>
 
@@ -209,7 +209,7 @@ export const OfficerDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="font-title text-base font-bold text-on-surface">Urgent Intake & Dispatch Queue</h2>
-                  <p className="text-xs text-on-surface-variant">Review AI diagnostic assessment and assign maintenance units</p>
+                  <p className="text-xs text-on-surface-variant">Review diagnostic assessment and assign maintenance units</p>
                 </div>
                 <Link
                   to="/officer/complaints"
@@ -246,7 +246,7 @@ export const OfficerDashboard = () => {
                             </span>
                           ) : (
                             <span className="text-[10px] bg-surface-container text-tertiary font-bold px-2 py-0.5 rounded-full">
-                              AI triage pending
+                              Triage pending
                             </span>
                           )}
                         </div>

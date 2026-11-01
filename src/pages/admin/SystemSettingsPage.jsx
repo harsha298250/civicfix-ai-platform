@@ -198,26 +198,26 @@ const SystemSettingsPage = () => {
           )}
         </div>
 
-        {/* AI & Vision Pipeline Configuration (Read-Only) */}
+        {/* Rule-Based Triage Configuration (Read-Only) */}
         <div className="bg-white p-6 rounded-xl border border-[#E2E7ED] shadow-sm space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-base font-bold text-[#18232F]">
-              <span className="material-symbols-outlined text-[#7C6CF2]">neurology</span>
-              CivicFix AI & Vision Pipeline Parameters
+              <span className="material-symbols-outlined text-[#7C6CF2]">rule</span>
+              CivicFix Rule-Based Triage Parameters
             </div>
             <span className="text-xs text-slate-500 font-medium font-mono">Immutable System Profile</span>
           </div>
           <p className="text-xs text-[#667384]">
-            Runtime specifications governing Google Gemini multimodal triage inference, spatial clustering, and automated priority escalation.
+            Runtime specifications governing deterministic keyword triage, spatial clustering, and automated priority escalation.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
             <div className="p-4 rounded-lg bg-slate-50 border border-[#E2E7ED]">
               <span className="text-xs font-semibold text-[#667384] uppercase block mb-1">
-                Multimodal AI Model
+                Triage Engine
               </span>
-              <p className="font-bold text-sm text-[#18232F]">Gemini 1.5 Pro</p>
-              <span className="text-[11px] text-[#137A70] font-semibold mt-1 inline-block">Vision & Language Active</span>
+              <p className="font-bold text-sm text-[#18232F]">Deterministic Keyword Engine</p>
+              <span className="text-[11px] text-[#137A70] font-semibold mt-1 inline-block">Bilingual Lexicon Active</span>
             </div>
 
             <div className="p-4 rounded-lg bg-slate-50 border border-[#E2E7ED]">

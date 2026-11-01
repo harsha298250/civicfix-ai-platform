@@ -1,6 +1,6 @@
-# CivicFix AI — Spring Boot 3.3 Backend
+# CivicFix — Spring Boot 3.3 Backend
 
-This is the backend service for CivicFix AI, built with Java 21, Spring Boot 3.3.4, Spring Data JPA, Hibernate, PostgreSQL, and Spring Security.
+This is the backend service for CivicFix, built with Java 21, Spring Boot 3.3.4, Spring Data JPA, Hibernate, PostgreSQL, and Spring Security.
 
 ---
 

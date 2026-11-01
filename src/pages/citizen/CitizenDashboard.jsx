@@ -69,8 +69,8 @@ export const CitizenDashboard = () => {
               </span>
               <span>•</span>
               <span className="flex items-center gap-1 text-secondary font-medium">
-                <span className="material-symbols-outlined text-[14px]">auto_fix_high</span>
-                <span>AI Triage Engine v3.4 Active</span>
+                <span className="material-symbols-outlined text-[14px]">rule</span>
+                <span>Rule Triage Active</span>
               </span>
             </div>
           </div>
@@ -338,7 +338,7 @@ export const CitizenDashboard = () => {
           </div>
         </div>
 
-        {/* Right Column: Community & Intelligence Feed (4 cols) */}
+        {/* Right Column: Community & Triage Feed (4 cols) */}
         <div className="lg:col-span-4 space-y-6">
           {/* Municipal Resolution Standards & Privacy Notice Card */}
           <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant/30 space-y-3">
@@ -358,14 +358,14 @@ export const CitizenDashboard = () => {
             </div>
           </div>
 
-          {/* AI Autonomous Triage Telemetry Card */}
+          {/* Rule-Based Triage Telemetry Card */}
           <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant/30 space-y-3">
             <div className="flex items-center gap-2 text-secondary font-bold text-xs uppercase tracking-wider">
-              <span className="material-symbols-outlined text-[18px]">psychology</span>
-              <span>Gemini AI Infrastructure Model</span>
+              <span className="material-symbols-outlined text-[18px]">rule</span>
+              <span>Rule-Based Triage & Verification</span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
-              Every complaint is ingested by multi-modal vision intelligence to detect severity, verify duplicate reports, and auto-dispatch work orders.
+              Every complaint is evaluated by deterministic keyword rules and spatial proximity screening to suggest category, detect duplicates, and route to municipal officers.
             </p>
             <div className="bg-surface-container-low p-3 rounded-xl space-y-2 text-xs">
               <div className="flex justify-between">

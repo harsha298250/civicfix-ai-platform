@@ -1,5 +1,5 @@
 # ==============================================================================
-# CivicFix AI Platform — Developer Local Database Compose File
+# CivicFix Platform — Developer Local Database Compose File
 # Usage: docker compose -f docker-compose.dev.yml up -d
 # Runs PostgreSQL container on localhost:5433 for local mvnw and npm run dev workflows.
 # ==============================================================================

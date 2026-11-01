@@ -46,8 +46,8 @@ export default function ReloadPrompt() {
         </h4>
         <p className="text-[11px] text-gray-300 leading-snug">
           {isTamil
-            ? 'CivicFix AI தளத்தின் புதிய பதிப்பு தயாராக உள்ளது. புதுப்பிக்க மீண்டும் ஏற்றவும்.'
-            : 'A new version of CivicFix AI is ready. Reload to apply the latest municipal features.'}
+            ? 'CivicFix தளத்தின் புதிய பதிப்பு தயாராக உள்ளது. புதுப்பிக்க மீண்டும் ஏற்றவும்.'
+            : 'A new version of CivicFix is ready. Reload to apply the latest municipal features.'}
         </p>
       </div>
 

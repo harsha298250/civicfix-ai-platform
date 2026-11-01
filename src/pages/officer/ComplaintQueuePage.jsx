@@ -84,7 +84,7 @@ export const ComplaintQueuePage = () => {
             </span>
           </div>
           <p className="text-body-md text-sm text-on-surface-variant mt-1">
-            Review incoming public defect submissions, verify AI triage ratings, and dispatch personnel.
+            Review incoming public defect submissions, verify rule triage ratings, and dispatch personnel.
           </p>
         </div>
 
@@ -256,7 +256,7 @@ export const ComplaintQueuePage = () => {
                       </span>
                     ) : (
                       <span className="text-[10px] bg-surface-container text-tertiary font-bold px-2 py-0.5 rounded-full">
-                        AI triage pending
+                        Triage pending
                       </span>
                     )}
                     <span className="text-[11px] text-tertiary flex items-center gap-1">

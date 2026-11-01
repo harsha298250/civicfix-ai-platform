@@ -1,5 +1,6 @@
 {
-  "name": "civicfix-ai",
+  "name": "civicfix",
+  "description": "CivicFix: An Explainable, Rule-Assisted Civic Complaint Platform with GIS Mapping and Citizen-Verified Resolution",
   "private": true,
   "version": "1.0.0",
   "type": "module",

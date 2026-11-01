@@ -86,9 +86,6 @@ export const OfficerLayout = () => {
               <div className="flex flex-col">
                 <div className="flex items-center gap-1">
                   <span className="font-title text-title text-white tracking-tight font-bold">CivicFix</span>
-                  <span className="px-1.5 py-0.2 rounded bg-secondary text-white text-[10px] font-bold uppercase tracking-wider">
-                    AI
-                  </span>
                 </div>
                 <span className="text-[10px] text-gray-400 uppercase tracking-wider">Municipal Ops</span>
               </div>
