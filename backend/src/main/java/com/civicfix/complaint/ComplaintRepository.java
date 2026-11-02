@@ -187,4 +187,53 @@ public interface ComplaintRepository extends JpaRepository<Complaint, UUID> {
             @Param("ward") String ward,
             @Param("category") String category,
             Pageable pageable);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Complaint c SET c.visionStatus = 'RUNNING', c.visionAt = :now WHERE c.id = :id AND c.visionStatus = 'NOT_RUN'")
+    int claimForVisionTriage(@Param("id") UUID id, @Param("now") OffsetDateTime now);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Complaint c SET " +
+           "c.visionCategory = :visionCategory, " +
+           "c.visionSeverity = :visionSeverity, " +
+           "c.visionConfidence = :visionConfidence, " +
+           "c.visionReason = :visionReason, " +
+           "c.visionModel = :visionModel, " +
+           "c.visionStatus = :visionStatus, " +
+           "c.visionAt = :now, " +
+           "c.disagreement = :disagreement, " +
+           "c.finalPrioritySource = :finalPrioritySource, " +
+           "c.aiRecommendedPriority = :elevatedPriority " +
+           "WHERE c.id = :id")
+    int updateVisionSuccess(
+            @Param("id") UUID id,
+            @Param("visionCategory") String visionCategory,
+            @Param("visionSeverity") Integer visionSeverity,
+            @Param("visionConfidence") BigDecimal visionConfidence,
+            @Param("visionReason") String visionReason,
+            @Param("visionModel") String visionModel,
+            @Param("visionStatus") String visionStatus,
+            @Param("now") OffsetDateTime now,
+            @Param("disagreement") boolean disagreement,
+            @Param("finalPrioritySource") String finalPrioritySource,
+            @Param("elevatedPriority") ComplaintPriority elevatedPriority);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Complaint c SET " +
+           "c.visionStatus = :visionStatus, " +
+           "c.visionReason = :visionReason, " +
+           "c.visionAt = :now " +
+           "WHERE c.id = :id")
+    int updateVisionStatus(
+            @Param("id") UUID id,
+            @Param("visionStatus") String visionStatus,
+            @Param("visionReason") String visionReason,
+            @Param("now") OffsetDateTime now);
+
+    @Query("SELECT COUNT(c) FROM Complaint c WHERE c.visionAt >= :startOfDay AND c.visionStatus IN ('OK', 'FAILED')")
+    long countDailyVisionInvocations(@Param("startOfDay") OffsetDateTime startOfDay);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Complaint c SET c.visionStatus = 'FAILED', c.visionReason = 'Vision triage timed out or process crashed while RUNNING' WHERE c.visionStatus = 'RUNNING' AND c.visionAt < :stuckCutoff")
+    int cleanupStuckRunningRows(@Param("stuckCutoff") OffsetDateTime stuckCutoff);
 }

@@ -9,6 +9,7 @@ Authoritative documentation for the CivicFix civic complaint triage and resoluti
 These documents describe the current, verified system architecture and operational contracts:
 
 - [**CIVICFIX_MASTER_ROADMAP.md**](CIVICFIX_MASTER_ROADMAP.md) — Central project tracker, sprint milestones, and verified implementation status table for all core platform capabilities.
+- [**CODE_WALKTHROUGH.md**](CODE_WALKTHROUGH.md) — Comprehensive code walkthrough and viva defense guide covering the 10 core execution flows, design trade-offs, and 30 likely viva questions.
 - [**TRD_FINAL.md**](TRD_FINAL.md) — Comprehensive technical reference document: pinned technology stack, system architecture Mermaid diagram, database migration catalog (V1–V11), REST endpoint catalog, complaint lifecycle state machine, and security architecture.
 - [**LIMITATIONS_AND_FUTURE_WORK.md**](LIMITATIONS_AND_FUTURE_WORK.md) — Honest analysis of system boundaries, security trade-offs (e.g. single-instance rate limiting, per-account lockout DoS, WebP EXIF gap), and future engineering roadmaps.
 - [**BACKEND_ARCHITECTURE.md**](BACKEND_ARCHITECTURE.md) — Production architecture specification covering Java 21, Spring Boot 3.3, PostgreSQL 16 persistence, spatial indexing, rate limiting, and component boundaries.

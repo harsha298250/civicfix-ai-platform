@@ -129,6 +129,36 @@ public class Complaint {
     @Column(name = "reopen_count", nullable = false)
     private Integer reopenCount = 0;
 
+    @Column(name = "vision_consent", nullable = false)
+    private boolean visionConsent = false;
+
+    @Column(name = "vision_category", length = 100)
+    private String visionCategory;
+
+    @Column(name = "vision_severity")
+    private Integer visionSeverity;
+
+    @Column(name = "vision_confidence", precision = 5, scale = 2)
+    private BigDecimal visionConfidence;
+
+    @Column(name = "vision_reason", length = 300)
+    private String visionReason;
+
+    @Column(name = "vision_model", length = 100)
+    private String visionModel;
+
+    @Column(name = "vision_status", length = 30, nullable = false)
+    private String visionStatus = "NOT_RUN";
+
+    @Column(name = "vision_at")
+    private OffsetDateTime visionAt;
+
+    @Column(name = "disagreement", nullable = false)
+    private boolean disagreement = false;
+
+    @Column(name = "final_priority_source", length = 50)
+    private String finalPrioritySource;
+
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) createdAt = OffsetDateTime.now();
@@ -431,5 +461,85 @@ public class Complaint {
 
     public void setReopenCount(Integer reopenCount) {
         this.reopenCount = reopenCount != null ? reopenCount : 0;
+    }
+
+    public boolean isVisionConsent() {
+        return visionConsent;
+    }
+
+    public void setVisionConsent(boolean visionConsent) {
+        this.visionConsent = visionConsent;
+    }
+
+    public String getVisionCategory() {
+        return visionCategory;
+    }
+
+    public void setVisionCategory(String visionCategory) {
+        this.visionCategory = visionCategory;
+    }
+
+    public Integer getVisionSeverity() {
+        return visionSeverity;
+    }
+
+    public void setVisionSeverity(Integer visionSeverity) {
+        this.visionSeverity = visionSeverity;
+    }
+
+    public BigDecimal getVisionConfidence() {
+        return visionConfidence;
+    }
+
+    public void setVisionConfidence(BigDecimal visionConfidence) {
+        this.visionConfidence = visionConfidence;
+    }
+
+    public String getVisionReason() {
+        return visionReason;
+    }
+
+    public void setVisionReason(String visionReason) {
+        this.visionReason = visionReason;
+    }
+
+    public String getVisionModel() {
+        return visionModel;
+    }
+
+    public void setVisionModel(String visionModel) {
+        this.visionModel = visionModel;
+    }
+
+    public String getVisionStatus() {
+        return visionStatus;
+    }
+
+    public void setVisionStatus(String visionStatus) {
+        this.visionStatus = visionStatus;
+    }
+
+    public OffsetDateTime getVisionAt() {
+        return visionAt;
+    }
+
+    public void setVisionAt(OffsetDateTime visionAt) {
+        this.visionAt = visionAt;
+    }
+
+    public boolean isDisagreement() {
+        return disagreement;
+    }
+
+    public void setDisagreement(boolean disagreement) {
+        this.disagreement = disagreement;
+    }
+
+    public String getFinalPrioritySource() {
+        return finalPrioritySource;
+    }
+
+    public void setFinalPrioritySource(String finalPrioritySource) {
+        this.finalPrioritySource = finalPrioritySource;
     }
 }

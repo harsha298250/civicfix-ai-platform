@@ -68,6 +68,14 @@ services:
       STORAGE_UPLOAD_DIR: /app/uploads/evidence
       ALLOW_SEED_ACCOUNTS: ${ALLOW_SEED_ACCOUNTS:-true}
       TRUSTED_PROXY_ENABLED: ${TRUSTED_PROXY_ENABLED:-true}
+      AI_VISION_ENABLED: ${AI_VISION_ENABLED:-false}
+      AI_VISION_PROVIDER: ${AI_VISION_PROVIDER:-gemini}
+      GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY:-}
+      XAI_API_KEY: ${XAI_API_KEY:-}
+      AI_VISION_MODEL_GEMINI: ${AI_VISION_MODEL_GEMINI:-gemini-1.5-flash}
+      AI_VISION_MODEL_XAI: ${AI_VISION_MODEL_XAI:-grok-2-vision-1212}
+      AI_VISION_TIMEOUT_MS: ${AI_VISION_TIMEOUT_MS:-10000}
+      AI_VISION_DAILY_CAP: ${AI_VISION_DAILY_CAP:-200}
     volumes:
       - uploads_data:/app/uploads
     ports:

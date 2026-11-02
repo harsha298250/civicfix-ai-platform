@@ -1,6 +1,6 @@
 # CivicFix AI Triage & Duplicate Engine Benchmark Report
 
-> **Execution Timestamp**: `2026-11-02 01:49:16`  
+> **Execution Timestamp**: `2026-11-02 09:11:01`  
 > **Dataset**: `docs/evaluation/test_set.csv` (`100` synthetic labelled test samples)  
 > **Evaluation Rigor**: 100% computed from automated execution. No numbers or metrics in this document were estimated or fabricated.
 

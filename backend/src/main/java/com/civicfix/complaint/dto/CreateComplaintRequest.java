@@ -38,6 +38,8 @@ public class CreateComplaintRequest {
 
     private String ward;
 
+    private Boolean visionConsent = false;
+
     public CreateComplaintRequest() {}
 
     public String getTitle() {
@@ -102,5 +104,13 @@ public class CreateComplaintRequest {
 
     public void setWard(String ward) {
         this.ward = ward;
+    }
+
+    public Boolean getVisionConsent() {
+        return visionConsent != null ? visionConsent : false;
+    }
+
+    public void setVisionConsent(Boolean visionConsent) {
+        this.visionConsent = visionConsent != null ? visionConsent : false;
     }
 }

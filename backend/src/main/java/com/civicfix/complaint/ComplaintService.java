@@ -182,6 +182,9 @@ public class ComplaintService {
         complaint.setLatitude(req.getLatitude());
         complaint.setLongitude(req.getLongitude());
         complaint.setWard(req.getWard() != null ? req.getWard().trim() : "Ward 08, Anna Nagar");
+        complaint.setVisionConsent(req.getVisionConsent() != null && req.getVisionConsent());
+        complaint.setVisionStatus("NOT_RUN");
+        complaint.setFinalPrioritySource("RULE_ENGINE");
 
         // Advisory automated triage evaluation (non-destructive)
         if (aiTriageService != null) {

@@ -17,6 +17,11 @@ logging:
     com.civicfix: DEBUG
 
 civicfix:
+  async:
+    mode: sync
+  ai:
+    vision:
+      enabled: false
   security:
     trusted-proxy-enabled: false
   sla:

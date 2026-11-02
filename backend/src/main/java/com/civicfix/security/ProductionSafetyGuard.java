@@ -1,9 +1,11 @@
 package com.civicfix.security;
 
+import com.civicfix.ai.vision.VisionTriageProperties;
 import com.civicfix.user.User;
 import com.civicfix.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -20,6 +22,7 @@ import java.util.UUID;
  * 1. Rejects application startup if the database password equals the dev default or is empty.
  * 2. Disables the 4 V2 seed accounts (UUIDs 00000000-0000-0000-0000-000000000001 to ...0004)
  *    unless ALLOW_SEED_ACCOUNTS=true is explicitly configured.
+ * 3. Fails fast if AI_VISION_ENABLED=true and the selected provider API key is missing.
  */
 @Component
 @Profile("prod")
@@ -39,14 +42,25 @@ public class ProductionSafetyGuard implements ApplicationRunner {
     private final UserRepository userRepository;
     private final String dbPassword;
     private final boolean allowSeedAccounts;
+    private final VisionTriageProperties visionProperties;
 
+    @Autowired
     public ProductionSafetyGuard(
             UserRepository userRepository,
             @Value("${spring.datasource.password:}") String dbPassword,
-            @Value("${civicfix.security.allow-seed-accounts:${ALLOW_SEED_ACCOUNTS:false}}") boolean allowSeedAccounts) {
+            @Value("${civicfix.security.allow-seed-accounts:${ALLOW_SEED_ACCOUNTS:false}}") boolean allowSeedAccounts,
+            @Autowired(required = false) VisionTriageProperties visionProperties) {
         this.userRepository = userRepository;
         this.dbPassword = dbPassword;
         this.allowSeedAccounts = allowSeedAccounts;
+        this.visionProperties = visionProperties;
+    }
+
+    public ProductionSafetyGuard(
+            UserRepository userRepository,
+            String dbPassword,
+            boolean allowSeedAccounts) {
+        this(userRepository, dbPassword, allowSeedAccounts, null);
     }
 
     @Override
@@ -54,6 +68,7 @@ public class ProductionSafetyGuard implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         validateDatabasePassword();
         enforceSeedAccountPolicy();
+        validateVisionConfiguration();
     }
 
     /**
@@ -99,6 +114,28 @@ public class ProductionSafetyGuard implements ApplicationRunner {
 
     public String getDbPassword() {
         return dbPassword;
+    }
+
+    /**
+     * Requirement (c): Reject startup if AI_VISION_ENABLED=true and the selected provider's API key is missing.
+     */
+    public void validateVisionConfiguration() {
+        if (visionProperties != null && visionProperties.isEnabled()) {
+            String provider = visionProperties.getProvider() != null ? visionProperties.getProvider().toLowerCase().trim() : "gemini";
+            if ("gemini".equals(provider)) {
+                if (visionProperties.getGoogleApiKey() == null || visionProperties.getGoogleApiKey().trim().isEmpty()) {
+                    throw new IllegalStateException(
+                            "Production startup rejected: AI_VISION_ENABLED=true with GEMINI provider, but GOOGLE_AI_API_KEY is not configured."
+                    );
+                }
+            } else if ("xai".equals(provider)) {
+                if (visionProperties.getXaiApiKey() == null || visionProperties.getXaiApiKey().trim().isEmpty()) {
+                    throw new IllegalStateException(
+                            "Production startup rejected: AI_VISION_ENABLED=true with XAI provider, but XAI_API_KEY is not configured."
+                    );
+                }
+            }
+        }
     }
 }
 

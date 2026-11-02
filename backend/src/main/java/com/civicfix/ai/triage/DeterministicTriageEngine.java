@@ -17,7 +17,12 @@ import java.util.*;
  * calculated from lexical density and hazard matching, never fabricated as a neural model output.
  */
 @Component
-public class DeterministicTriageEngine {
+public class DeterministicTriageEngine implements TriageProvider {
+
+    @Override
+    public String getProviderName() {
+        return "DETERMINISTIC_RULES";
+    }
 
     public AiTriageResult evaluate(String title, String description, String categoryHint, ComplaintPriority priorityHint) {
         if ((title == null || title.isBlank()) && (description == null || description.isBlank())) {
