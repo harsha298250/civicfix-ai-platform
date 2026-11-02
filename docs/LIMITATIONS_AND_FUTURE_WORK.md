@@ -74,12 +74,14 @@
 
 ## 4. AI & Internationalization Limitations
 
-### 4.1 Deterministic Keyword Triage vs Multi-Modal Intelligence
-* **Current Implementation**: The platform uses `DeterministicTriageEngine`, an explainable, token-matching rule engine with a bilingual lexicon (English and Tamil).
-* **Limitation**:
-  1. *Text-Only Modality*: The engine analyzes only the title and description. It cannot inspect the uploaded defect photo to detect potholes, water quality, or streetlight bulb damage.
-  2. *Lexical Rigidity*: If a citizen uses slang, misspellings, or phrasing not present in the static lexicon (e.g., uncommon Tamil dialects or obscure municipal terms), the engine fails to match and defaults to `MEDIUM` priority and fallback categories.
-* **Future Work**: Incorporate lightweight edge-deployable computer vision models (e.g., MobileNet or YOLOv8 fine-tuned on civic defect datasets) to validate photographic evidence alongside text.
+### 4.1 Deterministic Triage Engine & Optional Vision Layer Boundaries
+* **Current Implementation**: The primary triage pipeline uses `DeterministicTriageEngine`, an explainable, token-matching rule engine with a bilingual lexicon (English and Tamil). In addition, an optional multimodal vision layer (`TriageProvider` backed by Google Gemini or xAI Grok) is available behind `AI_VISION_ENABLED=false` and explicit citizen consent (`vision_consent`).
+* **Limitations**:
+  1. *Default Text-Only Modality*: With vision disabled (default), the engine analyzes only the title and description without inspecting uploaded photos.
+  2. *Lexical Rigidity*: When relying purely on the deterministic engine, slang, typographical errors, or phrasing not present in the static lexicon default to `MEDIUM` priority and fallback categories.
+  3. *External Model Latency & Rate Limits*: When the optional vision layer is active, visual analysis executes asynchronously against external cloud APIs with daily quota caps (default 200/day) and per-user throttling (10/min), and is skipped for WebP formats to protect resident privacy.
+  4. *Human-in-the-Loop Requirement*: Model-assisted visual classifications are strictly advisory suggestions with disagreement detection (`disagreement` flag). Final dispatch decisions remain strictly with the human municipal officer.
+* **Future Work**: Train on-premise lightweight civic vision models (e.g., edge-deployed YOLOv8 or MobileNet-v4 fine-tuned on Indian municipal hazards) to eliminate external API costs, cloud latency, and third-party transmission risks.
 
 ### 4.2 Priority Recall Bias & Synthetic Test Set Caveats
 * **Current Implementation**: Evaluation against 100 synthetic cases in [`docs/evaluation/results.md`](file:///c:/Users/harsh/Downloads/stitch_civicfix_ai_platform_design/docs/evaluation/results.md) revealed:

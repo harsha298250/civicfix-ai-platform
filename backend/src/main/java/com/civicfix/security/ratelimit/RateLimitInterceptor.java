@@ -74,6 +74,14 @@ public class RateLimitInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        // 5. Public Features: 60 per IP per minute
+        if ("GET".equalsIgnoreCase(method) && ("/api/public/features".equals(path) || "/api/public/features/".equals(path))) {
+            String ip = clientIpResolver.resolveClientIp(request);
+            String key = "public_features:" + ip;
+            checkRateLimit(key, properties.getPublicFeatures(), "Public features rate limit exceeded.", path, ip);
+            return true;
+        }
+
         return true;
     }
 

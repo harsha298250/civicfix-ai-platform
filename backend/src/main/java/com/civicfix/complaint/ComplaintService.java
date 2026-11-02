@@ -28,6 +28,7 @@ import com.civicfix.complaint.event.ComplaintEvent;
 import com.civicfix.complaint.event.ComplaintEventType;
 
 import com.civicfix.ai.dto.DuplicateCandidate;
+import com.civicfix.ai.vision.VisionTriageProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +62,7 @@ public class ComplaintService {
     private final ApplicationEventPublisher eventPublisher;
     private final SlaService slaService;
     private final SlaEscalationService slaEscalationService;
+    private final VisionTriageProperties visionProperties;
 
     @org.springframework.beans.factory.annotation.Value("${civicfix.evidence.max-distance-meters:100.0}")
     private double maxDistanceMeters = 100.0;
@@ -92,7 +94,7 @@ public class ComplaintService {
                             UserRepository userRepository,
                             AuditService auditService,
                             StorageService storageService) {
-        this(complaintRepository, historyRepository, evidenceRepository, complaintPhotoRepository, userRepository, auditService, storageService, null, null, null, null);
+        this(complaintRepository, historyRepository, evidenceRepository, complaintPhotoRepository, userRepository, auditService, storageService, null, null, null, null, null);
     }
 
     public ComplaintService(ComplaintRepository complaintRepository,
@@ -103,7 +105,7 @@ public class ComplaintService {
                             AuditService auditService,
                             StorageService storageService,
                             AiTriageService aiTriageService) {
-        this(complaintRepository, historyRepository, evidenceRepository, complaintPhotoRepository, userRepository, auditService, storageService, aiTriageService, null, null, null);
+        this(complaintRepository, historyRepository, evidenceRepository, complaintPhotoRepository, userRepository, auditService, storageService, aiTriageService, null, null, null, null);
     }
 
     public ComplaintService(ComplaintRepository complaintRepository,
@@ -115,7 +117,21 @@ public class ComplaintService {
                             StorageService storageService,
                             AiTriageService aiTriageService,
                             ApplicationEventPublisher eventPublisher) {
-        this(complaintRepository, historyRepository, evidenceRepository, complaintPhotoRepository, userRepository, auditService, storageService, aiTriageService, eventPublisher, null, null);
+        this(complaintRepository, historyRepository, evidenceRepository, complaintPhotoRepository, userRepository, auditService, storageService, aiTriageService, eventPublisher, null, null, null);
+    }
+
+    public ComplaintService(ComplaintRepository complaintRepository,
+                            ComplaintStatusHistoryRepository historyRepository,
+                            ResolutionEvidenceRepository evidenceRepository,
+                            ComplaintPhotoRepository complaintPhotoRepository,
+                            UserRepository userRepository,
+                            AuditService auditService,
+                            StorageService storageService,
+                            AiTriageService aiTriageService,
+                            ApplicationEventPublisher eventPublisher,
+                            SlaService slaService,
+                            SlaEscalationService slaEscalationService) {
+        this(complaintRepository, historyRepository, evidenceRepository, complaintPhotoRepository, userRepository, auditService, storageService, aiTriageService, eventPublisher, slaService, slaEscalationService, null);
     }
 
     @Autowired
@@ -129,7 +145,8 @@ public class ComplaintService {
                             @Autowired(required = false) AiTriageService aiTriageService,
                             @Autowired(required = false) ApplicationEventPublisher eventPublisher,
                             @Autowired(required = false) SlaService slaService,
-                            @Autowired(required = false) SlaEscalationService slaEscalationService) {
+                            @Autowired(required = false) SlaEscalationService slaEscalationService,
+                            @Autowired(required = false) VisionTriageProperties visionProperties) {
         this.complaintRepository = complaintRepository;
         this.historyRepository = historyRepository;
         this.evidenceRepository = evidenceRepository;
@@ -141,6 +158,7 @@ public class ComplaintService {
         this.eventPublisher = eventPublisher;
         this.slaService = slaService;
         this.slaEscalationService = slaEscalationService;
+        this.visionProperties = visionProperties;
     }
 
     private void publishEvent(ComplaintEvent event) {
@@ -151,6 +169,11 @@ public class ComplaintService {
                 log.warn("Failed to publish complaint domain event: {}", ex.getMessage());
             }
         }
+    }
+
+    private ComplaintResponse toResponse(Complaint c, UserPrincipal principal) {
+        if (c == null) return null;
+        return ComplaintResponse.fromEntity(c, principal);
     }
 
     @Transactional
@@ -182,7 +205,9 @@ public class ComplaintService {
         complaint.setLatitude(req.getLatitude());
         complaint.setLongitude(req.getLongitude());
         complaint.setWard(req.getWard() != null ? req.getWard().trim() : "Ward 08, Anna Nagar");
-        complaint.setVisionConsent(req.getVisionConsent() != null && req.getVisionConsent());
+        boolean visionEnabled = visionProperties != null && visionProperties.isEnabled();
+        boolean consent = visionEnabled && Boolean.TRUE.equals(req.getVisionConsent());
+        complaint.setVisionConsent(consent);
         complaint.setVisionStatus("NOT_RUN");
         complaint.setFinalPrioritySource("RULE_ENGINE");
 
@@ -255,7 +280,7 @@ public class ComplaintService {
                 "Citizen filed initial civic report via portal."
         ));
 
-        return ComplaintResponse.fromEntity(saved);
+        return toResponse(saved, principal);
     }
 
     @Transactional
@@ -325,7 +350,7 @@ public class ComplaintService {
                 "SUCCESS"
         );
 
-        return ComplaintResponse.fromEntity(complaint);
+        return toResponse(complaint, principal);
     }
 
     private void validateBoundingBox(BigDecimal minLat, BigDecimal maxLat, BigDecimal minLng, BigDecimal maxLng) {
@@ -411,7 +436,7 @@ public class ComplaintService {
         }
 
         List<ComplaintResponse> dtoList = page.getContent().stream()
-                .map(ComplaintResponse::fromEntity)
+                .map(c -> toResponse(c, principal))
                 .collect(Collectors.toList());
 
         return new PagedResponse<>(dtoList, page.getNumber(), page.getSize(),
@@ -464,7 +489,7 @@ public class ComplaintService {
     public ComplaintResponse getComplaintById(String idOrRef, UserPrincipal principal) {
         Complaint complaint = resolveComplaint(idOrRef);
         enforceReadPermission(complaint, principal);
-        return ComplaintResponse.fromEntity(complaint);
+        return toResponse(complaint, principal);
     }
 
     @Transactional(readOnly = true)
@@ -535,7 +560,7 @@ public class ComplaintService {
                 req.getNotes() != null ? req.getNotes() : "Dispatched to technician " + worker.getFullName()
         ));
 
-        return ComplaintResponse.fromEntity(saved);
+        return toResponse(saved, principal);
     }
 
     @Transactional
@@ -749,7 +774,7 @@ public class ComplaintService {
             ));
         }
 
-        return ComplaintResponse.fromEntity(saved);
+        return toResponse(saved, principal);
     }
 
     @Transactional
@@ -790,7 +815,7 @@ public class ComplaintService {
                 "SUCCESS"
         );
 
-        return ComplaintResponse.fromEntity(saved);
+        return toResponse(saved, principal);
     }
 
     @Transactional
@@ -986,7 +1011,7 @@ public class ComplaintService {
                     "SUCCESS"
             );
 
-            return ComplaintResponse.fromEntity(saved);
+            return toResponse(saved, principal);
         } catch (Exception e) {
             for (String url : storedUrls) {
                 String fname = url.substring(url.lastIndexOf('/') + 1);
@@ -1149,7 +1174,7 @@ public class ComplaintService {
                 "SUCCESS"
         );
 
-        return ComplaintResponse.fromEntity(saved);
+        return toResponse(saved, principal);
     }
 
     @Transactional(readOnly = true)
@@ -1309,7 +1334,7 @@ public class ComplaintService {
         }
 
         Complaint reloaded = complaintRepository.findById(complaint.getId()).orElse(complaint);
-        return ComplaintResponse.fromEntity(reloaded);
+        return toResponse(reloaded, principal);
     }
 
     @Transactional
@@ -1364,7 +1389,7 @@ public class ComplaintService {
                 notes
         ));
 
-        return ComplaintResponse.fromEntity(saved);
+        return toResponse(saved, principal);
     }
 
     @Transactional
@@ -1440,7 +1465,7 @@ public class ComplaintService {
                 req.getReason().trim()
         ));
 
-        return ComplaintResponse.fromEntity(saved);
+        return toResponse(saved, principal);
     }
 
     private void enforceOwningCitizen(Complaint complaint, UserPrincipal principal) {

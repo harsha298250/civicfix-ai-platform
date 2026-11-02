@@ -36,8 +36,9 @@ public class SupervisorController {
     public ResponseEntity<ApiResponse<PagedResponse<ComplaintResponse>>> getEscalations(
             @RequestParam(required = false) String ward,
             @RequestParam(required = false) String category,
-            @PageableDefault(size = 20) Pageable pageable) {
-        PagedResponse<ComplaintResponse> response = supervisorService.getEscalatedComplaints(ward, category, pageable);
+            @PageableDefault(size = 20) Pageable pageable,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        PagedResponse<ComplaintResponse> response = supervisorService.getEscalatedComplaints(ward, category, pageable, principal);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 

@@ -3,6 +3,8 @@ package com.civicfix.complaint.dto;
 import com.civicfix.complaint.Complaint;
 import com.civicfix.complaint.ComplaintPhoto;
 import com.civicfix.complaint.sla.SlaStateCalculator;
+import com.civicfix.security.UserPrincipal;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -42,7 +44,108 @@ public class ComplaintResponse {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String visionStatus;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean visionConsent;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String visionCategory;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer visionSeverity;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private BigDecimal visionConfidence;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String visionReason;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String visionModel;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private OffsetDateTime visionAt;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean disagreement;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String finalPrioritySource;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String visionSkipReason;
+
     public ComplaintResponse() {}
+
+    public static ComplaintResponse fromEntity(Complaint c, UserPrincipal principal) {
+        ComplaintResponse resp = fromEntity(c);
+        if (resp != null && c != null && principal != null) {
+            resp.applyRoleVisionProjection(c, principal);
+        }
+        return resp;
+    }
+
+    public void applyRoleVisionProjection(Complaint c, UserPrincipal principal) {
+        if (c == null || principal == null) {
+            return;
+        }
+
+        boolean isStaff = principal.getAuthorities().stream().anyMatch(a ->
+                "ROLE_OFFICER".equals(a.getAuthority()) ||
+                "ROLE_SUPERVISOR".equals(a.getAuthority()) ||
+                "ROLE_ADMIN".equals(a.getAuthority())
+        );
+
+        if (isStaff) {
+            this.visionStatus = c.getVisionStatus();
+            this.visionConsent = c.isVisionConsent();
+            this.visionCategory = c.getVisionCategory();
+            this.visionSeverity = c.getVisionSeverity();
+            this.visionConfidence = c.getVisionConfidence();
+            this.visionReason = c.getVisionReason();
+            this.visionModel = formatVisionModelDisplayName(c.getVisionModel());
+            this.visionAt = c.getVisionAt();
+            this.disagreement = c.isDisagreement();
+            this.finalPrioritySource = c.getFinalPrioritySource();
+            if ("SKIPPED".equalsIgnoreCase(c.getVisionStatus())) {
+                this.visionSkipReason = c.getVisionReason();
+            } else {
+                this.visionSkipReason = null;
+            }
+            return;
+        }
+
+        boolean isWorker = principal.getAuthorities().stream().anyMatch(a ->
+                "ROLE_WORKER".equals(a.getAuthority())
+        );
+        if (isWorker) {
+            // WORKERS: Strictly NO vision fields
+            return;
+        }
+
+        // Owning CITIZEN: strictly ONLY visionStatus and visionConsent
+        boolean isOwner = c.getCitizen() != null && c.getCitizen().getId().equals(principal.getId());
+        if (isOwner) {
+            this.visionStatus = c.getVisionStatus();
+            this.visionConsent = c.isVisionConsent();
+        }
+    }
+
+    public static String formatVisionModelDisplayName(String rawModel) {
+        if (rawModel == null || rawModel.trim().isEmpty()) {
+            return null;
+        }
+        String lower = rawModel.toLowerCase().trim();
+        if (lower.contains("gemini") || lower.contains("google")) {
+            return "Google Gemini";
+        }
+        if (lower.contains("grok") || lower.contains("xai")) {
+            return "xAI Grok";
+        }
+        return rawModel;
+    }
 
     public static ComplaintResponse fromEntity(Complaint c) {
         ComplaintResponse resp = new ComplaintResponse();
@@ -360,5 +463,93 @@ public class ComplaintResponse {
 
     public void setReopenCount(Integer reopenCount) {
         this.reopenCount = reopenCount;
+    }
+
+    public String getVisionStatus() {
+        return visionStatus;
+    }
+
+    public void setVisionStatus(String visionStatus) {
+        this.visionStatus = visionStatus;
+    }
+
+    public Boolean getVisionConsent() {
+        return visionConsent;
+    }
+
+    public void setVisionConsent(Boolean visionConsent) {
+        this.visionConsent = visionConsent;
+    }
+
+    public String getVisionCategory() {
+        return visionCategory;
+    }
+
+    public void setVisionCategory(String visionCategory) {
+        this.visionCategory = visionCategory;
+    }
+
+    public Integer getVisionSeverity() {
+        return visionSeverity;
+    }
+
+    public void setVisionSeverity(Integer visionSeverity) {
+        this.visionSeverity = visionSeverity;
+    }
+
+    public BigDecimal getVisionConfidence() {
+        return visionConfidence;
+    }
+
+    public void setVisionConfidence(BigDecimal visionConfidence) {
+        this.visionConfidence = visionConfidence;
+    }
+
+    public String getVisionReason() {
+        return visionReason;
+    }
+
+    public void setVisionReason(String visionReason) {
+        this.visionReason = visionReason;
+    }
+
+    public String getVisionModel() {
+        return visionModel;
+    }
+
+    public void setVisionModel(String visionModel) {
+        this.visionModel = visionModel;
+    }
+
+    public OffsetDateTime getVisionAt() {
+        return visionAt;
+    }
+
+    public void setVisionAt(OffsetDateTime visionAt) {
+        this.visionAt = visionAt;
+    }
+
+    public Boolean getDisagreement() {
+        return disagreement;
+    }
+
+    public void setDisagreement(Boolean disagreement) {
+        this.disagreement = disagreement;
+    }
+
+    public String getFinalPrioritySource() {
+        return finalPrioritySource;
+    }
+
+    public void setFinalPrioritySource(String finalPrioritySource) {
+        this.finalPrioritySource = finalPrioritySource;
+    }
+
+    public String getVisionSkipReason() {
+        return visionSkipReason;
+    }
+
+    public void setVisionSkipReason(String visionSkipReason) {
+        this.visionSkipReason = visionSkipReason;
     }
 }

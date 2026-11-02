@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useTranslation } from '../../context/LanguageContext';
 import { complaintService } from '../../services/complaintService';
+import { apiClient } from '../../services/apiClient';
 import { CATEGORIES } from '../../constants/statusConstants';
 import { Breadcrumb } from '../../components/common/Breadcrumb';
 import { ImageUploadManager } from '../../components/common/ImageUploadManager';
@@ -28,8 +29,30 @@ export const ReportComplaintPage = () => {
     coordinates: { lat: 13.0604, lng: 80.2642 },
     accuracyMeters: null,
     locationConfirmed: true,
-    photos: []
+    photos: [],
+    visionConsent: false
   });
+
+  const [features, setFeatures] = useState({ visionEnabled: false, visionProviderName: null });
+
+  useEffect(() => {
+    let active = true;
+    apiClient.features.getFeatures()
+      .then((res) => {
+        if (!active) return;
+        const data = res?.data || res;
+        if (data) {
+          setFeatures({
+            visionEnabled: Boolean(data.visionEnabled),
+            visionProviderName: data.visionProviderName || null
+          });
+        }
+      })
+      .catch(() => {
+        if (active) setFeatures({ visionEnabled: false, visionProviderName: null });
+      });
+    return () => { active = false; };
+  }, []);
 
   const [submitting, setSubmitting] = useState(false);
   const [submittedComplaint, setSubmittedComplaint] = useState(null);
@@ -184,6 +207,7 @@ export const ReportComplaintPage = () => {
         accuracyMeters: formData.accuracyMeters,
         photos: photoUrls,
         files: realFiles,
+        visionConsent: Boolean(formData.visionConsent),
         citizenId: currentUser.id,
         citizenName: currentUser.name,
         citizenEmail: currentUser.email
@@ -517,6 +541,38 @@ export const ReportComplaintPage = () => {
                     label="Incident Photographs"
                     helperText="Upload real photographs from your device or capture a live photo using your camera."
                   />
+
+                  {/* Optional Vision Photo Analysis Layer (Only shown when server feature is enabled) */}
+                  {features.visionEnabled && (
+                    <div className="space-y-3 pt-2" data-testid="vision-feature-block">
+                      {formData.photos.some((p) => p?.type === 'image/webp' || (p?.name && p.name.toLowerCase().endsWith('.webp'))) && (
+                        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 text-xs flex items-center gap-2" data-testid="webp-warning-banner">
+                          <span className="material-symbols-outlined text-[18px] text-amber-600 shrink-0">warning</span>
+                          <span>{t('reportComplaint.webpPhotoNotice') || 'WebP photos are not analyzed. Use JPEG or PNG for photo analysis.'}</span>
+                        </div>
+                      )}
+
+                      <div className="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 space-y-2" data-testid="vision-consent-section">
+                        <label className="flex items-start gap-3 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            data-testid="vision-consent-checkbox"
+                            checked={formData.visionConsent}
+                            onChange={(e) => setFormData((prev) => ({ ...prev, visionConsent: e.target.checked }))}
+                            className="mt-1 h-4 w-4 rounded border-outline text-primary-container focus:ring-primary"
+                          />
+                          <div className="text-xs text-on-surface leading-relaxed">
+                            <span className="font-semibold block text-on-surface mb-0.5">
+                              Photo Analysis (Optional)
+                            </span>
+                            <span className="text-on-surface-variant">
+                              {t('reportComplaint.visionConsentCheckbox', { provider: features.visionProviderName || 'External AI' })}
+                            </span>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -801,6 +857,15 @@ export const ReportComplaintPage = () => {
                         <p className="text-tertiary italic">No photo attached (A default demonstration image will be paired).</p>
                       )}
                     </div>
+
+                    {features.visionEnabled && (
+                      <div className="pt-2 border-t border-outline-variant/30 flex justify-between items-center text-xs" data-testid="review-vision-consent">
+                        <span className="text-tertiary">Photo Analysis Consent:</span>
+                        <span className="font-semibold text-on-surface">
+                          {formData.visionConsent ? 'Granted (Optional)' : 'Not granted'}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-3 bg-surface-container-low rounded-xl text-xs text-on-surface-variant space-y-1 border border-outline-variant/30">

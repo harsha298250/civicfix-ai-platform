@@ -503,6 +503,20 @@ export const ComplaintDetailsPage = () => {
                 </div>
               </div>
             )}
+
+            {/* Photo check status indicator (Based strictly on visionStatus and visionConsent only) */}
+            <div className="pt-2 text-xs flex items-center gap-1.5" data-testid="photo-check-line">
+              <span className="font-medium text-tertiary">{t('complaints.photoCheckLabel') || 'Photo check:'}</span>
+              <span className="font-semibold text-on-surface">
+                {!complaint.visionConsent
+                  ? (t('complaints.photoCheckNotRequested') || 'Not requested')
+                  : complaint.visionStatus === 'OK'
+                    ? (t('complaints.photoCheckDone') || 'Done')
+                    : (complaint.visionStatus === 'FAILED' || complaint.visionStatus === 'SKIPPED')
+                      ? (t('complaints.photoCheckNotAvailable') || 'Not available')
+                      : (t('complaints.photoCheckPending') || 'Pending')}
+              </span>
+            </div>
           </div>
 
           {/* Section B: Field Operations Progress Log */}

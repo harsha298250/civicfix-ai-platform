@@ -39,7 +39,7 @@ This document details the REST API endpoints implemented in Sprint 2, along with
 
 ---
 
-## 2. Health Endpoint
+## 3. Public Endpoints
 
 ### `GET /api/health`
 Exposes safe, non-sensitive application health information.
@@ -58,6 +58,50 @@ Exposes safe, non-sensitive application health information.
   "errors": null
 }
 ```
+
+### `GET /api/public/features`
+Exposes enabled public platform feature flags and display names. Never leaks API keys, endpoints, model IDs, or credentials.
+- **Authorization:** Public (Rate-limited: 60 req/min per IP)
+- **Response when vision disabled (200 OK):**
+```json
+{
+  "timestamp": "2026-11-02T10:00:00.000Z",
+  "status": 200,
+  "message": "Operation successful",
+  "data": {
+    "visionEnabled": false
+  },
+  "errors": null
+}
+```
+- **Response when vision enabled (200 OK):**
+```json
+{
+  "timestamp": "2026-11-02T10:00:00.000Z",
+  "status": 200,
+  "message": "Operation successful",
+  "data": {
+    "visionEnabled": true,
+    "visionProviderName": "Google Gemini"
+  },
+  "errors": null
+}
+```
+
+---
+
+## 4. Role-Based Vision Field Exposure in Complaint Responses
+
+Complaint endpoints (`GET /api/complaints/{id}`, `GET /api/complaints`, etc.) return `ComplaintResponse` DTOs with strict, persona-governed field projections:
+
+| Persona | Exposed Vision Fields | Excluded / Masked Fields |
+| :--- | :--- | :--- |
+| **OFFICER / SUPERVISOR / ADMIN** | `visionStatus`, `visionConsent`, `visionCategory`, `visionSeverity`, `visionConfidence`, `visionReason` (plain text), `visionModel` ("Google Gemini" / "xAI Grok"), `visionAt`, `disagreement`, `finalPrioritySource`, `visionSkipReason` | Internal API keys, endpoint URLs, and raw model parameter strings |
+| **Owning CITIZEN** | `visionStatus`, `visionConsent` | Category, severity, confidence, reason, model name, disagreement flag, skip reason |
+| **WORKER** | *None* (all vision fields `null`, omitted from JSON) | All vision metadata |
+| **Public GIS Map** | *None* (`PublicMapComplaintResponse` has zero vision fields) | All vision and PII metadata |
+
+---
 
 ---
 

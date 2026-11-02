@@ -15,6 +15,7 @@ public class RateLimitProperties {
     private LimitConfig complaintCreate = new LimitConfig(10, Duration.ofMinutes(1));
     private LimitConfig upload = new LimitConfig(10, Duration.ofMinutes(1));
     private LimitConfig reverseGeocode = new LimitConfig(30, Duration.ofMinutes(1));
+    private LimitConfig publicFeatures = new LimitConfig(60, Duration.ofMinutes(1));
 
     public LimitConfig getLogin() {
         return login;
@@ -62,6 +63,14 @@ public class RateLimitProperties {
 
     public void setReverseGeocode(LimitConfig reverseGeocode) {
         this.reverseGeocode = reverseGeocode;
+    }
+
+    public LimitConfig getPublicFeatures() {
+        return publicFeatures;
+    }
+
+    public void setPublicFeatures(LimitConfig publicFeatures) {
+        this.publicFeatures = publicFeatures;
     }
 
     public static class LimitConfig {

@@ -177,7 +177,9 @@
     "viewComplaintButton": "View Complaint Progress",
     "reportAnotherButton": "Report Another Defect",
     "validationTitleRequired": "Please provide a clear title for the issue.",
-    "validationDescRequired": "Please describe the defect in detail."
+    "validationDescRequired": "Please describe the defect in detail.",
+    "visionConsentCheckbox": "I agree that my complaint photo may be sent to an external AI service ({{provider}}) to suggest a category. Please make sure no faces or vehicle number plates are visible. This is optional; the complaint works without it.",
+    "webpPhotoNotice": "WebP photos are not analyzed. Use JPEG or PNG for photo analysis."
   },
   "complaints": {
     "pageTitle": "My Submitted Complaints",
@@ -211,7 +213,20 @@
     "rejectSubmit": "Submit Dispute & Reopen Issue",
     "rejectReasonRequired": "Please provide a clear reason for disputing the resolution.",
     "confirmedByCitizenBadge": "Confirmed by Citizen",
-    "autoConfirmedBadge": "Auto-Confirmed by System"
+    "autoConfirmedBadge": "Auto-Confirmed by System",
+    "photoCheckLabel": "Photo check:",
+    "photoCheckPending": "Pending",
+    "photoCheckDone": "Done",
+    "photoCheckNotAvailable": "Not available",
+    "photoCheckNotRequested": "Not requested"
+  },
+  "officerReview": {
+    "ruleBasedTriageTitle": "Rule-based triage",
+    "photoAnalysisTitle": "Photo analysis (model-assisted)",
+    "photoAnalysisPending": "Photo analysis pending",
+    "photoAnalysisNotAvailable": "Not available",
+    "disagreementWarning": "Disagreement with rule-based result",
+    "officerDecidesNotice": "Suggestions only. The officer decides."
   },
   "notifications": {
     "title": "Citizen Notifications & Alerts",

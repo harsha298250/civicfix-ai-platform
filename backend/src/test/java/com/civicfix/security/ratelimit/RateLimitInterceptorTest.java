@@ -141,5 +141,26 @@ class RateLimitInterceptorTest {
         );
         assertTrue(ex.getMessage().contains("Upload rate limit exceeded"));
     }
+
+    @Test
+    @DisplayName("Should enforce 60 public features requests per IP per minute")
+    void shouldEnforcePublicFeaturesRateLimit() {
+        String ip = "198.51.100.22";
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        for (int i = 0; i < 60; i++) {
+            MockHttpServletRequest req = new MockHttpServletRequest("GET", "/api/public/features");
+            req.setRemoteAddr(ip);
+            assertTrue(interceptor.preHandle(req, response, new Object()));
+        }
+
+        MockHttpServletRequest req61 = new MockHttpServletRequest("GET", "/api/public/features");
+        req61.setRemoteAddr(ip);
+
+        RateLimitExceededException ex = assertThrows(RateLimitExceededException.class, () ->
+                interceptor.preHandle(req61, response, new Object())
+        );
+        assertTrue(ex.getMessage().contains("Public features rate limit exceeded"));
+    }
 }
 

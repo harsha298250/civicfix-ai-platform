@@ -100,10 +100,11 @@ public class SecurityConfig {
                 .requestMatchers("/api/officer/analytics/trust").hasAnyRole("OFFICER", "SUPERVISOR", "ADMIN")
                 .requestMatchers("/api/officer/**").hasAnyRole("OFFICER", "ADMIN")
                 .requestMatchers("/api/supervisor/**").hasAnyRole("SUPERVISOR", "ADMIN")
-                // Public Sanitized Complaint GIS Map Feed & GIS Services & Public Transparency Trust Scores
+                // Public Sanitized Complaint GIS Map Feed & GIS Services & Public Transparency Trust Scores & Features
                 .requestMatchers(HttpMethod.GET, "/api/complaints/public/map").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/complaints/public/trust").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/gis/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/public/**").permitAll()
 
                 // Complaints: accessible by authenticated users with fine-grained service-layer ownership checks
                 .requestMatchers("/api/complaints/**").authenticated()

@@ -647,11 +647,14 @@ export const ComplaintReviewPage = () => {
                   <span className="material-symbols-outlined text-[18px]">rule</span>
                 </div>
                 <div>
-                  <h3 className="font-title text-sm font-bold text-on-surface">Smart Triage (Rule-Based)</h3>
+                  <h3 className="font-title text-sm font-bold text-on-surface">Rule-based triage</h3>
                   <span className="text-[10px] text-tertiary font-semibold">Rule-Based Deterministic Engine</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[11px] text-on-surface-variant font-medium hidden sm:inline">
+                  Suggestions only. The officer decides.
+                </span>
                 {complaint.aiTriage ? getAdjudicationBadge(complaint.aiTriage.adjudicationStatus) : (
                   <span className="text-[10px] bg-surface-container text-tertiary font-bold px-2 py-0.5 rounded-full">
                     Triage pending
@@ -764,6 +767,128 @@ export const ComplaintReviewPage = () => {
                 <p>This complaint has not been processed through rule-based triage or triage is pending. Proceed with manual officer dispatch.</p>
               </div>
             )}
+          </section>
+
+          {/* Section B2: Photo analysis (model-assisted) */}
+          <section className="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/30 space-y-4" data-testid="photo-analysis-block">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-outline-variant/30">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[18px]">photo_camera</span>
+                </div>
+                <div>
+                  <h3 className="font-title text-sm font-bold text-on-surface">Photo analysis (model-assisted)</h3>
+                  <span className="text-[10px] text-tertiary font-semibold">
+                    {complaint.visionModel || 'External Vision AI'}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[11px] text-on-surface-variant font-medium hidden sm:inline">
+                  Suggestions only. The officer decides.
+                </span>
+                <span className="text-[10px] bg-surface-container text-tertiary font-bold px-2 py-0.5 rounded-full">
+                  Status: {complaint.visionStatus || 'NOT_RUN'}
+                </span>
+              </div>
+            </div>
+
+            {/* Disagreement with rule-based result Warning Banner */}
+            {complaint.disagreement && (
+              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 text-xs flex items-start gap-2.5" data-testid="disagreement-banner">
+                <span className="material-symbols-outlined text-[18px] text-amber-600 shrink-0 mt-0.5">warning</span>
+                <div>
+                  <strong className="block font-bold text-amber-950 uppercase tracking-wider text-[10px]">
+                    Disagreement with rule-based result
+                  </strong>
+                  <span>Photo analysis classified this defect differently from the rule-based keyword triage. Review photographs and site notes carefully before assigning crews.</span>
+                </div>
+              </div>
+            )}
+
+            {/* Success State (OK) */}
+            {complaint.visionStatus === 'OK' && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  <div className="p-3 rounded-xl bg-surface-container-low space-y-1">
+                    <span className="text-tertiary block text-[10px] uppercase font-bold tracking-wider">Detected Category</span>
+                    <span className="font-bold text-on-surface text-sm">
+                      {complaint.visionCategory || 'Not available'}
+                    </span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-surface-container-low space-y-1">
+                    <span className="text-tertiary block text-[10px] uppercase font-bold tracking-wider">Assessed Severity</span>
+                    <span className="font-bold text-on-surface text-sm">
+                      {complaint.visionSeverity != null ? `${complaint.visionSeverity} / 5` : 'Not available'}
+                    </span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-surface-container-low space-y-1">
+                    <span className="text-tertiary block text-[10px] uppercase font-bold tracking-wider">Model Confidence</span>
+                    <span className="font-bold text-primary-container text-sm font-code">
+                      {complaint.visionConfidence != null ? `${(Number(complaint.visionConfidence) * 100).toFixed(0)}%` : 'Not available'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3 rounded-xl bg-surface-container-low space-y-1">
+                    <span className="text-tertiary block text-[10px] uppercase font-bold tracking-wider">Model Provider</span>
+                    <span className="font-semibold text-on-surface">
+                      {complaint.visionModel || 'Not available'}
+                    </span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-surface-container-low space-y-1">
+                    <span className="text-tertiary block text-[10px] uppercase font-bold tracking-wider">Analysis Timestamp</span>
+                    <span className="font-mono text-on-surface-variant text-[11px]">
+                      {complaint.visionAt ? new Date(complaint.visionAt).toLocaleString() : 'Not available'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Sanitized Escaped Plain Text Reason */}
+                {complaint.visionReason && (
+                  <div className="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/30 space-y-1 text-xs">
+                    <span className="text-tertiary block text-[10px] uppercase font-bold tracking-wider">
+                      Analysis Explanation & Observed Defect
+                    </span>
+                    <p className="text-on-surface italic leading-relaxed" data-testid="vision-reason-text">
+                      "{complaint.visionReason}"
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Pending State (NOT_RUN or RUNNING) */}
+            {(complaint.visionStatus === 'NOT_RUN' || complaint.visionStatus === 'RUNNING') && (
+              <div className="p-4 rounded-xl bg-surface-container-low text-center text-xs text-on-surface-variant space-y-1" data-testid="vision-pending-box">
+                <span className="material-symbols-outlined text-[24px] text-tertiary">hourglass_empty</span>
+                <p className="font-semibold text-on-surface">Photo analysis pending</p>
+                <p>
+                  {complaint.visionConsent
+                    ? 'Complaint photograph is queued for external model analysis or currently in progress.'
+                    : 'Photo analysis was not requested by citizen upon submission.'}
+                </p>
+              </div>
+            )}
+
+            {/* Failed or Skipped State */}
+            {(complaint.visionStatus === 'FAILED' || complaint.visionStatus === 'SKIPPED') && (
+              <div className="p-4 rounded-xl bg-surface-container-low text-xs text-on-surface-variant space-y-1.5" data-testid="vision-not-available-box">
+                <div className="flex items-center gap-2 text-tertiary">
+                  <span className="material-symbols-outlined text-[20px]">info</span>
+                  <span className="font-semibold text-on-surface">Not available</span>
+                </div>
+                <p className="text-on-surface-variant leading-relaxed">
+                  Reason: {complaint.visionSkipReason || complaint.visionReason || 'Visual defect analysis could not be completed.'}
+                </p>
+              </div>
+            )}
+
+            <div className="pt-2 border-t border-outline-variant/30 text-[11px] text-tertiary italic flex items-center justify-between">
+              <span>Suggestions only. The officer decides.</span>
+              <span>Intake photos stripped of EXIF metadata before processing.</span>
+            </div>
           </section>
 
           {/* Section C: Spatial & Textual Duplicate Review */}

@@ -177,7 +177,9 @@
     "viewComplaintButton": "புகாரின் நிலையைக் காண்க",
     "reportAnotherButton": "மற்றொரு புகாரைப் பதிவு செய்க",
     "validationTitleRequired": "தயவுசெய்து தெளிவான தலைப்பை உள்ளிடவும்.",
-    "validationDescRequired": "குறைபாட்டைப் பற்றிய விவரங்களை உள்ளிடவும்."
+    "validationDescRequired": "குறைபாட்டைப் பற்றிய விவரங்களை உள்ளிடவும்.",
+    "visionConsentCheckbox": "புகாரின் வகையை பரிந்துரைக்க எனது புகைப்படத்தை வெளிப்புற AI சேவைக்கு ({{provider}}) அனுப்ப ஒப்புக்கொள்கிறேன். முகங்கள் அல்லது வாகன பதிவு எண்கள் தெரியவில்லை என்பதை உறுதிப்படுத்தவும். இது விருப்பத்தேர்வு மட்டுமே; இது இல்லாமலும் புகார் பதிவு செய்யப்படும்.",
+    "webpPhotoNotice": "WebP புகைப்படங்கள் ஆய்வு செய்யப்படுவதில்லை. புகைப்பட ஆய்வுக்கு JPEG அல்லது PNG ஐப் பயன்படுத்தவும்."
   },
   "complaints": {
     "pageTitle": "எனது புகார்கள்",
@@ -211,7 +213,20 @@
     "rejectSubmit": "புகாரை மீண்டும் திறக்கவும்",
     "rejectReasonRequired": "தயவுசெய்து மீண்டும் திறப்பதற்கான காரணத்தை உள்ளிடவும்.",
     "confirmedByCitizenBadge": "குடிமகனால் உறுதிப்படுத்தப்பட்டது",
-    "autoConfirmedBadge": "தானாக உறுதிப்படுத்தப்பட்டது"
+    "autoConfirmedBadge": "தானாக உறுதிப்படுத்தப்பட்டது",
+    "photoCheckLabel": "புகைப்பட ஆய்வு:",
+    "photoCheckPending": "நிலுவையில்",
+    "photoCheckDone": "முடிந்தது",
+    "photoCheckNotAvailable": "கிடைக்கவில்லை",
+    "photoCheckNotRequested": "கோரப்படவில்லை"
+  },
+  "officerReview": {
+    "ruleBasedTriageTitle": "விதிகள் அடிப்படையிலான வகைப்படுத்தல்",
+    "photoAnalysisTitle": "புகைப்பட ஆய்வு (மாதிரி உதவியுடன்)",
+    "photoAnalysisPending": "புகைப்பட ஆய்வு நிலுவையில் உள்ளது",
+    "photoAnalysisNotAvailable": "கிடைக்கவில்லை",
+    "disagreementWarning": "விதிகள் முடிவுடன் மாறுபாடு உள்ளது",
+    "officerDecidesNotice": "பரிந்துரைகள் மட்டுமே. அதிகாரியே இறுதி முடிவு எடுப்பார்."
   },
   "notifications": {
     "title": "குடிமக்கள் அறிவிப்புகள்",

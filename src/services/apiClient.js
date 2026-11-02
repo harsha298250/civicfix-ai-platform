@@ -248,6 +248,11 @@ export const apiClient = {
     getWorkers: () => apiRequest('/supervisor/workers')
   },
 
+  // Public Features Endpoint
+  features: {
+    getFeatures: () => apiRequest('/public/features')
+  },
+
   // GIS Endpoints
   gis: {
     reverseGeocode: (lat, lng) => apiRequest(`/gis/reverse-geocode?lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}`)

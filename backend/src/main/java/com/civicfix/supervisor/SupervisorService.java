@@ -50,12 +50,17 @@ public class SupervisorService {
 
     @Transactional(readOnly = true)
     public PagedResponse<ComplaintResponse> getEscalatedComplaints(String ward, String category, Pageable pageable) {
+        return getEscalatedComplaints(ward, category, pageable, null);
+    }
+
+    @Transactional(readOnly = true)
+    public PagedResponse<ComplaintResponse> getEscalatedComplaints(String ward, String category, Pageable pageable, UserPrincipal principal) {
         String cleanWard = (ward != null && !ward.isBlank() && !ward.equalsIgnoreCase("ALL")) ? ward.trim() : null;
         String cleanCategory = (category != null && !category.isBlank() && !category.equalsIgnoreCase("ALL")) ? category.trim() : null;
 
         Page<Complaint> page = complaintRepository.findEscalatedComplaints(cleanWard, cleanCategory, pageable);
         List<ComplaintResponse> content = page.getContent().stream()
-                .map(ComplaintResponse::fromEntity)
+                .map(c -> principal != null ? ComplaintResponse.fromEntity(c, principal) : ComplaintResponse.fromEntity(c))
                 .toList();
 
         return new PagedResponse<>(
@@ -150,7 +155,7 @@ public class SupervisorService {
 
         notificationService.notifyWorkerReassigned(saved, oldWorker, newWorker, actor, req.getReason().trim());
 
-        return ComplaintResponse.fromEntity(saved);
+        return ComplaintResponse.fromEntity(saved, principal);
     }
 
     @Transactional(readOnly = true)

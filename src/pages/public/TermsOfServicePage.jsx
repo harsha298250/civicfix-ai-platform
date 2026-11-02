@@ -262,11 +262,28 @@ export const TermsOfServicePage = () => {
             {/* Section 13 */}
             <section id="sec-13" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                13. Rule-Based Advisory Triage & Decision-Support Limits
+                13. Rule-Based Triage, Optional Photo Analysis & Decision-Support Disclaimers
               </h2>
               <p>
-                CivicFix employs deterministic keyword matching and geographic proximity rules to assist in defect categorization and duplicate detection. <strong>Rule suggestions are advisory decision-support recommendations only and do not represent final statutory government decisions.</strong>
+                CivicFix employs deterministic keyword algorithms and an optional multimodal photo analysis layer to aid municipal triage:
               </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-xs">
+                <li>
+                  <strong>Advisory Decision-Support Only:</strong> Rule-based triage and model-assisted photo analysis suggestions are non-binding operational suggestions. They do not represent final statutory government determinations. The municipal officer decides all assignments.
+                </li>
+                <li>
+                  <strong>Optional Multimodal Photo Analysis:</strong> When enabled on the platform, citizens may optionally consent to have their defect photo analyzed by an external model provider (such as Google Gemini or xAI Grok, verifiable via the public features API). When disabled, external vision processing is completely turned off.
+                </li>
+                <li>
+                  <strong>Intake Photo Only:</strong> Only the defect photograph is transmitted for visual inspection; resident names, emails, phones, and identifiers are never shared with external model services.
+                </li>
+                <li>
+                  <strong>Supported Formats & Metadata Removal:</strong> Only JPEG and PNG formats are processed. WebP formats are skipped to prevent unstripped EXIF/GPS telemetry leakage. All images undergo backend EXIF sanitization prior to analysis.
+                </li>
+                <li>
+                  <strong>Municipal Retention & Residual Risk:</strong> Uploaded photographs remain archived within municipal records. Citizens remain responsible for ensuring photos exclude visible human faces and automobile license plates.
+                </li>
+              </ul>
             </section>
 
             {/* Section 14 */}

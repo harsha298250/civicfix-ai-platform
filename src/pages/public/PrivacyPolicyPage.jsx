@@ -287,15 +287,39 @@ export const PrivacyPolicyPage = () => {
             {/* Section 9 */}
             <section id="sec-9" className="scroll-mt-24 space-y-3">
               <h2 className="font-title text-lg font-bold text-on-surface border-b border-outline-variant/30 pb-2">
-                9. Rule-Based Triage, Duplicate Screening & Human Review
+                9. Rule-Based Triage & Optional Vision Photo Analysis
               </h2>
               <p>
-                CivicFix utilizes deterministic keyword classifiers and spatial distance screening on uploaded defect descriptions and location coordinates:
+                CivicFix employs an explainable, deterministic triage engine paired with an optional, opt-in multimodal photo analysis layer:
               </p>
-              <ul className="list-disc pl-5 space-y-1 text-xs">
-                <li><strong>Advisory Suggestions:</strong> Rule-based triage suggests defect categories, priority estimates, hazard tags, and spatial duplicate clustering suggestions based on text keywords and geographic proximity.</li>
-                <li><strong>Mandatory Human Oversight:</strong> Rule-based inferences are strictly non-binding and advisory. Municipal officers review triage recommendations before work orders are assigned to field crews.</li>
-                <li><strong>No Photo Analysis or Biometrics:</strong> The triage engine operates strictly on text and coordinates. It does not perform computer vision, photo analysis, or biometric facial recognition.</li>
+              <ul className="list-disc pl-5 space-y-2 text-xs">
+                <li>
+                  <strong>Deterministic Rule-Based Triage (Default):</strong> The primary triage pipeline operates strictly on complaint text and coordinates using deterministic keyword matching and geographic lexicon dictionaries. It produces advisory category and priority suggestions with transparent match scores.
+                </li>
+                <li>
+                  <strong>Optional Multimodal Photo Analysis:</strong> When enabled on the municipal server, citizens may optionally consent to have their complaint intake photograph analyzed by an external multimodal model (e.g., Google Gemini or xAI Grok, as displayed via <code className="font-mono text-[11px]">/api/public/features</code>). When disabled, external vision calls are entirely deactivated.
+                </li>
+                <li>
+                  <strong>Photographs Only (No Citizen PII Transmitted):</strong> Only the defect photograph itself is transmitted to the external model. Resident names, phone numbers, email addresses, exact house numbers, and user identifiers are strictly excluded from all model prompts.
+                </li>
+                <li>
+                  <strong>JPEG and PNG Format Restriction:</strong> Photo analysis accepts only JPEG and PNG formats. WebP images are automatically bypassed to eliminate any risk of unstripped EXIF or GPS metadata leakage.
+                </li>
+                <li>
+                  <strong>Server-Side EXIF Metadata Stripping:</strong> Before any photograph is staged or analyzed, all EXIF, GPS telemetry, camera serial numbers, and device tags are stripped by backend re-encoding.
+                </li>
+                <li>
+                  <strong>Citizen Consent Gate (Opt-In Only):</strong> Photo analysis is strictly voluntary. If a resident does not check the consent box upon submission, no photo analysis is performed. Tickets without consent are triaged normally via the deterministic rule engine.
+                </li>
+                <li>
+                  <strong>Municipal Retention:</strong> Complaint photographs remain securely retained within municipal server storage according to public infrastructure audit policies.
+                </li>
+                <li>
+                  <strong>Residual Risk & Resident Responsibility:</strong> While metadata is stripped, visual images may inadvertently contain recognizable human faces or vehicle registration plates. Residents are advised to frame photos strictly around physical infrastructure defects.
+                </li>
+                <li>
+                  <strong>Mandatory Human Decision:</strong> Both rule-based suggestions and photo analysis outputs are strictly non-binding advisory recommendations. The municipal officer reviews evidence and retains sole decision authority for dispatching work crews.
+                </li>
               </ul>
             </section>
 
